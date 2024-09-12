@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/1979c5fc-5771-46b0-8f28-e0b8a32f1da2/deploy-status)](https://app.netlify.com/sites/talent-atmos/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1979c5fc-5771-46b0-8f28-e0b8a32f1da2/deploy-status?branch=develop)](https://app.netlify.com/sites/talent-atmos/deploys)
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
