@@ -5,34 +5,61 @@ import Link from "next/link";
 import { useState } from "react";
 import MegaMenu from "./MegaMenu";
 import NormalMenu from "./NormalMenu";
+import CompactMegaMenu from "./CompactMegaMenu";
+import CompactNormalMenu from "./CompactNormalMenu";
 
 export default function NavigationBar() {
-  const menuItems= [
+  const menuItems = [
     {
       label: "อีเว้นท์",
-      subColor: "FFFFFF",
+      subMenuName: "หัวข้อกิจกรรม",
       subLabel: [
-        { label: "เศรษฐกิจ", href: "/event-econ" },
-        { label: "สังคม", href: "/event-soc" },
-        { label: "สิ่งแวดล้อม", href: "/event-envi" },
+        {
+          label: "ธุรกิจ & เศรษฐกิจ",
+          href: "/event-econ",
+          src: "menu-icon/event-econ.svg",
+        },
+        {
+          label: "สิ่งแวดล้อม",
+          href: "/event-envi",
+          src: "menu-icon/event-envi.svg",
+        },
+        {
+          label: "พัฒนาสัมคม",
+          href: "/event-soc",
+          src: "menu-icon/event-soc.svg",
+        },
       ],
       isMega: true,
     },
     {
       label: "องค์กร",
-      subColor: "FFF5E9",
+      subMenuName: "ประเภทองค์กร",
       subLabel: [
-        { label: "เศรษฐกิจ", href: "/org-econ" },
-        { label: "สังคม", href: "/org-soc" },
-        { label: "สิ่งแวดล้อม", href: "/org-envi" },
+        {
+          label: "องค์กรด้านเศรษฐกิจ",
+          href: "/org-econ",
+          src: "menu-icon/org-econ.svg",
+        },
+        {
+          label: "องค์กรด้านสิ่งแวดล้อม",
+          href: "/org-envi",
+          src: "menu-icon/org-envi.svg",
+        },
+        {
+          label: "องค์กรด้านสัมคม",
+          href: "/org-soc",
+          src: "menu-icon/org-soc.svg",
+        },
       ],
       isMega: true,
     },
     { label: "จัดการตั๋ว", href: "/my-ticket", isMega: false },
   ];
   const [isMiniMenuOpen, setisMiniMenuOpen] = useState(false);
+  const [eventMenuOpen, setEventMenuOpen] = useState(false);
   return (
-    <nav className="bg-white shadow-md font-prompt">
+    <nav className="bg-white shadow-md font-prompt sticky top-0 z-50">
       <div className="max-w-[1154px] mx-auto px-4">
         <div className="flex justify-between h-[65px]">
           <div className="flex gap-[42px] ">
@@ -48,7 +75,11 @@ export default function NavigationBar() {
               {menuItems.map((item, k) => (
                 <div key={k} className="h-full flex items-center">
                   {item.isMega ? (
-                    <MegaMenu label={item.label} subLabel={item.subLabel} subColor={item.subColor}/>
+                    <MegaMenu
+                      label={item.label}
+                      subLabel={item.subLabel}
+                      subMenuName={item.subMenuName}
+                    />
                   ) : (
                     <NormalMenu label={item.label} href={item.href} />
                   )}
@@ -102,33 +133,32 @@ export default function NavigationBar() {
 
       {/* Mobile Menu */}
       {isMiniMenuOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            <Link href="/events">
-              <div className="block text-gray-800 hover:text-orange-dark px-3 py-2 rounded-md">
-                Events
+        <div className="md:hidden ">
+          <div className="px-2 pt-2 pb-3 space-y-1 mt-[-2px] w-full bg-white absolute ">
+            {menuItems.map((item, k) => (
+              <div key={k}>
+                {item.isMega ? (
+                  <CompactMegaMenu
+                    label={item.label}
+                    subLabel={item.subLabel}
+                  />
+                ) : (
+                  <CompactNormalMenu label={item.label} href={item.href} />
+                )}
               </div>
-            </Link>
-            <Link href="/organization">
-              <div className="block text-gray-800 hover:text-orange-dark px-3 py-2 rounded-md">
-                Organization
-              </div>
-            </Link>
-            <Link href="/tickets">
-              <div className="block text-gray-800 hover:text-orange-dark px-3 py-2 rounded-md">
-                Tickets
-              </div>
-            </Link>
-            <Link href="/login">
-              <div className="block text-gray-800 hover:text-orange-dark px-3 py-2 rounded-md">
-                Login
-              </div>
-            </Link>
-            <Link href="/signup">
-              <div className="block text-gray-800 hover:text-orange-dark px-3 py-2 rounded-md">
-                Sign Up
-              </div>
-            </Link>
+            ))}
+            <div className="flex flex-col gap-3 pt-5">
+              <Link href="/login">
+                <div className="flex justify-center h-[42px] items-center text-gray-800 font-normal border-black hover:text-orange-dark px-3 py-2 rounded-full border">
+                เข้าสู่ระบบ
+                </div>
+              </Link>
+              <Link href="/signup">
+                <div className="flex justify-center h-[42px] items-center text-white bg-orange-normal hover:bg-orange-dark px-3 py-2 rounded-full border">
+                สมัครสมาชิก
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       )}

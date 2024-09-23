@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Prompt } from 'next/font/google';
+import { Prompt } from "next/font/google";
+import NavigationBar from "@/components/layout/NavBar";
 
 // Google font - Prompt
 const prompt = Prompt({
@@ -21,7 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${prompt.variable}`}>{children}</body>
+      <body className={`${prompt.variable}`}>
+        <NavigationBar/>
+        {children}
+      </body>
     </html>
   );
 }

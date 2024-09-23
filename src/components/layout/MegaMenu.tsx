@@ -7,15 +7,16 @@ import { IoChevronDown } from "react-icons/io5";
 interface SubLabelProps {
   label: string;
   href: string;
+  src: string;
 }
 
 interface MegaMenuProps {
   label: string;
   subLabel: SubLabelProps[];
-  subColor: string;
+  subMenuName: string;
 }
 
-export default function MegaMenu({ label, subLabel, subColor }: MegaMenuProps) {
+export default function MegaMenu({ label, subLabel, subMenuName }: MegaMenuProps) {
   const [isMegaOpen, setIsMegaOpen] = useState(false);
   return (
     <>
@@ -32,7 +33,7 @@ export default function MegaMenu({ label, subLabel, subColor }: MegaMenuProps) {
             label={label}
             isActive={isMegaOpen}
             subLabel={subLabel}
-            subColor={subColor}
+            subMenuName={subMenuName}
           />
         </div>
         <IoChevronDown
