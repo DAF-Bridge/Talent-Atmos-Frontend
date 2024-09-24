@@ -21,20 +21,30 @@ export default function CompactMegaMenu({
   return (
     <>
       <button className="w-full" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-        <div className=" text-gray-800 px-3 py-2 flex justify-between items-center font-medium border-b">
+        <div
+          className={`${
+            isMenuOpen
+              ? "bg-orange-dark/60 text-white"
+              : "bg-white text-gray-800"
+          }  px-3 py-2 flex justify-between items-center font-medium border-b`}
+        >
           {label}
           <IoChevronDown
-            className={`ml-2 text-orange-dark transition-all duration-300 ${
+            className={`${isMenuOpen ? "text-white" : ""} ml-2 text-black transition-all duration-100 ${
               isMenuOpen ? "rotate-180" : ""
             }`}
           />
         </div>
       </button>
       {isMenuOpen && (
-        <div className="mt-2 w-full bg-white transition-transform duration-300 ease-in-out">
+        <div className="mt-2 w-full bg-white transition-transform duration-100 ease-in-out">
           <div className="pl-10 py-2 flex flex-col gap-5 ">
             {subLabel.map((item, k) => (
-              <Link href={item.href} className="block hover:text-orange-dark">
+              <Link
+                key={k}
+                href={item.href}
+                className="block hover:text-orange-dark"
+              >
                 {item.label}
               </Link>
             ))}

@@ -1,43 +1,42 @@
-import NavigationBar from "@/components/layout/NavBar";
+import OrgCard from "@/components/cards/OrgCard";
+import EventCarousel from "@/components/carousels/EventCarousel";
+import OrgCarousel from "@/components/carousels/OrgCarousel";
+import HomeTrendingEvent from "@/components/HomeTrendingEvent";
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <>
-      
-
-      <div className="flex flex-col">
-        <div>tester children1</div>
-        <div>tester children2</div>
-        <div>tester children3</div>
-        <div>tester children4</div>
-        <div>tester children5</div>
-        <div>tester children6</div>
-        <div>tester children7</div>
-        <div>tester children8</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
-        <div>tester children</div>
+    <div className="font-prompt max-w-[1170px] mx-auto px-6 pb-5">
+      <div className="font-medium text-2xl border-b-2 pt-[25px] pb-[11px]">
+        อีเว้นท์มาแรง
       </div>
-    </>
+      <div>
+        <HomeTrendingEvent />
+      </div>
+
+      {/* อีเว้นท์ใหม่ */}
+      <div className="font-medium text-2xl border-b-2 pt-[60px] pb-[11px]">
+        อีเว้นท์ใหม่
+      </div>
+      <div className="flex justify-between mt-4">
+        <EventCarousel />
+      </div>
+
+      {/* อีเว้นท์อนาคต */}
+      <div className="font-medium text-2xl border-b-2 pt-[60px] pb-[11px]">
+        อีเว้นท์อนาคต
+      </div>
+      <div className="flex justify-between mt-4">
+        <EventCarousel />
+      </div>
+
+      {/* องค์กรพันธมิตร */}
+      <div className="font-medium text-2xl border-b-2 pt-[60px] pb-[11px]">
+        องค์กรพันธมิตร
+      </div>
+      <div className="flex justify-between mt-4 ">
+        <OrgCarousel />
+      </div>
+    </div>
   );
 }

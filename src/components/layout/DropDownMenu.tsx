@@ -23,13 +23,13 @@ export default function DropDownMenu({
 }: DropDownMenuProps) {
   return (
     <div
-      className={`absolute  top-[65px] left-0 w-full transition-all shadow-md duration-300 
-      ${isActive ? "opacity-100 visible h-[260px]" : "invisible opacity-0 h-0"}
+      className={`absolute  top-[65px] left-0 w-full transition-all shadow-md duration-200
+      ${isActive ? "opacity-100 visible h-[260px] z-10" : "invisible opacity-0 h-0 -z-10"}
       ${label === "องค์กร" ? "bg-[#FFF5E9]" : "bg-white"}
       `}
     >
       <div
-        className={`flex items-start max-w-[1122px] pt-[18px] mx-auto px-[50px] font-semibold text-xl transition-all duration-300 
+        className={`flex items-start max-w-[1122px] pt-[18px] mx-auto px-[50px] font-semibold text-xl transition-all duration-200
           ${isActive ? "translate-x-0" : "translate-x-[-50px]"}
           `}
       >

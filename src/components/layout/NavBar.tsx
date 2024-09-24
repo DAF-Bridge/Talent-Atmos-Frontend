@@ -16,17 +16,17 @@ export default function NavigationBar() {
       subLabel: [
         {
           label: "ธุรกิจ & เศรษฐกิจ",
-          href: "/event-econ",
+          href: "/event/econ",
           src: "menu-icon/event-econ.svg",
         },
         {
           label: "สิ่งแวดล้อม",
-          href: "/event-envi",
+          href: "/event/envi",
           src: "menu-icon/event-envi.svg",
         },
         {
           label: "พัฒนาสัมคม",
-          href: "/event-soc",
+          href: "/event/soc",
           src: "menu-icon/event-soc.svg",
         },
       ],
@@ -38,17 +38,17 @@ export default function NavigationBar() {
       subLabel: [
         {
           label: "องค์กรด้านเศรษฐกิจ",
-          href: "/org-econ",
+          href: "/org/econ",
           src: "menu-icon/org-econ.svg",
         },
         {
           label: "องค์กรด้านสิ่งแวดล้อม",
-          href: "/org-envi",
+          href: "/org/envi",
           src: "menu-icon/org-envi.svg",
         },
         {
           label: "องค์กรด้านสัมคม",
-          href: "/org-soc",
+          href: "/org/soc",
           src: "menu-icon/org-soc.svg",
         },
       ],
@@ -56,11 +56,10 @@ export default function NavigationBar() {
     },
     { label: "จัดการตั๋ว", href: "/my-ticket", isMega: false },
   ];
-  const [isMiniMenuOpen, setisMiniMenuOpen] = useState(false);
-  const [eventMenuOpen, setEventMenuOpen] = useState(false);
+  const [isMiniMenuOpen, setIsMiniMenuOpen] = useState(false);
   return (
     <nav className="bg-white shadow-md font-prompt sticky top-0 z-50">
-      <div className="max-w-[1154px] mx-auto px-4">
+      <div className="max-w-[1170px] mx-auto px-6">
         <div className="flex justify-between h-[65px]">
           <div className="flex gap-[42px] ">
             {/* Logo */}
@@ -105,7 +104,7 @@ export default function NavigationBar() {
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <button
-              onClick={() => setisMiniMenuOpen(!isMiniMenuOpen)}
+              onClick={() => setIsMiniMenuOpen(!isMiniMenuOpen)}
               className="text-gray-800 hover:text-orange-dark focus:outline-none"
             >
               <svg
@@ -134,7 +133,7 @@ export default function NavigationBar() {
       {/* Mobile Menu */}
       {isMiniMenuOpen && (
         <div className="md:hidden ">
-          <div className="px-2 pt-2 pb-3 space-y-1 mt-[-2px] w-full bg-white absolute ">
+          <div className="px-2 pt-2 pb-3 space-y-1 mt-[-2px] w-full bg-white absolute shadow-md">
             {menuItems.map((item, k) => (
               <div key={k}>
                 {item.isMega ? (

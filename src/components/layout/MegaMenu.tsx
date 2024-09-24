@@ -37,7 +37,7 @@ export default function MegaMenu({ label, subLabel, subMenuName }: MegaMenuProps
           />
         </div>
         <IoChevronDown
-          className={`text-orange-dark transition duration-300 ${
+          className={`text-orange-dark transition duration-200 ${
             isMegaOpen && "rotate-180"
           }`}
         />
