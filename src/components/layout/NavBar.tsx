@@ -76,11 +76,11 @@ export default function NavigationBar() {
                   {item.isMega ? (
                     <MegaMenu
                       label={item.label}
-                      subLabel={item.subLabel}
-                      subMenuName={item.subMenuName}
+                      subLabel={item.subLabel ?? []}
+                      subMenuName={item.subMenuName ?? ""}
                     />
                   ) : (
-                    <NormalMenu label={item.label} href={item.href} />
+                    <NormalMenu label={item.label} href={item.href ?? ""} />
                   )}
                 </div>
               ))}
@@ -139,22 +139,25 @@ export default function NavigationBar() {
                 {item.isMega ? (
                   <CompactMegaMenu
                     label={item.label}
-                    subLabel={item.subLabel}
+                    subLabel={item.subLabel ?? []}
                   />
                 ) : (
-                  <CompactNormalMenu label={item.label} href={item.href} />
+                  <CompactNormalMenu
+                    label={item.label}
+                    href={item.href ?? ""}
+                  />
                 )}
               </div>
             ))}
             <div className="flex flex-col gap-3 pt-5">
               <Link href="/login">
                 <div className="flex justify-center h-[42px] items-center text-gray-800 font-normal border-black hover:text-orange-dark px-3 py-2 rounded-full border">
-                เข้าสู่ระบบ
+                  เข้าสู่ระบบ
                 </div>
               </Link>
               <Link href="/signup">
                 <div className="flex justify-center h-[42px] items-center text-white bg-orange-normal hover:bg-orange-dark px-3 py-2 rounded-full border">
-                สมัครสมาชิก
+                  สมัครสมาชิก
                 </div>
               </Link>
             </div>

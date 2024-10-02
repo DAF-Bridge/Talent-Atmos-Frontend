@@ -1,8 +1,6 @@
-import OrgCard from "@/components/cards/OrgCard";
 import EventCarousel from "@/components/carousels/EventCarousel";
 import OrgCarousel from "@/components/carousels/OrgCarousel";
 import HomeTrendingEvent from "@/components/HomeTrendingEvent";
-import Image from "next/image";
 
 export default function Home() {
   return (

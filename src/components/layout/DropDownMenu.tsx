@@ -23,7 +23,7 @@ export default function DropDownMenu({
 }: DropDownMenuProps) {
   return (
     <div
-      className={`absolute  top-[65px] left-0 w-full transition-all shadow-md duration-200
+      className={`absolute  top-[65px] left-0 w-full transition-all shadow-md duration-200 hover:cursor-default
       ${isActive ? "opacity-100 visible h-[260px] z-10" : "invisible opacity-0 h-0 -z-10"}
       ${label === "องค์กร" ? "bg-[#FFF5E9]" : "bg-white"}
       `}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Prompt } from "next/font/google";
 import NavigationBar from "@/components/layout/NavBar";
+import BigFooter from "@/components/layout/BigFooter";
 
 // Google font - Prompt
 const prompt = Prompt({
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={`${prompt.variable}`}>
         <NavigationBar/>
         {children}
+        <BigFooter/>
       </body>
     </html>
   );

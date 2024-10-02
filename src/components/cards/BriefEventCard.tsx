@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface BriefEventCardProps {
@@ -13,7 +14,7 @@ export default function BriefEventCard({
   imgUrl,
 }: BriefEventCardProps) {
   return (
-    <div className="flex flex-col gap-1 group hover:cursor-pointer">
+    <Link href={"/event"} className="flex flex-col gap-1 group hover:cursor-pointer">
       <div className="h-full w-full rounded-[8px] overflow-hidden group-hover:shadow-md duration-100">
         <Image
           className="block h-full w-full object-contain rounded-[8px] group-hover:scale-105 duration-100"
@@ -31,6 +32,6 @@ export default function BriefEventCard({
           <div className="line-clamp-1 text-sm">{date}</div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
