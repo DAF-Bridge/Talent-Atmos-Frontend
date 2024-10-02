@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function HomeTrendingEvent() {
@@ -10,20 +11,22 @@ export default function HomeTrendingEvent() {
           group-hover:shadow-md rounded-[10px] overflow-hidden duration-100   
       "
       >
-        <Image
-          className="
+        <Link href={"/event"}>
+          <Image
+            className="
             flex h-[294px] w-full object-contain bg-[#F5C618] 
             group-hover:scale-105  group-hover:cursor-pointer duration-100"
-          src={"/event-test.png"}
-          width={404}
-          height={294}
-          alt="อีเว้นท์มาแรง"
-        />
+            src={"/event-test.png"}
+            width={404}
+            height={294}
+            alt="อีเว้นท์มาแรง"
+          />
+        </Link>
       </div>
       <div className="flex flex-col flex-grow gap-2">
-        <div className="font-semibold text-[26px] line-clamp-1 hover:text-orange-normal hover:cursor-pointer duration-100">
+        <Link href={"/event"} className="font-semibold text-[26px] line-clamp-1 hover:text-orange-normal hover:cursor-pointer duration-100">
           Builds Idea 2024
-        </div>
+        </Link>
         <div className="line-clamp-2 md:line-clamp-5">
           อยากเป็นผู้ประกอบการ แต่ไม่รู้ว่าไอเดียที่มี จะเป็นไปได้ไหม?
           โครงการสำหรับการผู้ที่สนใจทำธุรกิจ มาเริ่มคิดค้นไอเดีย
