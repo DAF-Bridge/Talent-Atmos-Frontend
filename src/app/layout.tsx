@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Prompt } from "next/font/google";
-import NavigationBar from "@/components/layout/NavBar";
-import BigFooter from "@/components/layout/BigFooter";
 
 // Google font - Prompt
 const prompt = Prompt({
   subsets: ["thai", "latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], // Adjust weights as necessary
+  display: "swap",
   variable: "--font-prompt", // Add a CSS variable for Prompt font
 });
 
@@ -23,11 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${prompt.variable}`}>
-        <NavigationBar/>
-        {children}
-        <BigFooter/>
-      </body>
+      <body className={`${prompt.variable}`}>{children}</body>
     </html>
   );
 }
