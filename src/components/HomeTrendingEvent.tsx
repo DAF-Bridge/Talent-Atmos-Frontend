@@ -4,17 +4,17 @@ import React from "react";
 
 export default function HomeTrendingEvent() {
   return (
-    <div className="flex flex-col gap-5 md:flex-row lg:gap-16 mt-5 group">
+    <div className="flex flex-col gap-5 sm:flex-row lg:gap-16 mt-5 group">
       <div
         className="
-          md:w-[404px] md:h-[294px] sm:w-full m-h-[294px] flex-shrink-0 
-          group-hover:shadow-md rounded-[10px] overflow-hidden duration-100   
+          relative w-auto lg:w-[404px] h-[294px] m-h-[294px] flex-shrink-0 
+          group-hover:shadow-md rounded-[10px] overflow-hidden duration-100 bg-[#F5C618]     
       "
       >
         <Link href={"/event"}>
           <Image
             className="
-            flex h-[294px] w-full object-contain bg-[#F5C618] 
+            flex h-[294px] w-full object-contain 
             group-hover:scale-105  group-hover:cursor-pointer duration-100"
             src={"/event-test.png"}
             width={404}
@@ -24,10 +24,13 @@ export default function HomeTrendingEvent() {
         </Link>
       </div>
       <div className="flex flex-col flex-grow gap-2">
-        <Link href={"/event"} className="font-semibold text-[26px] line-clamp-1 hover:text-orange-normal hover:cursor-pointer duration-100">
+        <Link
+          href={"/event"}
+          className="font-semibold text-[26px] line-clamp-1 hover:text-orange-normal hover:cursor-pointer duration-100"
+        >
           Builds Idea 2024
         </Link>
-        <div className="line-clamp-2 md:line-clamp-5">
+        <div className="line-clamp-5">
           อยากเป็นผู้ประกอบการ แต่ไม่รู้ว่าไอเดียที่มี จะเป็นไปได้ไหม?
           โครงการสำหรับการผู้ที่สนใจทำธุรกิจ มาเริ่มคิดค้นไอเดีย
           และเรียนรู้เครื่องมือพิสูจน์ไอเดียไปด้วยกัน!
