@@ -9,7 +9,7 @@ on:
       - develop
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,8 +24,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests
-        run: npm test
+      # - name: Run tests # does not have package.json for test yet
+        # run: npm test
 
       - name: Build Next.js project
         run: npm run build
