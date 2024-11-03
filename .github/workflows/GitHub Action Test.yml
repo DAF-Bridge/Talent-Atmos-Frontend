@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    # runs-on: ubuntu-latest -- only on ubuntu
+
+    # - matrix.os: Specifies the operating systems to use. The matrix will 
+    #   run the job on each OS (ubuntu-latest, windows-latest, and macos-latest).
+    # - runs-on: Dynamically uses the value from matrix.os to run on the specified platform.
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.10.0'  # Your Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      # - name: Run tests # does not have package.json for test yet
+        # run: npm test
+
+      - name: Build Next.js project
+        run: npm run build
