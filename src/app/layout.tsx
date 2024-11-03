@@ -25,8 +25,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${prompt.variable}`}>
         <NavigationBar/>
-        {children}
-        <BigFooter/>
+          <main className="flex-grow">{children}</main>
+        <BigFooter />
       </body>
     </html>
   );

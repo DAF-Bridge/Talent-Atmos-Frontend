@@ -17,7 +17,7 @@ const orgPath = [
 
 export default function BigFooter() {
   return (
-    <div className="bg-[#1D1D1D] py-11 font-prompt rounded-t-[20px] mt-[87px]">
+    <div className="bg-[#1D1D1D] py-11 font-prompt rounded-t-[20px] mt-auto">
       <div className="flex flex-wrap gap-10 lg:justify-between max-w-[1170px] mx-auto px-6 ">
         <div className="flex flex-col gap-[21px]">
           {/* Logo */}
