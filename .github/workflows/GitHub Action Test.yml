@@ -10,7 +10,15 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest -- only on ubuntu
+
+    # - matrix.os: Specifies the operating systems to use. The matrix will 
+    #   run the job on each OS (ubuntu-latest, windows-latest, and macos-latest).
+    # - runs-on: Dynamically uses the value from matrix.os to run on the specified platform.
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - name: Checkout code
