@@ -5,10 +5,7 @@ export default function AuthPageLayout({
 }>) {
   return (
     <html lang="th">
-      <body
-        className="h-[100vh] w-[100vw] overflow-hidden"
-        style={{ backgroundImage: "url('/login-bg.svg')" }}
-      >
+      <body style={{ backgroundImage: "url('/login-bg.svg')" }}>
         {children}
       </body>
     </html>
