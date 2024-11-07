@@ -47,7 +47,7 @@ export default function Login() {
                   อีเมล
                 </Label>
                 <Input
-                  className="login-input"
+                  className="auth-input"
                   type="email"
                   id="email"
                   placeholder="อีเมล"
@@ -58,7 +58,7 @@ export default function Login() {
                   รหัสผ่าน
                 </Label>
                 <Input
-                  className="login-input"
+                  className="auth-input"
                   type="password"
                   id="password"
                   placeholder="รหัสผ่าน"
@@ -83,11 +83,11 @@ export default function Login() {
               </div>
             </div>
             <div></div>
-            <Button className="text-xl bg-orange-dark hover:bg-orange-normal h-[50px] rounded-[10px] mt-[40px]">
+            <Button className="text-xl font-normal bg-orange-dark hover:bg-orange-normal hover:shadow-md h-[50px] rounded-[10px] mt-[40px]">
               เข้าสู่ระบบ
             </Button>
-            <div className="flex justify-center mt-[17px]">
-              <p>คุณยังไม่เป็นสมาชิกใช่หรือไม่? </p>
+            <div className="flex gap-1 justify-center mt-[17px]">
+              <p className="font-light">คุณยังไม่เป็นสมาชิกใช่หรือไม่? </p>
               <Link
                 href={"/register"}
                 className="text-orange-dark hover:underline"
