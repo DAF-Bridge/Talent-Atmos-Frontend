@@ -57,7 +57,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        prompt: ["var(--font-prompt)"],
+        prompt: ["Prompt", "sans-serif"],
       },
       fontWeight: {
         thin: "100",
