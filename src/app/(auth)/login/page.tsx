@@ -1,18 +1,79 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft } from "lucide-react";
+import { loginSchema, TLogInSchema } from "@/lib/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError,
+  } = useForm<TLogInSchema>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: FieldValues) => {
+    // Show loading toast immediately when the request is sent
+    const loadingToastId = toast.loading("รอสักครู่...");
+
+    // Send POST request to Next API
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    // On-Recieve Response : Dismiss the loading toast once we have a response
+    toast.dismiss(loadingToastId);
+
+    if (response.ok) {
+      toast.success("เข้าสู่ระบบสําเร็จ");
+      return;
+    }
+
+    // if the response if ok, the process ends here
+    //------ below is for error ---------
+
+    const responseData = await response.json();
+
+    if (responseData.errors) {
+      toast.error("ข้อมูลไม่ถูกต้อง");
+      Object.entries(responseData.errors).forEach(([key, message]) => {
+        setError(key as keyof TLogInSchema, {
+          type: "server",
+          message: message as string,
+        });
+      });
+    }
+  };
+
   return (
     <div className="font-prompt flex h-[100vh]">
+      <Toaster />
       <div className="hidden px-[4%] lg:flex lg:flex-col lg:w-[58%] ">
         <Link href="/" className="absolute pt-[71px]">
-          <div className="rounded-full border-2 border-[#353A47] hover:shadow-lg inline-flex gap-2 text-base font-medium text-start px-5 py-1">
+          <div
+            className="rounded-full border-2 border-[#353A47] hover:bg-slate-100 hover:shadow-lg inline-flex gap-2 
+            text-base font-medium text-start px-5 py-1 transition-all duration-200"
+          >
             <ArrowLeft height={35} width={35} />
             <p className="self-center">กลับสู่หน้าหลัก</p>
           </div>
@@ -27,11 +88,14 @@ export default function Login() {
           />
         </div>
       </div>
-      <div className="lg:pt-9 w-full lg:w-[42%] sm:px-0">
-        <div className="relative border bg-white lg:rounded-t-[20px] w-full lg:max-w-[538px] h-full mx-auto lg:mr-7 lg:ml-0">
-          <div className="mx-auto mt-[67px] w-[78%] flex flex-col">
+      <div className="xl:pt-6 w-full lg:w-[42%] sm:px-0">
+        <div
+          className="relative drop-shadow-2xl border bg-white xl:rounded-t-[20px] w-full 
+          lg:max-w-[538px] h-full mx-auto lg:ml-0"
+        >
+          <div className="mx-auto mt-[50px] w-[78%] flex flex-col">
             <Link
-              className="absolute inline-flex gap-1 top-[40px] left-[40px] lg:hidden hover:cursor-pointer"
+              className="absolute px-2 py-1 rounded-full hover:bg-slate-100 inline-flex gap-1 top-[30px] left-[30px] lg:hidden hover:cursor-pointer"
               href={"/"}
             >
               <ArrowLeft height={30} width={30} />
@@ -41,12 +105,21 @@ export default function Login() {
               เข้าสู่ระบบ
             </p>
 
-            <div className="flex flex-col gap-4 mt-[21px]">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col gap-4 mt-[21px]"
+            >
               <div>
                 <Label className="text-base font-normal" htmlFor="email">
-                  อีเมล
+                  อีเมล{" "}
+                  {errors.email && (
+                    <span className="error-msg">
+                      {errors.email.message as string}
+                    </span>
+                  )}
                 </Label>
                 <Input
+                  {...register("email")}
                   className="auth-input"
                   type="email"
                   id="email"
@@ -55,20 +128,48 @@ export default function Login() {
               </div>
               <div>
                 <Label className="text-base font-normal" htmlFor="password">
-                  รหัสผ่าน
+                  รหัสผ่าน{" "}
+                  {errors.password && (
+                    <span className="error-msg">
+                      {errors.password.message as string}
+                    </span>
+                  )}
                 </Label>
-                <Input
-                  className="auth-input"
-                  type="password"
-                  id="password"
-                  placeholder="รหัสผ่าน"
-                />
+                <div className="relative">
+                  <Input
+                    {...register("password")}
+                    className="auth-input "
+                    type={showPassword ? "text" : "password"}
+                    id="password"
+                    placeholder="รหัสผ่าน"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                    onClick={togglePasswordVisibility}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4 text-gray-500" />
+                    ) : (
+                      <Eye className="h-4 w-4 text-gray-500" />
+                    )}
+                  </Button>
+                </div>
               </div>
               <div className="flex justify-between">
                 <div className="inline-flex gap-1 items-center">
-                  <Checkbox id="remember" />
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 accent-black"
+                    id="remember"
+                  />
                   <Label
-                    className="hover:cursor-pointer font-normal text-base"
+                    className="hover:cursor-pointer font-normal text-sm sm:text-base"
                     htmlFor="remember"
                   >
                     จดจำบัญชีนี้
@@ -76,21 +177,26 @@ export default function Login() {
                 </div>
                 <Link
                   href={"/forgot-password"}
-                  className="text-base font-normal underline hover:text-gray-600"
+                  className="text-sm sm:text-base font-normal underline hover:text-gray-600"
                 >
                   ลืมรหัสผ่าน
                 </Link>
               </div>
-            </div>
-            <div></div>
-            <Button className="text-xl font-normal bg-orange-dark hover:bg-orange-normal hover:shadow-md h-[50px] rounded-[10px] mt-[40px]">
-              เข้าสู่ระบบ
-            </Button>
+              <Button
+                className="text-xl font-normal bg-orange-dark hover:bg-orange-normal hover:shadow-md h-[45px] sm:h-[50px] 
+              rounded-[10px] mt-[24px]"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                เข้าสู่ระบบ
+              </Button>
+            </form>
+
             <div className="flex gap-1 justify-center mt-[17px]">
               <p className="font-light">คุณยังไม่เป็นสมาชิกใช่หรือไม่? </p>
               <Link
                 href={"/register"}
-                className="text-orange-dark hover:underline"
+                className="text-orange-dark hover:underline "
               >
                 สมัครเลย
               </Link>
