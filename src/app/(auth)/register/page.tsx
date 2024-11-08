@@ -1,17 +1,21 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
-import React from "react";
-import { useForm, type FieldValues, UseFormRegister } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm, UseFormRegister, type FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, TSignUpSchema } from "@/lib/types";
 import toast, { Toaster } from "react-hot-toast";
+import { Input } from "@/components/ui/input";
 
 export default function Register() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleVisibility = () => setShowPassword(!showPassword);
+
   const {
     register,
     handleSubmit,
@@ -22,6 +26,10 @@ export default function Register() {
   });
 
   const onSubmit = async (data: FieldValues) => {
+    // Show loading toast immediately when the request is sent
+    const loadingToastId = toast.loading("รอสักครู่...");
+
+    // Send POST request to Next API
     const response = await fetch("/api/signup", {
       method: "POST",
       headers: {
@@ -29,6 +37,9 @@ export default function Register() {
       },
       body: JSON.stringify(data),
     });
+
+    // On-Recieve Response : Dismiss the loading toast once we have a response
+    toast.dismiss(loadingToastId);
 
     if (response.ok) {
       toast.success("ลงทะเบียนสําเร็จ");
@@ -41,7 +52,7 @@ export default function Register() {
     const responseData = await response.json();
 
     if (responseData.errors) {
-      toast.error("ข้อมูลที่กรอกไม่ถูกต้อง");
+      toast.error("ข้อมูลไม่ถูกต้อง");
       Object.entries(responseData.errors).forEach(([key, message]) => {
         setError(key as keyof TSignUpSchema, {
           type: "server",
@@ -71,7 +82,7 @@ export default function Register() {
           สมัครสมาชิก
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center w-full gap-4 sm:gap-[26px]">
-          <InputField
+          <AuthInputField
             label="ชื่อจริง"
             id="firstName"
             type="text"
@@ -80,7 +91,7 @@ export default function Register() {
             errors={errors}
           />
 
-          <InputField
+          <AuthInputField
             label="นามสกุล"
             id="lastName"
             type="text"
@@ -89,7 +100,7 @@ export default function Register() {
             errors={errors}
           />
         </div>
-        <InputField
+        <AuthInputField
           label="อีเมล"
           id="email"
           type="email"
@@ -97,7 +108,7 @@ export default function Register() {
           register={register}
           errors={errors}
         />
-        <InputField
+        <AuthInputField
           label="เบอร์โทรศัพท์"
           id="phone"
           type="text"
@@ -106,21 +117,25 @@ export default function Register() {
           errors={errors}
         />
         <div className="flex flex-col sm:flex-row justify-center items-center w-full gap-4 sm:gap-[26px]">
-          <InputField
+          <AuthPasswordField
             label="รหัสผ่าน"
             id="password"
             type="password"
             placeholder="รหัสผ่าน"
             register={register}
             errors={errors}
+            showPassword={showPassword}
+            toggleVisibility={toggleVisibility}
           />
-          <InputField
+          <AuthPasswordField
             label="ยืนยันรหัสผ่าน"
             id="confirmPassword"
             type="password"
             placeholder="ยืนยันรหัสผ่าน"
             register={register}
             errors={errors}
+            showPassword={showPassword}
+            toggleVisibility={toggleVisibility}
           />
         </div>
         <div className="flex flex-col w-full mb-[60px]">
@@ -177,7 +192,7 @@ export default function Register() {
   );
 }
 
-interface InputFieldProps {
+export interface AuthInputFieldProps {
   label: string;
   id: keyof TSignUpSchema;
   type: string;
@@ -186,8 +201,9 @@ interface InputFieldProps {
   errors: FieldValues;
 }
 
-const InputField = React.memo(
-  ({ label, id, type, placeholder, register, errors }: InputFieldProps) => {
+// Field for normal input (that's not password)
+export const AuthInputField = React.memo(
+  ({ label, id, type, placeholder, register, errors }: AuthInputFieldProps) => {
     return (
       <div className="relative w-full">
         <Label className="text-base font-normal" htmlFor={id}>
@@ -209,4 +225,59 @@ const InputField = React.memo(
 );
 
 // Set the display name for better debugging
-InputField.displayName = "InputField";
+AuthInputField.displayName = "AuthInputField";
+
+// Add a component for handling the password visibility toggle
+interface AuthPasswordFieldProps extends AuthInputFieldProps {
+  showPassword: boolean;
+  toggleVisibility?: () => void;
+}
+
+export const AuthPasswordField = React.memo(
+  ({
+    label,
+    id,
+    type,
+    placeholder,
+    register,
+    errors,
+    showPassword,
+    toggleVisibility,
+  }: AuthPasswordFieldProps) => {
+    return (
+      <div className="w-full">
+        <Label className="text-base font-normal" htmlFor={id}>
+          {label}{" "}
+          {errors[id] && (
+            <span className="error-msg">{errors[id]?.message as string}</span>
+          )}
+        </Label>
+        <div className="relative">
+          <Input
+            {...register(id)}
+            className="auth-input"
+            type={showPassword ? "text" : type}
+            id={id}
+            placeholder={placeholder}
+          />
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+            onClick={toggleVisibility}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? (
+              <EyeOff className="h-4 w-4 text-gray-500 " />
+            ) : (
+              <Eye className="h-4 w-4 text-gray-500 " />
+            )}
+          </Button>
+        </div>
+      </div>
+    );
+  }
+);
+
+AuthPasswordField.displayName = "AuthPasswordField";
