@@ -10,8 +10,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, TSignUpSchema } from "@/lib/types";
 import toast, { Toaster } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
+  const router = useRouter();
+
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleVisibility = () => setShowPassword(!showPassword);
@@ -29,36 +32,48 @@ export default function Register() {
     // Show loading toast immediately when the request is sent
     const loadingToastId = toast.loading("รอสักครู่...");
 
-    // Send POST request to Next API
-    const response = await fetch("/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    // On-Recieve Response : Dismiss the loading toast once we have a response
-    toast.dismiss(loadingToastId);
-
-    if (response.ok) {
-      toast.success("ลงทะเบียนสําเร็จ");
-      return;
-    }
-
-    // if the response if ok, the process ends here
-    //------ below is for error ---------
-
-    const responseData = await response.json();
-
-    if (responseData.errors) {
-      toast.error("ข้อมูลไม่ถูกต้อง");
-      Object.entries(responseData.errors).forEach(([key, message]) => {
-        setError(key as keyof TSignUpSchema, {
-          type: "server",
-          message: message as string,
-        });
+    try {
+      // Send POST request to Next API
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
+
+      // On-Recieve Response : Dismiss the loading toast once we have a response
+      toast.dismiss(loadingToastId);
+
+      // if the response if ok redirect to home, if not, show error toast
+      if (response.ok) {
+        const successToastId = toast.success("ลงทะเบียนสําเร็จ");
+        // Delay the redirect to show the toast
+        setTimeout(() => {
+          toast.dismiss(successToastId); // Clear the success toast
+          router.push("/"); // Redirect to home
+        }, 1500); // Delay of 1.5 seconds for users to see the success message
+        return;
+      } else {
+        // if the server validation caught an error
+        const responseData = await response.json();
+
+        // set the errors to each field
+        if (responseData.errors) {
+          toast.error("ข้อมูลไม่ถูกต้อง");
+          Object.entries(responseData.errors).forEach(([key, message]) => {
+            setError(key as keyof TSignUpSchema, {
+              type: "server",
+              message: message as string,
+            });
+          });
+        }
+      }
+    } catch (error) {
+      // if fail to sent request to server
+      toast.dismiss();
+      toast.error("เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");
+      console.error(error);
     }
   };
 
