@@ -73,5 +73,9 @@
 }
 
 .auth-input {
-  @apply h-[48px] placeholder:font-light placeholder:text-base hover:shadow-md;
+  @apply h-[40px] sm:h-[48px] placeholder:font-light placeholder:text-sm sm:placeholder:text-base hover:shadow-md ;
+}
+
+.error-msg {
+  @apply text-red-500 text-end before:content-['*'];
 }
