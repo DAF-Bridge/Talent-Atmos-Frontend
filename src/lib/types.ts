@@ -24,3 +24,10 @@ export const signupSchema = z
   });
 
 export type TSignUpSchema = z.infer<typeof signupSchema>;
+
+export const loginSchema = z.object({
+  email: z.string().email({ message: "กรุณากรอกอีเมล" }),
+  password: z.string().min(1, { message: "กรุณากรอกรหัสผ่าน" }),
+});
+
+export type TLogInSchema = z.infer<typeof loginSchema>;
