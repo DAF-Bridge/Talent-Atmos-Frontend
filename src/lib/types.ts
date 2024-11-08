@@ -10,10 +10,16 @@ export const signupSchema = z
       .regex(/^\d+$/, { message: "กรุณากรอกตัวเลข" })
       .min(10, { message: "กรุณากรอกตัวเลข 10 ตัว" })
       .max(10, { message: "กรุณากรอกตัวเลข 10 ตัว" }),
-    password: z.string().min(8, { message: "กรุณากรอกอย่างน้อย 8 ตัวอักษร" }),
-    confirmPassword: z
+    password: z
       .string()
-      .min(8, { message: "กรุณากรอกอย่างน้อย 8 ตัวอักษร" }),
+      .min(8, { message: "ตวามยาวอย่างน้อย 8 ตัวอักษร" })
+      .regex(/[A-Z]/, { message: "ต้องมีตัวอักษรพิมพ์ใหญ่" })
+      .regex(/[a-z]/, { message: "ต้องมีตัวอักษรพิมพ์เล็ก" })
+      .regex(/\d/, { message: "ต้องมีตัวเลขอย่างน้อยหนึ่งตัว" })
+      .regex(/[!@#$%^&*_]/, {
+        message: "ต้องมีอักขระพิเศษ (!@#$%^&*_)",
+      }),
+    confirmPassword: z.string(),
     policies: z.boolean().refine((val) => val === true, {
       message: "กรุณายอมรับข้อกำหนดและนโยบาย",
     }),
