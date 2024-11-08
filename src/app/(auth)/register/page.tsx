@@ -5,12 +5,13 @@ import { Label } from "@/components/ui/label";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useForm, UseFormRegister, type FieldValues } from "react-hook-form";
+import { useForm, UseFormRegister, type FieldValues, UseFormWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, TSignUpSchema } from "@/lib/types";
 import toast, { Toaster } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
+import { PasswordRating } from "../login/page";
 
 export default function Register() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function Register() {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
+    watch,
   } = useForm<TSignUpSchema>({
     resolver: zodResolver(signupSchema),
   });
@@ -137,6 +139,7 @@ export default function Register() {
             id="password"
             type="password"
             placeholder="รหัสผ่าน"
+            watch={watch}
             register={register}
             errors={errors}
             showPassword={showPassword}
@@ -147,6 +150,7 @@ export default function Register() {
             id="confirmPassword"
             type="password"
             placeholder="ยืนยันรหัสผ่าน"
+            watch={watch}
             register={register}
             errors={errors}
             showPassword={showPassword}
@@ -246,6 +250,7 @@ AuthInputField.displayName = "AuthInputField";
 interface AuthPasswordFieldProps extends AuthInputFieldProps {
   showPassword: boolean;
   toggleVisibility?: () => void;
+  watch: UseFormWatch<TSignUpSchema>;
 }
 
 export const AuthPasswordField = React.memo(
@@ -254,11 +259,16 @@ export const AuthPasswordField = React.memo(
     id,
     type,
     placeholder,
+    watch,
     register,
     errors,
     showPassword,
     toggleVisibility,
   }: AuthPasswordFieldProps) => {
+    // for password suggestion box
+    const [isFocused, setIsFocused] = useState(false);
+    const password = watch("password"); // Use watch to monitor password field
+    const confirmPassword = watch("confirmPassword"); // Use watch to monitor confirmPassword field
     return (
       <div className="w-full">
         <Label className="text-base font-normal" htmlFor={id}>
@@ -274,6 +284,8 @@ export const AuthPasswordField = React.memo(
             type={showPassword ? "text" : type}
             id={id}
             placeholder={placeholder}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
           />
           <Button
             type="button"
@@ -289,6 +301,9 @@ export const AuthPasswordField = React.memo(
               <Eye className="h-4 w-4 text-gray-500 " />
             )}
           </Button>
+          {isFocused && password.length > 0 && (
+            <PasswordRating password={id === "password" ? password : confirmPassword} />
+          )}
         </div>
       </div>
     );
