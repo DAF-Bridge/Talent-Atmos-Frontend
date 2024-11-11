@@ -3,21 +3,21 @@ import Link from "next/link";
 import React from "react";
 import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 
-const eventPath = [
-  { label: "ธุรกิจ & เศรษฐกิจ", href: "/event/econ" },
-  { label: "สิ่งแวดล้อม", href: "/event/envi" },
-  { label: "พัฒนาสัมคม", href: "/event/soc" },
-];
+// const eventPath = [
+//   { label: "ธุรกิจ & เศรษฐกิจ", href: "/event/econ" },
+//   { label: "สิ่งแวดล้อม", href: "/event/envi" },
+//   { label: "พัฒนาสัมคม", href: "/event/soc" },
+// ];
 
-const orgPath = [
-  { label: "องค์กรด้านเศรษฐกิจ", href: "/org/econ" },
-  { label: "องค์กรด้านสิ่งแวดล้อม", href: "/org/envi" },
-  { label: "องค์กรด้านสัมคม", href: "/org/soc" },
-];
+// const orgPath = [
+//   { label: "องค์กรด้านเศรษฐกิจ", href: "/org/econ" },
+//   { label: "องค์กรด้านสิ่งแวดล้อม", href: "/org/envi" },
+//   { label: "องค์กรด้านสัมคม", href: "/org/soc" },
+// ];
 
 export default function BigFooter() {
   return (
-    <div className="bg-[#1D1D1D] py-11 font-prompt rounded-t-[20px] mt-[87px]">
+    <div className="bg-[#1D1D1D] py-11 font-prompt rounded-t-[20px] mt-auto">
       <div className="flex flex-wrap gap-10 lg:justify-between max-w-[1170px] mx-auto px-6 ">
         <div className="flex flex-col gap-[21px]">
           {/* Logo */}
@@ -38,7 +38,7 @@ export default function BigFooter() {
           </div>
         </div>
         <div className="flex flex-col gap-7 text-white font-normal text-base ">
-          <div className="flex flex-col gap-3">
+          {/* <div className="flex flex-col gap-3">
             <div className="text-orange-normal font-medium text-xl">
               อีเว้นท์
             </div>
@@ -53,8 +53,8 @@ export default function BigFooter() {
                 </Link>
               ))}
             </div>
-          </div>
-          <div className="flex flex-col gap-3">
+          </div> */}
+          {/* <div className="flex flex-col gap-3">
             <div className="text-orange-normal font-medium text-xl">องค์กร</div>
             <div className="pl-5 flex flex-col gap-5">
               {orgPath.map(({ label, href }, key) => (
@@ -67,13 +67,13 @@ export default function BigFooter() {
                 </Link>
               ))}
             </div>
-          </div>
-          <Link
+          </div> */}
+          {/* <Link
             href={"/org/join"}
             className="text-white font-medium text-base hover:text-gray-300"
           >
             เข้าร่วมเป็นองค์กรพันธมิตร
-          </Link>
+          </Link> */}
         </div>
         <div className="text-white font-normal text-base flex flex-col gap-10 items-end">
           <div className="w-full">
