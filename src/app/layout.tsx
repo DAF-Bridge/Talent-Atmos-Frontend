@@ -1,15 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Prompt } from "next/font/google";
-import NavigationBar from "@/components/layout/NavBar";
-import BigFooter from "@/components/layout/BigFooter";
-
-// Google font - Prompt
-const prompt = Prompt({
-  subsets: ["thai", "latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], // Adjust weights as necessary
-  variable: "--font-prompt", // Add a CSS variable for Prompt font
-});
 
 export const metadata: Metadata = {
   title: "Talent Atmos",
@@ -22,12 +12,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${prompt.variable}`}>
-        <NavigationBar/>
-          <main className="flex-grow">{children}</main>
-        <BigFooter />
-      </body>
+    <html lang="th">
+      <body className="bg-cream-bg">{children}</body>
     </html>
   );
 }

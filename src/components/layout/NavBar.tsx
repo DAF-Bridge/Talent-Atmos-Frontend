@@ -9,10 +9,12 @@ import CompactMegaMenu from "./CompactMegaMenu";
 import CompactNormalMenu from "./CompactNormalMenu";
 
 export default function NavigationBar() {
+  const isAuth = true;
   const menuItems = [
     {
       label: "อีเว้นท์",
       subMenuName: "หัวข้อกิจกรรม",
+      href: "/event",
       subLabel: [
         {
           label: "ธุรกิจ & เศรษฐกิจ",
@@ -30,11 +32,12 @@ export default function NavigationBar() {
           src: "menu-icon/event-soc.svg",
         },
       ],
-      isMega: true,
+      isMega: false,
     },
     {
       label: "องค์กร",
       subMenuName: "ประเภทองค์กร",
+      href: "/org",
       subLabel: [
         {
           label: "องค์กรด้านเศรษฐกิจ",
@@ -52,9 +55,9 @@ export default function NavigationBar() {
           src: "menu-icon/org-soc.svg",
         },
       ],
-      isMega: true,
+      isMega: false,
     },
-    { label: "จัดการตั๋ว", href: "/my-ticket", isMega: false },
+    { label: "เป้าหมายของคุณ", href: "/my-ticket", isMega: false },
   ];
   const [isMiniMenuOpen, setIsMiniMenuOpen] = useState(false);
   return (
@@ -89,16 +92,30 @@ export default function NavigationBar() {
 
           {/* Login/Signup Button */}
           <div className="hidden md:flex md:items-center space-x-4 ">
-            <Link href="/login">
-              <div className="flex justify-center items-center w-[122px] h-[46px] font-normal px-4 py-2 border border-black text-black rounded-lg hover:text-orange-dark">
-                เข้าสู่ระบบ
+            {!isAuth ? (
+              <>
+                <Link href="/login">
+                  <div className="flex justify-center items-center w-[122px] h-[46px] font-normal px-4 py-2 border border-black text-black rounded-lg hover:text-orange-dark">
+                    เข้าสู่ระบบ
+                  </div>
+                </Link>
+                <Link href="/signup">
+                  <div className="flex justify-center items-center w-[122px] h-[46px] font-light px-4 py-2 bg-orange-normal text-white rounded-lg hover:bg-orange-dark">
+                    สมัครสมาชิก
+                  </div>
+                </Link>
+              </>
+            ) : (
+              <div className="h-[50px] w-[50px]">
+                <Image
+                  className="object-cover h-full w-full rounded-full "
+                  src="/user-pic.jpg"
+                  alt="user"
+                  width={100}
+                  height={100}
+                />
               </div>
-            </Link>
-            <Link href="/signup">
-              <div className="flex justify-center items-center w-[122px] h-[46px] font-light px-4 py-2 bg-orange-normal text-white rounded-lg hover:bg-orange-dark">
-                สมัครสมาชิก
-              </div>
-            </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -149,17 +166,37 @@ export default function NavigationBar() {
                 )}
               </div>
             ))}
-            <div className="flex flex-col gap-3 pt-5">
-              <Link href="/login">
-                <div className="flex justify-center h-[42px] items-center text-gray-800 font-normal border-black hover:text-orange-dark px-3 py-2 rounded-full border">
-                  เข้าสู่ระบบ
+            <div className="flex flex-col gap-3 px-3 py-2">
+              {!isAuth ? (
+                <>
+                  <Link href="/login">
+                    <div className="
+                    flex h-[42px] justify-center items-center text-gray-800 font-normal border-black 
+                    hover:text-orange-dark rounded-full border transition-all duration-200">
+                      เข้าสู่ระบบ
+                    </div>
+                  </Link>
+                  <Link href="/signup">
+                    <div className="flex h-[42px] justify-center items-center text-white bg-orange-normal 
+                    hover:bg-orange-dark rounded-full border transition-all duration-200">
+                      สมัครสมาชิก
+                    </div>
+                  </Link>
+                </>
+              ) : (
+                <div className="flex gap-2 h-[40px] w-[40px]">
+                  <Image
+                    className="object-cover h-full w-full rounded-full "
+                    src="/user-pic.jpg"
+                    alt="user"
+                    width={100}
+                    height={100}
+                  />
+                  <div className="content-center">
+                    <p>Username</p>
+                  </div>
                 </div>
-              </Link>
-              <Link href="/signup">
-                <div className="flex justify-center h-[42px] items-center text-white bg-orange-normal hover:bg-orange-dark px-3 py-2 rounded-full border">
-                  สมัครสมาชิก
-                </div>
-              </Link>
+              )}
             </div>
           </div>
         </div>

@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import DropDownMenu from "./DropDownMenu";
-import { IoChevronDown } from "react-icons/io5";
+// import DropDownMenu from "./DropDownMenu";
+// import { IoChevronDown } from "react-icons/io5";
 
 interface SubLabelProps {
   label: string;
@@ -16,7 +16,11 @@ interface MegaMenuProps {
   subMenuName: string;
 }
 
-export default function MegaMenu({ label, subLabel, subMenuName }: MegaMenuProps) {
+export default function MegaMenu({
+  label,
+  // subLabel,
+  // subMenuName,
+}: MegaMenuProps) {
   const [isMegaOpen, setIsMegaOpen] = useState(false);
   return (
     <>
@@ -29,18 +33,18 @@ export default function MegaMenu({ label, subLabel, subMenuName }: MegaMenuProps
       >
         <div className="text-gray-800">
           <div className="group-hover:text-orange-dark">{label}</div>
-          <DropDownMenu
+          {/* <DropDownMenu
             label={label}
             isActive={isMegaOpen}
             subLabel={subLabel}
             subMenuName={subMenuName}
-          />
+          /> */}
         </div>
-        <IoChevronDown
+        {/* <IoChevronDown
           className={`text-orange-dark transition duration-200 ${
             isMegaOpen && "rotate-180"
           }`}
-        />
+        /> */}
       </button>
     </>
   );
