@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import DropDownMenu from "./DropDownMenu";
-import { IoChevronDown } from "react-icons/io5";
+// import DropDownMenu from "./DropDownMenu";
+// import { IoChevronDown } from "react-icons/io5";
 
 interface SubLabelProps {
   label: string;
@@ -18,8 +18,8 @@ interface MegaMenuProps {
 
 export default function MegaMenu({
   label,
-  subLabel,
-  subMenuName,
+  // subLabel,
+  // subMenuName,
 }: MegaMenuProps) {
   const [isMegaOpen, setIsMegaOpen] = useState(false);
   return (

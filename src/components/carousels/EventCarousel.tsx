@@ -88,7 +88,7 @@ export default function EventCarousel() {
     <div className="w-full ">
       <Carousel
         setApi={setApi}
-        className="w-full"
+        className="w-full h-auto"
         opts={{
           align: "start",
           loop: false,

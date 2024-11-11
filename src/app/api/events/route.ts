@@ -12,7 +12,7 @@ export async function GET() {
       title: "Smart Solution Idea",
       date: "13 ก.ค. - 07 ส.ค. 2567",
       imgUrl:
-        "https://drive.google.com/uc?export=view&id=1GfscjgEilPpYZXBoHNgGTy--4v7oTVfO",
+        "https://drive.google.com/uc?export=view&id=1lb2Tn_VZU6OkQHAh-tVcbxoAOTguUWw1",
     },
     {
       title: "Builds Business 2024",

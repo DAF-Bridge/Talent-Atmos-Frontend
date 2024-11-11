@@ -55,6 +55,16 @@ const config: Config = {
           normal: "#FF7D29",
           light: "#FFBF78",
         },
+        gray: {
+          stroke: "#C0C0C0",
+          divider: "#737373",
+          btngray: "#353A47",
+          inactive: "#737373",
+          bggray: "#F5F6FA",
+        },
+        cream: {
+          bg: "#FCFCFC",
+        },
       },
       fontFamily: {
         prompt: ["Prompt", "sans-serif"],

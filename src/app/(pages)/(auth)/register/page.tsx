@@ -5,13 +5,13 @@ import { Label } from "@/components/ui/label";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
-import { useForm, UseFormRegister, type FieldValues, UseFormWatch } from "react-hook-form";
+import { useForm, type FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, TSignUpSchema } from "@/lib/types";
 import toast, { Toaster } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { PasswordRating } from "../login/page";
+import { PasswordRating } from "@/components/PasswordRating";
 
 export default function Register() {
   const router = useRouter();
@@ -79,6 +79,11 @@ export default function Register() {
     }
   };
 
+  // for password suggestion box
+  const [isFocused, setIsFocused] = useState(false);
+  const passwordWatch = watch("password"); // Use watch to monitor password field
+  const confirmPasswordWatch = watch("confirmPassword"); // Use watch to monitor confirmPassword field
+
   return (
     <div className="font-prompt lg:overflow-hidden h-full sm:h-[100vh]">
       <Toaster />
@@ -99,63 +104,129 @@ export default function Register() {
           สมัครสมาชิก
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center w-full gap-4 sm:gap-[26px]">
-          <AuthInputField
-            label="ชื่อจริง"
-            id="firstName"
-            type="text"
-            placeholder="ชื่อจริง"
-            register={register}
-            errors={errors}
-          />
+          <div className="w-full">
+            <Label className="text-base font-normal" htmlFor="first-name">
+              ชื่อจริง
+            </Label>
+            <Input
+              className="auth-input"
+              type="text"
+              id="first-name"
+              placeholder="ชื่อจริง"
+            />
+          </div>
 
-          <AuthInputField
-            label="นามสกุล"
-            id="lastName"
-            type="text"
-            placeholder="นามสกุล"
-            register={register}
-            errors={errors}
+          <div className="w-full">
+            <Label className="text-base font-normal" htmlFor="last-name">
+              นามสกุล
+            </Label>
+            <Input
+              className="auth-input"
+              type="text"
+              id="last-name"
+              placeholder="นามสกุล"
+            />
+          </div>
+        </div>
+        <div className="w-full">
+          <Label className="text-base font-normal" htmlFor="email">
+            อีเมล
+          </Label>
+          <Input
+            className="auth-input"
+            type="email"
+            id="email"
+            placeholder="example@gmail.com"
           />
         </div>
-        <AuthInputField
-          label="อีเมล"
-          id="email"
-          type="email"
-          placeholder="example@gmail.com"
-          register={register}
-          errors={errors}
-        />
-        <AuthInputField
-          label="เบอร์โทรศัพท์"
-          id="phone"
-          type="text"
-          placeholder="0812345678"
-          register={register}
-          errors={errors}
-        />
+        <div className="w-full">
+          <Label className="text-base font-normal" htmlFor="phone-num">
+            เบอร์โทรศัพท์
+          </Label>
+          <Input
+            className="auth-input"
+            type="text"
+            id="phone-num"
+            placeholder="0812345678"
+          />
+        </div>
         <div className="flex flex-col sm:flex-row justify-center items-center w-full gap-4 sm:gap-[26px]">
-          <AuthPasswordField
-            label="รหัสผ่าน"
-            id="password"
-            type="password"
-            placeholder="รหัสผ่าน"
-            watch={watch}
-            register={register}
-            errors={errors}
-            showPassword={showPassword}
-            toggleVisibility={toggleVisibility}
-          />
-          <AuthPasswordField
-            label="ยืนยันรหัสผ่าน"
-            id="confirmPassword"
-            type="password"
-            placeholder="ยืนยันรหัสผ่าน"
-            watch={watch}
-            register={register}
-            errors={errors}
-            showPassword={showPassword}
-            toggleVisibility={toggleVisibility}
-          />
+          <div className="w-full">
+            <Label className="text-base font-normal" htmlFor="password">
+              รหัสผ่าน{" "}
+              {errors.password && (
+                <span className="error-msg">
+                  {errors.password.message as string}
+                </span>
+              )}
+            </Label>
+            <div className="relative">
+              <Input
+                {...register("password")}
+                className="auth-input "
+                type={showPassword ? "text" : "password"}
+                id="password"
+                placeholder="รหัสผ่าน"
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                onClick={toggleVisibility}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4 text-gray-500" />
+                ) : (
+                  <Eye className="h-4 w-4 text-gray-500" />
+                )}
+              </Button>
+              {isFocused && passwordWatch.length > 0 && (
+                <PasswordRating password={passwordWatch} />
+              )}
+            </div>
+          </div>
+          <div className="w-full">
+            <Label className="text-base font-normal" htmlFor="confirmPassword">
+              ยืนยันรหัสผ่าน{" "}
+              {errors.confirmPassword && (
+                <span className="error-msg">
+                  {errors.confirmPassword.message as string}
+                </span>
+              )}
+            </Label>
+            <div className="relative">
+              <Input
+                {...register("confirmPassword")}
+                className="auth-input "
+                type={showPassword ? "text" : "password"}
+                id="confirmPassword"
+                placeholder="รหัสผ่าน"
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                onClick={toggleVisibility}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4 text-gray-500" />
+                ) : (
+                  <Eye className="h-4 w-4 text-gray-500" />
+                )}
+              </Button>
+              {isFocused && confirmPasswordWatch.length > 0 && (
+                <PasswordRating password={confirmPasswordWatch} />
+              )}
+            </div>
+          </div>
         </div>
         <div className="flex flex-col w-full mb-[60px]">
           <div className="inline-flex gap-1 w-full justify-center sm:justify-start items-center self-start mt-2 sm:mt-0">
@@ -210,104 +281,3 @@ export default function Register() {
     </div>
   );
 }
-
-export interface AuthInputFieldProps {
-  label: string;
-  id: keyof TSignUpSchema;
-  type: string;
-  placeholder: string;
-  register: UseFormRegister<TSignUpSchema>;
-  errors: FieldValues;
-}
-
-// Field for normal input (that's not password)
-export const AuthInputField = React.memo(
-  ({ label, id, type, placeholder, register, errors }: AuthInputFieldProps) => {
-    return (
-      <div className="relative w-full">
-        <Label className="text-base font-normal" htmlFor={id}>
-          {label}{" "}
-          {errors[id] && (
-            <span className="error-msg">{errors[id]?.message as string}</span>
-          )}
-        </Label>
-        <Input
-          {...register(id)}
-          className="auth-input"
-          type={type}
-          id={id}
-          placeholder={placeholder}
-        />
-      </div>
-    );
-  }
-);
-
-// Set the display name for better debugging
-AuthInputField.displayName = "AuthInputField";
-
-// Add a component for handling the password visibility toggle
-interface AuthPasswordFieldProps extends AuthInputFieldProps {
-  showPassword: boolean;
-  toggleVisibility?: () => void;
-  watch: UseFormWatch<TSignUpSchema>;
-}
-
-export const AuthPasswordField = React.memo(
-  ({
-    label,
-    id,
-    type,
-    placeholder,
-    watch,
-    register,
-    errors,
-    showPassword,
-    toggleVisibility,
-  }: AuthPasswordFieldProps) => {
-    // for password suggestion box
-    const [isFocused, setIsFocused] = useState(false);
-    const password = watch("password"); // Use watch to monitor password field
-    const confirmPassword = watch("confirmPassword"); // Use watch to monitor confirmPassword field
-    return (
-      <div className="w-full">
-        <Label className="text-base font-normal" htmlFor={id}>
-          {label}{" "}
-          {errors[id] && (
-            <span className="error-msg">{errors[id]?.message as string}</span>
-          )}
-        </Label>
-        <div className="relative">
-          <Input
-            {...register(id)}
-            className="auth-input"
-            type={showPassword ? "text" : type}
-            id={id}
-            placeholder={placeholder}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-          />
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-            onClick={toggleVisibility}
-            aria-label={showPassword ? "Hide password" : "Show password"}
-          >
-            {showPassword ? (
-              <EyeOff className="h-4 w-4 text-gray-500 " />
-            ) : (
-              <Eye className="h-4 w-4 text-gray-500 " />
-            )}
-          </Button>
-          {isFocused && password.length > 0 && (
-            <PasswordRating password={id === "password" ? password : confirmPassword} />
-          )}
-        </div>
-      </div>
-    );
-  }
-);
-
-AuthPasswordField.displayName = "AuthPasswordField";
