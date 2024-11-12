@@ -95,7 +95,8 @@ jobs:
         run: |
               netlify deploy --prod \
               --dir=.next \
-              --functions=netlify/functions
+              --functions=netlify/functions \
+              --site ${{ secrets.NETLIFY_SITE_ID }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
