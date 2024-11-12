@@ -1,4 +1,4 @@
-name: Web App CI
+name: Web App CI/CD
 
 on:
   push:
@@ -26,6 +26,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          token: ${{secrets.GH_PAT}}
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -50,11 +52,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Ensures we have full history for rollback
+          token: ${{secrets.GH_PAT}}
 
       - name: Rollback last commit
         run: |
           git reset --hard HEAD~1
           git push --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Notify rollback
         run: echo "Build failed. Rolled back to previous commit."
@@ -67,6 +72,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          token: ${{secrets.GH_PAT}}
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
@@ -81,18 +88,27 @@ jobs:
 
       - name: Install Netlify CLI
         run: npm install -g netlify-cli
-      
-      # - name: Link this directory to the Netlify site
-      #   env:
-      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      #   run: |
-      #     netlify link --site ${{ secrets.NETLIFY_SITE_ID }}
 
-      - name: Deploy to Netlify
+      - name: Initializing deployment
+        run: echo "Initializing deployment to Netlify..."
+
+      - name: Link to Netlify site
+        run: |
+          netlify link --site ${{ secrets.NETLIFY_SITE_ID }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run:  netlify deploy --prod \
+
+      - name: Deploy to Netlify
+        run: |
+              netlify deploy --prod \
               --dir=.next \
-              --functions=netlify/functions \
-              --site ${{ secrets.NETLIFY_SITE_ID }}
+              --functions=netlify/functions
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+      - name: Post-processing after deployment
+        run: echo "Deployment complete. Running post-processing steps..."
+  
+      # final status
+      - name: Deployment complete
+        run: echo "Deployment to Netlify is finished!"
