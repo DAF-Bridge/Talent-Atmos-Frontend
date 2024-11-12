@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, House } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useForm, type FieldValues } from "react-hook-form";
@@ -93,11 +93,11 @@ export default function Register() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <Link
-          className="absolute px-2 py-1 rounded-full hover:bg-slate-100 inline-flex gap-1 top-[20px] left-[20px] 
+          className="absolute px-2 py-1 rounded-full hover:bg-slate-100 inline-flex gap-2 top-[20px] left-[20px] 
           hover:cursor-pointer"
           href={"/"}
         >
-          <ArrowLeft height={30} width={30} />
+          <House height={25} width={25} />
           <p className="self-center hidden sm:block">กลับสู่หน้าหลัก</p>
         </Link>
         <p className="text-3xl sm:text-4xl font-semibold text-center text-orange-dark mt-8 md:mt-[50px] lg:mt-[34px]">
@@ -107,8 +107,14 @@ export default function Register() {
           <div className="w-full">
             <Label className="text-base font-normal" htmlFor="first-name">
               ชื่อจริง
+              {errors.firstName && (
+                <span className="error-msg">
+                  {errors.firstName.message as string}
+                </span>
+              )}
             </Label>
             <Input
+              {...register("firstName")}
               className="auth-input"
               type="text"
               id="first-name"
@@ -119,8 +125,14 @@ export default function Register() {
           <div className="w-full">
             <Label className="text-base font-normal" htmlFor="last-name">
               นามสกุล
+              {errors.lastName && (
+                <span className="error-msg">
+                  {errors.lastName.message as string}
+                </span>
+              )}
             </Label>
             <Input
+              {...register("lastName")}
               className="auth-input"
               type="text"
               id="last-name"
@@ -131,8 +143,14 @@ export default function Register() {
         <div className="w-full">
           <Label className="text-base font-normal" htmlFor="email">
             อีเมล
+            {errors.email && (
+              <span className="error-msg">
+                {errors.email.message as string}
+              </span>
+            )}
           </Label>
           <Input
+            {...register("email")}
             className="auth-input"
             type="email"
             id="email"
@@ -141,9 +159,15 @@ export default function Register() {
         </div>
         <div className="w-full">
           <Label className="text-base font-normal" htmlFor="phone-num">
-            เบอร์โทรศัพท์
+            เบอร์โทรศัพท์{" "}
+            {errors.phone && (
+              <span className="error-msg">
+                {errors.phone.message as string}
+              </span>
+            )}
           </Label>
           <Input
+            {...register("phone")}
             className="auth-input"
             type="text"
             id="phone-num"
@@ -204,7 +228,7 @@ export default function Register() {
                 className="auth-input "
                 type={showPassword ? "text" : "password"}
                 id="confirmPassword"
-                placeholder="รหัสผ่าน"
+                placeholder="ยืนยันรหัสผ่าน"
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
               />

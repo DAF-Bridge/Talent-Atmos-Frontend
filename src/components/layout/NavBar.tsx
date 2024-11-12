@@ -62,7 +62,7 @@ export default function NavigationBar() {
   const [isMiniMenuOpen, setIsMiniMenuOpen] = useState(false);
   return (
     <nav className="bg-white shadow-md font-prompt sticky top-0 z-50">
-      <div className="max-w-[1170px] mx-auto px-6">
+      <div className="lg:w-[90%] xl:w-[80%] mx-auto px-10">
         <div className="flex justify-between h-[65px]">
           <div className="flex gap-[42px] ">
             {/* Logo */}
@@ -100,7 +100,11 @@ export default function NavigationBar() {
                   </div>
                 </Link>
                 <Link href="/signup">
-                  <div className="flex justify-center items-center w-[122px] h-[46px] font-light px-4 py-2 bg-orange-normal text-white rounded-lg hover:bg-orange-dark">
+                  <div
+                    className="flex justify-center items-center w-[122px] h-[46px] 
+                  font-light px-4 py-2 bg-orange-normal text-white rounded-lg 
+                  hover:bg-orange-dark"
+                  >
                     สมัครสมาชิก
                   </div>
                 </Link>
@@ -170,15 +174,19 @@ export default function NavigationBar() {
               {!isAuth ? (
                 <>
                   <Link href="/login">
-                    <div className="
+                    <div
+                      className="
                     flex h-[42px] justify-center items-center text-gray-800 font-normal border-black 
-                    hover:text-orange-dark rounded-full border transition-all duration-200">
+                    hover:text-orange-dark rounded-full border transition-all duration-200"
+                    >
                       เข้าสู่ระบบ
                     </div>
                   </Link>
                   <Link href="/signup">
-                    <div className="flex h-[42px] justify-center items-center text-white bg-orange-normal 
-                    hover:bg-orange-dark rounded-full border transition-all duration-200">
+                    <div
+                      className="flex h-[42px] justify-center items-center text-white bg-orange-normal 
+                    hover:bg-orange-dark rounded-full border transition-all duration-200"
+                    >
                       สมัครสมาชิก
                     </div>
                   </Link>

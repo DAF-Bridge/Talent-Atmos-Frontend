@@ -17,8 +17,8 @@ import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 
 export default function BigFooter() {
   return (
-    <div className="bg-[#1D1D1D] py-11 font-prompt rounded-t-[20px] mt-auto">
-      <div className="flex flex-wrap gap-10 lg:justify-between max-w-[1170px] mx-auto px-6 ">
+    <div className="bg-[#1D1D1D] py-11 font-prompt rounded-t-[20px] mt-[87px]">
+      <div className="flex flex-wrap gap-10 lg:justify-between lg:w-[90%] xl:w-[80%] mx-auto px-10">
         <div className="flex flex-col gap-[21px]">
           {/* Logo */}
           <div className="flex max-h-[80px] justify-start items-center">

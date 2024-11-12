@@ -10,7 +10,7 @@ interface OrgCardProps {
 export default function OrgCard({ name, imgUrl }: OrgCardProps) {
   return (
     <Link href={"/org"} className="flex flex-col border  hover:shadow-md rounded-[8px] group hover:cursor-pointer duration-100 overflow-hidden ">
-      <div className="flex justify-center items-center h-[133px] w-auto border overflow-hidden">
+      <div className="flex justify-center items-center h-[133px] 2xl:h-[200px] w-auto border overflow-hidden">
         <Image
           className="block h-full w-full object-cover group-hover:scale-110 duration-100"
           src={imgUrl}

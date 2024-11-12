@@ -4,7 +4,7 @@ import React from "react";
 
 export default function EventListing() {
   return (
-    <div className="font-prompt max-w-[1170px] mx-auto px-6">
+    <div className="font-prompt lg:w-[90%] xl:w-[80%] mx-auto px-10">
       <p className="text-[32px] text-center font-semibold mt-[22px]">
         ค้นหา <span className="text-orange-normal">”อีเว้นท์”</span> ที่ตอบโจทย์
       </p>
@@ -29,7 +29,7 @@ export default function EventListing() {
           </span>
         </button>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-12  gap-x-[5%] mt-[25px] bg-gree">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-y-12  gap-x-[5%] lg:gap-x-[3%] mt-[25px] bg-gree">
         <EventCard
           title="Builds Idea 2024"
           date="13 กรกฎาคม - 07 สิงหาคม 2567"
