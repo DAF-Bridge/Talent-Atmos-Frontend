@@ -92,19 +92,21 @@ jobs:
       - name: Initializing deployment
         run: echo "Initializing deployment to Netlify..."
 
-      - name: Link to Netlify site
-        run: |
-          netlify link --site ${{ secrets.NETLIFY_SITE_ID }}
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      # - name: Link to Netlify site
+      #   run: |
+      #     netlify link --site ${{ secrets.NETLIFY_SITE_ID }}
+      #   env:
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
       - name: Deploy to Netlify
         run: |
               netlify deploy --prod \
               --dir=.next \
-              --functions=netlify/functions
+              --functions=netlify/functions \
+              --site ${{ secrets.NETLIFY_SITE_ID }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       - name: Post-processing after deployment
         run: echo "Deployment complete. Running post-processing steps..."
