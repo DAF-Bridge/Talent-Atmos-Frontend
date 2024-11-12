@@ -1,18 +1,18 @@
 import OrgCarousel from "@/components/carousels/OrgCarousel";
 import React from "react";
 
-const testOrgJobs = [
-  {
-    OrgName: "องค์กรทดสอบ 1",
-    JobTitle: "งานทดสอบ 1",
-    Location: "เชียงใหม่",
-  },
-  {
-    OrgName: "องค์กรทดสอบ 2",
-    JobTitle: "งานทดสอบ 2",
-    Location: "ออนไลน์",
-  }
-]
+// const testOrgJobs = [
+//   {
+//     OrgName: "องค์กรทดสอบ 1",
+//     JobTitle: "งานทดสอบ 1",
+//     Location: "เชียงใหม่",
+//   },
+//   {
+//     OrgName: "องค์กรทดสอบ 2",
+//     JobTitle: "งานทดสอบ 2",
+//     Location: "ออนไลน์",
+//   }
+// ]
 
 export default function OrgPage() {
   return  (
