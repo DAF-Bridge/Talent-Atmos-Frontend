@@ -5,7 +5,12 @@ export default function AuthPageLayout({
 }>) {
   return (
     <>
-      <div style={{ backgroundImage: "url('/login-bg.svg')" }}>{children}</div>
+      <div
+        className="bg-cover bg-center bg-no-repeat min-h-screen w-screen overflow-hidden"
+        style={{ backgroundImage: "url('/login-bg.svg')" }}
+      >
+        {children}
+      </div>
     </>
   );
 }

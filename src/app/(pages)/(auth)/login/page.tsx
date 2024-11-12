@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { loginSchema, TLogInSchema } from "@/lib/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, House } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -92,10 +92,10 @@ export default function Login(): JSX.Element {
       <div className="hidden px-[4%] lg:flex lg:flex-col lg:w-[58%] ">
         <Link href="/" className="absolute pt-[71px]">
           <div
-            className="rounded-full border-2 border-[#353A47] hover:bg-slate-100 hover:shadow-lg inline-flex gap-2 
+            className="rounded-full hover:bg-slate-100 hover:shadow-lg inline-flex gap-2 
             text-base font-medium text-start px-5 py-1 transition-all duration-200"
           >
-            <ArrowLeft height={35} width={35} />
+            <House height={25} width={25} />
             <p className="self-center">กลับสู่หน้าหลัก</p>
           </div>
         </Link>
@@ -116,10 +116,10 @@ export default function Login(): JSX.Element {
         >
           <div className="mx-auto mt-[50px] w-[78%] flex flex-col">
             <Link
-              className="absolute px-2 py-1 rounded-full hover:bg-slate-100 inline-flex gap-1 top-[30px] left-[30px] lg:hidden hover:cursor-pointer"
+              className="absolute px-2 py-1 rounded-full hover:bg-slate-100 inline-flex gap-2 top-[30px] left-[30px] lg:hidden hover:cursor-pointer"
               href={"/"}
             >
-              <ArrowLeft height={30} width={30} />
+              <House height={25} width={25} />
               <p className="self-center hidden sm:block">กลับสู่หน้าหลัก</p>
             </Link>
             <p className="text-4xl font-semibold text-center text-orange-dark">

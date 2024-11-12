@@ -97,7 +97,7 @@ export default function OrgCarousel() {
           {organizations.map((org, index) => (
             <CarouselItem
               key={index}
-              className="pl-2 md:pl-4 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
+              className="pl-2 md:pl-4 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/4 2xl:basis-1/5"
             >
               <div className="p-1">
                 <OrgCard name={org.name} imgUrl={org.imgUrl} />
