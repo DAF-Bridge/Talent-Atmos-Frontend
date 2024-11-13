@@ -12,18 +12,13 @@ import {
 import OrgCard from "../cards/OrgCard";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { Organization } from "@/lib/types";
 
-type Organization = {
-  name: string;
-  imgUrl: string;
-};
-
-export default function OrgCarousel() {
+export default function OrgCarousel({ orgs }: { orgs: Organization[] }) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
   const [visibleSlides, setVisibleSlides] = useState(5);
-  const [organizations, setOrganizations] = useState<Organization[]>([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -50,22 +45,18 @@ export default function OrgCarousel() {
   }, [api]);
 
   useEffect(() => {
-    fetch("/api/orgs")
-      .then((res) => res.json())
-      .then((data) => {
-        setCount(data.data.length);
-        setOrganizations(data.data);
-      });
+    setCount(orgs.length);
   }, []);
 
   const getVisibleSlides = () => {
     if (typeof window !== "undefined") {
-      if (window.innerWidth < 640) return 2; // sm
-      if (window.innerWidth < 768) return 2; // md
-      if (window.innerWidth < 1024) return 3; // lg
-      return 4; // xl and above
+      if (window.innerWidth < 640) return 2; // sm basis-1/2
+      if (window.innerWidth < 768) return 2; // md sm:basis-1/2
+      if (window.innerWidth < 1024) return 3; // lg  md:basis-1/3
+      if (window.innerWidth < 1536) return 4; // 2xl lg:basis-1/4
+      return 5; // and above 2xl:basis-1/5
     }
-    return 4; // default for SSR
+    return 5; // default for SSR
   };
 
   const handlePrevNext = (direction: "prev" | "next") => {
@@ -94,7 +85,7 @@ export default function OrgCarousel() {
         }}
       >
         <CarouselContent className="-ml-2 md:-ml-4">
-          {organizations.map((org, index) => (
+          {orgs.map((org, index) => (
             <CarouselItem
               key={index}
               className="pl-2 md:pl-4 basis-1/2 sm:basis-1/2 md:basis-1/3 lg:basis-1/4 2xl:basis-1/5"
@@ -126,7 +117,7 @@ export default function OrgCarousel() {
       <div className="py-2 text-center mt-5">
         <div className="flex justify-center gap-4">
           {Array.from({
-            length: Math.ceil(organizations.length / visibleSlides),
+            length: Math.ceil(orgs.length / visibleSlides),
           }).map((_, index) => (
             <button
               key={index}

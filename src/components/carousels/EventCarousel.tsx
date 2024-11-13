@@ -12,19 +12,13 @@ import {
 import BriefEventCard from "../cards/BriefEventCard";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { Event } from "@/lib/types";
 
-type Event = {
-  title: string;
-  date: string;
-  imgUrl: string;
-};
-
-export default function EventCarousel() {
+export default function EventCarousel({ events }: { events: Event[] }) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
   const [visibleSlides, setVisibleSlides] = useState(5);
-  const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -51,20 +45,15 @@ export default function EventCarousel() {
   }, [api]);
 
   useEffect(() => {
-    fetch("/api/events")
-      .then((res) => res.json())
-      .then((data) => {
-        setCount(data.data.length);
-        setEvents(data.data);
-      });
+    setCount(events.length);
   }, []);
 
   const getVisibleSlides = () => {
     if (typeof window !== "undefined") {
-      if (window.innerWidth < 640) return 2; // sm
-      if (window.innerWidth < 768) return 3; // md
-      if (window.innerWidth < 1024) return 4; // lg
-      return 5; // xl and above
+      if (window.innerWidth < 640) return 2; // sm basis-1/2
+      if (window.innerWidth < 768) return 3; // md sm:basis-1/3
+      if (window.innerWidth < 1024) return 4; // lg md:basis-1/4
+      return 5; // and above lg:basis-1/5
     }
     return 5; // default for SSR
   };
@@ -98,7 +87,7 @@ export default function EventCarousel() {
           {events.map((event, index) => (
             <CarouselItem
               key={index}
-              className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 2xl:basis-1/6"
+              className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
             >
               <div className="p-1">
                 <BriefEventCard
@@ -117,8 +106,7 @@ export default function EventCarousel() {
           className="
           hidden sm:flex absolute left-0 top-[45%] transform -translate-y-1/2 -translate-x-1/2 
           h-12 w-12 bg-black/50 hover:bg-black/70 hover:text-white text-white border-none"
-        >
-        </CarouselPrevious>
+        ></CarouselPrevious>
 
         {/* next */}
         <CarouselNext
@@ -126,8 +114,7 @@ export default function EventCarousel() {
           className="
           hidden sm:flex absolute right-0 top-[45%] transform -translate-y-1/2 translate-x-1/2 
           h-12 w-12 bg-black/50 hover:bg-black/70 hover:text-white text-white border-none"
-        >
-        </CarouselNext>
+        ></CarouselNext>
       </Carousel>
 
       {/* dot pagination */}

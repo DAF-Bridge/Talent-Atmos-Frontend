@@ -58,5 +58,8 @@ export async function GET() {
     },
   ];
 
+  // Delay for 3 seconds before sending the response, remove after you have a backend
+  await new Promise((resolve) => setTimeout(resolve, 2000)); // 3000 ms = 3 seconds
+
   return NextResponse.json({ data: mockEvents });
 }
