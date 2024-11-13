@@ -33,5 +33,9 @@ export async function GET() {
         "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
     },
   ];
+
+  // Delay for 3 seconds before sending the response, remove after you have a backend
+  await new Promise((resolve) => setTimeout(resolve, 3000)); // 3000 ms = 3 seconds
+
   return NextResponse.json({ data: mockOrg });
 }
