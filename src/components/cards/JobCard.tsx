@@ -11,14 +11,14 @@ interface JobCardProps {
 
 export default function JobCard({ orgName, imgUrl, jobTitle, location }: JobCardProps) {
     return (
-        // <div className="flex flex-row justify-center items-center border rounded-lg">
+        <div className="flex justify-center items-center border rounded-lg">
         <Link href={"/"} className="flex flex-row border  hover:shadow-md rounded-[8px] group hover:cursor-pointer duration-100 overflow-hidden">
-            <div className="overflow-hidden">
+            <div className="border">
                 <Image
                     className="rounded-full"
                     src={imgUrl} 
-                    width={100} 
-                    height={100} 
+                    width={120} 
+                    height={120} 
                     alt="องค์กร"
                 />
             </div>
@@ -28,6 +28,6 @@ export default function JobCard({ orgName, imgUrl, jobTitle, location }: JobCard
                 <p className="text-gray-400 text-sm">{location}</p>
             </div>
         </Link>
-        // </div>
+        </div>
     );
 }

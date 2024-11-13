@@ -1,7 +1,7 @@
-// import OrgCarousel from "@/components/carousels/OrgCarousel";
 import JobCarousel from "@/components/carousels/JobCarousel";
-import React from "react";
+import * as React from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
+import Pagination from '@mui/material/Pagination';
 
 export default function JobPage() {
   return  (
@@ -42,6 +42,18 @@ export default function JobPage() {
             ตัวกรอง
           </span>
         </button>
+      </div>
+
+      <div className="flex flex-col mt-8 border">
+        <div className="mt-8 h-56 grid grid-cols-3 gap-4 content-center border">
+          <div className="border text-center">01</div>
+          <div className="border text-center">02</div>
+          <div className="border text-center">03</div>
+          <div className="border text-center">04</div>
+          <div className="border text-center">05</div>
+        </div>
+
+        <Pagination count={10} variant="outlined" shape="rounded" />
       </div>
 </div>);
 }
