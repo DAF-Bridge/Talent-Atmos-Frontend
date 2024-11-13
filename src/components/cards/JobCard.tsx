@@ -1,32 +1,33 @@
 import Image from "next/image";
-// import Link from "next/link";
+import Link from "next/link";
 import React from "react";
 
-interface OrgCardProps {
+interface JobCardProps {
     orgName: string;
     imgUrl: string;
     jobTitle: string;
     location: string;
 }
 
-export default function OrgCard({ orgName, imgUrl, jobTitle, location }: OrgCardProps) {
+export default function JobCard({ orgName, imgUrl, jobTitle, location }: JobCardProps) {
     return (
-        <div className="flex justify-center items-center">
-            <Image
-                className="block h-full w-full object-cover group-hover:scale-110 duration-100"
-                src={imgUrl}
-                width={500}
-                height={500}
-                alt="องค์กร"
-            />
-            <div className="flex justify-center items-center py-1 px-3">
-                {/* <div className="font-medium text-sm md:text-base line-clamp-1 group-hover:text-orange-normal duration-100">
-                    {orgName}
-                </div> */}
-                <span>{orgName}</span>
-                <span>{jobTitle}</span>
-                <span>{location}</span>
+        // <div className="flex flex-row justify-center items-center border rounded-lg">
+        <Link href={"/"} className="flex flex-row border  hover:shadow-md rounded-[8px] group hover:cursor-pointer duration-100 overflow-hidden">
+            <div className="overflow-hidden">
+                <Image
+                    className="rounded-full"
+                    src={imgUrl} 
+                    width={100} 
+                    height={100} 
+                    alt="องค์กร"
+                />
             </div>
-        </div>
+            <div className="ml-2 mt-2">
+                <p className="text-orange-normal">{orgName}</p>
+                <p className="text-black">{jobTitle}</p>
+                <p className="text-gray-400 text-sm">{location}</p>
+            </div>
+        </Link>
+        // </div>
     );
 }
