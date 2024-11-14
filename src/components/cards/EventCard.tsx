@@ -1,3 +1,4 @@
+import { Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -10,6 +11,7 @@ interface EventCardProps {
   imgUrl: string;
   orgName: string;
   orgPicUrl: string;
+  cardId: string;
 }
 
 export default function EventCard({
@@ -20,6 +22,7 @@ export default function EventCard({
   imgUrl,
   orgName,
   orgPicUrl,
+  cardId,
 }: EventCardProps) {
   return (
     <div className="flex flex-col gap-1">
@@ -41,7 +44,7 @@ export default function EventCard({
         </div>
       </div>
       <Link
-        href={"/event"}
+        href={`event/${cardId}`}
         className="flex flex-col gap-1 group hover:cursor-pointer"
       >
         <div
@@ -61,7 +64,8 @@ export default function EventCard({
           {title}
         </div>
         <div className="flex flex-col gap-2 mt-2">
-          <div className="flex justify-start items-center flex-row gap-2">
+          <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
+            <Clock className="w-4 h-4" />
             <Image
               src="icon/calendar.svg"
               width={16}
@@ -70,7 +74,8 @@ export default function EventCard({
             />
             <div className="line-clamp-1 font-light text-sm">{date}</div>
           </div>
-          <div className="flex  justify-start items-center flex-row gap-2">
+          <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
+            <Clock className="w-4 h-4" />
             <Image
               src="icon/time.svg"
               width={16}
@@ -79,7 +84,8 @@ export default function EventCard({
             />
             <div className="line-clamp-1 font-light text-sm">{time}</div>
           </div>
-          <div className="flex justify-start items-center flex-row gap-2">
+          <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
+            <Clock className="w-4 h-4" />
             <Image
               src="icon/location.svg"
               width={16}
