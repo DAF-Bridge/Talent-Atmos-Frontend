@@ -1,5 +1,46 @@
 import { NextResponse } from "next/server";
 
+/**
+ * @swagger
+ * /api/events:
+ *   get:
+ *     tags:
+ *       - Events
+ *     summary: Get all events
+ *     description: Retrieves a list of all events with their titles, dates, and image URLs
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved events
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       title:
+ *                         type: string
+ *                         example: "Builds Idea 2024"
+ *                       date:
+ *                         type: string
+ *                         example: "13 ก.ค. - 07 ส.ค. 2567"
+ *                       imgUrl:
+ *                         type: string
+ *                         example: "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Failed to fetch events"
+ */
 export async function GET() {
   try {
     const mockEvents = [
