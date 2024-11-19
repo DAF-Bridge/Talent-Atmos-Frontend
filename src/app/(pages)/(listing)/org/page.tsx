@@ -1,8 +1,8 @@
 import JobCarousel from "@/components/carousels/JobCarousel";
 import * as React from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
-import Pagination from "@mui/material/Pagination";
 import OrgListing from "@/components/listings/OrgListing";
+import Pagination from "@mui/material/Pagination";
 
 export default function JobPage() {
   return (
