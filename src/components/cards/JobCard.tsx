@@ -11,9 +11,14 @@ interface JobCardProps {
 
 export default function JobCard({ orgName, imgUrl, jobTitle, location }: JobCardProps) {
     return (
-        <div className="flex justify-center items-center border rounded-lg">
-        <Link href={"/"} className="flex flex-row border  hover:shadow-md rounded-[8px] group hover:cursor-pointer duration-100 overflow-hidden">
-            <div className="border">
+        
+        <Link 
+        href={"/"} 
+        className="flex gap-3 items-center justify-center flex-row border hover:shadow-md rounded-[8px] group hover:cursor-pointer 
+        duration-100 overflow-hidden py-1 px-2"
+        style={{aspectRatio: "208 / 100"}}
+        >
+            <div className="flex items-start w-[33%] py-2 h-full">
                 <Image
                     className="rounded-full"
                     src={imgUrl} 
@@ -22,12 +27,12 @@ export default function JobCard({ orgName, imgUrl, jobTitle, location }: JobCard
                     alt="องค์กร"
                 />
             </div>
-            <div className="ml-2 mt-2">
+            <div className="flex flex-col justify-center h-full w-full">
                 <p className="text-orange-normal">{orgName}</p>
-                <p className="text-black">{jobTitle}</p>
-                <p className="text-gray-400 text-sm">{location}</p>
+                <p className="text-black mt-[2px]">{jobTitle}</p>
+                <p className="text-gray-400 text-sm mt-[7px]">{location}</p>
             </div>
         </Link>
-        </div>
+        
     );
-}
+}   

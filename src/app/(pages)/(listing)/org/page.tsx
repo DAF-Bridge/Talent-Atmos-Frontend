@@ -2,6 +2,7 @@ import JobCarousel from "@/components/carousels/JobCarousel";
 import * as React from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import Pagination from '@mui/material/Pagination';
+// import OrgListing from "@/components/listings/OrgListing";
 
 export default function JobPage() {
   return  (
@@ -17,7 +18,7 @@ export default function JobPage() {
       <p className="font-medium text-2xl">งานที่เปิดรับสมัคร</p>
     </div>
 
-    <div className="flex justify-between mt-4 ">
+    <div className="flex justify-between mt-4">
         {/* <OrgCarousel /> */}
         <JobCarousel />
     </div>
@@ -45,12 +46,13 @@ export default function JobPage() {
       </div>
 
       <div className="flex flex-col mt-8 border">
-        <div className="mt-8 h-56 grid grid-cols-3 gap-4 content-center border">
+        <div className="mt-8 h-56 border">
           <div className="border text-center">01</div>
           <div className="border text-center">02</div>
           <div className="border text-center">03</div>
           <div className="border text-center">04</div>
           <div className="border text-center">05</div>
+          {/* <OrgListing /> */}
         </div>
 
         <Pagination count={10} variant="outlined" shape="rounded" />
