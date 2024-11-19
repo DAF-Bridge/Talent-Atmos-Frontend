@@ -15,12 +15,9 @@
 .idea
 *.idea/*
 
-# jest
+# jest || testing
 /coverage
 /coverage/*
-
-# testing
-/coverage
 
 # next.js
 /.next/
