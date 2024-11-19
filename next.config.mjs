@@ -8,6 +8,7 @@ const nextConfig = {
       },
     ], // Allow images from Google Drive
   },
+  transpilePackages: ['swagger-ui-react'],
 };
 
 export default nextConfig;
