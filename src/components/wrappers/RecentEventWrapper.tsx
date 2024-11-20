@@ -1,6 +1,5 @@
 import EventCarousel from "../carousels/EventCarousel";
 
-
 // Server component to fetch data
 export default async function RecentEventCarouselWrapper() {
   // For server components, it's better to use NEXT_PUBLIC_API_URL for external APIs
@@ -8,7 +7,7 @@ export default async function RecentEventCarouselWrapper() {
   const baseUrl =
     process.env.NEXT_PUBLIC_API_URL ||
     process.env.APP_URL ||
-    "http://localhost:3000";
+    "http://127.0.0.1:3000";
 
   // Ensure we have a properly formatted URL
   const apiUrl = new URL("/api/events", baseUrl).toString();
