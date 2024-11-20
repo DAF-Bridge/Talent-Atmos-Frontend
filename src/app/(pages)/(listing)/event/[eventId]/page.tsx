@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { Calendar, Clock, MapPin } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface EventDescriptionProps {
@@ -25,7 +26,7 @@ interface EventDescriptionProps {
     contact: {
       facebook: string;
     };
-    tickets: Array<{ name: string; price: number }>;
+    tickets: Array<{ id: string; name: string; price: number }>;
   };
   organizer: {
     name: string;
@@ -75,11 +76,11 @@ export default async function EventDescription({
           height={150}
           alt="อีเว้นท์"
         />
-        <div className="flex justify-center items-center h-full lg:w-[90%] xl:w-[80%] mx-auto px-10 py-4">
-          <div className="flex flex-col gap-3 justify-center  h-full rounded-l-[10px] px-5 md:bg-white">
+        <div className="flex justify-center items-center h-full lg:w-[90%] xl:w-[80%] mx-auto px-10 py-4 drop-shadow-lg">
+          <div className="flex flex-col gap-3 justify-center  h-full rounded-l-[10px] px-10 md:bg-white">
             <div className="flex justify-start items-center gap-2">
               <div
-                className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full bg-white"
+                className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
                 style={{ aspectRatio: "1 / 1" }}
               >
                 <Image
@@ -134,8 +135,8 @@ export default async function EventDescription({
       <div className="lg:w-[90%] xl:w-[80%] mx-auto px-10">
         <p className="font-semibold text-2xl mt-[32px]">รายละเอียด</p>
         <div className="border w-full mt-[8px] mb-[16px]" />
-        <div className="flex flex-col gap-[4%] md:flex-row justify-between border">
-          <div className="flex flex-col gap-[30px] border">
+        <div className="flex flex-col gap-[32px] md:gap-[4%] md:flex-row justify-between">
+          <div className="flex flex-col gap-[30px]">
             <div className="flex flex-col gap-[10px]">
               <p className="font-semibold text-2xl">คำอธิบายกิจกรรม</p>
               <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words">
@@ -182,34 +183,7 @@ export default async function EventDescription({
                 ไทม์ไลน์และกำหนดการ
               </p>
               <div className="w-[90%]">
-                <Accordion
-                  type="single"
-                  collapsible
-                  className="w-full border rounded-[10px] bg-[#F4F4F5] px-5"
-                >
-                  <AccordionItem value="item-1">
-                    <AccordionTrigger>{"13 ก.ค. 2567"}</AccordionTrigger>
-                    <AccordionContent>
-                      {"Yes. It adheres to the WAI-ARIA design pattern."}
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item-2">
-                    <AccordionTrigger>{"24 ก.ค. 2567"}</AccordionTrigger>
-                    <AccordionContent>
-                      {
-                        "Yes. It comes with default styles that matches the other components&apos; aesthetic."
-                      }
-                    </AccordionContent>
-                  </AccordionItem>
-                  <AccordionItem value="item-3">
-                    <AccordionTrigger>{"7 ส.ค. 2567"}</AccordionTrigger>
-                    <AccordionContent>
-                      {
-                        "Yes. It&apos;s animated by default, but you can disable it if you prefer."
-                      }
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
+                <TimelineAccordion timelineArr={data.event.timeline} />
               </div>
             </div>
             <div className="flex flex-col gap-[10px]">
@@ -231,21 +205,28 @@ export default async function EventDescription({
               </p>
             </div>
           </div>
-          <div className="shrink-0 md:w-[35%] border">
-            <div className="flex flex-col justify-center items-center w-full h-auto py-[15px] px-[5%] border rounded-[10px]">
-              <button
-                className="flex gap-[10px] w-full border border-black px-[5%] py-[10px] 
-              rounded-[10px] hover:shadow-md hover:border-black/50 hover:scale-[1.01] 
-              transition-all duration-100"
-              >
-                <div className="flex flex-col w-full text-left">
-                  <p>{data.event.tickets[0].name}</p>
-                  <p>{data.event.tickets[0].price}</p>
-                </div>
-              </button>
-              <button className="w-full mt-6 py-2 text-white bg-orange-dark rounded-md hover:bg-orange-normal">
+          <div className="shrink-0 md:w-[35%]">
+            <div
+              className="md:sticky top-[80px] flex flex-col justify-center items-center gap-4 
+            w-full h-auto pt-[20px] pb-[30px] px-[5%] border rounded-[10px] drop-shadow-lg bg-white"
+            >
+              <p className="text-left text-xl font-medium w-full">
+                เลือกประเภทตั๋ว
+              </p>
+              <div className="flex flex-col gap-5 w-full">
+                {data.event.tickets.map((ticket, index) => (
+                  <EventTicket
+                    key={index}
+                    id={ticket.id}
+                    name={ticket.name}
+                    price={ticket.price}
+                  />
+                ))}
+              </div>
+
+              {/* <button className="w-full mt-4 py-2 text-white bg-orange-dark rounded-md hover:bg-orange-normal">
                 ลงทะเบียนกิจกรรม
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -254,45 +235,61 @@ export default async function EventDescription({
   );
 }
 
-// interface EventTicketProps {
-//   name: string;
-//   price: string;
-// }
+interface EventTicketProps {
+  name: string;
+  price: number;
+  id: string;
+}
 
-// function EventTicket({ name, price }: EventTicketProps) {
-//   return (
-//     <div className="flex justify-between gap-[10px] w-full border border-black px-[5%] py-[10px] rounded-[10px]">
-//       <div className="flex flex-col w-full border">
-//         <p>{name}</p>
-//         <p>{price}</p>
-//       </div>
-//     </div>
-//   );
-// }
+function EventTicket({ name, price, id }: EventTicketProps) {
+  return (
+    <Link
+      href={`/event/${id}`}
+      className="relative group font-thin text-xl w-full hover:scale-[1.04] 
+  active:scale-95 transition-all duration-150"
+    >
+      <div
+        className="absolute inset-x-0 h-full -bottom-[5px] bg-black border border-black
+    rounded-[25px] group-hover:bg-black group-hover:border-black"
+      />
 
-// interface TimelineAccordionProps {
-//   timelineArr: Array<{
-//     date: string;
-//     content: string;
-//   }>;
-// }
+      <div
+        className="relative bg-white group-hover:bg-slate-100 border-2 border-black 
+    group-hover:border-black rounded-[25px] py-[20px] px-[6%] w-full  "
+      >
+        <div className="flex justify-between items-center pr-2  w-full text-left font-medium">
+          <p className="text-lg font-semibold">{"แบบ " + name}</p>
+          <p className="text-xl font-medium">
+            {price > 0 ? price.toLocaleString() + " ฿" : "Free!"}
+          </p>
+        </div>
+      </div>
+    </Link>
+  );
+}
 
-// function TimelineAccordion({ timelineArr }: TimelineAccordionProps) {
-//   return (
-//     <Accordion
-//       type="single"
-//       collapsible
-//       className="w-full border rounded-[10px] bg-[#F4F4F5] px-5"
-//     >
-//       {timelineArr.map((day, index) => (
-//         <AccordionItem key={index} value="item-1">
-//           <AccordionTrigger>{day.date}</AccordionTrigger>
-//           <AccordionContent>{day.content}</AccordionContent>
-//         </AccordionItem>
-//       ))}
-//     </Accordion>
-//   );
-// }
+interface TimelineAccordionProps {
+  timelineArr: Array<{
+    date: string;
+    content: string;
+  }>;
+}
+
+function TimelineAccordion({ timelineArr }: TimelineAccordionProps) {
+  return (
+    <Accordion
+      type="multiple"
+      className="w-full border rounded-[10px] bg-[#F4F4F5] px-5"
+    >
+      {timelineArr.map((day, index) => (
+        <AccordionItem key={index} value={`item-${index}`}>
+          <AccordionTrigger>{day.date}</AccordionTrigger>
+          <AccordionContent>{day.content}</AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
+}
 
 function getDate(dateString: string) {
   // Parse the date string into a Date object
