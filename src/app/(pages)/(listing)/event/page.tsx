@@ -6,7 +6,8 @@ export default function EventListing() {
   return (
     <div className="font-prompt lg:w-[90%] xl:w-[80%] mx-auto px-10">
       <p className="text-[32px] text-center font-semibold mt-[22px]">
-        ค้นหา <span className="text-orange-normal">”อีเว้นท์”</span> ที่ตอบโจทย์
+        ค้นหา <span className="text-orange-normal">&quot;อีเว้นท์&quot;</span>{" "}
+        ที่ตอบโจทย์
       </p>
       <div className="border-[1.5px] mt-[26px] border-gray-stroke/70" />
       <div className="flex justify-between items-center gap-5 w-full mt-[25px] ">
@@ -30,114 +31,19 @@ export default function EventListing() {
         </button>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-y-12  gap-x-[5%] lg:gap-x-[3%] mt-[25px] bg-gree">
-        <EventCard
-          title="Builds Idea 2024"
-          date="13 กรกฎาคม - 07 สิงหาคม 2567"
-          time="09:00 - 18:00 (UTC+7)"
-          location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
-          imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-          orgName="มหาวิทยาลัยเชียงใหม่"
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-        />
-        <EventCard
-          title="Builds Idea 2024"
-          date="13 กรกฎาคม - 07 สิงหาคม 2567"
-          time="09:00 - 18:00 (UTC+7)"
-          location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
-          imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-          orgName="มหาวิทยาลัยเชียงใหม่"
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-        />
-        <EventCard
-          title="Builds Idea 2024"
-          date="13 กรกฎาคม - 07 สิงหาคม 2567"
-          time="09:00 - 18:00 (UTC+7)"
-          location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
-          imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-          orgName="มหาวิทยาลัยเชียงใหม่"
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-        />
-        <EventCard
-          title="Builds Idea 2024"
-          date="13 กรกฎาคม - 07 สิงหาคม 2567"
-          time="09:00 - 18:00 (UTC+7)"
-          location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
-          imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-          orgName="มหาวิทยาลัยเชียงใหม่"
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-        />
-        <EventCard
-          title="Builds Idea 2024"
-          date="13 กรกฎาคม - 07 สิงหาคม 2567"
-          time="09:00 - 18:00 (UTC+7)"
-          location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
-          imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-          orgName="มหาวิทยาลัยเชียงใหม่"
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-        />
-        <EventCard
-          title="Builds Idea 2024"
-          date="13 กรกฎาคม - 07 สิงหาคม 2567"
-          time="09:00 - 18:00 (UTC+7)"
-          location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
-          imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-          orgName="มหาวิทยาลัยเชียงใหม่"
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-        />
-        <EventCard
-          title="Builds Idea 2024"
-          date="13 กรกฎาคม - 07 สิงหาคม 2567"
-          time="09:00 - 18:00 (UTC+7)"
-          location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
-          imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-          orgName="มหาวิทยาลัยเชียงใหม่"
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-        />
-        <EventCard
-          title="Builds Idea 2024"
-          date="13 กรกฎาคม - 07 สิงหาคม 2567"
-          time="09:00 - 18:00 (UTC+7)"
-          location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
-          imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-          orgName="มหาวิทยาลัยเชียงใหม่"
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-        />
-        <EventCard
-          title="Builds Idea 2024"
-          date="13 กรกฎาคม - 07 สิงหาคม 2567"
-          time="09:00 - 18:00 (UTC+7)"
-          location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
-          imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-          orgName="มหาวิทยาลัยเชียงใหม่"
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-        />
-        <EventCard
-          title="Builds Idea 2024"
-          date="13 กรกฎาคม - 07 สิงหาคม 2567"
-          time="09:00 - 18:00 (UTC+7)"
-          location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
-          imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-          orgName="มหาวิทยาลัยเชียงใหม่"
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-        />
-        <EventCard
-          title="Builds Idea 2024"
-          date="13 กรกฎาคม - 07 สิงหาคม 2567"
-          time="09:00 - 18:00 (UTC+7)"
-          location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
-          imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-          orgName="มหาวิทยาลัยเชียงใหม่"
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-        />
-        <EventCard
-          title="Builds Idea 2024"
-          date="13 กรกฎาคม - 07 สิงหาคม 2567"
-          time="09:00 - 18:00 (UTC+7)"
-          location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
-          imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-          orgName="มหาวิทยาลัยเชียงใหม่"
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-        />
+        {Array.from({ length: 10 }).map((_, index) => (
+          <EventCard
+            key={index}
+            cardId={(index + 1).toString()} // id={index}
+            title="Builds Idea 2024"
+            date="13 กรกฎาคม - 07 สิงหาคม 2567"
+            time="09:00 - 18:00 (UTC+7)"
+            location="ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่"
+            imgUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
+            orgName="มหาวิทยาลัยเชียงใหม่"
+            orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
+          />
+        ))}
       </div>
     </div>
   );

@@ -37,3 +37,14 @@ export const loginSchema = z.object({
 });
 
 export type TLogInSchema = z.infer<typeof loginSchema>;
+
+export type Event = {
+  title: string;
+  date: string;
+  imgUrl: string;
+};
+
+export type Organization = {
+  name: string;
+  imgUrl: string;
+};

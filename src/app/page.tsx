@@ -1,8 +1,17 @@
-import EventCarousel from "@/components/carousels/EventCarousel";
-import OrgCarousel from "@/components/carousels/OrgCarousel";
 import HomeTrendingEvent from "@/components/HomeTrendingEvent";
 import BigFooter from "@/components/layout/BigFooter";
 import NavigationBar from "@/components/layout/NavBar";
+import EventCarouselSkeleton from "@/components/skeletons/EventCarouselSkeleton";
+import OrgCarouselSkeleton from "@/components/skeletons/OrgCarouselSkeleton";
+import { lazy, Suspense } from "react";
+
+// lazy load
+const RecentEventCarouselWrapper = lazy(
+  () => import("@/components/wrappers/RecentEventWrapper")
+);
+const OrgCarouselWrapper = lazy(
+  () => import("@/components/wrappers/OrgCarouselWrapper")
+);
 
 export default function Home() {
   return (
@@ -21,7 +30,9 @@ export default function Home() {
           อีเว้นท์ใหม่
         </div>
         <div className="flex justify-between mt-4">
-          <EventCarousel />
+          <Suspense fallback={<EventCarouselSkeleton />}>
+            <RecentEventCarouselWrapper />
+          </Suspense>
         </div>
 
         {/* อีเว้นท์อนาคต */}
@@ -29,7 +40,9 @@ export default function Home() {
           อีเว้นท์อนาคต
         </div>
         <div className="flex justify-between mt-4">
-          <EventCarousel />
+          <Suspense fallback={<EventCarouselSkeleton />}>
+            <RecentEventCarouselWrapper />
+          </Suspense>
         </div>
 
         {/* องค์กรพันธมิตร */}
@@ -37,10 +50,12 @@ export default function Home() {
           องค์กรพันธมิตร
         </div>
         <div className="flex justify-between mt-4 ">
-          <OrgCarousel />
+          <Suspense fallback={<OrgCarouselSkeleton />}>
+            <OrgCarouselWrapper />
+          </Suspense>
         </div>
       </div>
-      <BigFooter/>
+      <BigFooter />
     </>
   );
 }
