@@ -52,7 +52,7 @@ export default function JobCarousel() {
   }, [api]);
 
   useEffect(() => {
-    fetch("127.0.0.1/api/jobs")
+    fetch("/api/jobs")
       .then((res) => res.json())
       .then((data) => {
         setCount(data.data.length);
