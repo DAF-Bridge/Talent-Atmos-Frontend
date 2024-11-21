@@ -11,7 +11,7 @@ function JobCardSkeleton() {
       <div className="my-auto w-[33%] h-full">
         <Skeleton
           style={{ aspectRatio: "1 / 1" }}
-          className="h-12 w-12 rounded-full bg-slate-200"
+          className="h-full w-full  bg-slate-200"
         ></Skeleton>
       </div>
       <div className="flex flex-col justify-start py-[5%] h-full w-full">
@@ -41,7 +41,7 @@ export default function JobCarouselSkeleton() {
       //
       if (window.innerWidth < 640) return 1; // sm basis-none
       if (window.innerWidth < 768) return 3; // md sm:basis-1/3
-      if (window.innerWidth < 1024) return 3; // lg md:basis-1/3
+      if (window.innerWidth < 1024) return 4; // lg md:basis-1/3
       return 5; // and above lg:basis-1/5
     }
     return 5; // default for SSR
@@ -53,7 +53,7 @@ export default function JobCarouselSkeleton() {
           {Array.from({ length: visibleSlides }).map((_, index) => (
             <CarouselItem
               key={index}
-              className="pl-2 md:pl-4 basis-none sm:basis-1/3 md:basis-1/3 lg:basis-1/5"
+              className="pl-2 md:pl-4 basis-none sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
             >
               <div className="p-1">
                 <JobCardSkeleton />

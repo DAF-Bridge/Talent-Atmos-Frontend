@@ -55,7 +55,7 @@ export default function OrgListingPage() {
       </div>
 
       <div className="flex flex-col mt-8">
-        <div className="grid grid-cols-4 gap-4 content-center">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-y-[1%] sm:gap-y-[2%] md:gap-y-[4%] gap-x-[3%] md:gap-x-[2%]">
           {Array.from({ length: 10 }).map((_, index) => (
             <OrgCard
               key={index}
@@ -67,9 +67,9 @@ export default function OrgListingPage() {
           ))}
         </div>
       </div>
-      <div className="flex justify-center mt-3">
+      {/* <div className="flex justify-center mt-3">
         <Pagination count={10} variant="outlined" shape="rounded" />
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -53,7 +53,7 @@ export default function JobCarousel({ jobs }: { jobs: Job[] }) {
       //
       if (window.innerWidth < 640) return 1; // sm basis-none
       if (window.innerWidth < 768) return 3; // md sm:basis-1/3
-      if (window.innerWidth < 1024) return 3; // lg md:basis-1/3
+      if (window.innerWidth < 1024) return 4; // lg md:basis-1/4
       return 5; // and above lg:basis-1/5
     }
     return 5; // default for SSR
@@ -88,7 +88,7 @@ export default function JobCarousel({ jobs }: { jobs: Job[] }) {
           {jobs.map((job, index) => (
             <CarouselItem
               key={index}
-              className="pl-2 md:pl-4 basis-none sm:basis-1/3 md:basis-1/3 lg:basis-1/5"
+              className="pl-2 md:pl-4 basis-none sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
             >
               <div className="p-1">
                 <JobCard

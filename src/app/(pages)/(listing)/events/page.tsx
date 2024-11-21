@@ -30,7 +30,7 @@ export default function EventListingPage() {
           </span>
         </button>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-12  gap-x-[5%] lg:gap-x-[3%] mt-[25px] bg-gree">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-12  gap-x-[5%] lg:gap-x-[3%] mt-[25px]">
         {Array.from({ length: 10 }).map((_, index) => (
           <EventCard
             key={index}

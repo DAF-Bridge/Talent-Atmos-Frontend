@@ -23,7 +23,7 @@ export default function JobCard({
     >
       <div className="flex my-auto w-[33%] h-full">
         <Image
-          className="shrink-0 rounded-full border"
+          className="shrink-0 rounded-full"
           src={imgUrl}
           width={120}   
           height={120}

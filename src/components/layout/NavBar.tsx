@@ -14,7 +14,7 @@ export default function NavigationBar() {
     {
       label: "อีเว้นท์",
       subMenuName: "หัวข้อกิจกรรม",
-      href: "/event",
+      href: "/events",
       subLabel: [
         {
           label: "ธุรกิจ & เศรษฐกิจ",
@@ -37,7 +37,7 @@ export default function NavigationBar() {
     {
       label: "องค์กร",
       subMenuName: "ประเภทองค์กร",
-      href: "/org",
+      href: "/orgs",
       subLabel: [
         {
           label: "องค์กรด้านเศรษฐกิจ",
@@ -57,7 +57,7 @@ export default function NavigationBar() {
       ],
       isMega: false,
     },
-    { label: "เป้าหมายของคุณ", href: "/my-ticket", isMega: false },
+    { label: "แผนที่", href: "/map", isMega: false },
   ];
   const [isMiniMenuOpen, setIsMiniMenuOpen] = useState(false);
   return (
