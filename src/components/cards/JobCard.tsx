@@ -19,7 +19,7 @@ export default function JobCard({
     <Link
       href={"/"}
       className="flex flex-row gap-[5%] items-start justify-center border hover:shadow-md rounded-[8px] 
-      group hover:cursor-pointer duration-100 overflow-hidden px-2"
+      group hover:cursor-pointer duration-100 overflow-hidden px-2 bg-white"
     >
       <div className="flex my-auto w-[33%] h-full">
         <Image
