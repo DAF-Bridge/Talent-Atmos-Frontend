@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-
 interface OrgCardProps {
   name: string;
   imgUrl: string;
@@ -10,21 +9,27 @@ interface OrgCardProps {
 
 export default function OrgCard({ name, imgUrl }: OrgCardProps) {
   return (
-    <Link href={"/org"} className="flex flex-col border  hover:shadow-md rounded-[8px] group hover:cursor-pointer duration-100 overflow-hidden ">
-      <div className="flex justify-center items-center w-auto border overflow-hidden">
+    <Link
+      href={"/org"}
+      className="flex flex-col border  hover:shadow-md rounded-[10px] 
+    group hover:cursor-pointer duration-100 overflow-hidden bg-white drop-shadow-md"
+    >
+      <div className="relative flex justify-center items-center w-auto overflow-hidden group">
+        <div
+          className="bg-gray-900/70 flex justify-center items-center absolute h-full w-full 
+        z-10 opacity-0 group-hover:opacity-100 transform translate-y-full group-hover:translate-y-0 
+        duration-300 px-5"
+        >
+          <p className="text-white text-2xl font-medium text-center line-clamp-3">{name}</p>
+        </div>
         <Image
-          className="block h-full w-full object-cover group-hover:scale-110 duration-100"
+          className="block h-full w-full object-cover"
           style={{ aspectRatio: "5 / 3" }}
           src={imgUrl}
           width={500}
           height={500}
           alt="องค์กร"
         />
-      </div>
-      <div className="flex justify-center items-center py-1 px-3">
-        <div className="font-medium text-sm md:text-base line-clamp-1 group-hover:text-orange-normal duration-100">
-          {name}
-        </div>
       </div>
     </Link>
   );

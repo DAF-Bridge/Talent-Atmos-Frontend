@@ -1,12 +1,14 @@
 import * as React from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
-import OrgListing from "@/components/listings/OrgListing";
 import Pagination from "@mui/material/Pagination";
 import { lazy, Suspense } from "react";
 import JobCarouselSkeleton from "@/components/skeletons/JobCarouselSkeleton";
+import OrgCard from "@/components/cards/OrgCard";
 
 // lazy load
-const JobCarouselWrapper = lazy(() => import("@/components/wrappers/JobCarouselWrapper"));
+const JobCarouselWrapper = lazy(
+  () => import("@/components/wrappers/JobCarouselWrapper")
+);
 
 export default function OrgListingPage() {
   return (
@@ -53,9 +55,17 @@ export default function OrgListingPage() {
       </div>
 
       <div className="flex flex-col mt-8">
-        {/* <div className="mt-8"> */}
-        <OrgListing />
-        {/* </div> */}
+        <div className="grid grid-cols-4 gap-4 content-center">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <OrgCard
+              key={index}
+              name={"org.name"}
+              imgUrl={
+                "https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
+              }
+            />
+          ))}
+        </div>
       </div>
       <div className="flex justify-center mt-3">
         <Pagination count={10} variant="outlined" shape="rounded" />
