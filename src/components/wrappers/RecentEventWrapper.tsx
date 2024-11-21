@@ -5,9 +5,7 @@ export default async function RecentEventCarouselWrapper() {
   // For server components, it's better to use NEXT_PUBLIC_API_URL for external APIs
   // or use absolute URL with the APP_URL for internal API routes
   const baseUrl =
-    process.env.NEXT_PUBLIC_API_URL ||
-    process.env.APP_URL ||
-    "http://127.0.0.1:3000";
+    process.env.NEXT_PUBLIC_DEV_URL || process.env.NEXT_PUBLIC_API_URL;
 
   // Ensure we have a properly formatted URL
   const apiUrl = new URL("/api/events", baseUrl).toString();
