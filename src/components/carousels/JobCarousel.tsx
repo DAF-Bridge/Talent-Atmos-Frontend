@@ -12,20 +12,13 @@ import {
 import JobCard from "../cards/JobCard";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { Job } from "@/lib/types";
 
-type Job = {
-  orgName: string;
-  imgUrl: string;
-  jobTitle: string;
-  location: string;
-};
-
-export default function JobCarousel() {
+export default function JobCarousel({ jobs }: { jobs: Job[] }) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
   const [visibleSlides, setVisibleSlides] = useState(5);
-  const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -52,25 +45,18 @@ export default function JobCarousel() {
   }, [api]);
 
   useEffect(() => {
-    fetch("127.0.0.1/api/jobs")
-      .then((res) => res.json())
-      .then((data) => {
-        setCount(data.data.length);
-        setJobs(data.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching the jobs!", error);
-      });
+    setCount(jobs.length);
   }, []);
 
   const getVisibleSlides = () => {
     if (typeof window !== "undefined") {
-      if (window.innerWidth < 640) return 2; // sm
-      if (window.innerWidth < 768) return 2; // md
-      if (window.innerWidth < 1024) return 3; // lg
-      return 4; // xl and above
+      //
+      if (window.innerWidth < 640) return 1; // sm basis-none
+      if (window.innerWidth < 768) return 3; // md sm:basis-1/3
+      if (window.innerWidth < 1024) return 3; // lg md:basis-1/3
+      return 5; // and above lg:basis-1/5
     }
-    return 4; // default for SSR
+    return 5; // default for SSR
   };
 
   const handlePrevNext = (direction: "prev" | "next") => {
@@ -89,10 +75,10 @@ export default function JobCarousel() {
   };
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <Carousel
         setApi={setApi}
-        className="w-full"
+        className="w-full h-auto"
         opts={{
           align: "start",
           loop: false,
@@ -102,7 +88,7 @@ export default function JobCarousel() {
           {jobs.map((job, index) => (
             <CarouselItem
               key={index}
-              className="pl-2 md:pl-4 basis-1/3 sm:basis-1/3 md:basis-1/4 lg:basis-1/4 2xl:basis-1/5"
+              className="pl-2 md:pl-4 basis-none sm:basis-1/3 md:basis-1/3 lg:basis-1/5"
             >
               <div className="p-1">
                 <JobCard
@@ -120,16 +106,16 @@ export default function JobCarousel() {
         <CarouselPrevious
           onClick={() => handlePrevNext("prev")}
           className="
-              hidden sm:flex absolute left-0 top-[45%] transform -translate-y-1/2 -translate-x-1/2 
-              h-12 w-12 bg-black/50 hover:bg-orange-dark hover:text-white text-white border-none bg-orange-300"
+          hidden sm:flex absolute left-0 top-[45%] transform -translate-y-3 -translate-x-full
+          h-9 w-9 bg-black/50 hover:bg-black/70 hover:text-white text-white border-none"
         ></CarouselPrevious>
 
         {/* next */}
         <CarouselNext
           onClick={() => handlePrevNext("next")}
           className="
-              hidden sm:flex absolute right-0 top-[45%] transform -translate-y-1/2 translate-x-1/2 
-              h-12 w-12 bg-black/50 hover:bg-orange-dark hover:text-white text-white border-none bg-orange-300"
+          hidden sm:flex absolute right-0 top-[45%] transform -translate-y-3 translate-x-full
+          h-9 w-9 bg-black/50 hover:bg-black/70 hover:text-white text-white border-none"
         ></CarouselNext>
       </Carousel>
 

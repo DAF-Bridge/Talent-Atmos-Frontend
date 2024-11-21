@@ -1,12 +1,16 @@
-import JobCarousel from "@/components/carousels/JobCarousel";
 import * as React from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import OrgListing from "@/components/listings/OrgListing";
 import Pagination from "@mui/material/Pagination";
+import { lazy, Suspense } from "react";
+import JobCarouselSkeleton from "@/components/skeletons/JobCarouselSkeleton";
 
-export default function JobPage() {
+// lazy load
+const JobCarouselWrapper = lazy(() => import("@/components/wrappers/JobCarouselWrapper"));
+
+export default function OrgListingPage() {
   return (
-    <div className="font-prompt max-w-[1170px] mx-auto px-6 pb-5">
+    <div className="font-prompt max-w-[1170px] mx-auto px-10 pb-5">
       <div className="text-center font-semibold text-2xl border-b-2 pt-[25px] pb-[11px]">
         <span className="text-black">ค้นหา</span>
         <span className="text-orange-normal"> &quot;องค์กร&quot; </span>
@@ -20,7 +24,9 @@ export default function JobPage() {
 
       <div className="flex justify-between mt-4">
         {/* <OrgCarousel /> */}
-        <JobCarousel />
+        <Suspense fallback={<JobCarouselSkeleton />}>
+          <JobCarouselWrapper />
+        </Suspense>
       </div>
 
       {/* <div className="border-[1.5px] mt-[26px] border-gray-stroke/70" /> */}
