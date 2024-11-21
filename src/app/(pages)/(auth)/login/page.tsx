@@ -233,7 +233,10 @@ export default function Login(): JSX.Element {
               <div className="w-full border border-gray-300 relative" />
             </div>
             <div className="flex flex-col xl:flex-row justify-center gap-[10px]">
-              <button className="oauth-btn">
+              <Link
+                href={"http://localhost:8080/auth/google"}
+                className="oauth-btn"
+              >
                 <Image
                   src={"./icon/google-icon.svg"}
                   width={33}
@@ -241,7 +244,7 @@ export default function Login(): JSX.Element {
                   alt="google-login"
                 />
                 เข้าสู่ระบบด้วย Google
-              </button>
+              </Link>
               <button className="oauth-btn">
                 <Image
                   src={"./icon/fb-icon.svg"}

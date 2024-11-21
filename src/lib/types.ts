@@ -48,3 +48,10 @@ export type Organization = {
   name: string;
   imgUrl: string;
 };
+
+export type Job = {
+  orgName: string;
+  imgUrl: string;
+  jobTitle: string;
+  location: string;
+};
