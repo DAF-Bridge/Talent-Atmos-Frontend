@@ -14,7 +14,7 @@ export default function NavigationBar() {
     {
       label: "อีเว้นท์",
       subMenuName: "หัวข้อกิจกรรม",
-      href: "/events",
+      href: "/event",
       subLabel: [
         {
           label: "ธุรกิจ & เศรษฐกิจ",
@@ -37,7 +37,7 @@ export default function NavigationBar() {
     {
       label: "องค์กร",
       subMenuName: "ประเภทองค์กร",
-      href: "/orgs",
+      href: "/org",
       subLabel: [
         {
           label: "องค์กรด้านเศรษฐกิจ",
