@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - develop
-      - main 
+      - main
   pull_request:
     branches:
       - develop
@@ -15,7 +15,7 @@ jobs:
   build:
     # runs-on: ubuntu-latest -- only on ubuntu
 
-    # - matrix.os: Specifies the operating systems to use. The matrix will 
+    # - matrix.os: Specifies the operating systems to use. The matrix will
     #   run the job on each OS (ubuntu-latest, windows-latest, and macos-latest).
     # - runs-on: Dynamically uses the value from matrix.os to run on the specified platform.
     runs-on: ${{ matrix.os }}
@@ -32,7 +32,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20.10.0'  # Your Node.js version
+          node-version: "20.10.0" # Your Node.js version
 
       - name: Install dependencies
         run: npm install
@@ -51,7 +51,7 @@ jobs:
       - name: Checkout code with full history
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Ensures we have full history for rollback
+          fetch-depth: 0 # Ensures we have full history for rollback
           token: ${{secrets.GH_PAT}}
 
       - name: Rollback last commit
@@ -63,7 +63,7 @@ jobs:
 
       - name: Notify rollback
         run: echo "Build failed. Rolled back to previous commit."
-        
+
   # deploy:
   #   if: github.ref == 'refs/heads/main'
   #   runs-on: ubuntu-latest
@@ -92,25 +92,25 @@ jobs:
   #     - name: Initializing deployment
   #       run: echo "Initializing deployment to Netlify..."
 
-      # - name: Link to Netlify site
-      #   run: |
-      #     netlify link --site ${{ secrets.NETLIFY_SITE_ID }}
-      #   env:
-      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+  # - name: Link to Netlify site
+  #   run: |
+  #     netlify link --site ${{ secrets.NETLIFY_SITE_ID }}
+  #   env:
+  #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
-      # - name: Deploy to Netlify
-      #   run: |
-      #         netlify deploy --prod \
-      #         --dir=.next \
-      #         --functions=netlify/functions \
-      #         --site ${{ secrets.NETLIFY_SITE_ID }}
-      #   env:
-      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+  # - name: Deploy to Netlify
+  #   run: |
+  #         netlify deploy --prod \
+  #         --dir=.next \
+  #         --functions=netlify/functions \
+  #         --site ${{ secrets.NETLIFY_SITE_ID }}
+  #   env:
+  #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+  #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-      # - name: Post-processing after deployment
-      #   run: echo "Deployment complete. Running post-processing steps..."
-  
-      # # final status
-      # - name: Deployment complete
-      #   run: echo "Deployment to Netlify is finished!"
+  # - name: Post-processing after deployment
+  #   run: echo "Deployment complete. Running post-processing steps..."
+
+  # # final status
+  # - name: Deployment complete
+  #   run: echo "Deployment to Netlify is finished!"

@@ -14,7 +14,7 @@ export default function NavigationBar() {
     {
       label: "อีเว้นท์",
       subMenuName: "หัวข้อกิจกรรม",
-      href: "/event",
+      href: "/events",
       subLabel: [
         {
           label: "ธุรกิจ & เศรษฐกิจ",
@@ -37,7 +37,7 @@ export default function NavigationBar() {
     {
       label: "องค์กร",
       subMenuName: "ประเภทองค์กร",
-      href: "/org",
+      href: "/orgs",
       subLabel: [
         {
           label: "องค์กรด้านเศรษฐกิจ",
@@ -62,7 +62,7 @@ export default function NavigationBar() {
   const [isMiniMenuOpen, setIsMiniMenuOpen] = useState(false);
   return (
     <nav className="bg-white shadow-md font-prompt sticky top-0 z-50">
-      <div className="lg:w-[90%] xl:w-[80%] mx-auto px-10">
+      <div className="max-w-[1170px] mx-auto px-10">
         <div className="flex justify-between h-[65px]">
           <div className="flex gap-[42px] ">
             {/* Logo */}

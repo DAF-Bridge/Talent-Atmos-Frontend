@@ -2,9 +2,9 @@ import EventCard from "@/components/cards/EventCard";
 import { Search, SlidersHorizontal } from "lucide-react";
 import React from "react";
 
-export default function EventListing() {
+export default function EventListingPage() {
   return (
-    <div className="font-prompt lg:w-[90%] xl:w-[80%] mx-auto px-10">
+    <div className="font-prompt max-w-[1170px] mx-auto px-10">
       <p className="text-[32px] text-center font-semibold mt-[22px]">
         ค้นหา <span className="text-orange-normal">&quot;อีเว้นท์&quot;</span>{" "}
         ที่ตอบโจทย์
@@ -30,7 +30,7 @@ export default function EventListing() {
           </span>
         </button>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-y-12  gap-x-[5%] lg:gap-x-[3%] mt-[25px] bg-gree">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-12  gap-x-[5%] lg:gap-x-[3%] mt-[25px] bg-gree">
         {Array.from({ length: 10 }).map((_, index) => (
           <EventCard
             key={index}
