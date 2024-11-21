@@ -1,44 +1,5 @@
 import { NextResponse } from "next/server";
 
-/**
- * @swagger
- * /api/organizations:
- *   get:
- *     tags:
- *       - Organizations
- *     summary: Get all organizations
- *     description: Retrieves a list of all organizations with their names and logo images
- *     responses:
- *       200:
- *         description: Successfully retrieved organizations
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 data:
- *                   type: array
- *                   items:
- *                     type: object
- *                     properties:
- *                       name:
- *                         type: string
- *                         example: "ไทยสตาร์ทอัพ"
- *                       imgUrl:
- *                         type: string
- *                         example: "https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
- *       500:
- *         description: Server error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   example: "Failed to fetch organization"
- */
-
 export async function GET() {
   try {
     const mockOrg = [
