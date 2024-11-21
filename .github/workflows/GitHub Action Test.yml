@@ -54,8 +54,8 @@ jobs:
           fetch-depth: 0 # Ensures we have full history for rollback
           token: ${{secrets.GH_PAT}}
 
-      - name: Pull latest changes from remote # ensures that the local branch is up-to-date with the remote branch
-        run: git pull origin ${{ github.ref }}
+      # - name: Pull latest changes from remote # ensures that the local branch is up-to-date with the remote branch
+      #   run: git pull origin ${{ github.ref }}
 
       - name: Rollback last commit
         run: |
