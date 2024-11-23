@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
-import Pagination from "@mui/material/Pagination";
 import { lazy, Suspense } from "react";
 import JobCarouselSkeleton from "@/components/skeletons/JobCarouselSkeleton";
 import OrgCard from "@/components/cards/OrgCard";
