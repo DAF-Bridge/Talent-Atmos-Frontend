@@ -3,8 +3,8 @@ import Link from "next/link";
 import React from "react";
 
 interface OrgCardProps {
-  name: string;
-  imgUrl: string;
+  readonly name: string;
+  readonly imgUrl: string;
 }
 
 export default function OrgCard({ name, imgUrl }: OrgCardProps) {

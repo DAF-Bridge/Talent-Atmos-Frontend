@@ -9,8 +9,8 @@ interface SubLabelProps {
 }
 
 interface CompactMegaMenuProps {
-  label: string;
-  subLabel: SubLabelProps[];
+  readonly label: string;
+  readonly subLabel: SubLabelProps[];
 }
 
 export default function CompactMegaMenu({

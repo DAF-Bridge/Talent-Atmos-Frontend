@@ -3,10 +3,10 @@ import Link from "next/link";
 import React from "react";
 
 interface JobCardProps {
-  orgName: string;
-  imgUrl: string;
-  jobTitle: string;
-  location: string;
+  readonly orgName: string;
+  readonly imgUrl: string;
+  readonly jobTitle: string;
+  readonly location: string;
 }
 
 export default function JobCard({

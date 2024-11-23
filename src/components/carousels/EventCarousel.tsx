@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Event } from "@/lib/types";
 
-export default function EventCarousel({ events }: { events: Event[] }) {
+export default function EventCarousel({ events }: { readonly events: Event[] }) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);

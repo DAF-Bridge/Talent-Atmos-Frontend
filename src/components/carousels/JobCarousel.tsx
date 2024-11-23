@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Job } from "@/lib/types";
 
-export default function JobCarousel({ jobs }: { jobs: Job[] }) {
+export default function JobCarousel({ jobs }: { readonly jobs: Job[] }) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);

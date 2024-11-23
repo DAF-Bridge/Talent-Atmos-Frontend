@@ -1,19 +1,17 @@
-import { Clock } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 interface EventCardProps {
-  title: string;
-  date: string;
-  time: string;
-  location: string;
-  imgUrl: string;
-  orgName: string;
-  orgPicUrl: string;
-  cardId: string;
+  readonly title: string;
+  readonly date: string;
+  readonly time: string;
+  readonly location: string;
+  readonly imgUrl: string;
+  readonly orgName: string;
+  readonly orgPicUrl: string;
+  readonly cardId: string;
 }
-
 export default function EventCard({
   title,
   date,

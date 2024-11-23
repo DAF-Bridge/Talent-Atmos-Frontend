@@ -9,10 +9,10 @@ interface SubLabelProps {
 }
 
 interface DropDownMenuProps {
-  label: string;
-  isActive: boolean;
-  subLabel: SubLabelProps[];
-  subMenuName: string;
+  readonly label: string;
+  readonly isActive: boolean;
+  readonly subLabel: SubLabelProps[];
+  readonly subMenuName: string;
 }
 
 export default function DropDownMenu({

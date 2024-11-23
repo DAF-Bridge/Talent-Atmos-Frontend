@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Organization } from "@/lib/types";
 
-export default function OrgCarousel({ orgs }: { orgs: Organization[] }) {
+export default function OrgCarousel({ orgs }: { readonly orgs: Organization[] }) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);

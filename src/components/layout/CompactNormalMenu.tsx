@@ -2,8 +2,8 @@ import Link from "next/link";
 import React from "react";
 
 interface CompactNormalMenuProps {
-  label: string;
-  href: string;
+  readonly label: string;
+  readonly href: string;
 }
 
 export default function CompactNormalMenu({
