@@ -1,6 +1,6 @@
 import HomeTrendingEvent from "@/components/HomeTrendingEvent";
 import BigFooter from "@/components/layout/BigFooter";
-import NavigationBar from "@/components/layout/NavBar";
+import NavigationBar from "@/components/layout/Navbar/NavBar";
 import EventCarouselSkeleton from "@/components/skeletons/EventCarouselSkeleton";
 import OrgCarouselSkeleton from "@/components/skeletons/OrgCarouselSkeleton";
 import { lazy, Suspense } from "react";

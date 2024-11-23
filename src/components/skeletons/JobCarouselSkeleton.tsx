@@ -7,12 +7,12 @@ import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 // Skeleton placeholder for loading state
 function JobCardSkeleton() {
   return (
-    <div className="flex flex-row gap-[5%] border rounded-[8px] px-2 ">
+    <div className="flex flex-row gap-[5%] border rounded-[8px] px-2 bg-white">
       <div className="my-auto w-[33%] h-full">
-        <Skeleton
+        <div
           style={{ aspectRatio: "1 / 1" }}
-          className="h-full w-full  bg-slate-200"
-        ></Skeleton>
+          className="h-full w-full  bg-slate-200 animate-pulse rounded-full"
+        ></div>
       </div>
       <div className="flex flex-col justify-start py-[5%] h-full w-full">
         <Skeleton className="h-6 w-[70%] bg-slate-200" />

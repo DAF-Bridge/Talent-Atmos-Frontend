@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: "Talent Atmos",
@@ -16,7 +17,7 @@ export default function RootLayout({
     <html lang="th">
       <body className="bg-cream-bg">
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          {children}
+          <AuthProvider>{children}</AuthProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

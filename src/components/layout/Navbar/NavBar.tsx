@@ -3,13 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import MegaMenu from "./MegaMenu";
-import NormalMenu from "./NormalMenu";
-import CompactMegaMenu from "./CompactMegaMenu";
-import CompactNormalMenu from "./CompactNormalMenu";
+import MegaMenu from "../MegaMenu";
+import NormalMenu from "../NormalMenu";
+import CompactMegaMenu from "../CompactMegaMenu";
+import CompactNormalMenu from "../CompactNormalMenu";
+import AvatarProfile from "./PCAvatar";
+import MobileAvatar from "./MobileAvatar";
 
 export default function NavigationBar() {
-  const isAuth = true;
   const menuItems = [
     {
       label: "อีเว้นท์",
@@ -92,34 +93,7 @@ export default function NavigationBar() {
 
           {/* Login/Signup Button */}
           <div className="hidden md:flex md:items-center space-x-4 ">
-            {!isAuth ? (
-              <>
-                <Link href="/login">
-                  <div className="flex justify-center items-center w-[122px] h-[46px] font-normal px-4 py-2 border border-black text-black rounded-lg hover:text-orange-dark">
-                    เข้าสู่ระบบ
-                  </div>
-                </Link>
-                <Link href="/signup">
-                  <div
-                    className="flex justify-center items-center w-[122px] h-[46px] 
-                  font-light px-4 py-2 bg-orange-normal text-white rounded-lg 
-                  hover:bg-orange-dark"
-                  >
-                    สมัครสมาชิก
-                  </div>
-                </Link>
-              </>
-            ) : (
-              <div className="h-[50px] w-[50px]">
-                <Image
-                  className="object-cover h-full w-full rounded-full "
-                  src="/user-pic.jpg"
-                  alt="user"
-                  width={100}
-                  height={100}
-                />
-              </div>
-            )}
+            <AvatarProfile />
           </div>
 
           {/* Mobile Menu Button */}
@@ -171,40 +145,7 @@ export default function NavigationBar() {
               </div>
             ))}
             <div className="flex flex-col gap-3 px-3 py-2">
-              {!isAuth ? (
-                <>
-                  <Link href="/login">
-                    <div
-                      className="
-                    flex h-[42px] justify-center items-center text-gray-800 font-normal border-black 
-                    hover:text-orange-dark rounded-full border transition-all duration-200"
-                    >
-                      เข้าสู่ระบบ
-                    </div>
-                  </Link>
-                  <Link href="/signup">
-                    <div
-                      className="flex h-[42px] justify-center items-center text-white bg-orange-normal 
-                    hover:bg-orange-dark rounded-full border transition-all duration-200"
-                    >
-                      สมัครสมาชิก
-                    </div>
-                  </Link>
-                </>
-              ) : (
-                <div className="flex gap-2 h-[40px] w-[40px]">
-                  <Image
-                    className="object-cover h-full w-full rounded-full "
-                    src="/user-pic.jpg"
-                    alt="user"
-                    width={100}
-                    height={100}
-                  />
-                  <div className="content-center">
-                    <p>Username</p>
-                  </div>
-                </div>
-              )}
+              <MobileAvatar/>
             </div>
           </div>
         </div>

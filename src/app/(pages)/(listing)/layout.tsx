@@ -1,5 +1,5 @@
 import BigFooter from "@/components/layout/BigFooter";
-import NavigationBar from "@/components/layout/NavBar";
+import NavigationBar from "@/components/layout/Navbar/NavBar";
 
 export default function ListingPageLayout({
   children,

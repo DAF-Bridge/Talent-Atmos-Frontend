@@ -55,3 +55,19 @@ export type Job = {
   jobTitle: string;
   location: string;
 };
+
+export type UserProfile = {
+  ID: number;
+  fname: string;
+  lname: string;
+  email: string;
+  phone: string;
+  pic_url: string;
+  user_id: number;
+};
+
+export type AuthContextType = {
+  isAuth: boolean | null;
+  userProfile: UserProfile | null;
+  loading: boolean;
+};
