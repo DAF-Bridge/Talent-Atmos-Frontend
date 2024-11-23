@@ -11,7 +11,6 @@ import React, {
 import Cookies from "js-cookie";
 import { AuthContextType, UserProfile } from "@/lib/types";
 
-
 const AuthContext = createContext<AuthContextType>({
   isAuth: null,
   userProfile: null,
@@ -42,6 +41,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const apiUrl = new URL("/current-user-profile", baseUrl).toString();
 
         const response = await fetch(apiUrl, {
+          cache: "no-cache",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -54,7 +54,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUserProfile(data);
         setIsAuth(true);
       } catch (err) {
-        console.error(err.message);
+        if (err instanceof Error) {
+          console.error(err.message);
+        }
         setIsAuth(false);
       } finally {
         setLoading(false);
@@ -62,7 +64,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     fetchUserProfile();
-    
   }, []);
 
   // Wrap the context value in useMemo to avoid unnecessary recalculations

@@ -9,7 +9,7 @@ export default function MobileAvatar() {
   // Don't render anything until auth state is confirmed
   if (loading) {
     return (
-      <div className="h-[50px] w-[50px] animate-pulse bg-gray-200 rounded-full" />
+      <div className="h-[40px] w-[40px] animate-pulse bg-gray-200 rounded-full" />
     );
   }
 
@@ -49,7 +49,7 @@ export default function MobileAvatar() {
               height={100}
             />
           </div>
-          <div className="bg-red-500 w-full">
+          <div className="w-full">
             <p>{userProfile?.fname + " " + userProfile?.lname}</p>
           </div>
         </div>

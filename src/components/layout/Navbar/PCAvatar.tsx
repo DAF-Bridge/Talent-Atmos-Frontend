@@ -9,7 +9,7 @@ export default function PCAvatar() {
   // Don't render anything until auth state is confirmed
   if (loading) {
     return (
-      <div className="h-[50px] w-[50px] animate-pulse bg-gray-200 rounded-full" />
+      <div className="h-[40px] w-[40px] animate-pulse bg-gray-200 rounded-full" />
     );
   }
   // console.log(userProfile);
@@ -33,7 +33,7 @@ export default function PCAvatar() {
           </Link>
         </>
       ) : (
-        <div className="h-[50px] w-[50px]">
+        <div className="h-[40px] w-[40px]">
           
           <Image
             className="object-cover h-full w-full rounded-full "

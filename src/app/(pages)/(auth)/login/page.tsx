@@ -221,7 +221,7 @@ export default function Login(): JSX.Element {
             <div className="flex gap-1 justify-center mt-[17px]">
               <p className="font-light">คุณยังไม่เป็นสมาชิกใช่หรือไม่? </p>
               <Link
-                href={"/register"}
+                href={"/signup"}
                 className="text-orange-dark hover:underline "
               >
                 สมัครเลย
