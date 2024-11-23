@@ -10,6 +10,7 @@ import React, {
 } from "react";
 import Cookies from "js-cookie";
 import { AuthContextType, UserProfile } from "@/lib/types";
+import { formatExternalUrl } from "@/lib/utils";
 
 const AuthContext = createContext<AuthContextType>({
   isAuth: null,
@@ -33,12 +34,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           return;
         }
 
-        const baseUrl =
-          process.env.NODE_ENV === "development"
-            ? process.env.NEXT_PUBLIC_GO_DEV_URL
-            : process.env.NEXT_PUBLIC_GO_API_URL;
-
-        const apiUrl = new URL("/current-user-profile", baseUrl).toString();
+        const apiUrl = formatExternalUrl("/current-user-profile");
 
         const response = await fetch(apiUrl, {
           cache: "no-cache",

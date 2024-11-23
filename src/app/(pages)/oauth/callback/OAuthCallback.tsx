@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { CookieExpiresDay } from "../../../../../config/config";
 
 export default function OAuthCallbackPage() {
   const searchParams = useSearchParams();
@@ -14,7 +15,7 @@ export default function OAuthCallbackPage() {
     if (token) {
       // Save token in cookie
       Cookies.set("authToken", token, {
-        expires: 1, // 1 day
+        expires: CookieExpiresDay, // 1 day
         path: "/",
         secure: process.env.NODE_ENV === "production", // HTTPS in production
         sameSite: "strict",

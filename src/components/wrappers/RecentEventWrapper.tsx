@@ -1,16 +1,11 @@
+import { formatInternalUrl } from "@/lib/utils";
 import EventCarousel from "../carousels/EventCarousel";
 
 // Server component to fetch data
 export default async function RecentEventCarouselWrapper() {
   // For server components, it's better to use NEXT_PUBLIC_API_URL for external APIs
-  // or use absolute URL with the APP_URL for internal API routes
-  const baseUrl =
-    process.env.NODE_ENV === "development"
-      ? process.env.NEXT_PUBLIC_DEV_URL
-      : process.env.NEXT_PUBLIC_API_URL;
 
-  // Ensure we have a properly formatted URL
-  const apiUrl = new URL("/api/events", baseUrl).toString();
+  const apiUrl = formatInternalUrl("/api/events");
 
   try {
     const res = await fetch(apiUrl, {

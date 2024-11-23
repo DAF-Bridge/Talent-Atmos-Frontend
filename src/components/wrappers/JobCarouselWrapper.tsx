@@ -1,16 +1,12 @@
+import { formatInternalUrl } from "@/lib/utils";
 import JobCarousel from "../carousels/JobCarousel";
 
 // Server component to fetch data
 export default async function JobCarouselWrapper() {
   // For server components, it's better to use NEXT_PUBLIC_API_URL for external APIs
-  // or use absolute URL with the APP_URL for internal API routes
-  const baseUrl =
-    process.env.NODE_ENV === "development"
-      ? process.env.NEXT_PUBLIC_DEV_URL
-      : process.env.NEXT_PUBLIC_API_URL;
 
   // Ensure we have a properly formatted URL
-  const apiUrl = new URL("/api/jobs", baseUrl).toString();
+  const apiUrl = formatInternalUrl("/api/jobs");
 
   try {
     const res = await fetch(apiUrl, {

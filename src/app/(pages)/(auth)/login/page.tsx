@@ -13,6 +13,9 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
+import Cookies from "js-cookie";
+import { CookieExpiresDay } from "../../../../../config/config";
+import { formatInternalUrl } from "@/lib/utils";
 
 export default function Login(): JSX.Element {
   const router = useRouter();
@@ -39,7 +42,8 @@ export default function Login(): JSX.Element {
 
     try {
       // Send POST request to Next API
-      const response = await fetch("/api/login", {
+      const apiUrl = formatInternalUrl("/api/login");
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,12 +56,23 @@ export default function Login(): JSX.Element {
 
       // if the response if ok redirect to home, if not, show error toast
       if (response.ok) {
+        const responseData = await response.json();
+        // Save token in cookie
+        Cookies.set("authToken", responseData.token, {
+          expires: CookieExpiresDay, // 1 day
+          path: "/",
+          secure: process.env.NODE_ENV === "production", // HTTPS in production
+          sameSite: "strict",
+        });
+
         const successToastId = toast.success("เข้าสู่ระบบสําเร็จ");
+
         // Delay the redirect to show the toast
         setTimeout(() => {
           toast.dismiss(successToastId); // Clear the success toast
           router.push("/"); // Redirect to home
         }, 1500); // Delay of 1.5 seconds for users to see the success message
+
         return;
       } else {
         // if the server validation caught an error
