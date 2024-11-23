@@ -43,7 +43,11 @@ export default function MobileAvatar() {
           >
             <Image
               className="object-cover h-full w-full rounded-full "
-              src={userProfile?.pic_url ?? "/user-pic.jpg"}
+              src={
+                userProfile?.pic_url && userProfile.pic_url.trim() !== ""
+                  ? userProfile.pic_url
+                  : "/user-pic.jpg"
+              }
               alt="user"
               width={100}
               height={100}

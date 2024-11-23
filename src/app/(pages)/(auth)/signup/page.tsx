@@ -12,8 +12,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { PasswordRating } from "@/components/PasswordRating";
+import { formatInternalUrl } from "@/lib/utils";
+import Cookies from "js-cookie";
+import { CookieExpiresDay } from "../../../../../config/config";
 
-export default function Register() {
+export default function SignUpPage() {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +39,9 @@ export default function Register() {
 
     try {
       // Send POST request to Next API
-      const response = await fetch("/api/signup", {
+      const apiUrl = formatInternalUrl("/api/signup");
+      const response = await fetch(apiUrl, {
+        cache: "no-cache",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,6 +54,15 @@ export default function Register() {
 
       // if the response if ok redirect to home, if not, show error toast
       if (response.ok) {
+        const responseData = await response.json();
+        // Save token in cookie
+        Cookies.set("authToken", responseData.token, {
+          expires: CookieExpiresDay, // 1 day
+          path: "/",
+          secure: process.env.NODE_ENV === "production", // HTTPS in production
+          sameSite: "strict",
+        });
+
         const successToastId = toast.success("ลงทะเบียนสําเร็จ");
         // Delay the redirect to show the toast
         setTimeout(() => {

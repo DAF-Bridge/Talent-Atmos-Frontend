@@ -17,7 +17,7 @@ import Cookies from "js-cookie";
 import { CookieExpiresDay } from "../../../../../config/config";
 import { formatInternalUrl } from "@/lib/utils";
 
-export default function Login(): JSX.Element {
+export default function LoginPage(): JSX.Element {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -44,6 +44,7 @@ export default function Login(): JSX.Element {
       // Send POST request to Next API
       const apiUrl = formatInternalUrl("/api/login");
       const response = await fetch(apiUrl, {
+        cache: "no-cache",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
