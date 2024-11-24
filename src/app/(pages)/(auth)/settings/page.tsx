@@ -1,7 +1,7 @@
 "use client";
 
-import BigFooter from "@/components/layout/BigFooter";
-import NavigationBar from "@/components/layout/Navbar/NavBar";
+// import BigFooter from "@/components/layout/BigFooter";
+// import NavigationBar from "@/components/layout/Navbar/NavBar";
 import React from "react";
 
 export default function settingPage() {

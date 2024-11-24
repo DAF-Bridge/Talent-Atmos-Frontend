@@ -1,39 +1,39 @@
 "use client";
 
-import { useState } from "react";
-import React, { use } from "react";
-import { changePasswordSchema, TChangePasswordSchema } from "@/lib/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldValues, useForm } from "react-hook-form";
+import React, { useState } from "react";
+// import { changePasswordSchema, TChangePasswordSchema } from "@/lib/types";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { useForm } from "react-hook-form";
+// import {FieldValues} from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { PasswordRating } from "@/components/PasswordRating";
+// import { PasswordRating } from "@/components/PasswordRating";
 import Link from "next/link";
-import { Eye, EyeOff, House } from "lucide-react";
-import toast, { Toaster } from "react-hot-toast";
-import Cookies from "js-cookie";
-import { formatInternalUrl } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { Eye, EyeOff } from "lucide-react";
+// import toast, { Toaster } from "react-hot-toast";
+// import Cookies from "js-cookie";
+// import { formatInternalUrl } from "@/lib/utils";
+// import { useRouter } from "next/navigation";
 
-export default function password() {
-  const router = useRouter();
+export default function Password() {
+  // const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const {
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    setError,
-    watch,
-  } = useForm<TChangePasswordSchema>({
-    resolver: zodResolver(changePasswordSchema),
-  });
+  // const {
+  //   handleSubmit,
+  //   formState: { errors, isSubmitting },
+  //   setError,
+  //   watch,
+  // } = useForm<TChangePasswordSchema>({
+  //   resolver: zodResolver(changePasswordSchema),
+  // });
 
-  const [isFocused, setIsFocused] = useState(false);
+  // const [isFocused, setIsFocused] = useState(false);
   // const password = watch("password"); // Use watch to monitor password field
 
   return (
@@ -117,7 +117,7 @@ export default function password() {
           className="text-xl font-normal bg-orange-dark hover:bg-orange-normal hover:shadow-md h-[45px] sm:h-[50px] 
               rounded-[10px] mt-[24px]"
           type="submit"
-          disabled={isSubmitting}
+          // disabled={isSubmitting}
         >
           บันทึกข้อมูล
         </Button>
