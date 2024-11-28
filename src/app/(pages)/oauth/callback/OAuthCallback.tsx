@@ -10,20 +10,33 @@ export default function OAuthCallbackPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const token = searchParams.get("token");
+    const handleCallback = async () => {
+      const token = searchParams.get("token");
 
-    if (token) {
-      // Save token in cookie
-      Cookies.set("authToken", token, {
-        expires: CookieExpiresDay, // 1 day
-        path: "/",
-        secure: process.env.NODE_ENV === "production", // HTTPS in production
-        sameSite: "strict",
-      });
+      if (token) {
+        // set cookie
 
-      // Redirect the user to the home page or any other page
-      router.push("/");
-    }
+        // Create a promise that resolves when the cookie is set
+        await new Promise<void>((resolve) => {
+          Cookies.set("authToken", token, {
+            expires: CookieExpiresDay,
+            path: "/",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+          });
+
+          // Verify the cookie was set successfully
+          const savedToken = Cookies.get("authToken");
+          if (savedToken === token) {
+            resolve();
+          }
+        });
+
+        // Redirect the user to the home page or any other page
+        router.push("/");
+      }
+    };
+    handleCallback();
   }, [router, searchParams]);
 
   return <></>;

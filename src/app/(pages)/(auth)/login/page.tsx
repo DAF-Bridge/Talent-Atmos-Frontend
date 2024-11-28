@@ -58,12 +58,20 @@ export default function LoginPage(): JSX.Element {
       // if the response if ok redirect to home, if not, show error toast
       if (response.ok) {
         const responseData = await response.json();
-        // Save token in cookie
-        Cookies.set("authToken", responseData.token, {
-          expires: CookieExpiresDay, // 1 day
-          path: "/",
-          secure: process.env.NODE_ENV === "production", // HTTPS in production
-          sameSite: "strict",
+        // Create a promise that resolves when the cookie is set
+        await new Promise<void>((resolve) => {
+          Cookies.set("authToken", responseData.token, {
+            expires: CookieExpiresDay,
+            path: "/",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+          });
+
+          // Verify the cookie was set successfully
+          const savedToken = Cookies.get("authToken");
+          if (savedToken === responseData.token) {
+            resolve();
+          }
         });
 
         const successToastId = toast.success("เข้าสู่ระบบสําเร็จ");
