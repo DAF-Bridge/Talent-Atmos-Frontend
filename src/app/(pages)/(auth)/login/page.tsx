@@ -275,7 +275,7 @@ export default function LoginPage(): JSX.Element {
                 />
                 เข้าสู่ระบบด้วย Google
               </Link>
-              <button className="oauth-btn">
+              {/* <button className="oauth-btn">
                 <Image
                   src={"./icon/fb-icon.svg"}
                   width={33}
@@ -283,7 +283,7 @@ export default function LoginPage(): JSX.Element {
                   alt="google-login"
                 />
                 เข้าสู่ระบบด้วย Facebook
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
