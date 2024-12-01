@@ -46,7 +46,7 @@ export default function JobCarousel({ jobs }: { readonly jobs: Job[] }) {
 
   useEffect(() => {
     setCount(jobs.length);
-  }, []);
+  }, [jobs.length]);
 
   const getVisibleSlides = () => {
     if (typeof window !== "undefined") {

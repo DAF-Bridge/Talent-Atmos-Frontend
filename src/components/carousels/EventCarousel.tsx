@@ -46,7 +46,7 @@ export default function EventCarousel({ events }: { readonly events: Event[] }) 
 
   useEffect(() => {
     setCount(events.length);
-  }, []);
+  }, [events.length]);
 
   const getVisibleSlides = () => {
     if (typeof window !== "undefined") {

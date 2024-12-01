@@ -46,7 +46,7 @@ export default function OrgCarousel({ orgs }: { readonly orgs: Organization[] })
 
   useEffect(() => {
     setCount(orgs.length);
-  }, []);
+  }, [orgs.length]);
 
   const getVisibleSlides = () => {
     if (typeof window !== "undefined") {
