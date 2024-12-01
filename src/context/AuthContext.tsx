@@ -71,6 +71,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [fetchUserProfile]);
 
   const removeAuthState = useCallback(() => {
+    Cookies.remove("authToken");
     setIsAuth(false);
     setUserProfile(null);
   }, []);

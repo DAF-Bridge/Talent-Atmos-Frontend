@@ -7,8 +7,10 @@ import {
   Ticket,
 } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 export default function DropDownMenu() {
+  const { removeAuthState } = useAuth();
   return (
     <>
       <div className="flex gap-1 ">
@@ -65,12 +67,12 @@ export default function DropDownMenu() {
             <span className="text-base font-normal">ตั้งค่าบัญชี</span>
           </>
         </Link>
-        <Link href={"/logout"} className={btnStyleVariant2}>
+        <button onClick={removeAuthState} className={btnStyleVariant2}>
           <>
             <LogOut className="h-[18px]" />
             <span className="text-base font-normal">ออกจากระบบ</span>
           </>
-        </Link>
+        </button>
       </div>
     </>
   );
