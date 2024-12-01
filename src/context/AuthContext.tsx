@@ -7,6 +7,7 @@ import React, {
   useContext,
   ReactNode,
   useMemo,
+  useCallback,
 } from "react";
 import Cookies from "js-cookie";
 import { AuthContextType, UserProfile } from "@/lib/types";
@@ -16,6 +17,8 @@ const AuthContext = createContext<AuthContextType>({
   isAuth: null,
   userProfile: null,
   loading: true,
+  setAuthState: () => {},
+  removeAuthState: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -23,43 +26,52 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchUserProfile = useCallback(async () => {
     const token = Cookies.get("authToken");
-
-    const fetchUserProfile = async () => {
-      try {
-        if (!token) {
-          setIsAuth(false);
-          setLoading(false);
-          return;
-        }
-
-        const apiUrl = formatExternalUrl("/current-user-profile");
-
-        const response = await fetch(apiUrl, {
-          cache: "no-cache",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (!response.ok) throw new Error("Unauthorized");
-
-        const data: UserProfile = await response.json();
-        setUserProfile(data);
-        setIsAuth(true);
-      } catch (err) {
-        if (err instanceof Error) {
-          console.error(err.message);
-        }
+    try {
+      // prevent error throw on initial login
+      if (!token) {
         setIsAuth(false);
-      } finally {
         setLoading(false);
+        return;
       }
-    };
 
+      const apiUrl = formatExternalUrl("/current-user-profile");
+
+      const response = await fetch(apiUrl, {
+        cache: "no-store", // More aggressive no-cache
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error("Unauthorized");
+
+      const data: UserProfile = await response.json();
+      setUserProfile(data);
+      setIsAuth(true);
+    } catch (err) {
+      console.error(err);
+      setIsAuth(false);
+      Cookies.remove("authToken"); // clear token if its invalid
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
     fetchUserProfile();
+  }, [fetchUserProfile]);
+
+  const setAuthState = useCallback(() => {
+    setIsAuth(true);
+    fetchUserProfile();
+  }, [fetchUserProfile]);
+
+  const removeAuthState = useCallback(() => {
+    setIsAuth(false);
+    setUserProfile(null);
   }, []);
 
   // Wrap the context value in useMemo to avoid unnecessary recalculations
@@ -68,10 +80,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       isAuth,
       userProfile,
       loading,
+      setAuthState,
+      removeAuthState,
     }),
-    [isAuth, userProfile, loading]
+    [isAuth, userProfile, loading, setAuthState, removeAuthState]
   );
-  console.log(userProfile);
+
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );

@@ -16,8 +16,10 @@ import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
 import { CookieExpiresDay } from "../../../../../config/config";
 import { formatInternalUrl } from "@/lib/utils";
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage(): JSX.Element {
+  const { setAuthState } = useAuth();
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -70,9 +72,13 @@ export default function LoginPage(): JSX.Element {
           // Verify the cookie was set successfully
           const savedToken = Cookies.get("authToken");
           if (savedToken === responseData.token) {
+            //set isAuth to true
             resolve();
           }
         });
+
+        // Update isAuth to true
+        setAuthState(); // Update the auth state globally
 
         const successToastId = toast.success("เข้าสู่ระบบสําเร็จ");
 
@@ -258,7 +264,7 @@ export default function LoginPage(): JSX.Element {
             </div>
             <div className="flex flex-col xl:flex-row justify-center gap-[10px]">
               <Link
-                href={"http://localhost:8080/auth/google"}
+                href={`${process.env.NEXT_PUBLIC_API_URL}/api/oauth/init`}
                 className="oauth-btn"
               >
                 <Image

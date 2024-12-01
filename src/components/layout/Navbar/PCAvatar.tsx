@@ -42,7 +42,7 @@ export default function PCAvatar() {
   }, [isAuth]);
 
   // Show loading state
-  if (loading || !userProfile) {
+  if (loading) {
     return (
       <div className="h-[40px] w-[40px] animate-pulse bg-gray-200 rounded-full" />
     );

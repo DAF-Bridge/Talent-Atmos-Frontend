@@ -4,8 +4,10 @@ import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { CookieExpiresDay } from "../../../../../config/config";
+import { useAuth } from "@/context/AuthContext";
 
 export default function OAuthCallbackPage() {
+  const { setAuthState } = useAuth();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -32,12 +34,15 @@ export default function OAuthCallbackPage() {
           }
         });
 
+        // set auth state
+        setAuthState();
+
         // Redirect the user to the home page or any other page
         router.push("/");
       }
     };
     handleCallback();
-  }, [router, searchParams]);
+  }, [router, searchParams, setAuthState]);
 
   return <></>;
 }
