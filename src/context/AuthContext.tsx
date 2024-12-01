@@ -11,7 +11,7 @@ import React, {
 } from "react";
 import Cookies from "js-cookie";
 import { AuthContextType, UserProfile } from "@/lib/types";
-import { formatExternalUrl } from "@/lib/utils";
+import { formatInternalUrl } from "@/lib/utils";
 
 const AuthContext = createContext<AuthContextType>({
   isAuth: null,
@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchUserProfile = useCallback(async () => {
     const token = Cookies.get("authToken");
+
     try {
       // prevent error throw on initial login
       if (!token) {
@@ -36,7 +37,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         return;
       }
 
-      const apiUrl = formatExternalUrl("/current-user-profile");
+      const apiUrl = formatInternalUrl("/api/current-user");
 
       const response = await fetch(apiUrl, {
         cache: "no-store", // More aggressive no-cache
