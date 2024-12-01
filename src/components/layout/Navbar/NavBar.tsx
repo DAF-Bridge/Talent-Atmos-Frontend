@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import NormalMenu from "../NormalMenu";
-import CompactNormalMenu from "../CompactNormalMenu";
+import NormalMenu from "./NormalMenu";
+import CompactNormalMenu from "./CompactNormalMenu";
 import AvatarProfile from "./PCAvatar";
 import MobileAvatar from "./MobileAvatar";
 
@@ -80,13 +80,13 @@ export default function NavigationBar() {
       {/* Mobile Menu */}
       {isMiniMenuOpen && (
         <div className="md:hidden ">
-          <div className="px-2 pt-2 pb-3 mt-[-2px] w-full bg-white absolute shadow-md">
+          <div className="px-2 pt-2 pb-1 mt-[-2px] w-full bg-white absolute shadow-md">
             {menuItems.map((item, k) => (
               <div key={k}>
                 <CompactNormalMenu label={item.label} href={item.href ?? ""} />
               </div>
             ))}
-            <div className="flex flex-col gap-3 px-3 py-2">
+            <div>
               <MobileAvatar />
             </div>
           </div>

@@ -12,7 +12,7 @@ export default function CompactNormalMenu({
 }: CompactNormalMenuProps) {
   return (
     <Link href={href}>
-      <div className="block text-gray-800 hover:bg-orange-dark hover:text-white transition-all duration-150 px-3 py-2 rounded-md font-medium border-b">
+      <div className="block text-gray-800 hover:bg-orange-dark hover:text-white transition-all duration-150 px-3 py-2 font-medium border-b">
         {label}
       </div>
     </Link>
