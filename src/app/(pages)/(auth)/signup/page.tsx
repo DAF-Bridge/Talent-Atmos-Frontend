@@ -15,8 +15,10 @@ import { PasswordRating } from "@/components/PasswordRating";
 import { formatInternalUrl } from "@/lib/utils";
 import Cookies from "js-cookie";
 import { CookieExpiresDay } from "../../../../../config/config";
+import { useAuth } from "@/context/AuthContext";
 
 export default function SignUpPage() {
+  const { setAuthState } = useAuth();
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -55,13 +57,25 @@ export default function SignUpPage() {
       // if the response if ok redirect to home, if not, show error toast
       if (response.ok) {
         const responseData = await response.json();
-        // Save token in cookie
-        Cookies.set("authToken", responseData.token, {
-          expires: CookieExpiresDay, // 1 day
-          path: "/",
-          secure: process.env.NODE_ENV === "production", // HTTPS in production
-          sameSite: "strict",
+        // Create a promise that resolves when the cookie is set
+        await new Promise<void>((resolve) => {
+          Cookies.set("authToken", responseData.token, {
+            expires: CookieExpiresDay,
+            path: "/",
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+          });
+
+          // Verify the cookie was set successfully
+          const savedToken = Cookies.get("authToken");
+          if (savedToken === responseData.token) {
+            //set isAuth to true
+            resolve();
+          }
         });
+
+        // Update isAuth to true
+        setAuthState(); // Update the auth state globally
 
         const successToastId = toast.success("ลงทะเบียนสําเร็จ");
         // Delay the redirect to show the toast
