@@ -68,10 +68,8 @@ export default function DropDownMenu() {
           </>
         </Link>
         <button onClick={removeAuthState} className={btnStyleVariant2}>
-          <>
-            <LogOut className="h-[18px]" />
-            <span className="text-base font-normal">ออกจากระบบ</span>
-          </>
+          <LogOut className="h-[18px]" />
+          <span className="text-base font-normal">ออกจากระบบ</span>
         </button>
       </div>
     </>
