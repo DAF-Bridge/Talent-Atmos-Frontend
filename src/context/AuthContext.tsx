@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuth, setIsAuth] = useState<boolean | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isHydrated, setIsHydrated] = useState(false); // Track hydration state
 
   const fetchUserProfile = useCallback(async () => {
     const token = Cookies.get("authToken");
@@ -63,6 +64,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     fetchUserProfile();
+    setIsHydrated(true); // Ensure that content is rendered after hydration
   }, [fetchUserProfile]);
 
   const setAuthState = useCallback(() => {
@@ -87,6 +89,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }),
     [isAuth, userProfile, loading, setAuthState, removeAuthState]
   );
+
+  // Delay rendering until hydrated
+  if (!isHydrated) {
+    return null; // Prevent rendering during SSR
+  }
 
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
