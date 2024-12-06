@@ -5,7 +5,7 @@ import EventCarousel from "../carousels/EventCarousel";
 export default async function RecentEventCarouselWrapper() {
   // For server components, it's better to use NEXT_PUBLIC_API_URL for external APIs
 
-  const apiUrl = formatInternalUrl("/api/events");
+  const apiUrl = formatInternalUrl("/api/events/recent-event");
 
   try {
     const res = await fetch(apiUrl, {

@@ -55,7 +55,8 @@ export default function OrgListingPage() {
 
       <div className="flex flex-col mt-8">
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-y-[1%] sm:gap-y-[2%] md:gap-y-[4%] gap-x-[3%] md:gap-x-[2%]">
-          {Array.from({ length: 10 }).map((_, index) => (
+          {/* display at minimum 12 events per page */}
+          {Array.from({ length: 12 }).map((_, index) => (
             <OrgCard
               key={index}
               name={"org.name"}

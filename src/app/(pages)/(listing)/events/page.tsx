@@ -1,8 +1,37 @@
+"use client";
+
 import EventCard from "@/components/cards/EventCard";
+import ListPagination from "@/components/Pagination/ListPagination";
+import { formatInternalUrl } from "@/lib/utils";
 import { Search, SlidersHorizontal } from "lucide-react";
-import React from "react";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 export default function EventListingPage() {
+  const searchParams = useSearchParams();
+  const [events, setEvents] = useState<Event[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const currentPage = Number(searchParams.get("page")) || 1;
+
+  useEffect(() => {
+    // Fetch events based on the current page
+    const fetchEvents = async () => {
+      try {
+        const apiUrl = formatInternalUrl(`/api/events?page=${currentPage}`);
+        const response = await fetch(
+          apiUrl, // Adjust API endpoint
+          { cache: "no-cache" }
+        );
+        const data = await response.json();
+        setEvents(data.events);
+        setTotalPages(data.totalPages); // Backend should return totalPages
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+    fetchEvents();
+  }, [currentPage]);
+  console.log(events);
   return (
     <div className="font-prompt max-w-[1170px] mx-auto px-10">
       <p className="text-[32px] text-center font-semibold mt-[22px]">
@@ -31,7 +60,8 @@ export default function EventListingPage() {
         </button>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-12  gap-x-[5%] lg:gap-x-[3%] mt-[25px]">
-        {Array.from({ length: 10 }).map((_, index) => (
+        {/* display at minimum 12 events per page */}
+        {Array.from({ length: 12 }).map((_, index) => (
           <EventCard
             key={index}
             cardId={(index + 1).toString()} // id={index}
@@ -44,6 +74,9 @@ export default function EventListingPage() {
             orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
           />
         ))}
+      </div>
+      <div className="flex justify-center items-center mt-[50px]">
+        <ListPagination totalPages={totalPages} />
       </div>
     </div>
   );

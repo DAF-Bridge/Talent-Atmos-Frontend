@@ -20,7 +20,9 @@ export default function OrgCard({ name, imgUrl }: OrgCardProps) {
         z-10 opacity-0 group-hover:opacity-100 transform translate-y-full group-hover:translate-y-0 
         duration-300 px-5"
         >
-          <p className="text-white text-2xl font-medium text-center line-clamp-3">{name}</p>
+          <p className="text-white text-2xl font-medium text-center line-clamp-3">
+            {name}
+          </p>
         </div>
         <Image
           className="block h-full w-full object-cover"
