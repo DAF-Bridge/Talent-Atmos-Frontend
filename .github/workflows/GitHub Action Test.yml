@@ -22,7 +22,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
 
     steps:
       - name: Checkout code
@@ -45,7 +45,7 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }} # API in Netlify || produciton mode
-          NEXT_PUBLIC_DEV_URL: ${{ secrets.NEXT_PUBLIC_DEV_URL }} # API in development mode
+          GO_API_URL: ${{ secrets.GO_API_URL }} # API in development mode
 
   rollback:
     if: ${{ failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/develop-did')}}
