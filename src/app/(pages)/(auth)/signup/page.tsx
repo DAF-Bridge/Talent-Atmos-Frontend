@@ -12,9 +12,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { PasswordRating } from "@/components/PasswordRating";
-import { formatInternalUrl } from "@/lib/utils";
-import Cookies from "js-cookie";
-import { CookieExpiresDay } from "../../../../../config/config";
+import { formatInternalUrl, setCookie } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
 export default function SignUpPage() {
@@ -58,21 +56,7 @@ export default function SignUpPage() {
       if (response.ok) {
         const responseData = await response.json();
         // Create a promise that resolves when the cookie is set
-        await new Promise<void>((resolve) => {
-          Cookies.set("authToken", responseData.token, {
-            expires: CookieExpiresDay,
-            path: "/",
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-          });
-
-          // Verify the cookie was set successfully
-          const savedToken = Cookies.get("authToken");
-          if (savedToken === responseData.token) {
-            //set isAuth to true
-            resolve();
-          }
-        });
+        await setCookie(responseData.token);
 
         // Update isAuth to true
         setAuthState(); // Update the auth state globally
@@ -289,7 +273,7 @@ export default function SignUpPage() {
               id="policies"
             />
             <Label
-              className="hover:cursor-pointer font-light text-sm sm:text-base"
+              className="hover:cursor-pointer font-light text-sm"
               htmlFor="policies"
             >
               คุณยอมรับ
@@ -297,7 +281,14 @@ export default function SignUpPage() {
                 className="ml-1 hover:underline text-orange-dark hover:text-orange-normal"
                 href={"/policies"}
               >
-                ข้อกำหนดและเงื่อนไข
+                ข้อกำหนดการใช้งาน
+              </Link>
+              <span> และ </span>
+              <Link
+                className="ml-1 hover:underline text-orange-dark hover:text-orange-normal"
+                href={"/policies"}
+              >
+                นโยบายความเป็นส่วนตัว
               </Link>
             </Label>
           </div>
@@ -308,8 +299,8 @@ export default function SignUpPage() {
           )}
           <div className="flex flex-col w-full gap-[20px]">
             <Button
-              className="self-center sm:self-end mt-5 sm:mt-0 text-lg font-normal bg-orange-dark 
-              hover:bg-orange-normal hover:shadow-md h-[40px] sm:h-[46px] rounded-[10px] w-full sm:w-[150px]"
+              className="self-center sm:self-end mt-5 sm:mt-0 text-md font-normal bg-orange-dark 
+              hover:bg-orange-normal hover:shadow-md h-[40px] rounded-[10px] w-full sm:w-[140px]"
               type="submit"
               disabled={isSubmitting}
             >

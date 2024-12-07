@@ -2,9 +2,8 @@
 
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import Cookies from "js-cookie";
-import { CookieExpiresDay } from "../../../../../config/config";
 import { useAuth } from "@/context/AuthContext";
+import { setCookie } from "@/lib/utils";
 
 export default function OAuthCallbackPage() {
   const { setAuthState } = useAuth();
@@ -19,20 +18,7 @@ export default function OAuthCallbackPage() {
         // set cookie
 
         // Create a promise that resolves when the cookie is set
-        await new Promise<void>((resolve) => {
-          Cookies.set("authToken", token, {
-            expires: CookieExpiresDay,
-            path: "/",
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-          });
-
-          // Verify the cookie was set successfully
-          const savedToken = Cookies.get("authToken");
-          if (savedToken === token) {
-            resolve();
-          }
-        });
+        await setCookie(token);
 
         // set auth state
         setAuthState();

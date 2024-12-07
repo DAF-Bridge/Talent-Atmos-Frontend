@@ -13,9 +13,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import Cookies from "js-cookie";
-import { CookieExpiresDay } from "../../../../../config/config";
-import { formatInternalUrl } from "@/lib/utils";
+import { formatInternalUrl, setCookie } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage(): JSX.Element {
@@ -61,21 +59,7 @@ export default function LoginPage(): JSX.Element {
       if (response.ok) {
         const responseData = await response.json();
         // Create a promise that resolves when the cookie is set
-        await new Promise<void>((resolve) => {
-          Cookies.set("authToken", responseData.token, {
-            expires: CookieExpiresDay,
-            path: "/",
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-          });
-
-          // Verify the cookie was set successfully
-          const savedToken = Cookies.get("authToken");
-          if (savedToken === responseData.token) {
-            //set isAuth to true
-            resolve();
-          }
-        });
+        await setCookie(responseData.token);
 
         // Update isAuth to true
         setAuthState(); // Update the auth state globally
@@ -158,7 +142,7 @@ export default function LoginPage(): JSX.Element {
 
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col gap-4 mt-[21px]"
+              className="flex flex-col gap-5 mt-[21px]"
             >
               <div>
                 <Label className="text-base font-normal" htmlFor="email">
@@ -217,30 +201,17 @@ export default function LoginPage(): JSX.Element {
                   )}
                 </div>
               </div>
-              <div className="flex justify-between mt-2">
-                <div className="inline-flex gap-1 items-center">
-                  <input
-                    type="checkbox"
-                    className="w-4 h-4 accent-black"
-                    id="remember"
-                  />
-                  <Label
-                    className="hover:cursor-pointer font-normal text-sm sm:text-base"
-                    htmlFor="remember"
-                  >
-                    จดจำบัญชีนี้
-                  </Label>
-                </div>
+              <div className="flex justify-end">
                 <Link
                   href={"/forgot-password"}
-                  className="text-sm sm:text-base font-normal underline hover:text-gray-600"
+                  className="text-sm sm:text-base font-normal underline hover:text-orange-dark text-gray-600"
                 >
-                  ลืมรหัสผ่าน
+                  ลืมรหัสผ่าน?
                 </Link>
               </div>
               <Button
-                className="text-xl font-normal bg-orange-dark hover:bg-orange-normal hover:shadow-md h-[45px] sm:h-[50px] 
-              rounded-[10px] mt-[24px]"
+                className="text-lg font-normal bg-orange-dark hover:bg-orange-normal hover:shadow-md h-[48px]
+              rounded-[10px] border"
                 type="submit"
                 disabled={isSubmitting}
               >
@@ -265,7 +236,8 @@ export default function LoginPage(): JSX.Element {
             <div className="flex flex-col xl:flex-row justify-center gap-[10px]">
               <Link
                 href={`${process.env.NEXT_PUBLIC_API_URL}/api/oauth/init`}
-                className="oauth-btn"
+                className="inline-flex gap-1 border hover:border-black/30 hover:shadow-md rounded-[10px] 
+                h-[48px] w-full text-sm font-normal justify-center items-center"
               >
                 <Image
                   src={"./icon/google-icon.svg"}

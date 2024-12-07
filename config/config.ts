@@ -1,1 +1,0 @@
-export const CookieExpiresDay = 1; // 1 day
