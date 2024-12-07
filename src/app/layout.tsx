@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th">
+    <html lang="th" className="font-prompt">
       <body className="bg-cream-bg">
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <AuthProvider>{children}</AuthProvider>
