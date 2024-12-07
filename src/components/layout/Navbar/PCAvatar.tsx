@@ -41,7 +41,7 @@ export default function PCAvatar() {
       <div className="h-[40px] w-[40px] animate-pulse bg-gray-200 rounded-full" />
     );
   }
-  console.log(userProfile?.pic_url);
+
   return (
     <>
       {!isAuth ? (
@@ -70,7 +70,7 @@ export default function PCAvatar() {
             onClick={() => setIsOpen((prev) => !prev)}
             className="h-[40px] w-[40px]"
           >
-            <Avatar className="h-full w-full">
+            <Avatar className="h-full w-full hover:border-2">
               <AvatarImage src={userProfile?.pic_url} />
               <AvatarFallback>
                 {userProfile?.fname[0] + "" + userProfile?.lname[0]}
