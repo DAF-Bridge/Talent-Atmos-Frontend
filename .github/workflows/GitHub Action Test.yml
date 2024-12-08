@@ -3,10 +3,10 @@ name: Web App CI/CD
 on:
   push:
     branches: 
-      [develop, develop-did, main]
+      [develop, main]
   pull_request:
     branches:
-      [develop, develop-did]
+      [develop]
   merge_group:
     types: [checks_requested]
 
