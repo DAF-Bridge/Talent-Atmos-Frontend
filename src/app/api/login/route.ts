@@ -29,6 +29,7 @@ export async function POST(req: Request) {
 
     // Send data to Golang backend if validation is successful
     const apiUrl = formatExternalUrl("/login");
+    console.log(apiUrl)
 
     const res = await fetch(apiUrl, {
       method: "POST",

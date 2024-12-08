@@ -6,10 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatInternalUrl(url: string) {
-  const baseUrl =
-    process.env.NODE_ENV === "development"
-      ? process.env.NEXT_PUBLIC_DEV_URL
-      : process.env.NEXT_PUBLIC_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
   // Ensure we have a properly formatted URL
   const apiUrl = new URL(url, baseUrl).toString();
@@ -17,10 +14,7 @@ export function formatInternalUrl(url: string) {
 }
 
 export function formatExternalUrl(url: string) {
-  const baseUrl =
-    process.env.NODE_ENV === "development"
-      ? process.env.NEXT_PUBLIC_GO_DEV_URL
-      : process.env.NEXT_PUBLIC_GO_API_URL;
+  const baseUrl = process.env.GO_API_URL
 
   // Ensure we have a properly formatted URL
   const apiUrl = new URL(url, baseUrl).toString();
