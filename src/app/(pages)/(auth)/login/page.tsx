@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { formatInternalUrl, setCookie } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
@@ -102,7 +102,7 @@ export default function LoginPage(): JSX.Element {
 
   return (
     <div className="font-prompt flex h-[100vh]">
-      <Toaster />
+      
       <div className="hidden px-[4%] lg:flex lg:flex-col lg:w-[58%] ">
         <Link href="/" className="absolute pt-[71px]">
           <div
@@ -220,7 +220,7 @@ export default function LoginPage(): JSX.Element {
             </form>
 
             <div className="flex gap-1 justify-center mt-[17px]">
-              <p className="font-light">คุณยังไม่เป็นสมาชิกใช่หรือไม่? </p>
+              <p className="font-light">คุณยังไม่เป็นสมาชิกใช่หรือไม่?</p>
               <Link
                 href={"/signup"}
                 className="text-orange-dark hover:underline "
