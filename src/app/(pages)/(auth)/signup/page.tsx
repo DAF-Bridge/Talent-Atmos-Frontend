@@ -41,7 +41,7 @@ export default function SignUpPage() {
       // Send POST request to Next API
       const apiUrl = formatInternalUrl("/api/signup");
       const response = await fetch(apiUrl, {
-        cache: "no-cache",
+        cache: "no-store",
         method: "POST",
         headers: {
           "Content-Type": "application/json",

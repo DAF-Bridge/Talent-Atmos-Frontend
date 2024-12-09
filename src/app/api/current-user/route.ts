@@ -12,6 +12,7 @@ export async function GET(req: NextRequest) {
     // Fetch from backend
 
     const response = await fetch(formatExternalUrl("/current-user-profile"), {
+      cache: "no-store",
       method: "GET",
       headers: {
         "Content-Type": "application/json",

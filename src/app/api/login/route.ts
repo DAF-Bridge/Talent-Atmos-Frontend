@@ -31,6 +31,7 @@ export async function POST(req: Request) {
     const apiUrl = formatExternalUrl("/login");
 
     const res = await fetch(apiUrl, {
+      cache: "no-store",
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(result.data), // Send validated data
