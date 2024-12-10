@@ -17,6 +17,7 @@ import { formatInternalUrl, setCookie } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage(): JSX.Element {
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const { setAuthState } = useAuth();
   const router = useRouter();
 
@@ -63,12 +64,13 @@ export default function LoginPage(): JSX.Element {
 
         // Update isAuth to true
         setAuthState(); // Update the auth state globally
-
+        setIsRedirecting(true);
         const successToastId = toast.success("เข้าสู่ระบบสําเร็จ");
 
         // Delay the redirect to show the toast
         setTimeout(() => {
           toast.dismiss(successToastId); // Clear the success toast
+          setIsRedirecting(false);
           router.push("/"); // Redirect to home
         }, 1500); // Delay of 1.5 seconds for users to see the success message
 
@@ -102,7 +104,6 @@ export default function LoginPage(): JSX.Element {
 
   return (
     <div className="font-prompt flex h-[100vh]">
-      
       <div className="hidden px-[4%] lg:flex lg:flex-col lg:w-[58%] ">
         <Link href="/" className="absolute pt-[71px]">
           <div
@@ -213,7 +214,7 @@ export default function LoginPage(): JSX.Element {
                 className="text-lg font-normal bg-orange-dark hover:bg-orange-normal hover:shadow-md h-[48px]
               rounded-[10px] border"
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isRedirecting}
               >
                 เข้าสู่ระบบ
               </Button>
