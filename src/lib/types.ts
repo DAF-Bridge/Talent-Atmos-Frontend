@@ -70,6 +70,6 @@ export type AuthContextType = {
   isAuth: boolean | null;
   userProfile: UserProfile | null;
   loading: boolean;
-  setAuthState: () => void;
+  setAuthState: (token: string) => void;
   removeAuthState: () => void;
 };

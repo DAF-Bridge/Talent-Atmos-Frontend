@@ -12,7 +12,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { PasswordRating } from "@/components/PasswordRating";
-import { formatInternalUrl, setCookie } from "@/lib/utils";
+import { formatInternalUrl } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
 export default function SignUpPage() {
@@ -56,10 +56,7 @@ export default function SignUpPage() {
       if (response.ok) {
         const responseData = await response.json();
         // Create a promise that resolves when the cookie is set
-        await setCookie(responseData.token);
-
-        // Update isAuth to true
-        setAuthState(); // Update the auth state globally
+        setAuthState(responseData.token); // Update the auth state globally
 
         const successToastId = toast.success("ลงทะเบียนสําเร็จ");
         // Delay the redirect to show the toast

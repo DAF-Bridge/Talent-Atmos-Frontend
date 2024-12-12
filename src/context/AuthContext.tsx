@@ -11,7 +11,7 @@ import React, {
 } from "react";
 import Cookies from "js-cookie";
 import { AuthContextType, UserProfile } from "@/lib/types";
-import { formatInternalUrl } from "@/lib/utils";
+import { formatInternalUrl, setCookie } from "@/lib/utils";
 
 const AuthContext = createContext<AuthContextType>({
   isAuth: null,
@@ -67,10 +67,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsHydrated(true); // Ensure that content is rendered after hydration
   }, [fetchUserProfile]);
 
-  const setAuthState = useCallback(() => {
-    setIsAuth(true);
-    fetchUserProfile();
-  }, [fetchUserProfile]);
+  const setAuthState = useCallback(
+    (token: string) => async () => {
+      await setCookie(token);
+      setIsAuth(true);
+      fetchUserProfile();
+    },
+    [fetchUserProfile]
+  );
 
   const removeAuthState = useCallback(() => {
     Cookies.remove("authToken");

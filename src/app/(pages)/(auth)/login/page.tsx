@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { formatInternalUrl, setCookie } from "@/lib/utils";
+import { formatInternalUrl } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage(): JSX.Element {
@@ -59,11 +59,9 @@ export default function LoginPage(): JSX.Element {
       // if the response if ok redirect to home, if not, show error toast
       if (response.ok) {
         const responseData = await response.json();
-        // Create a promise that resolves when the cookie is set
-        await setCookie(responseData.token);
 
         // Update isAuth to true
-        setAuthState(); // Update the auth state globally
+        setAuthState(responseData.token); // Update the auth state globally
         setIsRedirecting(true);
         const successToastId = toast.success("เข้าสู่ระบบสําเร็จ");
 
