@@ -2,6 +2,7 @@
 
 import EventCard from "@/components/cards/EventCard";
 import ListPagination from "@/components/Pagination/ListPagination";
+import EventCardSkeleton from "@/components/skeletons/EventCardSkeleton";
 import { Event } from "@/lib/types";
 import { formatInternalUrl } from "@/lib/utils";
 import { Search, SlidersHorizontal } from "lucide-react";
@@ -12,12 +13,14 @@ export default function EventListingPage() {
   const searchParams = useSearchParams();
   const [events, setEvents] = useState<Event[]>([]);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const currentPage = Number(searchParams.get("page")) || 1;
   const maxEventsPerPage = 12;
 
   useEffect(() => {
     // Fetch events based on the current page
     const fetchEvents = async () => {
+      setIsLoading(true);
       try {
         const apiUrl = formatInternalUrl(
           `/api/events/listing?page=${currentPage}`
@@ -34,6 +37,8 @@ export default function EventListingPage() {
         setTotalPages(totalPages); // Backend should return totalPages
       } catch (error) {
         console.error("Error fetching events:", error);
+      }finally {
+        setIsLoading(false);
       }
     };
     fetchEvents();
@@ -70,22 +75,29 @@ export default function EventListingPage() {
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-12  gap-x-[5%] lg:gap-x-[3%] mt-[25px]">
         {/* display at minimum 12 events per page */}
-        {events.map((event) => (
-          <EventCard
-            key={event.id}
-            cardId={event.id.toString()} // id={index}
-            title={event.Name}
-            date={`${event.StartDate} - ${event.EndDate}`}
-            time={`${event.StartTime} - ${event.EndTime}`}
-            location={event.Location}
-            imgUrl={event.PicUrl}
-            orgName="มหาวิทยาลัยเชียงใหม่"
-            orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-          />
-        ))}
+        {isLoading ? (
+          // Optional: Add a loading state
+          Array.from({ length: maxEventsPerPage }).map((_, index) => (
+            <EventCardSkeleton key={index}/>
+          ))
+        ) : (
+          events.map((event) => (
+            <EventCard
+              key={event.id}
+              cardId={event.id.toString()}
+              title={event.Name}
+              date={`${event.StartDate} - ${event.EndDate}`}
+              time={`${event.StartTime} - ${event.EndTime}`}
+              location={event.Location}
+              imgUrl={event.PicUrl}
+              orgName="มหาวิทยาลัยเชียงใหม่"
+              orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
+            />
+          ))
+        )}
       </div>
       <div className="flex justify-center items-center mt-[50px]">
-        <ListPagination totalPages={totalPages} />
+        <ListPagination totalPages={totalPages} isLoading={isLoading}/>
       </div>
     </div>
   );
