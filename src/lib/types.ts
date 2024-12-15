@@ -39,9 +39,14 @@ export const loginSchema = z.object({
 export type TLogInSchema = z.infer<typeof loginSchema>;
 
 export type Event = {
-  title: string;
-  date: string;
-  imgUrl: string;
+  id: number;
+  Name: string;
+  StartDate: string;
+  EndDate: string;
+  StartTime: string;
+  EndTime: string;
+  PicUrl: string;
+  Location: string;
 };
 
 export type Organization = {
