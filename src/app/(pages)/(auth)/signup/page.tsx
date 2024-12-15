@@ -11,7 +11,6 @@ import { signupSchema, TSignUpSchema } from "@/lib/types";
 import toast, { Toaster } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { PasswordRating } from "@/components/PasswordRating";
 import { formatInternalUrl } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
@@ -28,7 +27,6 @@ export default function SignUpPage() {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
-    watch,
   } = useForm<TSignUpSchema>({
     resolver: zodResolver(signupSchema),
   });
@@ -87,11 +85,6 @@ export default function SignUpPage() {
       console.error(error);
     }
   };
-
-  // for password suggestion box
-  const [isFocused, setIsFocused] = useState(false);
-  const passwordWatch = watch("password"); // Use watch to monitor password field
-  const confirmPasswordWatch = watch("confirmPassword"); // Use watch to monitor confirmPassword field
 
   return (
     <div className="font-prompt lg:overflow-hidden h-full sm:h-[100vh]">
@@ -200,8 +193,6 @@ export default function SignUpPage() {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder="รหัสผ่าน"
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
               />
               <Button
                 type="button"
@@ -217,9 +208,6 @@ export default function SignUpPage() {
                   <Eye className="h-4 w-4 text-gray-500" />
                 )}
               </Button>
-              {isFocused && passwordWatch.length > 0 && (
-                <PasswordRating password={passwordWatch} />
-              )}
             </div>
           </div>
           <div className="w-full">
@@ -238,8 +226,6 @@ export default function SignUpPage() {
                 type={showPassword ? "text" : "password"}
                 id="confirmPassword"
                 placeholder="ยืนยันรหัสผ่าน"
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
               />
               <Button
                 type="button"
@@ -255,9 +241,6 @@ export default function SignUpPage() {
                   <Eye className="h-4 w-4 text-gray-500" />
                 )}
               </Button>
-              {isFocused && confirmPasswordWatch.length > 0 && (
-                <PasswordRating password={confirmPasswordWatch} />
-              )}
             </div>
           </div>
         </div>

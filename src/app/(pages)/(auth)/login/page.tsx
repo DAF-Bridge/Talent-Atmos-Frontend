@@ -1,6 +1,5 @@
 "use client";
 
-import { PasswordRating } from "@/components/PasswordRating";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -32,7 +31,6 @@ export default function LoginPage(): JSX.Element {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
-    watch,
   } = useForm<TLogInSchema>({
     resolver: zodResolver(loginSchema),
   });
@@ -96,10 +94,6 @@ export default function LoginPage(): JSX.Element {
     }
   };
 
-  // for password suggestion box
-  const [isFocused, setIsFocused] = useState(false);
-  const password = watch("password"); // Use watch to monitor password field
-
   return (
     <div className="font-prompt flex h-[100vh]">
       <div className="hidden px-[4%] lg:flex lg:flex-col lg:w-[58%] ">
@@ -112,13 +106,16 @@ export default function LoginPage(): JSX.Element {
             <p className="self-center">กลับสู่หน้าหลัก</p>
           </div>
         </Link>
-        <div className="h-full flex px-[5%]">
+        <div className="my-auto flex px-[5%]">
           <Image
             className="justify-self-center"
-            src={"/inline-logo.svg"}
+            src={"/inline-logo.webp"}
             width={1000}
             height={179}
             alt="login"
+            priority
+            placeholder="blur" // If using next/image
+            blurDataURL="data:image/..." // Base64 tiny placeholder
           />
         </div>
       </div>
@@ -176,8 +173,6 @@ export default function LoginPage(): JSX.Element {
                     type={showPassword ? "text" : "password"}
                     id="password"
                     placeholder="รหัสผ่าน"
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
                   />
                   <Button
                     type="button"
@@ -195,9 +190,6 @@ export default function LoginPage(): JSX.Element {
                       <Eye className="h-4 w-4 text-gray-500" />
                     )}
                   </Button>
-                  {isFocused && password.length > 0 && (
-                    <PasswordRating password={password} />
-                  )}
                 </div>
               </div>
               <div className="flex justify-end">

@@ -11,8 +11,6 @@ function BriefEventCardSkeleton() {
         className="h-full w-full rounded-[8px] bg-slate-200"
         style={{ aspectRatio: "3 / 4" }}
       />
-      <Skeleton className="h-4 w-[70%] bg-slate-200" />
-      <Skeleton className="h-4 w-[90%] bg-slate-200" />
     </div>
   );
 }
