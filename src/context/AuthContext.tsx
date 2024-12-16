@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [fetchUserProfile]);
 
   const setAuthState = useCallback(
-    (token: string) => async () => {
+    async (token: string) => {
       await setCookie(token);
       setIsAuth(true);
       fetchUserProfile();
