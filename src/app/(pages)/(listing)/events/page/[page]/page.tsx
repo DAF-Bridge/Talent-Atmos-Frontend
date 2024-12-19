@@ -1,48 +1,36 @@
-"use client";
-
 import EventCard from "@/components/cards/EventCard";
 import ListPagination from "@/components/Pagination/ListPagination";
-import EventCardSkeleton from "@/components/skeletons/EventCardSkeleton";
 import { Event } from "@/lib/types";
 import { formatInternalUrl } from "@/lib/utils";
 import { Search, SlidersHorizontal } from "lucide-react";
-import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React from "react";
+export const dynamic = "force-dynamic"; // Ensure fresh data on each request
 
-export default function EventListingPage() {
-  const searchParams = useSearchParams();
-  const [events, setEvents] = useState<Event[]>([]);
-  const [totalPages, setTotalPages] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const currentPage = Number(searchParams.get("page")) || 1;
+export default async function EventListingPage({
+  params,
+}: Readonly<{ params: { page: string } }>) {
+  const currentPage = Number(params.page) || 1;
   const maxEventsPerPage = 12;
+  const apiUrl = formatInternalUrl(`/api/events/listing?page=${currentPage}`);
 
-  useEffect(() => {
-    // Fetch events based on the current page
-    const fetchEvents = async () => {
-      setIsLoading(true);
-      try {
-        const apiUrl = formatInternalUrl(
-          `/api/events/listing?page=${currentPage}`
-        );
-        const response = await fetch(apiUrl, { cache: "no-cache" });
-        const data = await response.json();
-        setEvents(data.resData.events);
+  let events: Event[] = [];
+  let totalPages: number = 0;
 
-        // calculate total pages
-        const totalPages = Math.ceil(
-          data.resData.total_events / maxEventsPerPage
-        );
+  try {
+    const response = await fetch(apiUrl, { cache: "no-cache" });
 
-        setTotalPages(totalPages); // Backend should return totalPages
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }finally {
-        setIsLoading(false);
-      }
-    };
-    fetchEvents();
-  }, [currentPage]);
+    if (!response.ok) {
+      throw new Error(`API call failed with status: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    events = data.resData.events;
+    // calculate total pages
+    totalPages = Math.ceil(data.resData.total_events / maxEventsPerPage);
+  } catch (error) {
+    console.error("Error fetching events:", error);
+  }
 
   // console.log(events, " Total", totalPages);
 
@@ -75,29 +63,22 @@ export default function EventListingPage() {
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-12  gap-x-[5%] lg:gap-x-[3%] mt-[25px]">
         {/* display at minimum 12 events per page */}
-        {isLoading ? (
-          // Optional: Add a loading state
-          Array.from({ length: maxEventsPerPage }).map((_, index) => (
-            <EventCardSkeleton key={index}/>
-          ))
-        ) : (
-          events.map((event) => (
-            <EventCard
-              key={event.id}
-              cardId={event.id.toString()}
-              title={event.Name}
-              date={`${event.StartDate} - ${event.EndDate}`}
-              time={`${event.StartTime} - ${event.EndTime}`}
-              location={event.Location}
-              imgUrl={event.PicUrl}
-              orgName="มหาวิทยาลัยเชียงใหม่"
-              orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-            />
-          ))
-        )}
+        {events.map((event) => (
+          <EventCard
+            key={event.id}
+            cardId={event.id.toString()}
+            title={event.Name}
+            date={`${event.StartDate} - ${event.EndDate}`}
+            time={`${event.StartTime} - ${event.EndTime}`}
+            location={event.Location}
+            imgUrl={event.PicUrl}
+            orgName="มหาวิทยาลัยเชียงใหม่"
+            orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
+          />
+        ))}
       </div>
       <div className="flex justify-center items-center mt-[50px]">
-        <ListPagination totalPages={totalPages} isLoading={isLoading}/>
+        <ListPagination totalPages={totalPages} />
       </div>
     </div>
   );

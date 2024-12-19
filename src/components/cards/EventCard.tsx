@@ -64,7 +64,7 @@ export default function EventCard({
         <div className="flex flex-col gap-2 mt-2">
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
             <Image
-              src="icon/calendar.svg"
+              src="/icon/calendar.svg"
               width={16}
               height={16}
               alt="Calendar icon for event date"
@@ -73,7 +73,7 @@ export default function EventCard({
           </div>
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
             <Image
-              src="icon/time.svg"
+              src="/icon/time.svg"
               width={16}
               height={16}
               alt="Calendar icon for event time"
@@ -82,7 +82,7 @@ export default function EventCard({
           </div>
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
             <Image
-              src="icon/location.svg"
+              src="/icon/location.svg"
               width={16}
               height={16}
               alt="Calendar icon for event location"
