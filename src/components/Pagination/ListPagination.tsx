@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   Pagination,
   PaginationContent,
@@ -10,6 +10,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useEffect, useState } from "react";
 
 interface PaginationProps {
   totalPages: number;
@@ -19,11 +20,19 @@ export default function ListPagination({
   totalPages,
 }: Readonly<PaginationProps>) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) || 1;
+  const params = useParams();
+  const { page } = params; // Extract 'page' from the dynamic route
+  const [currentPage, setCurrentPage] = useState<number>(Number(page) || 1);
+
+  // Update currentPage when page changes in the URL
+  useEffect(() => {
+    if (page) {
+      setCurrentPage(Number(page));
+    }
+  }, [page]);
 
   const handlePageChange = (page: number) => {
-    router.push(`?page=${page}`);
+    router.push(`/events/page/${page}`);
   };
 
   return (

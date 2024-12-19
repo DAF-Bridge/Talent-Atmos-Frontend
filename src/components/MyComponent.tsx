@@ -1,4 +1,4 @@
-// MyComponent.tsx
+// MyComponent.tsx for test mocking only
 import React from 'react';
 
 const MyComponent = () => {

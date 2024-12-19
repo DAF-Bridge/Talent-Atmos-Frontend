@@ -33,9 +33,9 @@ export default function EventCarousel({
             >
               <div className="p-1">
                 <BriefEventCard
-                  title={event.title}
-                  date={event.date}
-                  imgUrl={event.imgUrl}
+                  title={event.Name}
+                  date={`${event.StartDate} - ${event.EndDate}`}
+                  imgUrl={event.PicUrl}
                 />
               </div>
             </CarouselItem>

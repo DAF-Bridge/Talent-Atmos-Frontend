@@ -1,6 +1,5 @@
 "use client";
 
-import { PasswordRating } from "@/components/PasswordRating";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,11 +11,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
-import { formatInternalUrl, setCookie } from "@/lib/utils";
+import toast from "react-hot-toast";
+import { formatInternalUrl } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage(): JSX.Element {
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const { setAuthState } = useAuth();
   const router = useRouter();
 
@@ -31,7 +31,6 @@ export default function LoginPage(): JSX.Element {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
-    watch,
   } = useForm<TLogInSchema>({
     resolver: zodResolver(loginSchema),
   });
@@ -44,7 +43,7 @@ export default function LoginPage(): JSX.Element {
       // Send POST request to Next API
       const apiUrl = formatInternalUrl("/api/login");
       const response = await fetch(apiUrl, {
-        cache: "no-cache",
+        cache: "no-store",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,17 +57,16 @@ export default function LoginPage(): JSX.Element {
       // if the response if ok redirect to home, if not, show error toast
       if (response.ok) {
         const responseData = await response.json();
-        // Create a promise that resolves when the cookie is set
-        await setCookie(responseData.token);
 
         // Update isAuth to true
-        setAuthState(); // Update the auth state globally
-
+        setAuthState(responseData.token); // Update the auth state globally
+        setIsRedirecting(true);
         const successToastId = toast.success("เข้าสู่ระบบสําเร็จ");
 
         // Delay the redirect to show the toast
         setTimeout(() => {
           toast.dismiss(successToastId); // Clear the success toast
+          setIsRedirecting(false);
           router.push("/"); // Redirect to home
         }, 1500); // Delay of 1.5 seconds for users to see the success message
 
@@ -96,13 +94,8 @@ export default function LoginPage(): JSX.Element {
     }
   };
 
-  // for password suggestion box
-  const [isFocused, setIsFocused] = useState(false);
-  const password = watch("password"); // Use watch to monitor password field
-
   return (
     <div className="font-prompt flex h-[100vh]">
-      <Toaster />
       <div className="hidden px-[4%] lg:flex lg:flex-col lg:w-[58%] ">
         <Link href="/" className="absolute pt-[71px]">
           <div
@@ -113,13 +106,16 @@ export default function LoginPage(): JSX.Element {
             <p className="self-center">กลับสู่หน้าหลัก</p>
           </div>
         </Link>
-        <div className="h-full flex px-[5%]">
+        <div className="my-auto flex px-[5%]">
           <Image
             className="justify-self-center"
-            src={"/inline-logo.svg"}
+            src={"/inline-logo.webp"}
             width={1000}
             height={179}
             alt="login"
+            priority
+            placeholder="blur" // If using next/image
+            blurDataURL="data:image/..." // Base64 tiny placeholder
           />
         </div>
       </div>
@@ -177,8 +173,6 @@ export default function LoginPage(): JSX.Element {
                     type={showPassword ? "text" : "password"}
                     id="password"
                     placeholder="รหัสผ่าน"
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
                   />
                   <Button
                     type="button"
@@ -196,9 +190,6 @@ export default function LoginPage(): JSX.Element {
                       <Eye className="h-4 w-4 text-gray-500" />
                     )}
                   </Button>
-                  {isFocused && password.length > 0 && (
-                    <PasswordRating password={password} />
-                  )}
                 </div>
               </div>
               <div className="flex justify-end">
@@ -213,14 +204,14 @@ export default function LoginPage(): JSX.Element {
                 className="text-lg font-normal bg-orange-dark hover:bg-orange-normal hover:shadow-md h-[48px]
               rounded-[10px] border"
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isRedirecting}
               >
                 เข้าสู่ระบบ
               </Button>
             </form>
 
             <div className="flex gap-1 justify-center mt-[17px]">
-              <p className="font-light">คุณยังไม่เป็นสมาชิกใช่หรือไม่? </p>
+              <p className="font-light">คุณยังไม่เป็นสมาชิกใช่หรือไม่?</p>
               <Link
                 href={"/signup"}
                 className="text-orange-dark hover:underline "

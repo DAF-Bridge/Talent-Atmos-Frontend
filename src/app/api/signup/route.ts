@@ -27,17 +27,17 @@ export async function POST(req: Request) {
     }
 
     // Send data to Golang backend if validation is successful
-    
 
     const dataToBeSend = {
-      name: result.data?.firstName + " " + result.data?.lastName,     
-      email: result.data?.email,    
+      name: result.data?.firstName + " " + result.data?.lastName,
+      email: result.data?.email,
       password: result.data?.password,
-      phone: result.data?.phone,    
-    }
+      phone: result.data?.phone,
+    };
 
     const apiUrl = formatExternalUrl("/signup");
     const res = await fetch(apiUrl, {
+      cache: "no-store",
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dataToBeSend), // Send validated data

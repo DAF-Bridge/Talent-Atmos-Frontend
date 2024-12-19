@@ -11,8 +11,7 @@ import { signupSchema, TSignUpSchema } from "@/lib/types";
 import toast, { Toaster } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { PasswordRating } from "@/components/PasswordRating";
-import { formatInternalUrl, setCookie } from "@/lib/utils";
+import { formatInternalUrl } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
 export default function SignUpPage() {
@@ -28,7 +27,6 @@ export default function SignUpPage() {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
-    watch,
   } = useForm<TSignUpSchema>({
     resolver: zodResolver(signupSchema),
   });
@@ -41,7 +39,7 @@ export default function SignUpPage() {
       // Send POST request to Next API
       const apiUrl = formatInternalUrl("/api/signup");
       const response = await fetch(apiUrl, {
-        cache: "no-cache",
+        cache: "no-store",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,10 +54,7 @@ export default function SignUpPage() {
       if (response.ok) {
         const responseData = await response.json();
         // Create a promise that resolves when the cookie is set
-        await setCookie(responseData.token);
-
-        // Update isAuth to true
-        setAuthState(); // Update the auth state globally
+        setAuthState(responseData.token); // Update the auth state globally
 
         const successToastId = toast.success("ลงทะเบียนสําเร็จ");
         // Delay the redirect to show the toast
@@ -90,11 +85,6 @@ export default function SignUpPage() {
       console.error(error);
     }
   };
-
-  // for password suggestion box
-  const [isFocused, setIsFocused] = useState(false);
-  const passwordWatch = watch("password"); // Use watch to monitor password field
-  const confirmPasswordWatch = watch("confirmPassword"); // Use watch to monitor confirmPassword field
 
   return (
     <div className="font-prompt lg:overflow-hidden h-full sm:h-[100vh]">
@@ -203,8 +193,6 @@ export default function SignUpPage() {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder="รหัสผ่าน"
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
               />
               <Button
                 type="button"
@@ -220,9 +208,6 @@ export default function SignUpPage() {
                   <Eye className="h-4 w-4 text-gray-500" />
                 )}
               </Button>
-              {isFocused && passwordWatch.length > 0 && (
-                <PasswordRating password={passwordWatch} />
-              )}
             </div>
           </div>
           <div className="w-full">
@@ -241,8 +226,6 @@ export default function SignUpPage() {
                 type={showPassword ? "text" : "password"}
                 id="confirmPassword"
                 placeholder="ยืนยันรหัสผ่าน"
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
               />
               <Button
                 type="button"
@@ -258,9 +241,6 @@ export default function SignUpPage() {
                   <Eye className="h-4 w-4 text-gray-500" />
                 )}
               </Button>
-              {isFocused && confirmPasswordWatch.length > 0 && (
-                <PasswordRating password={confirmPasswordWatch} />
-              )}
             </div>
           </div>
         </div>
