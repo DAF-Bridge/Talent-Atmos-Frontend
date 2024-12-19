@@ -35,7 +35,7 @@ export default async function EventListingPage({
   // console.log(events, " Total", totalPages);
 
   return (
-    <div className="font-prompt max-w-[1170px] mx-auto px-10">
+    <div className="font-prompt max-w-[1170px] mx-auto px-10 mt-[100px]">
       <p className="text-[32px] text-center font-semibold mt-[22px]">
         ค้นหา <span className="text-orange-normal">&quot;อีเว้นท์&quot;</span>{" "}
         ที่ตอบโจทย์

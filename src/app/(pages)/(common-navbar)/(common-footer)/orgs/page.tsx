@@ -11,8 +11,8 @@ const JobCarouselWrapper = lazy(
 
 export default function OrgListingPage() {
   return (
-    <div className="font-prompt max-w-[1170px] mx-auto px-10 pb-5">
-      <div className="text-center font-semibold text-2xl border-b-2 pt-[25px] pb-[11px]">
+    <div className="font-prompt max-w-[1170px] mx-auto px-10 pb-5 mt-[100px]">
+      <div className="text-center font-semibold text-2xl border-b-2 pb-[11px]">
         <span className="text-black">ค้นหา</span>
         <span className="text-orange-normal"> &quot;องค์กร&quot; </span>
         <span className="text-black">ที่ตอบโจทย์เป้าหมายของคุณ</span>

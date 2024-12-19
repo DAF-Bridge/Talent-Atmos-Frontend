@@ -1,7 +1,6 @@
-import BigFooter from "@/components/layout/BigFooter";
 import NavigationBar from "@/components/layout/Navbar/NavBar";
 
-export default function ListingPageLayout({
+export default function NavbarPageLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -10,7 +9,6 @@ export default function ListingPageLayout({
     <>
       <NavigationBar />
       {children}
-      <BigFooter />
     </>
   );
 }
