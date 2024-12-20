@@ -48,6 +48,39 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      #     - name: Notify via Discord
+      # run: |
+      #     STATUS="success"
+      #     if [ "${{ needs.build.result }}" == "failure" ]; then
+      #       STATUS="failure"
+      #     fi
+
+      #     # Determine color based on status
+      #     if [ "$STATUS" == "success" ]; then
+      #       COLOR="3066993"
+      #     else
+      #       COLOR="15158332"
+      #     fi
+
+      #     # Create message using a here document (cat <<EOF)
+      #     MESSAGE=$(cat <<EOF
+      #     {
+      #       "username": "GitHub Actions",
+      #       "embeds": [{
+      #         "title": "Build $STATUS",
+      #         "description": "Workflow: **Web App CI**\\nActor: **$GITHUB_ACTOR**\\nGithub-Commit-Head: **$GITHUB_SHA**\\nBranch: **$GITHUB_REF**\\nRepository: **$GITHUB_REPOSITORY**\\nCommit-msg: **$GITHUB_COMMIT_MESSAGE**\\nStatus: **$STATUS**\\n[View Logs](https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)",
+      #         "color": $COLOR
+      #       }]
+      #     }
+      #     EOF
+      #     )
+
+      #   # Send the message via curl to Discord webhook
+      #   curl -X POST \
+      #     -H "Content-Type: application/json" \
+      #     -d "$MESSAGE" \
+      #     ${{ secrets.DISCORD_WEBHOOK_URL }}
+
       - name: Send Discord notification
         run: |
           STATUS="success"
@@ -55,15 +88,17 @@ jobs:
             STATUS="failure"
           fi
 
-          MESSAGE="{
-            \"username\": \"GitHub Actions\",
-            \"embeds\": [{
-              \"title\": \"Build $STATUS\",
-              \"description\": \
-                      "Workflow: **${{ github.workflow }}**\\nActor: **${{ github.actor }}**\\nGithub-Commit-Head: **${{ github.sha }}**\\nBranch: **${{ github.ref_name }}**\\nRepository: **${{ github.repository }}**\\nCommit-msg: **${{ github.event.head_commit.message }}**\\nStatus: **$STATUS**\\n[View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\",
-              \"color\": $(if [ \"$STATUS\" == \"success\" ]; then echo \"3066993\"; else echo \"15158332\"; fi)
-            }]
-          }"
+          MESSAGE=$(cat <<EOF
+            {
+              "username": "GitHub Actions",
+              "embeds": [{
+                "title": "Build $STATUS",
+                "description": "Workflow: **${{ github.workflow }}**\\nActor: **${{ github.actor }}**\\nGithub-Commit-Head: **${{ github.sha }}**\\nBranch: **${{ github.ref_name }}**\\nRepository: **${{ github.repository }}**\\nCommit-msg: **${{ github.event.head_commit.message }}**\\nStatus: **$STATUS**\\n[View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                "color": $(if [ "$STATUS" == "success" ]; then echo "3066993"; else echo "15158332"; fi)
+              }]
+            }
+          EOF
+          )
 
           curl -X POST \
             -H "Content-Type: application/json" \
