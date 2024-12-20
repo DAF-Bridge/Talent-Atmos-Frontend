@@ -49,10 +49,18 @@ export type Event = {
   Location: string;
 };
 
-export type Organization = {
+export type BriefOrganization = {
   name: string;
   imgUrl: string;
 };
+
+export type Organization = {
+  id: number;
+  name: string;
+  description: string;
+  latitude: number;
+  longitude: number;
+}
 
 export type Job = {
   orgName: string;
@@ -77,4 +85,9 @@ export type AuthContextType = {
   loading: boolean;
   setAuthState: (token: string) => void;
   removeAuthState: () => void;
+};
+
+export type Coordinate = {
+  latitude: number;
+  longitude: number;
 };

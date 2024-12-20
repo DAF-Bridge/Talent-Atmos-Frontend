@@ -10,12 +10,12 @@ import {
 } from "@/components/ui/carousel";
 import OrgCard from "../cards/OrgCard";
 
-import { Organization } from "@/lib/types";
+import { BriefOrganization } from "@/lib/types";
 
 export default function OrgCarousel({
   orgs,
 }: {
-  readonly orgs: Organization[];
+  readonly orgs: BriefOrganization[];
 }) {
   return (
     <div className="w-full ">

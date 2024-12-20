@@ -67,7 +67,7 @@ export default async function EventDescription({
     "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks";
 
   return (
-    <section className="font-prompt relative h-full w-full">
+    <section className="font-prompt relative h-full w-full mt-[60px]">
       <div className="relative flex justify-center items-center h-[425px]">
         <Image
           className="absolute blur-md opacity-45 h-full w-full object-cover duration-100 -z-10"
