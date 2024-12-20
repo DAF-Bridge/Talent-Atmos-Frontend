@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import MapComponent from "./Map";
 import { Input } from "@/components/ui/input";
 import {
@@ -305,10 +305,10 @@ export default function MapPage() {
   const [selectedOrg, setSelectedOrg] = useState<Organization | null>(null);
   const [flyToTrigger, setFlyToTrigger] = useState(0); // Add a trigger value to force map to fly even when selecting the same org
 
-  const handleCardClick = (org: Organization) => {
+  const handleCardClick = useCallback((org: Organization) => {
     setSelectedOrg(org);
     setFlyToTrigger((prev) => prev + 1);
-  };
+  },[]);
 
   return (
     <div className="relative mx-auto overflow-hidden">
@@ -371,7 +371,7 @@ export default function MapPage() {
         organizations={organizations}
         flyToTrigger={flyToTrigger}
         selectedOrg={selectedOrg}
-        setSelectedOrg={setSelectedOrg}
+        setSelectedOrg={handleCardClick}
       />
     </div>
   );

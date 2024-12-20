@@ -84,7 +84,7 @@ interface MapProps {
   organizations: Organization[];
   flyToTrigger: number; // Add this prop to force fly animation
   selectedOrg: Organization | null;
-  setSelectedOrg: (org: Organization | null) => void;
+  setSelectedOrg: (org: Organization) => void;
 }
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
@@ -154,12 +154,15 @@ const MapComponent: React.FC<MapProps> = ({
       popupsRef.current[org.id] = popup;
     });
 
+    const markers = markersRef.current;
+    const popups = popupsRef.current;
+
     return () => {
-      Object.values(markersRef.current).forEach((marker) => marker.remove());
-      Object.values(popupsRef.current).forEach((popup) => popup.remove());
+      Object.values(markers).forEach((marker) => marker.remove());
+      Object.values(popups).forEach((popup) => popup.remove());
       map.remove();
     };
-  }, [organizations,setSelectedOrg]);
+  }, [organizations, setSelectedOrg]);
 
   useEffect(() => {
     if (selectedOrg && mapRef.current) {
