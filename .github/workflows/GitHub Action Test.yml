@@ -44,23 +44,6 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }} # API in Netlify || produciton mode
           GO_API_URL: ${{ secrets.GO_API_URL }} # API in development mode
 
-      - name: Fetch all branches & list remote branches
-        run: |
-          git fetch --all
-
-      - name: Merge branch to main
-        # Only merge if successful and not on main branch
-        if: ${{ success() && (github.ref != 'refs/heads/main' || github.ref != 'refs/heads/production' || github.ref != 'ref/head/develop') }}
-        run: |
-          echo "Process: Merging branch to main"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}.git
-          git checkout main || git checkout -b main
-          git merge --no-ff ${{ github.ref_name }} -m "Auto-merge ${{ github.ref_name }} into main" --allow-unrelated-histories
-          git push origin main
-        continue-on-error: true
-
   notify:
     needs: build
     runs-on: ubuntu-latest
@@ -78,7 +61,8 @@ jobs:
               \"title\": \"Build $STATUS\",
               \"description\": \
                       "Workflow: **${{ github.workflow }}**\\n
-                      Git-Commit-Head: **${{ github.sha }}**\\n
+                      Actor: **${{ github.actor }}**\\n
+                      Github-Commit-Head: **${{ github.sha }}**\\n
                       Branch: **${{ github.ref_name }}**\\n
                       Repository: **${{ github.repository }}**\\n
                       Commit-msg: **${{ github.event.head_commit.message }}**\\n
