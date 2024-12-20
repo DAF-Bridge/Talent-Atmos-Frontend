@@ -2,23 +2,115 @@
 
 import React, { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
-import 'mapbox-gl/dist/mapbox-gl.css';
+import "mapbox-gl/dist/mapbox-gl.css";
+import { Organization } from "@/lib/types";
+import { createPortal } from "react-dom";
+import Image from "next/image";
+import Link from "next/link";
 
-interface Organization {
-  id: string;
-  name: string;
-  latitude: number;
-  longitude: number;
+// Add custom CSS to override Mapbox popup styles
+const customPopupStyle = `
+.mapboxgl-popup-content {
+  padding: 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  border: 1px solid #e2e8f0;
 }
+
+.mapboxgl-popup-close-button {
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  color: #4a5568;
+  font-size: 16px;
+  right: 6px;
+  top: 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.mapboxgl-popup-close-button:hover {
+  background-color: #f7fafc;
+  color: #2d3748;
+}
+
+.mapboxgl-popup-tip {
+  border-top-color: #e2e8f0 !important;
+}
+`;
+
+interface CustomPopupProps {
+  organization: Organization;
+}
+
+const CustomPopup: React.FC<CustomPopupProps> = ({ organization }) => {
+  return (
+    <div className="font-prompt flex flex-col min-w-[200px] p-4 bg-white rounded-lg shadow-lg">
+      <div className="flex gap-2 items-center">
+        <Image
+          src={
+            "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw"
+          }
+          className="h-full max-w-[60px] object-cover rounded-xl border"
+          style={{ aspectRatio: "1 / 1" }}
+          height={100}
+          width={100}
+          alt="org-image"
+        />
+        <h3 className="text-base font-normal text-gray-900 mb-2">
+          {organization.name}
+        </h3>
+      </div>
+      <p className="text-sm font-light text-gray-600">
+        {organization.description}
+      </p>
+      <div className="flex justify-end w-full mt-2">
+        <Link
+          href={`/organizations/${organization.id}`}
+          className="inline-flex justify-center items-center w-[120px] bg-orange-normal py-[6px] px-2 rounded-lg 
+        border font-light text-base hover:bg-orange-dark text-white transition-colors duration-150"
+        >
+          ดูรายละเอียด
+        </Link>
+      </div>
+    </div>
+  );
+};
 
 interface MapProps {
   organizations: Organization[];
+  flyToTrigger: number; // Add this prop to force fly animation
+  selectedOrg: Organization | null;
+  setSelectedOrg: (org: Organization | null) => void;
 }
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 
-const MapComponent: React.FC<MapProps> = ({ organizations }) => {
+const MapComponent: React.FC<MapProps> = ({
+  organizations,
+  flyToTrigger,
+  selectedOrg,
+  setSelectedOrg,
+}) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<mapboxgl.Map | null>(null);
+  const markersRef = useRef<{ [key: number]: mapboxgl.Marker }>({});
+  const popupsRef = useRef<{ [key: number]: mapboxgl.Popup }>({});
+  const popupNodesRef = useRef<{ [key: number]: HTMLDivElement }>({});
+
+  // Add custom styles to the document head
+  useEffect(() => {
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = customPopupStyle;
+    document.head.appendChild(styleSheet);
+
+    return () => {
+      document.head.removeChild(styleSheet);
+    };
+  }, []);
 
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -33,19 +125,92 @@ const MapComponent: React.FC<MapProps> = ({ organizations }) => {
       zoom: 10,
     });
 
+    mapRef.current = map;
+
+    // Create popups for organizations
     organizations.forEach((org) => {
-      new mapboxgl.Marker({color:"#FF6400"})
+      // Create a DOM node for the popup content
+      const popupNode = document.createElement("div");
+      popupNodesRef.current[org.id] = popupNode;
+
+      const popup = new mapboxgl.Popup({
+        anchor: "top-left",
+        closeButton: false,
+        closeOnClick: true,
+        maxWidth: "400px",
+      }).setDOMContent(popupNode);
+
+      const marker = new mapboxgl.Marker({ color: "#FF6400" })
         .setLngLat([org.longitude, org.latitude])
-        .setPopup(new mapboxgl.Popup().setHTML(`<h3>${org.name}</h3>`)) // Optional popup
+        .setPopup(popup)
         .addTo(map);
+
+      // Add click event listener to the marker to set the selected organization
+      marker.getElement().addEventListener("click", () => {
+        setSelectedOrg(org); // Make sure setSelectedOrg is correctly updating the state
+      });
+
+      markersRef.current[org.id] = marker;
+      popupsRef.current[org.id] = popup;
     });
 
-    return () => map.remove(); // Cleanup on unmount
+    return () => {
+      Object.values(markersRef.current).forEach((marker) => marker.remove());
+      Object.values(popupsRef.current).forEach((popup) => popup.remove());
+      map.remove();
+    };
   }, [organizations]);
+
+  useEffect(() => {
+    if (selectedOrg && mapRef.current) {
+      // Close all other popups
+      Object.values(popupsRef.current).forEach((popup) => popup.remove());
+
+      // Show popup for selected organization
+      const marker = markersRef.current[selectedOrg.id];
+      if (marker) {
+        const popup = marker.getPopup();
+        popup?.addTo(mapRef.current);
+      }
+    }
+  }, [selectedOrg, flyToTrigger]);
+
+  useEffect(() => {
+    if (selectedOrg && mapRef.current) {
+      // Close all other popups
+      Object.values(popupsRef.current).forEach((popup) => popup.remove());
+
+      // Show popup for selected organization
+      const marker = markersRef.current[selectedOrg.id];
+      if (marker) {
+        const popup = marker.getPopup();
+        popup?.addTo(mapRef.current);
+      }
+    }
+  }, [selectedOrg]);
+
+  useEffect(() => {
+    if (selectedOrg && mapRef.current) {
+      const { latitude, longitude } = selectedOrg;
+      mapRef.current.flyTo({
+        center: [longitude, latitude],
+        zoom: 14,
+        // essential: true,
+        // duration: 1000,
+      });
+    }
+  }, [selectedOrg, flyToTrigger]); // Re-run this effect when selectedCoordinates change
 
   return (
     <div className="relative h-[100vh] w-[100vw] ">
       <div ref={mapContainerRef} className="w-full h-full" />
+      {/* Render popups using portals */}
+      {organizations.map((org) => {
+        const popupNode = popupNodesRef.current[org.id];
+        return popupNode
+          ? createPortal(<CustomPopup organization={org} />, popupNode)
+          : null;
+      })}
     </div>
   );
 };

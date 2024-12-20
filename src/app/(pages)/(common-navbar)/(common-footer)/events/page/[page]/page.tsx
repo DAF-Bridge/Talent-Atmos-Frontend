@@ -32,8 +32,6 @@ export default async function EventListingPage({
     console.error("Error fetching events:", error);
   }
 
-  // console.log(events, " Total", totalPages);
-
   return (
     <div className="font-prompt max-w-[1170px] mx-auto px-10 mt-[100px]">
       <p className="text-[32px] text-center font-semibold mt-[22px]">
