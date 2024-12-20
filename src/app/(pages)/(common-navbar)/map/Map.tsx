@@ -159,7 +159,7 @@ const MapComponent: React.FC<MapProps> = ({
       Object.values(popupsRef.current).forEach((popup) => popup.remove());
       map.remove();
     };
-  }, [organizations]);
+  }, [organizations,setSelectedOrg]);
 
   useEffect(() => {
     if (selectedOrg && mapRef.current) {
