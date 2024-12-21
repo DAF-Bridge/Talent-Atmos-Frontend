@@ -76,7 +76,7 @@ export default async function EventListingPage({
         ))}
       </div>
       <div className="flex justify-center items-center mt-[50px]">
-        <ListPagination totalPages={totalPages} />
+        <ListPagination totalPages={totalPages} type="events"/>
       </div>
     </div>
   );

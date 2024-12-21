@@ -13,10 +13,12 @@ import {
 import { useEffect, useState } from "react";
 
 interface PaginationProps {
+  type: "events" | "jobs";
   totalPages: number;
 }
 
 export default function ListPagination({
+  type,
   totalPages,
 }: Readonly<PaginationProps>) {
   const router = useRouter();
@@ -32,7 +34,11 @@ export default function ListPagination({
   }, [page]);
 
   const handlePageChange = (page: number) => {
-    router.push(`/events/page/${page}`);
+    if (type === "events") {
+      router.push(`/events/page/${page}`);
+    } else if (type === "jobs") {
+      router.push(`/orgs/page/${page}`);
+    }
   };
 
   return (
