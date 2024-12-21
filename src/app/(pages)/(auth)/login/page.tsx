@@ -22,6 +22,10 @@ export default function LoginPage(): JSX.Element {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const handleGoogleLogin = () => {
+    window.location.href = formatInternalUrl("/api/oauth/init");
+  };
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -225,8 +229,8 @@ export default function LoginPage(): JSX.Element {
               <div className="w-full border border-gray-300 relative" />
             </div>
             <div className="flex flex-col xl:flex-row justify-center gap-[10px]">
-              <Link
-                href={`${process.env.NEXT_PUBLIC_API_URL}/api/oauth/init`}
+              <button
+                onClick={handleGoogleLogin}
                 className="inline-flex gap-1 border hover:border-black/30 hover:shadow-md rounded-[10px] 
                 h-[48px] w-full text-sm font-normal justify-center items-center"
               >
@@ -237,7 +241,7 @@ export default function LoginPage(): JSX.Element {
                   alt="google-login"
                 />
                 เข้าสู่ระบบด้วย Google
-              </Link>
+              </button>
               {/* <button className="oauth-btn">
                 <Image
                   src={"./icon/fb-icon.svg"}
