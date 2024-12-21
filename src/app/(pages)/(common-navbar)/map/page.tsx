@@ -352,7 +352,7 @@ export default function MapPage() {
         </Select>
       </div>
       <div
-        className="absolute z-50 mt-[150px] ml-[40px] h-[75vh] w-[412px] border rounded-[20px] 
+        className="absolute z-50 mt-[150px] ml-[40px] h-[70vh] w-[412px] border rounded-[20px] 
       bg-white shadow-lg py-[20px] px-[15px]"
       >
         <p className="text-xl font-medium">{`รายการทั้งหมด (${organizations.length})`}</p>
