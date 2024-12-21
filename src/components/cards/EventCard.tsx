@@ -42,7 +42,7 @@ export default function EventCard({
         </div>
       </div>
       <Link
-        href={`event/${cardId}`}
+        href={`/events/${cardId}`}
         className="flex flex-col gap-1 group hover:cursor-pointer"
       >
         <div
