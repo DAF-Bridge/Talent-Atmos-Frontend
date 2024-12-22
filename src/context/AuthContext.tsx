@@ -11,7 +11,7 @@ import React, {
 } from "react";
 import Cookies from "js-cookie";
 import { AuthContextType, UserProfile } from "@/lib/types";
-import { formatInternalUrl, setCookie } from "@/lib/utils";
+import { formatExternalUrl } from "@/lib/utils";
 
 const AuthContext = createContext<AuthContextType>({
   isAuth: null,
@@ -28,24 +28,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isHydrated, setIsHydrated] = useState(false); // Track hydration state
 
   const fetchUserProfile = useCallback(async () => {
-    const token = Cookies.get("authToken");
-
     try {
-      // prevent error throw on initial login
-      if (!token) {
-        setIsAuth(false);
-        setLoading(false);
-        return;
-      }
-
-      const apiUrl = formatInternalUrl("/api/current-user");
+      const apiUrl = formatExternalUrl("/current-user-profile");
 
       const response = await fetch(apiUrl, {
         cache: "no-store", // More aggressive no-cache
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
+        credentials: "include", // Ensures cookies are sent with the request
       });
 
       if (!response.ok) throw new Error("Unauthorized");
@@ -67,17 +58,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsHydrated(true); // Ensure that content is rendered after hydration
   }, [fetchUserProfile]);
 
-  const setAuthState = useCallback(
-    async (token: string) => {
-      await setCookie(token);
-      setIsAuth(true);
-      fetchUserProfile();
-    },
-    [fetchUserProfile]
-  );
+  const setAuthState = useCallback(async () => {
+    setIsAuth(true);
+    fetchUserProfile();
+  }, [fetchUserProfile]);
 
-  const removeAuthState = useCallback(() => {
-    Cookies.remove("authToken");
+  const removeAuthState = useCallback(async () => {
+    await fetch(formatExternalUrl("/logout"), {
+      method: "POST",
+      credentials: "include",
+    });
     setIsAuth(false);
     setUserProfile(null);
   }, []);

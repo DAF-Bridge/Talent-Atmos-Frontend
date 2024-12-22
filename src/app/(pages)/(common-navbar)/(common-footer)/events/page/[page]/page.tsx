@@ -1,7 +1,7 @@
 import EventCard from "@/components/cards/EventCard";
 import ListPagination from "@/components/Pagination/ListPagination";
 import { Event } from "@/lib/types";
-import { formatInternalUrl } from "@/lib/utils";
+import { formatExternalUrl } from "@/lib/utils";
 import { Search, SlidersHorizontal } from "lucide-react";
 import React from "react";
 export const dynamic = "force-dynamic"; // Ensure fresh data on each request
@@ -11,7 +11,7 @@ export default async function EventListingPage({
 }: Readonly<{ params: { page: string } }>) {
   const currentPage = Number(params.page) || 1;
   const maxEventsPerPage = 12;
-  const apiUrl = formatInternalUrl(`/api/events/listing?page=${currentPage}`);
+  const apiUrl = formatExternalUrl("/events-paginate?page=" + currentPage);
 
   let events: Event[] = [];
   let totalPages: number = 0;
@@ -25,9 +25,9 @@ export default async function EventListingPage({
 
     const data = await response.json();
 
-    events = data.resData.events;
+    events = data.events;
     // calculate total pages
-    totalPages = Math.ceil(data.resData.total_events / maxEventsPerPage);
+    totalPages = Math.ceil(data.total_events / maxEventsPerPage);
   } catch (error) {
     console.error("Error fetching events:", error);
   }

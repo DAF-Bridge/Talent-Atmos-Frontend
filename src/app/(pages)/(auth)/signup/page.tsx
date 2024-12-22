@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { useForm, type FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, TSignUpSchema } from "@/lib/types";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { formatInternalUrl } from "@/lib/utils";
@@ -17,7 +17,7 @@ import { useAuth } from "@/context/AuthContext";
 export default function SignUpPage() {
   const { setAuthState } = useAuth();
   const router = useRouter();
-
+  const [tooltipVisible, setTooltipVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleVisibility = () => setShowPassword(!showPassword);
@@ -27,9 +27,20 @@ export default function SignUpPage() {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
+    watch,
   } = useForm<TSignUpSchema>({
     resolver: zodResolver(signupSchema),
   });
+
+  const passwordCriteria = [
+    { regex: /.{8,}/, label: "ตวามยาวอย่างน้อย 8 ตัวอักษร" },
+    { regex: /[A-Z]/, label: "ต้องมีตัวอักษรพิมพ์ใหญ่" },
+    { regex: /[a-z]/, label: "ต้องมีตัวอักษรพิมพ์เล็ก" },
+    { regex: /[0-9]/, label: "ต้องมีตัวเลขอย่างน้อยหนึ่งตัว" },
+    { regex: /[!@#$%^&*_]/, label: "ต้องมีอักขระพิเศษ (!@#$%^&*_)" },
+  ];
+  const password = watch("password");
+  const checkCriteria = (regex: RegExp) => regex.test(password);
 
   const onSubmit = async (data: FieldValues) => {
     // Show loading toast immediately when the request is sent
@@ -52,10 +63,7 @@ export default function SignUpPage() {
 
       // if the response if ok redirect to home, if not, show error toast
       if (response.ok) {
-        const responseData = await response.json();
-        // Create a promise that resolves when the cookie is set
-        setAuthState(responseData.token); // Update the auth state globally
-
+        setAuthState(); // Update the auth state globally
         const successToastId = toast.success("ลงทะเบียนสําเร็จ");
         // Delay the redirect to show the toast
         setTimeout(() => {
@@ -69,13 +77,22 @@ export default function SignUpPage() {
 
         // set the errors to each field
         if (responseData.errors) {
-          toast.error("ข้อมูลไม่ถูกต้อง");
-          Object.entries(responseData.errors).forEach(([key, message]) => {
-            setError(key as keyof TSignUpSchema, {
-              type: "server",
-              message: message as string,
+          const errors = responseData.errors;
+
+          if (responseData.status === 400) {
+            Object.entries(responseData.errors).forEach(([key, message]) => {
+              setError(key as keyof TSignUpSchema, {
+                type: "server",
+                message: message as string,
+              });
             });
-          });
+          } else {
+            const errorMessage =
+              typeof errors === "string"
+                ? errors
+                : "An unknown error occurred.";
+            toast.error(errorMessage);
+          }
         }
       }
     } catch (error) {
@@ -88,7 +105,6 @@ export default function SignUpPage() {
 
   return (
     <div className="font-prompt lg:overflow-hidden h-full sm:h-[100vh]">
-      <Toaster />
       <form
         className="relative flex flex-col items-center gap-3 sm:gap-5 w-full lg:max-w-[914px] bg-white drop-shadow-2xl h-full
         lg:rounded-t-[20px] mx-auto lg:mt-[43px] px-[50px] md:px-[84px] "
@@ -193,6 +209,8 @@ export default function SignUpPage() {
                 type={showPassword ? "text" : "password"}
                 id="password"
                 placeholder="รหัสผ่าน"
+                onFocus={() => setTooltipVisible(true)}
+                onBlur={() => setTooltipVisible(false)}
               />
               <Button
                 type="button"
@@ -208,6 +226,25 @@ export default function SignUpPage() {
                   <Eye className="h-4 w-4 text-gray-500" />
                 )}
               </Button>
+              {tooltipVisible && (
+                <div className="absolute top-full mt-2 w-full bg-white border border-gray-300 rounded-md shadow-lg p-4 text-sm text-gray-700 z-10">
+                  <ul>
+                    {passwordCriteria.map(({ regex, label }, index) => (
+                      <li
+                        key={index}
+                        className={`flex items-center space-x-2 ${
+                          checkCriteria(regex)
+                            ? "text-green-600"
+                            : "text-gray-500"
+                        }`}
+                      >
+                        <span>{checkCriteria(regex) ? "✔️" : "❌"}</span>
+                        <span>{label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
           <div className="w-full">

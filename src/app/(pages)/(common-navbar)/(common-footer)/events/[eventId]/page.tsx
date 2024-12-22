@@ -4,9 +4,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { formatInternalUrl } from "@/lib/utils";
 import { Calendar, Clock, MapPin } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import React from "react";
 
 interface EventDescriptionProps {
@@ -42,7 +43,8 @@ interface EventDescriptionProps {
 const fetchEventData = async (
   eventId: string
 ): Promise<EventDescriptionProps> => {
-  const res = await fetch(`http://localhost:3000/api/events/${eventId}`, {
+  const apiUrl = formatInternalUrl("/api/events/" + eventId);
+  const res = await fetch(apiUrl, {
     cache: "no-cache",
   });
   const data: EventDescriptionProps = await res.json();
@@ -51,9 +53,9 @@ const fetchEventData = async (
 
 export default async function EventDescription({
   params,
-}: {
+}: Readonly<{
   params: { eventId: string }; // Accept event ID from URL params
-}) {
+}>) {
   const { eventId } = params;
 
   // Fetch the event data directly in the component
@@ -211,22 +213,11 @@ export default async function EventDescription({
             w-full h-auto pt-[20px] pb-[30px] px-[5%] border rounded-[10px] drop-shadow-lg bg-white"
             >
               <p className="text-left text-xl font-medium w-full">
-                เลือกประเภทตั๋ว
+                ลงทะเบียน
               </p>
               <div className="flex flex-col gap-5 w-full">
-                {data.event.tickets.map((ticket, index) => (
-                  <EventTicket
-                    key={index}
-                    id={ticket.id}
-                    name={ticket.name}
-                    price={ticket.price}
-                  />
-                ))}
+                <div className="border items-center justify-center flex rounded-[10px] h-[40px]">ไปที่ฟอร์ม</div>
               </div>
-
-              {/* <button className="w-full mt-4 py-2 text-white bg-orange-dark rounded-md hover:bg-orange-normal">
-                ลงทะเบียนกิจกรรม
-              </button> */}
             </div>
           </div>
         </div>
@@ -235,38 +226,38 @@ export default async function EventDescription({
   );
 }
 
-interface EventTicketProps {
-  name: string;
-  price: number;
-  id: string;
-}
+// interface EventTicketProps {
+//   name: string;
+//   price: number;
+//   id: string;
+// }
 
-function EventTicket({ name, price, id }: EventTicketProps) {
-  return (
-    <Link
-      href={`/event/${id}`}
-      className="relative group font-thin text-xl w-full hover:scale-[1.04] 
-  active:scale-95 transition-all duration-150"
-    >
-      <div
-        className="absolute inset-x-0 h-full -bottom-[5px] bg-black border border-black
-    rounded-[25px] group-hover:bg-black group-hover:border-black"
-      />
+// function EventTicket({ name, price, id }: Readonly<EventTicketProps>) {
+//   return (
+//     <Link
+//       href={`/event/${id}`}
+//       className="relative group font-thin text-xl w-full hover:scale-[1.04]
+//   active:scale-95 transition-all duration-150"
+//     >
+//       <div
+//         className="absolute inset-x-0 h-full -bottom-[5px] bg-black border border-black
+//     rounded-[25px] group-hover:bg-black group-hover:border-black"
+//       />
 
-      <div
-        className="relative bg-white group-hover:bg-slate-100 border-2 border-black 
-    group-hover:border-black rounded-[25px] py-[20px] px-[6%] w-full  "
-      >
-        <div className="flex justify-between items-center pr-2  w-full text-left font-medium">
-          <p className="text-lg font-semibold">{"แบบ " + name}</p>
-          <p className="text-xl font-medium">
-            {price > 0 ? price.toLocaleString() + " ฿" : "Free!"}
-          </p>
-        </div>
-      </div>
-    </Link>
-  );
-}
+//       <div
+//         className="relative bg-white group-hover:bg-slate-100 border-2 border-black
+//     group-hover:border-black rounded-[25px] py-[20px] px-[6%] w-full  "
+//       >
+//         <div className="flex justify-between items-center pr-2  w-full text-left font-medium">
+//           <p className="text-lg font-semibold">{"แบบ " + name}</p>
+//           <p className="text-xl font-medium">
+//             {price > 0 ? price.toLocaleString() + " ฿" : "Free!"}
+//           </p>
+//         </div>
+//       </div>
+//     </Link>
+//   );
+// }
 
 interface TimelineAccordionProps {
   timelineArr: Array<{
@@ -275,7 +266,7 @@ interface TimelineAccordionProps {
   }>;
 }
 
-function TimelineAccordion({ timelineArr }: TimelineAccordionProps) {
+function TimelineAccordion({ timelineArr }: Readonly<TimelineAccordionProps>) {
   return (
     <Accordion
       type="multiple"

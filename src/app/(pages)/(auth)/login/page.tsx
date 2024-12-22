@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { formatInternalUrl } from "@/lib/utils";
+import { formatExternalUrl, formatInternalUrl } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage(): JSX.Element {
@@ -23,7 +23,7 @@ export default function LoginPage(): JSX.Element {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleGoogleLogin = () => {
-    window.location.href = formatInternalUrl("/api/oauth/init");
+    window.location.href = formatExternalUrl("/auth/google");
   };
 
   const togglePasswordVisibility = () => {
@@ -52,6 +52,7 @@ export default function LoginPage(): JSX.Element {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include", // Send and receive cookies
         body: JSON.stringify(data),
       });
 
@@ -60,10 +61,8 @@ export default function LoginPage(): JSX.Element {
 
       // if the response if ok redirect to home, if not, show error toast
       if (response.ok) {
-        const responseData = await response.json();
-
-        // Update isAuth to true
-        setAuthState(responseData.token); // Update the auth state globally
+        // // Update isAuth to true
+        setAuthState(); // Update the auth state globally
         setIsRedirecting(true);
         const successToastId = toast.success("เข้าสู่ระบบสําเร็จ");
 
@@ -81,13 +80,21 @@ export default function LoginPage(): JSX.Element {
 
         // set the errors to each field
         if (responseData.errors) {
-          toast.error("ข้อมูลไม่ถูกต้อง");
-          Object.entries(responseData.errors).forEach(([key, message]) => {
-            setError(key as keyof TLogInSchema, {
-              type: "server",
-              message: message as string,
+          const errors = responseData.errors;
+          if (responseData.status === 400) {
+            Object.entries(responseData.errors).forEach(([key, message]) => {
+              setError(key as keyof TLogInSchema, {
+                type: "server",
+                message: message as string,
+              });
             });
-          });
+          } else {
+            const errorMessage =
+              typeof errors === "string"
+                ? errors
+                : "An unknown error occurred.";
+            toast.error(errorMessage);
+          }
         }
       }
     } catch (error) {

@@ -11,15 +11,7 @@ export default function OAuthCallbackPage() {
 
   useEffect(() => {
     const handleCallback = async () => {
-      const token = searchParams.get("token");
-
-      if (token) {
-        // set auth state
-        setAuthState(token);
-
-        // Redirect the user to the home page or any other page
-        router.push("/");
-      }
+      router.push("/");
     };
     handleCallback();
   }, [router, searchParams, setAuthState]);
