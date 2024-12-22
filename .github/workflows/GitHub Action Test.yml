@@ -1,21 +1,18 @@
-name: Web App CI/CD
+name: Web App CI
 
 on:
   push:
-    branches: 
-      [develop, main]
+    branches: [develop, main, develop-did, production]
   pull_request:
-    branches:
-      [develop]
+    branches: [develop, develop-did]
   merge_group:
     types: [checks_requested]
 
 jobs:
   build:
-    # only on main and develop branches
     if: ${{(github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/develop-did') }}
-    # runs-on: ubuntu-latest -- only on ubuntu
 
+    # runs-on: ubuntu-latest -- only on ubuntu
     # - matrix.os: Specifies the operating systems to use. The matrix will
     #   run the job on each OS (ubuntu-latest, windows-latest, and macos-latest).
     # - runs-on: Dynamically uses the value from matrix.os to run on the specified platform.
@@ -46,6 +43,67 @@ jobs:
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }} # API in Netlify || produciton mode
           NEXT_PUBLIC_GO_API_URL: ${{ secrets.NEXT_PUBLIC_GO_API_URL }} # API in development mode
+
+  notify:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      #     - name: Notify via Discord
+      # run: |
+      #     STATUS="success"
+      #     if [ "${{ needs.build.result }}" == "failure" ]; then
+      #       STATUS="failure"
+      #     fi
+
+      #     # Determine color based on status
+      #     if [ "$STATUS" == "success" ]; then
+      #       COLOR="3066993"
+      #     else
+      #       COLOR="15158332"
+      #     fi
+
+      #     # Create message using a here document (cat <<EOF)
+      #     MESSAGE=$(cat <<EOF
+      #     {
+      #       "username": "GitHub Actions",
+      #       "embeds": [{
+      #         "title": "Build $STATUS",
+      #         "description": "Workflow: **Web App CI**\\nActor: **$GITHUB_ACTOR**\\nGithub-Commit-Head: **$GITHUB_SHA**\\nBranch: **$GITHUB_REF**\\nRepository: **$GITHUB_REPOSITORY**\\nCommit-msg: **$GITHUB_COMMIT_MESSAGE**\\nStatus: **$STATUS**\\n[View Logs](https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)",
+      #         "color": $COLOR
+      #       }]
+      #     }
+      #     EOF
+      #     )
+
+      #   # Send the message via curl to Discord webhook
+      #   curl -X POST \
+      #     -H "Content-Type: application/json" \
+      #     -d "$MESSAGE" \
+      #     ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+      - name: Send Discord notification
+        run: |
+          STATUS="success"
+          if [ "${{ needs.build.result }}" == "failure" ]; then
+            STATUS="failure"
+          fi
+
+          MESSAGE=$(cat <<EOF
+            {
+              "username": "GitHub Actions",
+              "embeds": [{
+                "title": "Build $STATUS",
+                "description": "Workflow: **${{ github.workflow }}**\\nActor: **${{ github.actor }}**\\nGithub-Commit-Head: **${{ github.sha }}**\\nBranch: **${{ github.ref_name }}**\\nRepository: **${{ github.repository }}**\\nCommit-msg: **${{ github.event.head_commit.message }}**\\nStatus: **$STATUS**\\n[View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                "color": $(if [ "$STATUS" == "success" ]; then echo "3066993"; else echo "15158332"; fi)
+              }]
+            }
+          EOF
+          )
+
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d "$MESSAGE" \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}
 
   # rollback:
   #   if: ${{ failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/develop-did')}}
