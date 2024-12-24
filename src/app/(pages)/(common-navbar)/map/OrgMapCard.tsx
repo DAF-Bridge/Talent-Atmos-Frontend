@@ -16,7 +16,7 @@ export default function OrgMapCard({
   return (
     <button
       onClick={() => onCardClick(organization)}
-      className={`flex justify-between items-center rounded-[20px] h-[106px] py-2 pr-2 pl-4 
+      className={`flex justify-between items-center gap-10 md:gap-2 rounded-[20px] h-[106px] py-2 pr-2 pl-4 
         hover:bg-slate-100 transition-colors duration-150 
         ${isSelected ? "bg-slate-100" : ""}`}
     >

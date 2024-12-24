@@ -7,6 +7,7 @@ import { Organization } from "@/lib/types";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
+import Badge from "@/components/cards/Badge";
 
 // Add custom CSS to override Mapbox popup styles
 const customPopupStyle = `
@@ -48,7 +49,7 @@ interface CustomPopupProps {
 
 const CustomPopup: React.FC<CustomPopupProps> = ({ organization }) => {
   return (
-    <div className="font-prompt flex flex-col min-w-[200px] p-4 bg-white rounded-lg shadow-lg">
+    <div className="font-prompt flex flex-col w-[300px] md:w-[400px] p-4 bg-white rounded-lg shadow-lg">
       <div className="flex gap-2 items-center">
         <Image
           src={
@@ -60,20 +61,25 @@ const CustomPopup: React.FC<CustomPopupProps> = ({ organization }) => {
           width={100}
           alt="org-image"
         />
-        <h3 className="text-base font-normal text-gray-900 mb-2">
+        <h3 className="text-sm md:text-base font-normal text-gray-900 mb-2">
           {organization.name}
         </h3>
       </div>
-      <p className="text-sm font-light text-gray-600">
+      <p className="text-xs md:text-sm font-light text-gray-600 mt-1">
         {organization.description}
       </p>
-      <div className="flex justify-end w-full mt-2">
+      <div className="inline-flex flex-wrap mt-2 gap-1">
+        {organization.industry.map((label, i) => (
+          <Badge key={i} label={label} />
+        ))}
+      </div>
+      <div className="flex justify-end w-full mt-4">
         <Link
-          href={`/organizations/${organization.id}`}
-          className="inline-flex justify-center items-center w-[120px] bg-orange-normal py-[6px] px-2 rounded-lg 
-        border font-light text-base hover:bg-orange-dark text-white transition-colors duration-150"
+          href={`/orgs/${organization.id}`}
+          className="inline-flex justify-center items-center py-[6px] px-2 rounded-full w-full border-[1px]
+        font-light text-sm md:text-base hover:bg-slate-50 text-black transition-colors duration-150 focus:outline-none"
         >
-          ดูรายละเอียด
+          <span className="ml-2">ดูรายละเอียด</span>
         </Link>
       </div>
     </div>
@@ -137,7 +143,6 @@ const MapComponent: React.FC<MapProps> = ({
         anchor: "top-left",
         closeButton: false,
         closeOnClick: true,
-        maxWidth: "400px",
       }).setDOMContent(popupNode);
 
       const marker = new mapboxgl.Marker({ color: "#FF6400" })

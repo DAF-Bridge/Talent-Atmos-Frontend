@@ -15,8 +15,8 @@ export default function NavigationBar() {
       href: "/events/page/1",
     },
     {
-      label: "องค์กร",
-      href: "/orgs",
+      label: "สมัครงาน",
+      href: "/jobs",
     },
     { label: "แผนที่", href: "/map" },
   ];

@@ -60,6 +60,7 @@ export type Organization = {
   description: string;
   latitude: number;
   longitude: number;
+  industry: string[];
 }
 
 export type Job = {
