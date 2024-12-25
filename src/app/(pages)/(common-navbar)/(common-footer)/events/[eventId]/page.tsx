@@ -78,7 +78,7 @@ export default async function EventDescription({
           height={150}
           alt="อีเว้นท์"
         />
-        <div className="flex justify-center items-center h-full lg:w-[90%] xl:w-[80%] mx-auto px-10 py-4 drop-shadow-lg">
+        <div className="flex justify-center items-center h-full lg:w-[90%] xl:w-[80%] mx-auto px-4 py-4 drop-shadow-lg">
           <div className="flex flex-col gap-3 justify-center  h-full rounded-l-[10px] px-10 md:bg-white">
             <div className="flex justify-start items-center gap-2">
               <div
@@ -134,7 +134,7 @@ export default async function EventDescription({
           </div>
         </div>
       </div>
-      <div className="lg:w-[90%] xl:w-[80%] mx-auto px-10">
+      <div className="lg:w-[90%] xl:w-[80%] mx-auto px-14">
         <p className="font-semibold text-2xl mt-[32px]">รายละเอียด</p>
         <div className="border w-full mt-[8px] mb-[16px]" />
         <div className="flex flex-col gap-[32px] md:gap-[4%] md:flex-row justify-between">

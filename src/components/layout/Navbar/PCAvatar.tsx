@@ -68,7 +68,7 @@ export default function PCAvatar() {
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen((prev) => !prev)}
-            className={`h-[40px] w-[40px] rounded-full overflow-hidden ${
+            className={`shrink-0 h-[40px] w-[40px] rounded-full overflow-hidden ${
               isOpen ? "ring-2 ring-orange-normal ring-offset-1" : ""}`}
           >
             {userProfile?.pic_url && userProfile.pic_url.trim() !== "" ? (

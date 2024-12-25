@@ -49,7 +49,7 @@ export default function MobileAvatar() {
               <div className="flex justify-center items-center w-full gap-2">
                 <div
                   style={{ aspectRatio: "1 / 1" }}
-                  className="h-[40px] w-[40px] rounded-full overflow-hidden"
+                  className="shrink-0 h-[40px] w-[40px] rounded-full overflow-hidden"
                 >
                   {userProfile?.pic_url && userProfile.pic_url.trim() !== "" ? (
                     <Image

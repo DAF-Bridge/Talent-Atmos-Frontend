@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <>
       <NavigationBar />
-      <div className="font-prompt max-w-[1170px] mx-auto px-10 pb-5 mt-[80px]">
+      <div className="font-prompt max-w-[1170px] mx-auto px-6 pb-5 mt-[80px]">
         <div className="font-medium text-2xl border-b-2 pt-[25px] pb-[11px]">
           อีเว้นท์มาแรง
         </div>
