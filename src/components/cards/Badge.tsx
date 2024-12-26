@@ -1,8 +1,14 @@
 import React from "react";
 
-export default function Badge({ label }: Readonly<{ label: string }>) {
+export default function Badge({
+  label,
+  color = "#e2e8f0",
+}: Readonly<{ label: string; color?: string }>) {
   return (
-    <div className="bg-slate-200 text-gray-800 text-[12px] rounded-full px-[9px] py-[1px]">
+    <div
+      style={{ backgroundColor: color }}
+      className={`text-gray-800 text-[12px] rounded-full px-[9px] py-[1px]`}
+    >
       {label}
     </div>
   );

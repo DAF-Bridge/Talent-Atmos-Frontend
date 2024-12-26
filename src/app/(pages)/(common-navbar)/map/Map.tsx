@@ -5,9 +5,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Organization } from "@/lib/types";
 import { createPortal } from "react-dom";
-import Image from "next/image";
-import Link from "next/link";
-import Badge from "@/components/cards/Badge";
+import { CustomPopup } from "./MapPopup";
 
 // Add custom CSS to override Mapbox popup styles
 const customPopupStyle = `
@@ -42,49 +40,6 @@ const customPopupStyle = `
   border-top-color: #e2e8f0 !important;
 }
 `;
-
-interface CustomPopupProps {
-  organization: Organization;
-}
-
-const CustomPopup: React.FC<CustomPopupProps> = ({ organization }) => {
-  return (
-    <div className="font-prompt flex flex-col w-[300px] md:w-[400px] p-4 bg-white rounded-lg shadow-lg">
-      <div className="flex gap-2 items-center">
-        <Image
-          src={
-            "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw"
-          }
-          className="h-full max-w-[60px] object-cover rounded-xl border"
-          style={{ aspectRatio: "1 / 1" }}
-          height={100}
-          width={100}
-          alt="org-image"
-        />
-        <h3 className="text-sm md:text-base font-normal text-gray-900 mb-2">
-          {organization.name}
-        </h3>
-      </div>
-      <p className="text-xs md:text-sm font-light text-gray-600 mt-1">
-        {organization.description}
-      </p>
-      <div className="inline-flex flex-wrap mt-2 gap-1">
-        {organization.industry.map((label, i) => (
-          <Badge key={i} label={label} />
-        ))}
-      </div>
-      <div className="flex justify-end w-full mt-4">
-        <Link
-          href={`/orgs/${organization.id}`}
-          className="inline-flex justify-center items-center py-[6px] px-2 rounded-full w-full border-[1px]
-        font-light text-sm md:text-base hover:bg-slate-50 text-black transition-colors duration-150 focus:outline-none"
-        >
-          <span className="ml-2">ดูรายละเอียด</span>
-        </Link>
-      </div>
-    </div>
-  );
-};
 
 interface MapProps {
   organizations: Organization[];
@@ -210,7 +165,7 @@ const MapComponent: React.FC<MapProps> = ({
   }, [selectedOrg, flyToTrigger]); // Re-run this effect when selectedCoordinates change
 
   return (
-    <div className="relative h-[100vh] w-[100vw] ">
+    <div className="relative h-[100vh] w-[100vw]">
       <div ref={mapContainerRef} className="w-full h-full" />
       {/* Render popups using portals */}
       {organizations.map((org) => {
