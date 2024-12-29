@@ -1,7 +1,7 @@
 "use client";
 
-import { Skeleton } from "@mui/material";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
+import { Skeleton } from "../ui/skeleton";
 
 // Skeleton placeholder for loading state
 function JobCardSkeleton() {
