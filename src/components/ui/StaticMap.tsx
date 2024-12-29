@@ -42,7 +42,7 @@ export default function StaticMap({
       <button
         onClick={handleMapLinkClick}
         className="absolute flex justify-center items-center z-10 top-2 right-2 
-      bg-white py-1 px-2 rounded-[8px] border-2 border-orange-dark hover:drop-shadow-md"
+      bg-white/80 py-1 px-2 rounded-[8px] border border-orange-dark hover:drop-shadow-md"
       >
         <Image
           src="/icon/google-map.png"

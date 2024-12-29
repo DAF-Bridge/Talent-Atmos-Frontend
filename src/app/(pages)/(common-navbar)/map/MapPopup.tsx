@@ -42,7 +42,7 @@ export const CustomPopup: React.FC<CustomPopupProps> = ({ organization }) => {
       </div>
       <div className="flex gap-3 justify-end w-full mt-4">
         <Link
-          href={`/orgs/${organization.id}`}
+          href={`/orgs/${organization.id}/org-detail`}
           className="inline-flex justify-center items-center py-[6px] px-2 rounded-full w-full border-[1px]
           font-light text-sm md:text-base hover:bg-slate-50 text-black transition-colors duration-150 focus:outline-none"
         >

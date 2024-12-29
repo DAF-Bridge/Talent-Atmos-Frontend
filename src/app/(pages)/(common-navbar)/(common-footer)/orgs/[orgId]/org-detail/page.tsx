@@ -1,9 +1,9 @@
 import Badge from "@/components/cards/Badge";
 import StaticMap from "@/components/ui/StaticMap";
 import React from "react";
-import GalleryCarousel from "./Gallery";
+import GalleryCarousel from "../Gallery";
 
-export default function OrgDescription() {
+export default function OrgDescriptionPage() {
   const mockGallery = [
     "https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd",
 
@@ -18,7 +18,7 @@ export default function OrgDescription() {
     "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   ];
   return (
-    <div className="flex flex-col gap-[60px] mt-8">
+    <div className="flex flex-col gap-[60px]">
       <div className="flex flex-col gap-2">
         <p className="text-lg sm:text-xl font-semibold">ข้อมูลทั่วไป</p>
         <div className="flex gap-6 mt-2 leading-loose">

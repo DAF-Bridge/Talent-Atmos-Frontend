@@ -32,10 +32,23 @@ export default function GalleryCarousel({
               key={index}
               className="pl-2 md:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
             >
-              <div className="rounded-[20px] overflow-hidden border">
+              <div className="relative overflow-hidden border">
+                {/* Blurry backdrop */}
+                <div className="absolute inset-0 -z-10">
+                  <Image
+                    style={{ aspectRatio: "16 / 9" }}
+                    className="w-full h-full object-cover blur-md opacity-30"
+                    src={imgUrl}
+                    width={500}
+                    height={500}
+                    alt=""
+                  />
+                </div>
+
+                {/* Main image */}
                 <Image
                   style={{ aspectRatio: "16 / 9" }}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   src={imgUrl}
                   width={500}
                   height={500}

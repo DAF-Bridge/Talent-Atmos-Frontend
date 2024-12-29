@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import StaticMap from "@/components/ui/StaticMap";
 import { formatInternalUrl } from "@/lib/utils";
 import { Calendar, Clock, MapPin } from "lucide-react";
 import Image from "next/image";
@@ -194,9 +195,11 @@ export default async function EventDescription({
                 {"Builds - CMU: Startup & Entrepreneurial Platform"}
               </p>
               <div
-                className="w-[80%] rounded-[10px] bg-slate-500"
+                className="w-[80%] rounded-[10px] bg-slate-500 overflow-hidden"
                 style={{ aspectRatio: "519 / 365" }}
-              ></div>
+              >
+                <StaticMap lat={18.80207753602652} lng={98.96766808636778} />
+              </div>
             </div>
             <div className="flex flex-col gap-[10px]">
               <p className="font-semibold text-2xl mt-[16px]">
@@ -212,11 +215,11 @@ export default async function EventDescription({
               className="md:sticky top-[80px] flex flex-col justify-center items-center gap-4 
             w-full h-auto pt-[20px] pb-[30px] px-[5%] border rounded-[10px] drop-shadow-lg bg-white"
             >
-              <p className="text-left text-xl font-medium w-full">
-                ลงทะเบียน
-              </p>
+              <p className="text-left text-xl font-medium w-full">ลงทะเบียน</p>
               <div className="flex flex-col gap-5 w-full">
-                <div className="border items-center justify-center flex rounded-[10px] h-[40px]">ไปที่ฟอร์ม</div>
+                <div className="border items-center justify-center flex rounded-[10px] h-[40px]">
+                  ไปที่ฟอร์ม
+                </div>
               </div>
             </div>
           </div>

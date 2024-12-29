@@ -7,7 +7,7 @@ export default function Badge({
   return (
     <div
       style={{ backgroundColor: color }}
-      className={`text-gray-800 text-[12px] rounded-full px-[9px] py-[1px]`}
+      className="flex justify-center items-center text-gray-800 text-[12px] rounded-full px-[9px] py-[1px]"
     >
       {label}
     </div>

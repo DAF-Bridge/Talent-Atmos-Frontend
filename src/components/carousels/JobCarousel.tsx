@@ -3,15 +3,16 @@
 import * as React from "react";
 import {
   Carousel,
-  CarouselContent,
-  CarouselItem,
+  // CarouselContent,
+  // CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import JobCard from "../cards/JobCard";
+// import JobCard from "../cards/JobCard";
 import { Job } from "@/lib/types";
 
 export default function JobCarousel({ jobs }: { readonly jobs: Job[] }) {
+  console.log(jobs);
   return (
     <div className="w-full">
       <Carousel
@@ -21,7 +22,7 @@ export default function JobCarousel({ jobs }: { readonly jobs: Job[] }) {
           loop: false,
         }}
       >
-        <CarouselContent className="-ml-2 md:-ml-4">
+        {/* <CarouselContent className="-ml-2 md:-ml-4">
           {jobs.map((job, index) => (
             <CarouselItem
               key={index}
@@ -37,7 +38,7 @@ export default function JobCarousel({ jobs }: { readonly jobs: Job[] }) {
               </div>
             </CarouselItem>
           ))}
-        </CarouselContent>
+        </CarouselContent> */}
 
         {/* prev */}
         <CarouselPrevious

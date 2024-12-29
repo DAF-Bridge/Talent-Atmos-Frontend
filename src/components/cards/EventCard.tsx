@@ -3,14 +3,15 @@ import Link from "next/link";
 import React from "react";
 
 interface EventCardProps {
-  readonly title: string;
-  readonly date: string;
-  readonly time: string;
-  readonly location: string;
-  readonly imgUrl: string;
-  readonly orgName: string;
-  readonly orgPicUrl: string;
-  readonly cardId: string;
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  imgUrl: string;
+  orgName: string;
+  orgPicUrl: string;
+  cardId: string;
+  showOrg?: boolean;
 }
 export default function EventCard({
   title,
@@ -21,26 +22,29 @@ export default function EventCard({
   orgName,
   orgPicUrl,
   cardId,
-}: EventCardProps) {
+  showOrg = true,
+}: Readonly<EventCardProps>) {
   return (
     <div className="flex flex-col gap-1">
-      <div className="flex flex-row gap-2 justify-start items-center h-auto w-full pr-3">
-        <div
-          className="h-auto max-w-[40px] overflow-hidden rounded-full bg-white"
-          style={{ aspectRatio: "1 / 1" }}
-        >
-          <Image
-            className="block h-full w-full object-cover group-hover:scale-105 duration-100"
-            src={orgPicUrl}
-            width={300}
-            height={300}
-            alt="org-profile"
-          />
+      {showOrg && (
+        <div className="flex flex-row gap-2 justify-start items-center h-auto w-full pr-3">
+          <div
+            className="h-auto max-w-[40px] overflow-hidden rounded-full bg-white"
+            style={{ aspectRatio: "1 / 1" }}
+          >
+            <Image
+              className="block h-full w-full object-cover group-hover:scale-105 duration-100"
+              src={orgPicUrl}
+              width={300}
+              height={300}
+              alt="org-profile"
+            />
+          </div>
+          <div className="font-regular text-base flex-grow min-w-0 line-clamp-1 break-words">
+            {orgName}
+          </div>
         </div>
-        <div className="font-regular text-base flex-grow min-w-0 line-clamp-1 break-words">
-          {orgName}
-        </div>
-      </div>
+      )}
       <Link
         href={`/events/${cardId}`}
         className="flex flex-col gap-1 group hover:cursor-pointer"
