@@ -4,9 +4,9 @@ import Link from "next/link";
 import React from "react";
 
 interface BriefEventCardProps {
-  title: string;
-  date: string;
-  imgUrl: string;
+  readonly title: string;
+  readonly date: string;
+  readonly imgUrl: string;
 }
 
 export default function BriefEventCard({

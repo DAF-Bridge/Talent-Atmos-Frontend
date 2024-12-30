@@ -39,19 +39,56 @@ export const loginSchema = z.object({
 export type TLogInSchema = z.infer<typeof loginSchema>;
 
 export type Event = {
-  title: string;
-  date: string;
+  id: number;
+  Name: string;
+  StartDate: string;
+  EndDate: string;
+  StartTime: string;
+  EndTime: string;
+  PicUrl: string;
+  Location: string;
+};
+
+export type BriefOrganization = {
+  name: string;
   imgUrl: string;
 };
 
 export type Organization = {
+  id: number;
   name: string;
-  imgUrl: string;
-};
+  description: string;
+  latitude: number;
+  longitude: number;
+  industry: string[];
+}
 
 export type Job = {
   orgName: string;
   imgUrl: string;
   jobTitle: string;
   location: string;
+};
+
+export type UserProfile = {
+  ID: number;
+  fname: string;
+  lname: string;
+  email: string;
+  phone: string;
+  pic_url: string;
+  user_id: number;
+};
+
+export type AuthContextType = {
+  isAuth: boolean | null;
+  userProfile: UserProfile | null;
+  loading: boolean;
+  setAuthState: () => void;
+  removeAuthState: () => void;
+};
+
+export type Coordinate = {
+  latitude: number;
+  longitude: number;
 };

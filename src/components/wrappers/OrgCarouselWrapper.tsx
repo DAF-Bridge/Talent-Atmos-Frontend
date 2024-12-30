@@ -1,16 +1,12 @@
+import { formatInternalUrl } from "@/lib/utils";
 import OrgCarousel from "../carousels/OrgCarousel";
 
 // Server component to fetch data
 export default async function OrgCarouselWrapper() {
   // For server components, it's better to use NEXT_PUBLIC_API_URL for external APIs
-  // or use absolute URL with the APP_URL for internal API routes
-  const baseUrl =
-    process.env.NODE_ENV === "development"
-      ? process.env.NEXT_PUBLIC_DEV_URL
-      : process.env.NEXT_PUBLIC_API_URL;
 
   // Ensure we have a properly formatted URL
-  const apiUrl = new URL("/api/orgs", baseUrl).toString();
+  const apiUrl = formatInternalUrl("/api/orgs");
 
   try {
     const res = await fetch(apiUrl, {

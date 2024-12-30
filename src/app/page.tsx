@@ -1,6 +1,6 @@
 import HomeTrendingEvent from "@/components/HomeTrendingEvent";
 import BigFooter from "@/components/layout/BigFooter";
-import NavigationBar from "@/components/layout/NavBar";
+import NavigationBar from "@/components/layout/Navbar/NavBar";
 import EventCarouselSkeleton from "@/components/skeletons/EventCarouselSkeleton";
 import OrgCarouselSkeleton from "@/components/skeletons/OrgCarouselSkeleton";
 import { lazy, Suspense } from "react";
@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <>
       <NavigationBar />
-      <div className="font-prompt max-w-[1170px] mx-auto px-10 pb-5">
+      <div className="font-prompt max-w-[1170px] mx-auto px-6 pb-5 mt-[80px]">
         <div className="font-medium text-2xl border-b-2 pt-[25px] pb-[11px]">
           อีเว้นท์มาแรง
         </div>

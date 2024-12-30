@@ -1,6 +1,5 @@
 "use client";
 
-import { PasswordRating } from "@/components/PasswordRating";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,12 +11,20 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { formatExternalUrl, formatInternalUrl } from "@/lib/utils";
+import { useAuth } from "@/context/AuthContext";
 
-export default function Login(): JSX.Element {
+export default function LoginPage(): JSX.Element {
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  const { setAuthState } = useAuth();
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const handleGoogleLogin = () => {
+    window.location.href = formatExternalUrl("/auth/google");
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -28,7 +35,6 @@ export default function Login(): JSX.Element {
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
-    watch,
   } = useForm<TLogInSchema>({
     resolver: zodResolver(loginSchema),
   });
@@ -39,11 +45,14 @@ export default function Login(): JSX.Element {
 
     try {
       // Send POST request to Next API
-      const response = await fetch("/api/login", {
+      const apiUrl = formatInternalUrl("/api/login");
+      const response = await fetch(apiUrl, {
+        cache: "no-store",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include", // Send and receive cookies
         body: JSON.stringify(data),
       });
 
@@ -52,12 +61,18 @@ export default function Login(): JSX.Element {
 
       // if the response if ok redirect to home, if not, show error toast
       if (response.ok) {
+        // // Update isAuth to true
+        setAuthState(); // Update the auth state globally
+        setIsRedirecting(true);
         const successToastId = toast.success("เข้าสู่ระบบสําเร็จ");
+
         // Delay the redirect to show the toast
         setTimeout(() => {
           toast.dismiss(successToastId); // Clear the success toast
+          setIsRedirecting(false);
           router.push("/"); // Redirect to home
         }, 1500); // Delay of 1.5 seconds for users to see the success message
+
         return;
       } else {
         // if the server validation caught an error
@@ -65,13 +80,21 @@ export default function Login(): JSX.Element {
 
         // set the errors to each field
         if (responseData.errors) {
-          toast.error("ข้อมูลไม่ถูกต้อง");
-          Object.entries(responseData.errors).forEach(([key, message]) => {
-            setError(key as keyof TLogInSchema, {
-              type: "server",
-              message: message as string,
+          const errors = responseData.errors;
+          if (responseData.status === 400) {
+            Object.entries(responseData.errors).forEach(([key, message]) => {
+              setError(key as keyof TLogInSchema, {
+                type: "server",
+                message: message as string,
+              });
             });
-          });
+          } else {
+            const errorMessage =
+              typeof errors === "string"
+                ? errors
+                : "An unknown error occurred.";
+            toast.error(errorMessage);
+          }
         }
       }
     } catch (error) {
@@ -82,13 +105,8 @@ export default function Login(): JSX.Element {
     }
   };
 
-  // for password suggestion box
-  const [isFocused, setIsFocused] = useState(false);
-  const password = watch("password"); // Use watch to monitor password field
-
   return (
     <div className="font-prompt flex h-[100vh]">
-      <Toaster />
       <div className="hidden px-[4%] lg:flex lg:flex-col lg:w-[58%] ">
         <Link href="/" className="absolute pt-[71px]">
           <div
@@ -99,13 +117,16 @@ export default function Login(): JSX.Element {
             <p className="self-center">กลับสู่หน้าหลัก</p>
           </div>
         </Link>
-        <div className="h-full flex px-[5%]">
+        <div className="my-auto flex px-[5%]">
           <Image
             className="justify-self-center"
-            src={"/inline-logo.svg"}
+            src={"/inline-logo.webp"}
             width={1000}
             height={179}
             alt="login"
+            priority
+            placeholder="blur" // If using next/image
+            blurDataURL="data:image/..." // Base64 tiny placeholder
           />
         </div>
       </div>
@@ -128,7 +149,7 @@ export default function Login(): JSX.Element {
 
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col gap-4 mt-[21px]"
+              className="flex flex-col gap-5 mt-[21px]"
             >
               <div>
                 <Label className="text-base font-normal" htmlFor="email">
@@ -163,8 +184,6 @@ export default function Login(): JSX.Element {
                     type={showPassword ? "text" : "password"}
                     id="password"
                     placeholder="รหัสผ่าน"
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
                   />
                   <Button
                     type="button"
@@ -182,46 +201,30 @@ export default function Login(): JSX.Element {
                       <Eye className="h-4 w-4 text-gray-500" />
                     )}
                   </Button>
-                  {isFocused && password.length > 0 && (
-                    <PasswordRating password={password} />
-                  )}
                 </div>
               </div>
-              <div className="flex justify-between mt-2">
-                <div className="inline-flex gap-1 items-center">
-                  <input
-                    type="checkbox"
-                    className="w-4 h-4 accent-black"
-                    id="remember"
-                  />
-                  <Label
-                    className="hover:cursor-pointer font-normal text-sm sm:text-base"
-                    htmlFor="remember"
-                  >
-                    จดจำบัญชีนี้
-                  </Label>
-                </div>
+              <div className="flex justify-end">
                 <Link
                   href={"/forgot-password"}
-                  className="text-sm sm:text-base font-normal underline hover:text-gray-600"
+                  className="text-sm sm:text-base font-normal underline hover:text-orange-dark text-gray-600"
                 >
-                  ลืมรหัสผ่าน
+                  ลืมรหัสผ่าน?
                 </Link>
               </div>
               <Button
-                className="text-xl font-normal bg-orange-dark hover:bg-orange-normal hover:shadow-md h-[45px] sm:h-[50px] 
-              rounded-[10px] mt-[24px]"
+                className="text-lg font-normal bg-orange-dark hover:bg-orange-normal hover:shadow-md h-[48px]
+              rounded-[10px] border"
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isRedirecting}
               >
                 เข้าสู่ระบบ
               </Button>
             </form>
 
             <div className="flex gap-1 justify-center mt-[17px]">
-              <p className="font-light">คุณยังไม่เป็นสมาชิกใช่หรือไม่? </p>
+              <p className="font-light">คุณยังไม่เป็นสมาชิกใช่หรือไม่?</p>
               <Link
-                href={"/register"}
+                href={"/signup"}
                 className="text-orange-dark hover:underline "
               >
                 สมัครเลย
@@ -233,9 +236,10 @@ export default function Login(): JSX.Element {
               <div className="w-full border border-gray-300 relative" />
             </div>
             <div className="flex flex-col xl:flex-row justify-center gap-[10px]">
-              <Link
-                href={"http://localhost:8080/auth/google"}
-                className="oauth-btn"
+              <button
+                onClick={handleGoogleLogin}
+                className="inline-flex gap-1 border hover:border-black/30 hover:shadow-md rounded-[10px] 
+                h-[48px] w-full text-sm font-normal justify-center items-center"
               >
                 <Image
                   src={"./icon/google-icon.svg"}
@@ -244,8 +248,8 @@ export default function Login(): JSX.Element {
                   alt="google-login"
                 />
                 เข้าสู่ระบบด้วย Google
-              </Link>
-              <button className="oauth-btn">
+              </button>
+              {/* <button className="oauth-btn">
                 <Image
                   src={"./icon/fb-icon.svg"}
                   width={33}
@@ -253,7 +257,7 @@ export default function Login(): JSX.Element {
                   alt="google-login"
                 />
                 เข้าสู่ระบบด้วย Facebook
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

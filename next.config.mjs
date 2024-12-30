@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "drive.google.com",
       },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com", // Allow images from Google Profile
+      },
     ], // Allow images from Google Drive
   },
 };
