@@ -55,6 +55,6 @@ export function formatRelativeTime(dateTime: string) {
   }
 
   // Beyond 7 days, return the actual date-time string
-  return inputTime.toLocaleString("th-TH", { dateStyle: "short" });
+  return inputTime.toLocaleString("th-TH", { dateStyle: "long" });
 }
 

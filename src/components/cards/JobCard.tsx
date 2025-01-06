@@ -1,8 +1,11 @@
+"use client";
+
 import Badge from "@/components/cards/Badge";
 import { formatRelativeTime } from "@/lib/utils";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 interface JobCardProps {
   title: string;
@@ -17,6 +20,7 @@ interface JobCardProps {
   updatedDate: string;
   orgName?: string;
   industry: string[];
+  isBooked?: boolean;
 }
 
 export default function JobCard({
@@ -32,14 +36,19 @@ export default function JobCard({
   updatedDate,
   orgName,
   industry,
+  isBooked = false,
 }: Readonly<JobCardProps>) {
+  const [isBookmarked, setIsBookmarked] = React.useState(isBooked);
+  const handleBookmark = () => {
+    setIsBookmarked(!isBookmarked);
+  };
   return (
     <div className="border rounded-[8px] bg-white p-5">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col">
         <div className="flex flex-row justify-between items-start">
-          <div className="flex flex-row gap-4 justify-start items-center flex-wrap">
+          <div className="flex flex-row gap-4 justify-start items-start flex-wrap">
             {imgUrl && (
-              <div className="shrink-0 w-[45px] h-[45px] rounded-[5px] overflow-hidden">
+              <div className="shrink-0 w-[50px] h-[50px] rounded-[5px] overflow-hidden">
                 <Image
                   src={imgUrl}
                   className="w-full h-full object-cover"
@@ -49,20 +58,20 @@ export default function JobCard({
                 />
               </div>
             )}
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-1">
               {imgUrl ? (
                 <p className="text-base font-normal">{title}</p>
               ) : (
                 <p className="text-lg font-medium mb-1">{title}</p>
               )}
-              <div className="inline-flex flex-col md:flex-row">
+              <div className="inline-flex flex-col md:flex-row gap-1">
                 {orgName && (
                   <>
                     <span className="text-base font-normal text-gray-inactive">
                       {orgName}
                     </span>
                     <span className="hidden md:block mx-2 text-lg font-extrabold leading-none">
-                      .
+                      •
                     </span>
                   </>
                 )}
@@ -83,33 +92,38 @@ export default function JobCard({
                     </div>
                   )}
                 </div>
-                <span className="hidden md:block mx-2 text-lg font-extrabold leading-none">
-                  .
-                </span>
-                <span className="text-base font-normal text-orange-normal">
+                <span className="hidden md:block mx-2 text-lg font-extrabold">•</span>
+                <span className="text-base font-normal text-orange-normal translate-y-[2px]">
                   {`฿${salary}/เดือน`}
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col justify-center items-end">
-            <div className="inline-flex justify-center items-center">
-              <MapPin className="hidden md:block shrink-0 h-[15px]" />
-              <span className="text-sm md:text-base text-right">{`${province}, ${country}`}</span>
-            </div>
-            <p className="text-xs md:text-sm text-gray-inactive">
-              {formatRelativeTime(updatedDate)}
-            </p>
-          </div>
+          <button
+            onClick={handleBookmark}
+            className="p-3 border rounded-[8px] text-gray-inactive text-xl hover:bg-slate-50"
+          >
+            {isBookmarked ? (
+              <FaBookmark className="text-orange-normal" />
+            ) : (
+              <FaRegBookmark />
+            )}
+          </button>
         </div>
-        <p className="text-sm font-light text-gray-inactive w-[80%] line-clamp-2">
+        <p className="text-sm font-normal w-[80%] line-clamp-2 mt-4">
           {description}
         </p>
-        <div className="inline-flex gap-2 h-6 flex-wrap">
+        <div className="inline-flex gap-2 h-6 flex-wrap mt-4">
           {industry.map((label, i) => (
-            <Badge key={i} label={label} />
+            <Badge key={i} label={label} color="#F2F2F1" />
           ))}
+        </div>
+        <div className="inline-flex justify-start items-center text-gray-inactive mt-2">
+          <MapPin className="shrink-0 h-[15px]" />
+          <span className="text-sm text-right">{`${province}, ${country}`}</span>
+          <span className="mx-2 text-lg font-extrabold">•</span>
+          <p className="text-sm">{formatRelativeTime(updatedDate)}</p>
         </div>
       </div>
     </div>
