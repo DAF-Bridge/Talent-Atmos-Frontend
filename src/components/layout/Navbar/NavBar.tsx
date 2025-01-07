@@ -22,7 +22,7 @@ export default function NavigationBar() {
   ];
   const [isMiniMenuOpen, setIsMiniMenuOpen] = useState(false);
   return (
-    <nav className="absolute bg-white shadow-md font-prompt top-0 z-50 w-full">
+    <nav className="fixed bg-white shadow-md font-prompt top-0 z-50 w-full">
       <div className="max-w-[1170px] mx-auto px-6">
         <div className="flex justify-between h-[65px]">
           <div className="flex gap-[42px] ">

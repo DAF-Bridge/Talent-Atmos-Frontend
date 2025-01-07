@@ -45,26 +45,25 @@ export default function EventCard({
           </div>
         </div>
       )}
-      <Link
-        href={`/events/${cardId}`}
-        className="flex flex-col gap-1 group hover:cursor-pointer"
-      >
-        <div
-          className="h-full w-full rounded-[18px] overflow-hidden group-hover:shadow-md duration-100 bg-red-400"
-          style={{ aspectRatio: "3 / 4" }}
-        >
-          <Image
-            className="block h-full w-full object-cover group-hover:scale-105 duration-100"
-            src={imgUrl}
-            width={191}
-            height={242}
-            alt="อีเว้นท์"
-          />
-        </div>
+      <div className="flex flex-col gap-1 group">
+        <Link href={`/events/${cardId}`} className="flex flex-col">
+          <div
+            className="h-full w-full rounded-[18px] overflow-hidden group-hover:shadow-md duration-100 bg-red-400"
+            style={{ aspectRatio: "3 / 4" }}
+          >
+            <Image
+              className="block h-full w-full object-cover group-hover:scale-105 duration-100"
+              src={imgUrl}
+              width={191}
+              height={242}
+              alt="อีเว้นท์"
+            />
+          </div>
+          <div className="font-medium text-lg line-clamp-1 group-hover:text-orange-normal duration-100">
+            {title}
+          </div>
+        </Link>
 
-        <div className="font-medium text-lg line-clamp-1 group-hover:text-orange-normal duration-100">
-          {title}
-        </div>
         <div className="flex flex-col gap-2 mt-2">
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
             <Image
@@ -94,7 +93,7 @@ export default function EventCard({
             <div className="line-clamp-1 font-light text-sm">{location}</div>
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

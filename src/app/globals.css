@@ -90,8 +90,16 @@
   background: #555;
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .auth-input {
-  @apply h-[40px] sm:h-[48px] placeholder:font-light placeholder:text-sm sm:placeholder:text-base hover:shadow-md ;
+  @apply h-[40px] sm:h-[48px] placeholder:font-light placeholder:text-sm sm:placeholder:text-base hover:shadow-md;
 }
 
 .error-msg {

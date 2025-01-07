@@ -49,7 +49,7 @@ export default function PCAvatar() {
           <Link href="/login">
             <div
               className="flex justify-center items-center w-[122px] h-[46px] font-normal 
-            px-4 py-2 border border-black text-black rounded-lg hover:text-orange-dark"
+            px-4 py-2 border border-gray-stroke text-black rounded-lg hover:text-orange-dark"
             >
               เข้าสู่ระบบ
             </div>
