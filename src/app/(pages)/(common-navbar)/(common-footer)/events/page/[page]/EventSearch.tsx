@@ -1,12 +1,11 @@
 "use client";
 
 import { Search as SearchIcon } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import {  useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { debounce } from "lodash";
 
 export function EventSearch({ defaultValue = "" }) {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   const [searchTerm, setSearchTerm] = useState(defaultValue);
@@ -19,7 +18,7 @@ export function EventSearch({ defaultValue = "" }) {
       } else {
         params.delete("search");
       }
-      router.push(`/events/page/1?${params.toString()}`);
+      window.location.href = `/events/page/1?${params.toString()}`;
     }, 300),
     [searchParams]
   );

@@ -16,7 +16,6 @@ export default async function EventListingPage({
   const maxEventsPerPage = 12;
 
   const currentPage = params.page || "1";
-
   const search = searchParams.search?.toString() ?? "";
   const category = searchParams.category?.toString() ?? "";
 

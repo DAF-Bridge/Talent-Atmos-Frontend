@@ -1,7 +1,7 @@
 "use client";
 
 import { SlidersHorizontal } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import {
   Sheet,
   SheetContent,
@@ -23,7 +23,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 
 export function EventFilter() {
-  const router = useRouter();
   const searchParams = useSearchParams();
 
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -58,7 +57,7 @@ export function EventFilter() {
       params.delete("location");
     }
 
-    router.push(`/events/page/1?${params.toString()}`);
+    window.location.href = `/events/page/1?${params.toString()}`;
     setIsFilterOpen(false);
   };
 
@@ -72,7 +71,7 @@ export function EventFilter() {
     params.delete("dateRange");
     params.delete("location");
 
-    router.push(`/events/page/1?${params.toString()}`);
+    window.location.href = `/events/page/1?${params.toString()}`;
   };
 
   const getActiveFiltersCount = () => {

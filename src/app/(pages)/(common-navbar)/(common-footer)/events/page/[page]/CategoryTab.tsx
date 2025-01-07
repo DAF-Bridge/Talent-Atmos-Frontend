@@ -12,7 +12,6 @@ import { CgDisplayGrid } from "react-icons/cg";
 import { MdOutlinedFlag } from "react-icons/md";
 import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
 
 export default function CategoryTab() {
   const searchParams = useSearchParams();
@@ -121,7 +120,7 @@ export default function CategoryTab() {
         onScroll={checkScroll}
       >
         {categoriesList.map((category) => (
-          <Link
+          <a
             href={`/events/page/1?category=${category.id}`}
             key={category.id}
             className={`flex flex-col justify-center items-center gap-2 
@@ -141,7 +140,7 @@ export default function CategoryTab() {
             <p className="text-xs md:text-sm font-medium text-center whitespace-normal">
               {category.title}
             </p>
-          </Link>
+          </a>
         ))}
       </div>
     </div>
