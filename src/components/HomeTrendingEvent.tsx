@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import {
+  IoCalendarSharp,
+  IoLocationSharp,
+  IoTimeOutline,
+} from "react-icons/io5";
 
 export default function HomeTrendingEvent() {
   return (
@@ -43,15 +48,19 @@ export default function HomeTrendingEvent() {
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-4">
-            <Image src={"icon/calendar.svg"} width={20} height={20} alt="" />
-            <div className="line-clamp-1 break-words">13 ก.ค. - 07 ส.ค. 2567</div>
+            <IoCalendarSharp className="w-5 h-5 text-orange-dark" />
+            <div className="line-clamp-1 break-words">
+              15 ก.ค. - 07 ส.ค. 2557
+            </div>
           </div>
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-4">
-            <Image src={"icon/time.svg"} width={20} height={20} alt="" />
-            <div className="line-clamp-1 break-words">09:00 - 18:00 (UTC+7)</div>
+            <IoTimeOutline className="w-5 h-5 text-orange-dark" />
+            <div className="line-clamp-1 break-words">
+              09:00 - 18:00 (UTC+7)
+            </div>
           </div>
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-4">
-            <Image src={"icon/location.svg"} width={20} height={20} alt="" />
+            <IoLocationSharp className="w-5 h-5 text-orange-dark" />
             <div className="line-clamp-1 break-words">
               ศูนย์สุขภาพพร้อม สาขาอาคารศูนย์สุขภาพ มหาวิทยาลัยเชียงใหม่
             </div>

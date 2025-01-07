@@ -92,3 +92,9 @@ export type Coordinate = {
   latitude: number;
   longitude: number;
 };
+
+export type Category = {
+  icon: React.ReactNode;
+  id: "all" | "incubation" | "networking" | "forum" | "exhibition" | "competition" | "workshop" | "campaign";
+  title: string;
+};

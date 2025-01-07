@@ -24,7 +24,6 @@ import { useState } from "react";
 
 export function EventFilter() {
   const searchParams = useSearchParams();
-
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedType, setSelectedType] = useState(
     searchParams.get("type") ?? ""
@@ -34,6 +33,12 @@ export function EventFilter() {
   );
   const [selectedLocation, setSelectedLocation] = useState(
     searchParams.get("location") ?? ""
+  );
+  const [selectedAudience, setSelectedAudience] = useState(
+    searchParams.get("audience") ?? ""
+  );
+  const [selectedPrice, setSelectedPrice] = useState(
+    searchParams.get("price") ?? ""
   );
 
   const applyFilters = () => {
@@ -57,6 +62,18 @@ export function EventFilter() {
       params.delete("location");
     }
 
+    if (selectedAudience) {
+      params.set("audience", selectedAudience);
+    } else {
+      params.delete("audience");
+    }
+
+    if (selectedPrice) {
+      params.set("price", selectedPrice);
+    } else {
+      params.delete("price");
+    }
+
     window.location.href = `/events/page/1?${params.toString()}`;
     setIsFilterOpen(false);
   };
@@ -65,24 +82,37 @@ export function EventFilter() {
     setSelectedType("");
     setSelectedDateRange("");
     setSelectedLocation("");
+    setSelectedAudience("");
+    setSelectedPrice("");
 
     const params = new URLSearchParams(searchParams);
     params.delete("type");
     params.delete("dateRange");
     params.delete("location");
+    params.delete("audience");
+    params.delete("price");
 
     window.location.href = `/events/page/1?${params.toString()}`;
   };
 
   const getActiveFiltersCount = () => {
-    return [selectedType, selectedDateRange, selectedLocation].filter(Boolean)
-      .length;
+    return [
+      selectedType,
+      selectedDateRange,
+      selectedLocation,
+      selectedAudience,
+      selectedPrice,
+    ].filter(Boolean).length;
   };
 
   return (
     <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
       <SheetTrigger asChild>
-        <button className="flex justify-center items-center gap-1 border bg-white hover:drop-shadow-md border-gray-stroke rounded-[10px] h-[48px] px-3 text-gray-btngray relative">
+        <button
+          className="flex justify-center items-center gap-1 border bg-white 
+        hover:drop-shadow-md border-gray-stroke rounded-[10px] h-[48px] px-4 
+        text-gray-btngray relative"
+        >
           <SlidersHorizontal className="h-[18px] w-[18px]" />
           <span className="hidden sm:block text-sm font-medium">ตัวกรอง</span>
           {getActiveFiltersCount() > 0 && (
@@ -95,33 +125,6 @@ export function EventFilter() {
           <SheetTitle className="font-prompt">ตัวกรอง</SheetTitle>
         </SheetHeader>
         <div className="py-6 space-y-8">
-          {/* Event Type Filter */}
-          <div className="space-y-4">
-            <Label>ประเภทกิจกรรม</Label>
-            <RadioGroup
-              value={selectedType}
-              onValueChange={setSelectedType}
-              className="grid grid-cols-2 gap-4"
-            >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="business" id="business" />
-                <Label htmlFor="business">บ่มเพาะธุรกิจ</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="networking" id="networking" />
-                <Label htmlFor="networking">สร้างเครือข่าย</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="seminar" id="seminar" />
-                <Label htmlFor="seminar">สัมมนา</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="workshop" id="workshop" />
-                <Label htmlFor="workshop">เวิร์คชอป</Label>
-              </div>
-            </RadioGroup>
-          </div>
-
           {/* Date Range Filter */}
           <div className="space-y-4">
             <Label>ช่วงเวลา</Label>
@@ -133,11 +136,21 @@ export function EventFilter() {
                 <SelectValue placeholder="เลือกช่วงเวลา" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="today">วันนี้</SelectItem>
-                <SelectItem value="tomorrow">พรุ่งนี้</SelectItem>
-                <SelectItem value="thisWeek">สัปดาห์นี้</SelectItem>
-                <SelectItem value="thisMonth">เดือนนี้</SelectItem>
-                <SelectItem value="nextMonth">เดือนหน้า</SelectItem>
+                <SelectItem className="hover:bg-slate-100" value="today">
+                  วันนี้
+                </SelectItem>
+                <SelectItem className="hover:bg-slate-100" value="tomorrow">
+                  พรุ่งนี้
+                </SelectItem>
+                <SelectItem className="hover:bg-slate-100" value="thisWeek">
+                  สัปดาห์นี้
+                </SelectItem>
+                <SelectItem className="hover:bg-slate-100" value="thisMonth">
+                  เดือนนี้
+                </SelectItem>
+                <SelectItem className="hover:bg-slate-100" value="nextMonth">
+                  เดือนหน้า
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -153,10 +166,53 @@ export function EventFilter() {
                 <SelectValue placeholder="เลือกสถานที่" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="online">ออนไลน์</SelectItem>
-                <SelectItem value="bangkok">กรุงเทพมหานคร</SelectItem>
-                <SelectItem value="chiangmai">เชียงใหม่</SelectItem>
-                <SelectItem value="phuket">ภูเก็ต</SelectItem>
+                <SelectItem className="hover:bg-slate-100" value="online">
+                  ออนไลน์
+                </SelectItem>
+                <SelectItem className="hover:bg-slate-100" value="onsite">
+                  ออนไซต์
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Audience Filter */}
+          <div className="space-y-4">
+            <Label>ประเภทผู้ชม</Label>
+            <RadioGroup
+              value={selectedAudience}
+              onValueChange={setSelectedAudience}
+              className="grid grid-cols-2 gap-y-[15px]"
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="general" id="r1" />
+                <Label htmlFor="r1">ทั่วไป</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="students" id="r2" />
+                <Label htmlFor="r2">นักเรียน/นักศึกษา</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="professionals" id="r3" />
+                <Label htmlFor="r3">มืออาชีพ</Label>
+              </div>
+            </RadioGroup>
+          </div>
+
+          {/* Price Filter */}
+          <div className="space-y-4">
+            <Label>ราคา</Label>
+            <Select value={selectedPrice} onValueChange={setSelectedPrice}>
+              <SelectTrigger>
+                <SelectValue placeholder="เลือกราคา" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem className="hover:bg-slate-100" value="free">
+                  ฟรี
+                </SelectItem>
+                <SelectItem className="hover:bg-slate-100" value="paid">
+                  มีค่าใช้จ่าย
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>

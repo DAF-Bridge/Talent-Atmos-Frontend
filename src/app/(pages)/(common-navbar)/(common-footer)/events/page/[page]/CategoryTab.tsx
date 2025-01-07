@@ -12,13 +12,20 @@ import { CgDisplayGrid } from "react-icons/cg";
 import { MdOutlinedFlag } from "react-icons/md";
 import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { IoIosGlobe } from "react-icons/io";
+import { Category } from "@/lib/types";
 
 export default function CategoryTab() {
   const searchParams = useSearchParams();
   const currentCategory = searchParams.get("category");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const categoriesList = [
+  const categoriesList: Category[] = [
+    {
+      icon: <IoIosGlobe />,
+      id: "all",
+      title: "ทั้งหมด",
+    },
     {
       icon: <HiOutlineRocketLaunch />,
       id: "incubation",
@@ -116,24 +123,24 @@ export default function CategoryTab() {
       {/* Categories Container */}
       <div
         ref={scrollContainerRef}
-        className="flex md:grid md:grid-cols-7 overflow-x-auto scrollbar-hide gap-4 px-0 mx-9 md:mx-0"
+        className="flex md:grid md:grid-cols-8 overflow-x-auto scrollbar-hide gap-4 px-0 mx-9 md:mx-0"
         onScroll={checkScroll}
       >
         {categoriesList.map((category) => (
           <a
             href={`/events/page/1?category=${category.id}`}
             key={category.id}
-            className={`flex flex-col justify-center items-center gap-2 
-              min-w-[80px] md:min-w-0 md:w-full
-              transition-colors duration-150 px-2 py-3
+            className={`flex flex-col justify-start items-center gap-2 
+              min-w-[80px] md:min-w-0 md:w-full rounded-md hover:border
+              transition-colors duration-150 py-1
               ${
                 currentCategory === category.id
-                  ? "text-orange-normal"
+                  ? "text-orange-normal border  bg-white"
                   : "text-gray-inactive hover:text-gray-inactive/60"
               }`}
           >
             <div className="w-8 h-8 flex items-center justify-center">
-              {React.cloneElement(category.icon, {
+              {React.cloneElement(category.icon as React.ReactElement, {
                 className: "w-6 h-6", // Fixed icon size
               })}
             </div>

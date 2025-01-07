@@ -9,9 +9,9 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import Cookies from "js-cookie";
 import { AuthContextType, UserProfile } from "@/lib/types";
 import { formatExternalUrl } from "@/lib/utils";
+import Cookie from "js-cookie";
 
 const AuthContext = createContext<AuthContextType>({
   isAuth: null,
@@ -44,19 +44,38 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const data: UserProfile = await response.json();
       setUserProfile(data);
       setIsAuth(true);
+      // Set a flag cookie when authentication is successful
+      Cookie.set("hasAuth", "true", { path: "/", sameSite: "strict" });
     } catch (err) {
       console.error(err);
       setIsAuth(false);
-      Cookies.remove("authToken"); // clear token if its invalid
+      // Remove the flag cookie on authentication failure
+      Cookie.remove("hasAuth", { path: "/" });
     } finally {
       setLoading(false);
     }
   }, []);
 
+  const checkAuthFlag = useCallback(() => {
+    return Cookie.get("hasAuth") === "true";
+  }, []);
+
   useEffect(() => {
-    fetchUserProfile();
-    setIsHydrated(true); // Ensure that content is rendered after hydration
-  }, [fetchUserProfile]);
+    const initializeAuth = async () => {
+      // Ensure the component is hydrated
+      setIsHydrated(true);
+
+      // Only fetch if there's an indication of authentication
+      if (checkAuthFlag()) {
+        await fetchUserProfile();
+      } else {
+        setIsAuth(false);
+        setLoading(false);
+      }
+    };
+
+    initializeAuth();
+  }, [fetchUserProfile, checkAuthFlag]);
 
   const setAuthState = useCallback(async () => {
     setIsAuth(true);

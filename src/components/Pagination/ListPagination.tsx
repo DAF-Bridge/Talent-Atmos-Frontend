@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import {
   Pagination,
   PaginationContent,
@@ -23,6 +23,7 @@ export default function ListPagination({
 }: Readonly<PaginationProps>) {
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
   const { page } = params; // Extract 'page' from the dynamic route
   const [currentPage, setCurrentPage] = useState<number>(Number(page) || 1);
 
@@ -34,11 +35,18 @@ export default function ListPagination({
   }, [page]);
 
   const handlePageChange = (page: number) => {
-    if (type === "events") {
-      router.push(`/events/page/${page}`);
-    } else if (type === "jobs") {
-      router.push(`/orgs/page/${page}`);
-    }
+    // Create URLSearchParams object from current search params
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+
+    // Construct the base URL based on type
+    const basePath = type === "events" ? "/events/page/" : "/orgs/page/";
+
+    // Combine the path with the search parameters
+    const newPath = `${basePath}${page}${
+      newSearchParams.toString() ? `?${newSearchParams.toString()}` : ""
+    }`;
+
+    router.push(newPath);
   };
 
   return (

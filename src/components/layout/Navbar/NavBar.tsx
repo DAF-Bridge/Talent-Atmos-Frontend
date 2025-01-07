@@ -12,7 +12,7 @@ export default function NavigationBar() {
   const menuItems = [
     {
       label: "อีเว้นท์",
-      href: "/events/page/1",
+      href: "/events/page/1?category=all",
     },
     {
       label: "สมัครงาน",
