@@ -30,9 +30,7 @@ export default function OrgMapCard({
       </div>
       <div className="h-full">
         <Image
-          src={
-            "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw"
-          }
+          src={organization.pic_url}
           className="h-full max-w-[88px] object-cover rounded-[17px] border"
           style={{ aspectRatio: "1 / 1" }}
           height={100}

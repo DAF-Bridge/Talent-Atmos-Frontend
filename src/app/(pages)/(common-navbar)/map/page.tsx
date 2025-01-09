@@ -36,6 +36,8 @@ const organizations = [
     latitude: 18.80207753602652,
     longitude: 98.96766808636778,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 2,
@@ -45,6 +47,8 @@ const organizations = [
     latitude: 18.79566353965672,
     longitude: 98.95290358284387,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 3,
@@ -53,6 +57,8 @@ const organizations = [
     latitude: 19.90618,
     longitude: 99.82867,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 4,
@@ -61,6 +67,8 @@ const organizations = [
     latitude: 16.441934,
     longitude: 102.819957,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 5,
@@ -69,6 +77,8 @@ const organizations = [
     latitude: 13.794495,
     longitude: 100.323039,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 6,
@@ -77,6 +87,8 @@ const organizations = [
     latitude: 7.008778,
     longitude: 100.497505,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 7,
@@ -85,6 +97,8 @@ const organizations = [
     latitude: 14.073558,
     longitude: 100.604582,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 8,
@@ -93,6 +107,8 @@ const organizations = [
     latitude: 13.759442,
     longitude: 100.566031,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 9,
@@ -101,6 +117,8 @@ const organizations = [
     latitude: 13.287964,
     longitude: 100.925533,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 10,
@@ -109,6 +127,8 @@ const organizations = [
     latitude: 13.84786,
     longitude: 100.569374,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 11,
@@ -117,6 +137,8 @@ const organizations = [
     latitude: 13.96029,
     longitude: 100.601601,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 12,
@@ -125,6 +147,8 @@ const organizations = [
     latitude: 18.799696,
     longitude: 98.951042,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 13,
@@ -133,6 +157,8 @@ const organizations = [
     latitude: 13.88711,
     longitude: 100.59854,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 14,
@@ -141,6 +167,8 @@ const organizations = [
     latitude: 20.025834,
     longitude: 99.892278,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 15,
@@ -149,6 +177,8 @@ const organizations = [
     latitude: 13.820649,
     longitude: 100.041408,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 16,
@@ -157,6 +187,8 @@ const organizations = [
     latitude: 14.881866,
     longitude: 102.020762,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 17,
@@ -165,6 +197,8 @@ const organizations = [
     latitude: 8.646288,
     longitude: 99.89646,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 18,
@@ -173,6 +207,8 @@ const organizations = [
     latitude: 19.019184,
     longitude: 99.891415,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 19,
@@ -181,6 +217,8 @@ const organizations = [
     latitude: 16.725757,
     longitude: 100.194878,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 20,
@@ -189,6 +227,8 @@ const organizations = [
     latitude: 14.036743,
     longitude: 100.745507,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 21,
@@ -197,6 +237,8 @@ const organizations = [
     latitude: 18.77825,
     longitude: 98.9873,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 22,
@@ -205,6 +247,8 @@ const organizations = [
     latitude: 7.88829,
     longitude: 98.39036,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 23,
@@ -213,6 +257,8 @@ const organizations = [
     latitude: 13.774119,
     longitude: 100.507314,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 24,
@@ -221,6 +267,8 @@ const organizations = [
     latitude: 14.9798,
     longitude: 102.1004,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 25,
@@ -229,6 +277,8 @@ const organizations = [
     latitude: 13.7349,
     longitude: 100.4902,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 26,
@@ -237,6 +287,8 @@ const organizations = [
     latitude: 12.9254,
     longitude: 99.8787,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 27,
@@ -245,6 +297,8 @@ const organizations = [
     latitude: 16.47286,
     longitude: 99.5196,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 28,
@@ -253,6 +307,8 @@ const organizations = [
     latitude: 13.65157,
     longitude: 100.4946,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 29,
@@ -261,6 +317,8 @@ const organizations = [
     latitude: 13.8197,
     longitude: 100.5123,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 30,
@@ -269,6 +327,8 @@ const organizations = [
     latitude: 14.3633,
     longitude: 100.5888,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 31,
@@ -277,6 +337,8 @@ const organizations = [
     latitude: 16.24568,
     longitude: 103.25146,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 32,
@@ -285,6 +347,8 @@ const organizations = [
     latitude: 17.40233,
     longitude: 104.78564,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 33,
@@ -293,6 +357,8 @@ const organizations = [
     latitude: 19.0305,
     longitude: 99.8926,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 34,
@@ -301,6 +367,8 @@ const organizations = [
     latitude: 18.9359,
     longitude: 99.0116,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 35,
@@ -309,6 +377,8 @@ const organizations = [
     latitude: 18.7046,
     longitude: 98.9619,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 36,
@@ -317,6 +387,8 @@ const organizations = [
     latitude: 13.7318,
     longitude: 100.5687,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 37,
@@ -325,6 +397,8 @@ const organizations = [
     latitude: 13.7271,
     longitude: 100.6225,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 38,
@@ -333,6 +407,8 @@ const organizations = [
     latitude: 7.1894,
     longitude: 100.5967,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 39,
@@ -341,6 +417,8 @@ const organizations = [
     latitude: 18.2927,
     longitude: 99.4929,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
   {
     id: 40,
@@ -349,6 +427,8 @@ const organizations = [
     latitude: 15.2487,
     longitude: 104.8509,
     industry: ["IT", "AgriTech", "Health", "Energy"],
+    pic_url:
+      "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
   },
 ];
 

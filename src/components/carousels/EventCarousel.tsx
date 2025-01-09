@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import BriefEventCard from "../cards/BriefEventCard";
 import { Event } from "@/lib/types";
+import { formatDateRange } from "@/lib/utils";
 
 export default function EventCarousel({
   events,
@@ -33,9 +34,9 @@ export default function EventCarousel({
             >
               <div className="p-1">
                 <BriefEventCard
-                  title={event.Name}
-                  date={`${event.StartDate} - ${event.EndDate}`}
-                  imgUrl={event.PicUrl}
+                  title={event.name}
+                  date={`${formatDateRange(event.startDate, event.endDate)}`}
+                  imgUrl={event.picUrl}
                 />
               </div>
             </CarouselItem>

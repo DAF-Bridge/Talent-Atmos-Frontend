@@ -25,11 +25,13 @@ export default async function page() {
         <EventCard
           key={event.id}
           cardId={event.id.toString()}
-          title={event.Name}
-          date={`${event.StartDate} - ${event.EndDate}`}
-          time={`${event.StartTime} - ${event.EndTime}`}
-          location={event.Location}
-          imgUrl={event.PicUrl}
+          title={event.name}
+          startDate={event.startDate}
+          endDate={event.endDate}
+          startTime={event.startTime}
+          endTime={event.endTime}
+          location={event.location}
+          imgUrl={event.picUrl}
           orgName="มหาวิทยาลัยเชียงใหม่"
           orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
           showOrg={false}
