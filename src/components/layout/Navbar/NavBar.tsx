@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useState } from "react";
 import NormalMenu from "./NormalMenu";
 import CompactNormalMenu from "./CompactNormalMenu";
-import AvatarProfile from "./PCAvatar";
-import MobileAvatar from "./MobileAvatar";
+// import AvatarProfile from "./PCAvatar";
+// import MobileAvatar from "./MobileAvatar";
 
 export default function NavigationBar() {
   const menuItems = [
@@ -44,9 +44,9 @@ export default function NavigationBar() {
           </div>
 
           {/* Login/Signup Button */}
-          <div className="hidden md:flex md:items-center space-x-4 ">
+          {/* <div className="hidden md:flex md:items-center space-x-4 ">
             <AvatarProfile />
-          </div>
+          </div> */}
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
@@ -86,9 +86,9 @@ export default function NavigationBar() {
                 <CompactNormalMenu label={item.label} href={item.href ?? ""} />
               </div>
             ))}
-            <div>
+            {/* <div>
               <MobileAvatar />
-            </div>
+            </div> */}
           </div>
         </div>
       )}

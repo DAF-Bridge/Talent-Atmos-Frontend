@@ -1,7 +1,7 @@
 import EventCard from "@/components/cards/EventCard";
 import ListPagination from "@/components/Pagination/ListPagination";
 import { Event } from "@/lib/types";
-import { formatExternalUrl } from "@/lib/utils";
+import { formatInternalUrl } from "@/lib/utils";
 import React from "react";
 
 export interface EventListProps {
@@ -18,11 +18,11 @@ export default async function EventList({
   maxEventsPerPage,
 }: Readonly<EventListProps>) {
   // Construct the API URL based on search and category
-  let apiUrl = `/events-paginate?page=${currentPage}&search=${
+  let apiUrl = `/api/events-paginate?page=${currentPage}&search=${
     search ?? ""
   }&category=${category ?? ""}`;
-  apiUrl = formatExternalUrl(apiUrl);
-
+  apiUrl = formatInternalUrl(apiUrl);
+  console.log(apiUrl);
   let events: Event[] = [];
   let totalPages: number = 0;
 
@@ -36,6 +36,7 @@ export default async function EventList({
     const data = await response.json();
 
     events = data.events;
+    console.log(data);
     // calculate total pages
     totalPages = Math.ceil(data.total_events / maxEventsPerPage);
   } catch (error) {
@@ -50,12 +51,14 @@ export default async function EventList({
               <EventCard
                 key={event.id}
                 cardId={event.id.toString()}
-                title={event.Name}
-                date={`${event.StartDate} - ${event.EndDate}`}
-                time={`${event.StartTime} - ${event.EndTime}`}
-                location={event.Location}
-                imgUrl={event.PicUrl}
-                orgName="มหาวิทยาลัยเชียงใหม่"
+                title={event.name}
+                startDate={event.startDate}
+                endDate={event.endDate}
+                startTime={event.startTime}
+                endTime={event.endTime}
+                location={event.location}
+                imgUrl={event.picUrl}
+                orgName={event.organization.name}
                 orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
               />
             ))}

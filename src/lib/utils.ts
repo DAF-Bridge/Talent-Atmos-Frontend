@@ -58,3 +58,42 @@ export function formatRelativeTime(dateTime: string) {
   return inputTime.toLocaleString("th-TH", { dateStyle: "long" });
 }
 
+// Utility function to format date range
+export const formatDateRange = (
+  startDate: string,
+  endDate?: string
+): string => {
+  const start = new Date(startDate);
+  const end = endDate ? new Date(endDate) : "";
+
+  const formatDate = (date: Date): string => {
+    return date.toLocaleDateString("th-TH", {
+      year: "numeric",
+      month: "long",
+    });
+  };
+
+  return end ? `${formatDate(start)} - ${formatDate(end)}` : formatDate(start);
+};
+
+export const formatTimeRange = (
+  startTime: string,
+  endTime?: string
+): string => {
+  const formatTime = (time: string): string => {
+    const [hour, minute] = time.split(":").map(Number);
+    const date = new Date();
+    date.setHours(hour, minute);
+
+    return date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
+  return endTime
+    ? `${formatTime(startTime)} - ${formatTime(endTime)}`
+    : formatTime(startTime);
+};
+

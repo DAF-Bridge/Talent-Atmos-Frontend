@@ -40,13 +40,19 @@ export type TLogInSchema = z.infer<typeof loginSchema>;
 
 export type Event = {
   id: number;
-  Name: string;
-  StartDate: string;
-  EndDate: string;
-  StartTime: string;
-  EndTime: string;
-  PicUrl: string;
-  Location: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  startTime: string;
+  endTime: string;
+  picUrl: string;
+  location: string;
+  category: string;
+  organization: {
+    id: number;
+    name: string;
+    picUrl: string;
+  };
 };
 
 export type BriefOrganization = {
@@ -56,12 +62,13 @@ export type BriefOrganization = {
 
 export type Organization = {
   id: number;
+  pic_url: string;
   name: string;
   description: string;
   latitude: number;
   longitude: number;
   industry: string[];
-}
+};
 
 export type Job = {
   orgName: string;
@@ -95,6 +102,14 @@ export type Coordinate = {
 
 export type Category = {
   icon: React.ReactNode;
-  id: "all" | "incubation" | "networking" | "forum" | "exhibition" | "competition" | "workshop" | "campaign";
+  id:
+    | "all"
+    | "incubation"
+    | "networking"
+    | "forum"
+    | "exhibition"
+    | "competition"
+    | "workshop"
+    | "campaign";
   title: string;
 };

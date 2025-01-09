@@ -1,12 +1,19 @@
+import { formatDateRange, formatTimeRange } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { IoCalendarSharp, IoLocationSharp, IoTimeOutline } from "react-icons/io5";
+import {
+  IoCalendarSharp,
+  IoLocationSharp,
+  IoTimeOutline,
+} from "react-icons/io5";
 
 interface EventCardProps {
   title: string;
-  date: string;
-  time: string;
+  startDate: string;
+  endDate: string;
+  startTime: string;
+  endTime: string;
   location: string;
   imgUrl: string;
   orgName: string;
@@ -16,8 +23,10 @@ interface EventCardProps {
 }
 export default function EventCard({
   title,
-  date,
-  time,
+  startDate,
+  endDate,
+  startTime,
+  endTime,
   location,
   imgUrl,
   orgName,
@@ -30,7 +39,7 @@ export default function EventCard({
       {showOrg && (
         <div className="flex flex-row gap-2 justify-start items-center h-auto w-full pr-3">
           <div
-            className="h-auto max-w-[20%] overflow-hidden rounded-full bg-white"
+            className="h-auto w-[20%] max-w-[45px] overflow-hidden rounded-full bg-white"
             style={{ aspectRatio: "1 / 1" }}
           >
             <Image
@@ -60,26 +69,26 @@ export default function EventCard({
               alt="อีเว้นท์"
             />
           </div>
-          <div className="font-medium text-base md:text-lg line-clamp-1 group-hover:text-orange-normal duration-100">
+          <div className="font-medium text-base md:text-lg line-clamp-1 group-hover:text-orange-normal duration-100 mt-1">
             {title}
           </div>
         </Link>
 
-        <div className="flex flex-col gap-2 mt-1 md:mt-2">
+        <div className="flex flex-col gap-2 mt-1">
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
             <IoCalendarSharp className="w-3 h-3 md:w-4 md:h-4 text-orange-dark" />
             <div className="line-clamp-1 font-light text-xs md:text-sm">
-              {date}
+              {formatDateRange(startDate, endDate)}
             </div>
           </div>
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
             <IoTimeOutline className="w-3 h-3 md:w-4 md:h-4 text-orange-dark" />
             <div className="line-clamp-1 font-light text-xs md:text-sm">
-              {time}
+              {formatTimeRange(startTime, endTime)}
             </div>
           </div>
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
-          <IoLocationSharp className="w-3 h-3 md:w-4 md:h-4 text-orange-dark" />
+            <IoLocationSharp className="w-3 h-3 md:w-4 md:h-4 text-orange-dark" />
             <div className="line-clamp-1 font-light text-xs md:text-sm">
               {location}
             </div>

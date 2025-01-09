@@ -8,8 +8,9 @@ import StaticMap from "@/components/ui/StaticMap";
 import { formatInternalUrl } from "@/lib/utils";
 import { Calendar, Clock, MapPin } from "lucide-react";
 import Image from "next/image";
-// import Link from "next/link";
 import React from "react";
+import RegBtn from "./regBtn";
+import { notFound } from "next/navigation";
 
 interface EventDescriptionProps {
   event: {
@@ -28,7 +29,7 @@ interface EventDescriptionProps {
     contact: {
       facebook: string;
     };
-    tickets: Array<{ id: string; name: string; price: number }>;
+    regLink: string;
   };
   organizer: {
     name: string;
@@ -40,18 +41,6 @@ interface EventDescriptionProps {
   };
 }
 
-// Fetch event data directly within the server component
-const fetchEventData = async (
-  eventId: string
-): Promise<EventDescriptionProps> => {
-  const apiUrl = formatInternalUrl("/api/events/" + eventId);
-  const res = await fetch(apiUrl, {
-    cache: "no-cache",
-  });
-  const data: EventDescriptionProps = await res.json();
-  return data;
-};
-
 export default async function EventDescription({
   params,
 }: Readonly<{
@@ -59,12 +48,16 @@ export default async function EventDescription({
 }>) {
   const { eventId } = params;
 
-  // Fetch the event data directly in the component
-  const data = await fetchEventData(eventId);
+  const apiUrl = formatInternalUrl("/api/events/" + eventId);
+  const res = await fetch(apiUrl, {
+    cache: "no-cache",
+  });
 
-  if (!data) {
-    return <div>Event not found</div>;
+  if (!res.ok) {
+    notFound();
   }
+
+  const data: EventDescriptionProps = await res.json();
 
   const imgUrl =
     "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks";
@@ -80,7 +73,7 @@ export default async function EventDescription({
           alt="อีเว้นท์"
         />
         <div className="flex justify-center items-center h-full lg:w-[90%] xl:w-[80%] mx-auto px-4 py-4 drop-shadow-lg">
-          <div className="flex flex-col gap-3 justify-center  h-full rounded-l-[10px] px-10 md:bg-white">
+          <div className="flex flex-col gap-3 justify-center  h-full max-w-[50%] rounded-l-[10px] px-10 md:bg-white">
             <div className="flex justify-start items-center gap-2">
               <div
                 className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
@@ -217,9 +210,7 @@ export default async function EventDescription({
             >
               <p className="text-left text-xl font-medium w-full">ลงทะเบียน</p>
               <div className="flex flex-col gap-5 w-full">
-                <div className="border items-center justify-center flex rounded-[10px] h-[40px]">
-                  ไปที่ฟอร์ม
-                </div>
+                <RegBtn url={data.event.regLink} />
               </div>
             </div>
           </div>

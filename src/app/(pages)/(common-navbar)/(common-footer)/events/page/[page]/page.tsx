@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import CategoryTab from "./CategoryTab";
 import { EventSearch } from "./EventSearch";
-import { EventFilter } from "./EventFilter";
+// import { EventFilter } from "./EventFilter";
 import EventList from "./EventList";
 import { EventListSkeleton } from "@/components/skeletons/EventListSkeleton";
 import { redirect } from "next/navigation";
@@ -46,7 +46,7 @@ export default async function EventListingPage({
       <CategoryTab />
       <div className="flex justify-between items-center gap-5 w-full mt-[20px]">
         <EventSearch defaultValue={search} />
-        <EventFilter />
+        {/* <EventFilter /> */}
       </div>
       <Suspense
         fallback={<EventListSkeleton maxEventsPerPage={maxEventsPerPage} />}

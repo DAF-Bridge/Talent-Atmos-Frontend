@@ -2,9 +2,10 @@
 
 import { SearchIcon, X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export function EventSearch({ defaultValue = "" }) {
+  const inputRef = useRef<HTMLInputElement>(null);
   const searchParams = useSearchParams();
 
   const [searchTerm, setSearchTerm] = useState(defaultValue);
@@ -31,11 +32,13 @@ export function EventSearch({ defaultValue = "" }) {
 
   const handleClearInput = () => {
     setSearchTerm(""); // Clear the input
+    inputRef.current?.focus();
   };
 
   return (
     <div className="flex-grow bg-white relative max-w-[455px] border border-gray-300 rounded-full">
       <input
+        ref={inputRef}
         type="text"
         value={searchTerm}
         onChange={(e) => handleInputChange(e.target.value)}
