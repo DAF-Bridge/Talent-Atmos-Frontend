@@ -228,7 +228,18 @@ export default async function EventDescription({
                   className="grid grid-cols-10 text-base font-normal"
                 >
                   <span className="col-span-2">{item.type}:</span>
-                  <span className="col-span-8">{item.url}</span>
+                  {item.url.includes("http") ? (
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="col-span-8 hover:underline"
+                    >
+                      {item.url}
+                    </a>
+                  ) : (
+                    <span className="col-span-8">{item.url}</span>
+                  )}
                 </p>
               ))}
             </div>
