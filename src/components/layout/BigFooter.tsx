@@ -31,28 +31,28 @@ export default function BigFooter() {
               ช่องทางติดต่อ
             </div>
             <div className="flex gap-6 justify-start items-center h-7 mt-6 ">
-              <Link className="h-full w-auto" href={"fb"}>
+              <div className="h-full w-auto">
                 <FaFacebook
                   className="h-full w-auto hover:text-gray-300 "
                   width={50}
                   height={50}
                 />
-              </Link>
-              <Link className="h-full w-auto" href={"ig"}>
+              </div>
+              <div className="h-full w-auto">
                 <FaInstagram
                   className="h-full w-auto hover:text-gray-300"
                   width={50}
                   height={50}
                 />
-              </Link>
+              </div>
 
-              <Link className="h-full w-auto" href={"yt"}>
+              <div className="h-full w-auto">
                 <FaYoutube
                   className="h-full w-auto hover:text-gray-300"
                   width={50}
                   height={50}
                 />
-              </Link>
+              </div>
             </div>
           </div>
           <div className="text-white font-normal text-base w-full">

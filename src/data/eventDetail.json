@@ -1,8 +1,14 @@
 {
   "event": {
     "id": "1",
-    "title": "Builds Idea 2024",
+    "name": "Builds Idea 2024",
     "description": "อยากเป็นผู้ประกอบการ แต่ไม่รู้ว่าไอเดียที่มี\nจะเป็นไปได้ไหม? โครงการสำหรับการผู้ที่สนใจทำธุรกิจ  มาเริ่มคิดค้นไอเดีย และเรียนรู้เครื่องมือพิสูจน์ไอเดียไปด้วยกัน! เริ่มต้นเรียนคอร์สออนไลน์จากตลาดหลักทรัพย์แห่งประเทศไทย และร่วมกิจกรรม Workshop แบบออนไซต์เพื่อเพิ่มทักษะผู้ประกอบการ!",
+    "startDate": "2025-01-10",
+    "endDate": "2025-01-12",
+    "startTime": "10:00",
+    "endTime": "17:00",
+    "price": "Free",
+    "picUrl": "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks",
     "highlight": "พบปะพูดคุย และรับคำแนะนำจาก CEO บริษัทสตารทอัพร้อยล้าน...",
     "requirements": "นักศึกษามหาวิทยาลัยเชียงใหม่ ปัจจุบัน ตรี โท เอก",
     "outcomes": [
@@ -28,7 +34,9 @@
     "location": {
       "name": "Builds - CMU: Startup & Entrepreneurial Platform",
       "map_url": "google-maps-link",
-      "image_url": "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
+      "image_url": "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks",
+      "lat": 18.80207753602652,
+      "lng": 98.96766808636778
     },
     "contact": {
       "facebook": "https://facebook.com/BuildsCMU"
@@ -36,11 +44,8 @@
     "regLink": "https://forms.gle/4zYUx4M2HgBmDx2C7"
   },
   "organizer": {
+    "id": 1,
     "name": "Builds มหาวิทยาลัยเชียงใหม่",
-    "profile_image": "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
-  },
-  "event_dates": {
-    "start": "2024-07-13T09:00:00+07:00",
-    "end": "2024-08-07T20:00:00+07:00"
+    "picUrl": "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
   }
 }

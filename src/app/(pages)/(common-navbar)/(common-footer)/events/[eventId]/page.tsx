@@ -5,7 +5,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import StaticMap from "@/components/ui/StaticMap";
-import { formatInternalUrl } from "@/lib/utils";
+import {
+  formatDateRange,
+  formatInternalUrl,
+  formatTimeRange,
+} from "@/lib/utils";
 import { Calendar, Clock, MapPin } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -15,8 +19,14 @@ import { notFound } from "next/navigation";
 interface EventDescriptionProps {
   event: {
     id: string;
-    title: string;
+    name: string;
     description: string;
+    startDate: string;
+    endDate?: string;
+    startTime: string;
+    endTime?: string;
+    price: string;
+    picUrl: string;
     highlight: string;
     requirements: string;
     outcomes: Array<string>;
@@ -25,6 +35,8 @@ interface EventDescriptionProps {
       name: string;
       map_url: string;
       image_url: string;
+      lat: number;
+      lng: number;
     };
     contact: {
       facebook: string;
@@ -32,12 +44,9 @@ interface EventDescriptionProps {
     regLink: string;
   };
   organizer: {
+    id: number;
     name: string;
-    profile_image: string;
-  };
-  event_dates: {
-    start: string;
-    end: string;
+    picUrl: string;
   };
 }
 
@@ -59,18 +68,34 @@ export default async function EventDescription({
 
   const data: EventDescriptionProps = await res.json();
 
-  const imgUrl =
-    "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks";
+  const {
+    // id,
+    name,
+    description,
+    startDate,
+    endDate,
+    startTime,
+    endTime,
+    // price,
+    picUrl,
+    highlight,
+    requirements,
+    // outcomes,
+    timeline,
+    location,
+    contact,
+    regLink,
+  } = data.event;
 
   return (
     <section className="font-prompt relative h-full w-full mt-[60px]">
       <div className="relative flex justify-center items-center h-[425px]">
         <Image
           className="absolute blur-md opacity-45 h-full w-full object-cover duration-100 -z-10"
-          src={imgUrl}
+          src={picUrl}
           width={100}
           height={150}
-          alt="อีเว้นท์"
+          alt="อีเว้นท์-bg"
         />
         <div className="flex justify-center items-center h-full lg:w-[90%] xl:w-[80%] mx-auto px-4 py-4 drop-shadow-lg">
           <div className="flex flex-col gap-3 justify-center  h-full max-w-[50%] rounded-l-[10px] px-10 md:bg-white">
@@ -81,7 +106,7 @@ export default async function EventDescription({
               >
                 <Image
                   className="shrink-0 h-full w-full object-cover"
-                  src={imgUrl}
+                  src={data.organizer.picUrl}
                   width={60}
                   height={60}
                   alt="org-profile"
@@ -89,28 +114,24 @@ export default async function EventDescription({
               </div>
               <p className="truncate">{data.organizer.name}</p>
             </div>
-            <p className="font-medium text-5xl line-clamp-1">
-              {data.event.title}
-            </p>
+            <p className="font-medium text-5xl line-clamp-1">{name}</p>
             <div className="inline-flex flex-col justify-start items-start gap-4 ">
               <div className="flex justify-start items-center flex-row gap-3">
                 <Calendar className="shrink-0 text-orange-dark h-[20px] w-[20px]" />
                 <p className="line-clamp-1 font-normal text-lg">
-                  {`${getDate(data.event_dates.start)} - ${getDate(
-                    data.event_dates.end
-                  )}`}
+                  {startDate ? formatDateRange(startDate, endDate) : "ไม่ระบุ"}
                 </p>
               </div>
               <div className="inline-flex justify-start items-center flex-row gap-3">
                 <Clock className="shrink-0 text-orange-dark h-[20px] w-[20px]" />
                 <p className="line-clamp-1 font-normal text-lg">
-                  09:00 - 20:00 (UTC+7)
+                  {startTime ? formatTimeRange(startTime, endTime) : "ไม่ระบุ"}
                 </p>
               </div>
               <div className="inline-flex justify-start items-center flex-row gap-3">
                 <MapPin className="shrink-0 text-orange-dark h-[20px] w-[20px]" />
                 <p className="line-clamp-1 font-normal text-lg">
-                  {data.event.location.name}
+                  {location.name ?? "ไม่ระบุ"}
                 </p>
               </div>
             </div>
@@ -119,7 +140,7 @@ export default async function EventDescription({
             <div className="h-full rounded-r-[10px] overflow-hidden ">
               <Image
                 className="object-cover hidden md:block  h-full w-auto"
-                src={imgUrl}
+                src={picUrl}
                 width={300}
                 height={500}
                 alt="อีเว้นท์"
@@ -133,24 +154,30 @@ export default async function EventDescription({
         <div className="border w-full mt-[8px] mb-[16px]" />
         <div className="flex flex-col gap-[32px] md:gap-[4%] md:flex-row justify-between">
           <div className="flex flex-col gap-[30px]">
-            <div className="flex flex-col gap-[10px]">
-              <p className="font-semibold text-2xl">คำอธิบายกิจกรรม</p>
-              <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words">
-                {data.event.description}
-              </pre>
-            </div>
-            <div className="flex flex-col gap-[10px]">
-              <p className="font-semibold text-2xl mt-[16px]">
-                ไฮไลท์ของกิจกรรม
-              </p>
-              <p className="text-base font-normal">{data.event.highlight}</p>
-            </div>
-            <div className="flex flex-col gap-[10px]">
-              <p className="font-semibold text-2xl mt-[16px]">
-                คุณสมบัติผู้สมัคร
-              </p>
-              <p className="text-base font-normal">{data.event.requirements}</p>
-            </div>
+            {description && (
+              <div className="flex flex-col gap-[10px]">
+                <p className="font-semibold text-2xl">คำอธิบายกิจกรรม</p>
+                <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words">
+                  {description}
+                </pre>
+              </div>
+            )}
+            {highlight && (
+              <div className="flex flex-col gap-[10px]">
+                <p className="font-semibold text-2xl mt-[16px]">
+                  ไฮไลท์ของกิจกรรม
+                </p>
+                <p className="text-base font-normal">{highlight}</p>
+              </div>
+            )}
+            {requirements && (
+              <div className="flex flex-col gap-[10px]">
+                <p className="font-semibold text-2xl mt-[16px]">
+                  คุณสมบัติผู้สมัคร
+                </p>
+                <p className="text-base font-normal">{requirements}</p>
+              </div>
+            )}
             <div className="flex flex-col gap-[10px]">
               <p className="font-semibold text-2xl mt-[16px]">
                 สิ่งที่จะได้รับ
@@ -179,28 +206,30 @@ export default async function EventDescription({
                 ไทม์ไลน์และกำหนดการ
               </p>
               <div className="w-[90%]">
-                <TimelineAccordion timelineArr={data.event.timeline} />
+                <TimelineAccordion timelineArr={timeline} />
               </div>
             </div>
-            <div className="flex flex-col gap-[10px]">
-              <p className="font-semibold text-2xl mt-[16px]">สถานที่</p>
-              <p className="text-base font-normal">
-                {"Builds - CMU: Startup & Entrepreneurial Platform"}
-              </p>
-              <div
-                className="w-[80%] rounded-[10px] bg-slate-500 overflow-hidden"
-                style={{ aspectRatio: "519 / 365" }}
-              >
-                <StaticMap lat={18.80207753602652} lng={98.96766808636778} />
-              </div>
-            </div>
+            {location.name &&
+              location.lat !== null &&
+              location.lng !== null && (
+                <div className="flex flex-col gap-[10px]">
+                  <p className="font-semibold text-2xl mt-[16px]">สถานที่</p>
+                  <p className="text-base font-normal">
+                    {location.name ?? "ไม่ระบุ"}
+                  </p>
+                  <div
+                    className="w-[80%] rounded-[10px] bg-slate-500 overflow-hidden"
+                    style={{ aspectRatio: "519 / 365" }}
+                  >
+                    <StaticMap lat={location.lat} lng={location.lng} />
+                  </div>
+                </div>
+              )}
             <div className="flex flex-col gap-[10px]">
               <p className="font-semibold text-2xl mt-[16px]">
                 ช่องทางติดต่อสอบถาม
               </p>
-              <p className="text-base font-normal">
-                {data.event.contact.facebook}
-              </p>
+              <p className="text-base font-normal">{contact.facebook}</p>
             </div>
           </div>
           <div className="shrink-0 md:w-[35%]">
@@ -210,7 +239,7 @@ export default async function EventDescription({
             >
               <p className="text-left text-xl font-medium w-full">ลงทะเบียน</p>
               <div className="flex flex-col gap-5 w-full">
-                <RegBtn url={data.event.regLink} />
+                <RegBtn url={regLink} />
               </div>
             </div>
           </div>
@@ -219,39 +248,6 @@ export default async function EventDescription({
     </section>
   );
 }
-
-// interface EventTicketProps {
-//   name: string;
-//   price: number;
-//   id: string;
-// }
-
-// function EventTicket({ name, price, id }: Readonly<EventTicketProps>) {
-//   return (
-//     <Link
-//       href={`/event/${id}`}
-//       className="relative group font-thin text-xl w-full hover:scale-[1.04]
-//   active:scale-95 transition-all duration-150"
-//     >
-//       <div
-//         className="absolute inset-x-0 h-full -bottom-[5px] bg-black border border-black
-//     rounded-[25px] group-hover:bg-black group-hover:border-black"
-//       />
-
-//       <div
-//         className="relative bg-white group-hover:bg-slate-100 border-2 border-black
-//     group-hover:border-black rounded-[25px] py-[20px] px-[6%] w-full  "
-//       >
-//         <div className="flex justify-between items-center pr-2  w-full text-left font-medium">
-//           <p className="text-lg font-semibold">{"แบบ " + name}</p>
-//           <p className="text-xl font-medium">
-//             {price > 0 ? price.toLocaleString() + " ฿" : "Free!"}
-//           </p>
-//         </div>
-//       </div>
-//     </Link>
-//   );
-// }
 
 interface TimelineAccordionProps {
   timelineArr: Array<{
@@ -274,16 +270,4 @@ function TimelineAccordion({ timelineArr }: Readonly<TimelineAccordionProps>) {
       ))}
     </Accordion>
   );
-}
-
-function getDate(dateString: string) {
-  // Parse the date string into a Date object
-  const date = new Date(dateString);
-
-  // Get the day, month, and year
-  const day = date.getDate();
-  const month = date.toLocaleString("th-TH", { month: "short" }); // Gets the short month name (e.g., "Jan", "Feb")
-  const year = date.getFullYear();
-
-  return `${day} ${month} ${year}`;
 }

@@ -59,7 +59,7 @@ export default async function EventList({
                 location={event.location}
                 imgUrl={event.picUrl}
                 orgName={event.organization.name}
-                orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
+                orgPicUrl={event.organization.picUrl}
               />
             ))}
           </div>

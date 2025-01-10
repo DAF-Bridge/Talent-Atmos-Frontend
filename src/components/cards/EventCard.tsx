@@ -11,9 +11,9 @@ import {
 interface EventCardProps {
   title: string;
   startDate: string;
-  endDate: string;
+  endDate?: string;
   startTime: string;
-  endTime: string;
+  endTime?: string;
   location: string;
   imgUrl: string;
   orgName: string;
@@ -39,11 +39,11 @@ export default function EventCard({
       {showOrg && (
         <div className="flex flex-row gap-2 justify-start items-center h-auto w-full pr-3">
           <div
-            className="h-auto w-[20%] max-w-[45px] overflow-hidden rounded-full bg-white"
+            className="h-auto w-[20%] max-w-[45px] overflow-hidden rounded-full bg-[#F5F5F5]"
             style={{ aspectRatio: "1 / 1" }}
           >
             <Image
-              className="block h-full w-full object-cover group-hover:scale-105 duration-100"
+              className="block h-full w-full object-cover"
               src={orgPicUrl}
               width={300}
               height={300}
@@ -55,22 +55,22 @@ export default function EventCard({
           </div>
         </div>
       )}
-      <div className="flex flex-col gap-1 group">
+      <div className="flex flex-col gap-1">
         <Link href={`/events/${cardId}`} className="flex flex-col">
           <div
-            className="h-full w-full rounded-[10px] md:rounded-[15px] overflow-hidden group-hover:shadow-md duration-100 bg-red-400"
+            className="h-full w-full rounded-[8px] overflow-hidden duration-100 bg-[#F5F5F5]"
             style={{ aspectRatio: "3 / 4" }}
           >
             <Image
-              className="block h-full w-full object-cover group-hover:scale-105 duration-100"
+              className="block h-full w-full object-cover duration-100"
               src={imgUrl}
               width={191}
               height={242}
               alt="อีเว้นท์"
             />
           </div>
-          <div className="font-medium text-base md:text-lg line-clamp-1 group-hover:text-orange-normal duration-100 mt-1">
-            {title}
+          <div className="font-medium text-base md:text-lg line-clamp-1 duration-100 mt-1">
+            {title ?? "ไม่ระบุ"}
           </div>
         </Link>
 
@@ -78,19 +78,19 @@ export default function EventCard({
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
             <IoCalendarSharp className="w-3 h-3 md:w-4 md:h-4 text-orange-dark" />
             <div className="line-clamp-1 font-light text-xs md:text-sm">
-              {formatDateRange(startDate, endDate)}
+              {startDate ? formatDateRange(startDate, endDate) : "ไม่ระบุ"}
             </div>
           </div>
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
             <IoTimeOutline className="w-3 h-3 md:w-4 md:h-4 text-orange-dark" />
             <div className="line-clamp-1 font-light text-xs md:text-sm">
-              {formatTimeRange(startTime, endTime)}
+              {startTime ? formatTimeRange(startTime, endTime) : "ไม่ระบุ"}
             </div>
           </div>
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
             <IoLocationSharp className="w-3 h-3 md:w-4 md:h-4 text-orange-dark" />
             <div className="line-clamp-1 font-light text-xs md:text-sm">
-              {location}
+              {location ?? "ไม่ระบุ"}
             </div>
           </div>
         </div>

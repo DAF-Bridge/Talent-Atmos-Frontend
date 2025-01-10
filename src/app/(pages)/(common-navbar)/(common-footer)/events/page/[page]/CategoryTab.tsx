@@ -29,7 +29,7 @@ export default function CategoryTab() {
     {
       icon: <HiOutlineRocketLaunch />,
       id: "incubation",
-      title: "บ่มเพราะธุรกิจ",
+      title: "บ่มเพาะธุรกิจ",
     },
     {
       icon: <BiNetworkChart />,
