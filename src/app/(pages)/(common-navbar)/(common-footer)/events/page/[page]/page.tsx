@@ -37,7 +37,7 @@ export default async function EventListingPage({
   }
 
   return (
-    <div className="font-prompt max-w-[1170px] mx-auto px-6 mt-[100px]">
+    <div className="font-prompt max-w-[1170px] mx-auto px-6 mt-[100px] min-h-[80vh]">
       <p className="text-2xl md:text-3xl text-center font-semibold mt-[22px]">
         ค้นหา <span className="text-orange-normal">&quot;อีเว้นท์&quot;</span>{" "}
         ที่ตอบโจทย์

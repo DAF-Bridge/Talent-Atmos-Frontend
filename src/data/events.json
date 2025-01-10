@@ -1,19 +1,19 @@
 [
   {
     "id": 1,
-    "name": "Event 1",
-    "startDate": "2025-01-10",
-    "endDate": "2025-01-12",
-    "startTime": "10:00",
-    "endTime": "17:00",
-    "location": "Bangkok",
-    "picUrl": "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks",
+    "name": "Who Am I - ค้นหาตัวเองผ่านการทดลองทำงานจำลอง",
+    "startDate": "2024-11-16",
+    "endDate": "2024-11-16",
+    "startTime": "09:00",
+    "endTime": "16:30",
+    "location": "ลานชั้น 1 อาคารสวทช. โยธี",
+    "picUrl": "https://drive.google.com/uc?export=view&id=1ptEpKRbhtQJxJLdAfmMHOzMJgWfFOl9y",
     "category": "All",
     "price": "Free",
     "organization": {
       "id": 1,
-      "name": "Organization 1",
-      "picUrl": "https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
     }
   }
 ]

@@ -1,51 +1,51 @@
 {
   "event": {
     "id": "1",
-    "name": "Builds Idea 2024",
-    "description": "อยากเป็นผู้ประกอบการ แต่ไม่รู้ว่าไอเดียที่มี\nจะเป็นไปได้ไหม? โครงการสำหรับการผู้ที่สนใจทำธุรกิจ  มาเริ่มคิดค้นไอเดีย และเรียนรู้เครื่องมือพิสูจน์ไอเดียไปด้วยกัน! เริ่มต้นเรียนคอร์สออนไลน์จากตลาดหลักทรัพย์แห่งประเทศไทย และร่วมกิจกรรม Workshop แบบออนไซต์เพื่อเพิ่มทักษะผู้ประกอบการ!",
-    "startDate": "2025-01-10",
-    "endDate": "2025-01-12",
-    "startTime": "10:00",
-    "endTime": "17:00",
+    "name": "Who Am I - ค้นหาตัวเองผ่านการทดลองทำงานจำลอง",
+    "description": "กิจกรรมที่จะให้น้อง ๆ ลองมาค้นหาตัวเองผ่านการรู้จักและทดลองทำงานจำลอง 2 ใน 4 สายอาชีพ ดังนี้\n1. สายเทคโนโลยี (Information Technology)\n2. สายนิเทศ (Communication Arts)\n3. สายบริหารธุรกิจ (Business Management)\n4. สายวิทย์สุขภาพ (Health & Medical Science)",
+    "startDate": "2024-11-16",
+    "endDate": "2024-11-16",
+    "startTime": "09:00",
+    "endTime": "16:30",
     "price": "Free",
-    "picUrl": "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks",
-    "highlight": "พบปะพูดคุย และรับคำแนะนำจาก CEO บริษัทสตารทอัพร้อยล้าน...",
-    "requirements": "นักศึกษามหาวิทยาลัยเชียงใหม่ ปัจจุบัน ตรี โท เอก",
+    "picUrl": "https://drive.google.com/uc?export=view&id=1ptEpKRbhtQJxJLdAfmMHOzMJgWfFOl9y",
+    "highlight": "พบปะพูดคุยและถาม-ตอบกับวิทยากรที่เป็นผู้เชี่ยวชาญในแต่ละสาย พร้อมกิจกรรม Workshop จำลองอาชีพ",
+    "requirements": "น้องๆ ระดับมัธยมศึกษา สามารถเลือกลงทะเบียนได้มากสุด 2 สายอาชีพ",
     "outcomes": [
-      "การทำ Design Thinking เพื่อสำรวจและออกแบบผลิตภัณฑ์",
-      "การออกแบบธุรกิจด้วยเครื่องมือต่างๆ เช่น Business Model Canvas",
-      "ทักษะการพิชชิ่งต่ิหน้ากรรมการ",
-      "ทักษะด้านทีมเวิร์ค"
+      "ได้ลองค้นหาตัวเอง สำหรับคนที่ยังไม่รู้จะเรียนต่ออะไรผ่าน 2 สายอาชีพ",
+      "ได้พบกับเพื่อน ๆ พี่ ๆ น้อง ๆ ที่กำลังค้นหาตัวเองหรือมีความฝันคล้ายกัน",
+      "มีโอกาสพูดคุยและถาม-ตอบกับวิทยากรที่เป็นผู้เชี่ยวชาญในแต่ละสาย",
+      "ได้รู้จักตัวเองมากขึ้นผ่านการแชร์ประสบการณ์และกิจกรรมจากวิทยากรผู้เชี่ยวชาญ"
     ],
-    "timeline": [
+    "benefits": [
+      "พบปะพูดคุยและถาม-ตอบกับวิทยากรที่เป็นผู้เชี่ยวชาญในแต่ละสาย",
+      "ได้ลองค้นหาตัวเอง สำหรับคนที่ยังไม่รู้จะเรียนต่ออะไรผ่าน 2 สายอาชีพ",
+      "ได้พบกับเพื่อน ๆ พี่ ๆ น้อง ๆ ที่กำลังค้นหาตัวเองหรือมีความฝันคล้ายกัน",
+      "ได้รู้จักตัวเองมากขึ้นผ่านการแชร์ประสบการณ์และกิจกรรมจากวิทยากรผู้เชี่ยวชาญ"
+    ],
+    "timeline": [],
+    "location": {
+      "name": "ลานชั้น 1 อาคารสวทช. โยธี",
+      "map_url": "https://maps.app.goo.gl/Mhp8JinnbxDYtq4y7",
+      "image_url": "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks",
+      "lat": 13.763702355384638,
+      "lng": 100.5291078857706
+    },
+    "contact": [
       {
-        "date": "13 ก.ค. 2567",
-        "content": "Start of the event"
+        "type": "facebook",
+        "url": "https://www.facebook.com/WHOAMIPROJECT"
       },
       {
-        "date": "24 ก.ค. 2567",
-        "content": "Workshop 1"
-      },
-      {
-        "date": "7 ส.ค. 2567",
-        "content": "Final Pitch"
+        "type": "instagram",
+        "url": "@whoami"
       }
     ],
-    "location": {
-      "name": "Builds - CMU: Startup & Entrepreneurial Platform",
-      "map_url": "google-maps-link",
-      "image_url": "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks",
-      "lat": 18.80207753602652,
-      "lng": 98.96766808636778
-    },
-    "contact": {
-      "facebook": "https://facebook.com/BuildsCMU"
-    },
-    "regLink": "https://forms.gle/4zYUx4M2HgBmDx2C7"
+    "regLink": "https://forms.gle/gDhZXQuZunsmzACZ6"
   },
-  "organizer": {
+  "organization": {
     "id": 1,
-    "name": "Builds มหาวิทยาลัยเชียงใหม่",
-    "picUrl": "https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
+    "name": "Who Am I",
+    "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
   }
 }

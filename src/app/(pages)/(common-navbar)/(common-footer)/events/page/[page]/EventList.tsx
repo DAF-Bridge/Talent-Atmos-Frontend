@@ -60,6 +60,7 @@ export default async function EventList({
                 imgUrl={event.picUrl}
                 orgName={event.organization.name}
                 orgPicUrl={event.organization.picUrl}
+                showOrg={false}
               />
             ))}
           </div>

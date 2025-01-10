@@ -31,6 +31,7 @@ interface EventDescriptionProps {
     requirements: string;
     outcomes: Array<string>;
     timeline: Array<{ date: string; content: string }>;
+    benefits: Array<string>;
     location: {
       name: string;
       map_url: string;
@@ -38,12 +39,10 @@ interface EventDescriptionProps {
       lat: number;
       lng: number;
     };
-    contact: {
-      facebook: string;
-    };
+    contact: Array<{ type: string; url: string }>;
     regLink: string;
   };
-  organizer: {
+  organization: {
     id: number;
     name: string;
     picUrl: string;
@@ -79,6 +78,7 @@ export default async function EventDescription({
     // price,
     picUrl,
     highlight,
+    benefits,
     requirements,
     // outcomes,
     timeline,
@@ -106,13 +106,13 @@ export default async function EventDescription({
               >
                 <Image
                   className="shrink-0 h-full w-full object-cover"
-                  src={data.organizer.picUrl}
+                  src={data.organization.picUrl}
                   width={60}
                   height={60}
                   alt="org-profile"
                 />
               </div>
-              <p className="truncate">{data.organizer.name}</p>
+              <p className="truncate">{data.organization.name}</p>
             </div>
             <p className="font-medium text-5xl line-clamp-1">{name}</p>
             <div className="inline-flex flex-col justify-start items-start gap-4 ">
@@ -178,58 +178,59 @@ export default async function EventDescription({
                 <p className="text-base font-normal">{requirements}</p>
               </div>
             )}
-            <div className="flex flex-col gap-[10px]">
-              <p className="font-semibold text-2xl mt-[16px]">
-                สิ่งที่จะได้รับ
-              </p>
-              <ul className="list-disc pl-6">
-                <li className="text-base font-normal">
-                  {
-                    "การทำ Design Thinking เพื่อสำรวจและออกแบบผลิตภัณฑ์ให้ตอบโจทย์ลูกค้า"
-                  }
-                </li>
-                <li className="text-base font-normal">
-                  {
-                    "การออกแบบธุรกิจด้วยเครื่องมือต่างๆ เช่น Business Model Canvas"
-                  }
-                </li>
-                <li className="text-base font-normal">
-                  {"ทักษะการพิชชิ่งต่ิหน้ากรรมการ"}
-                </li>
-                <li className="text-base font-normal">
-                  {"ทักษะด้านทีมเวิร์ค"}
-                </li>
-              </ul>
-            </div>
-            <div className="flex flex-col gap-[10px]">
-              <p className="font-semibold text-2xl mt-[16px]">
-                ไทม์ไลน์และกำหนดการ
-              </p>
-              <div className="w-[90%]">
-                <TimelineAccordion timelineArr={timeline} />
+            {benefits && (
+              <div className="flex flex-col gap-[10px]">
+                <p className="font-semibold text-2xl mt-[16px]">
+                  สิ่งที่จะได้รับ
+                </p>
+                <ul className="list-disc pl-6">
+                  {benefits.map((item, index) => (
+                    <li key={index} className="text-base font-normal">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
-            {location.name &&
-              location.lat !== null &&
-              location.lng !== null && (
-                <div className="flex flex-col gap-[10px]">
-                  <p className="font-semibold text-2xl mt-[16px]">สถานที่</p>
-                  <p className="text-base font-normal">
-                    {location.name ?? "ไม่ระบุ"}
-                  </p>
-                  <div
-                    className="w-[80%] rounded-[10px] bg-slate-500 overflow-hidden"
-                    style={{ aspectRatio: "519 / 365" }}
-                  >
-                    <StaticMap lat={location.lat} lng={location.lng} />
-                  </div>
+            )}
+            {timeline.length > 0 && (
+              <div className="flex flex-col gap-[10px]">
+                <p className="font-semibold text-2xl mt-[16px]">
+                  ไทม์ไลน์และกำหนดการ
+                </p>
+                <div className="w-[90%]">
+                  <TimelineAccordion timelineArr={timeline} />
                 </div>
-              )}
+              </div>
+            )}
+            {location.name && (
+              <div className="flex flex-col gap-[10px]">
+                <p className="font-semibold text-2xl mt-[16px]">สถานที่</p>
+                <p className="text-base font-normal">
+                  {location.name ?? "ไม่ระบุ"}
+                </p>
+                <div
+                  className="w-[80%] rounded-[10px] bg-slate-500 overflow-hidden"
+                  style={{ aspectRatio: "519 / 365" }}
+                >
+                  {location.lat !== null && location.lng !== null && (
+                    <StaticMap lat={location.lat} lng={location.lng} />
+                  )}
+                </div>
+              </div>
+            )}
             <div className="flex flex-col gap-[10px]">
               <p className="font-semibold text-2xl mt-[16px]">
                 ช่องทางติดต่อสอบถาม
               </p>
-              <p className="text-base font-normal">{contact.facebook}</p>
+              {contact.map((item, index) => (
+                <p
+                  key={index}
+                  className="grid grid-cols-10 text-base font-normal"
+                >
+                  <span className="col-span-2">{item.type}:</span>
+                  <span className="col-span-8">{item.url}</span>
+                </p>
+              ))}
             </div>
           </div>
           <div className="shrink-0 md:w-[35%]">
@@ -257,6 +258,7 @@ interface TimelineAccordionProps {
 }
 
 function TimelineAccordion({ timelineArr }: Readonly<TimelineAccordionProps>) {
+  if (timelineArr.length === 0) return;
   return (
     <Accordion
       type="multiple"
