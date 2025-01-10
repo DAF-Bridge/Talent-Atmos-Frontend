@@ -246,7 +246,7 @@ export default async function EventDescription({
               </div>
             )}
           </div>
-          <div className="shrink-0 md:w-[35%]">
+          { regLink && <div className="shrink-0 md:w-[35%]">
             <div
               className="md:sticky top-[80px] flex flex-col justify-center items-center gap-4 
             w-full h-auto pt-[20px] pb-[30px] px-[5%] border rounded-[10px] drop-shadow-lg bg-white"
@@ -256,7 +256,7 @@ export default async function EventDescription({
                 <RegBtn url={regLink} />
               </div>
             </div>
-          </div>
+          </div>}
         </div>
       </div>
     </section>
