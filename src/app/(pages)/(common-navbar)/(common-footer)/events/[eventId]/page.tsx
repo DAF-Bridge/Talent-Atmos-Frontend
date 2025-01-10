@@ -98,7 +98,7 @@ export default async function EventDescription({
           alt="อีเว้นท์-bg"
         />
         <div className="flex justify-center items-center h-full lg:w-[90%] xl:w-[80%] mx-auto px-4 py-4 drop-shadow-lg">
-          <div className="flex flex-col gap-3 justify-center  h-full max-w-[50%] rounded-l-[10px] px-10 md:bg-white">
+          <div className="flex flex-col gap-3 justify-center  h-full md:max-w-[50%] rounded-l-[10px] px-10 md:bg-white">
             <div className="flex justify-start items-center gap-2">
               <div
                 className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
@@ -209,7 +209,7 @@ export default async function EventDescription({
                   {location.name ?? "ไม่ระบุ"}
                 </p>
                 <div
-                  className="w-[80%] rounded-[10px] bg-slate-500 overflow-hidden"
+                  className="w-[80%] rounded-[10px] max-w-[519px] bg-slate-500 overflow-hidden"
                   style={{ aspectRatio: "519 / 365" }}
                 >
                   {location.lat !== null && location.lng !== null && (
@@ -218,31 +218,33 @@ export default async function EventDescription({
                 </div>
               </div>
             )}
-            <div className="flex flex-col gap-[10px]">
-              <p className="font-semibold text-2xl mt-[16px]">
-                ช่องทางติดต่อสอบถาม
-              </p>
-              {contact.map((item, index) => (
-                <p
-                  key={index}
-                  className="grid grid-cols-10 text-base font-normal"
-                >
-                  <span className="col-span-2">{item.type}:</span>
-                  {item.url.includes("http") ? (
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="col-span-8 hover:underline"
-                    >
-                      {item.url}
-                    </a>
-                  ) : (
-                    <span className="col-span-8">{item.url}</span>
-                  )}
+            {contact.length > 0 && (
+              <div className="flex flex-col gap-[10px]">
+                <p className="font-semibold text-2xl mt-[16px]">
+                  ช่องทางติดต่อสอบถาม
                 </p>
-              ))}
-            </div>
+                {contact.map((item, index) => (
+                  <p
+                    key={index}
+                    className="grid grid-cols-10 text-base font-normal"
+                  >
+                    <span className="col-span-2">{item.type}:</span>
+                    {item.url.includes("http") ? (
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="col-span-8 underline hover:text-gray-inactive"
+                      >
+                        {item.url}
+                      </a>
+                    ) : (
+                      <span className="col-span-8">{item.url}</span>
+                    )}
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
           <div className="shrink-0 md:w-[35%]">
             <div
