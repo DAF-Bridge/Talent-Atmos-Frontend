@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { EventDescriptionProps } from "@/app/(pages)/(common-navbar)/(common-footer)/events/[eventId]/page";
 
 export async function GET(
   request: Request,
@@ -14,12 +15,12 @@ export async function GET(
       "eventDetail.json"
     );
     const fileContent = fs.readFileSync(filePath, "utf-8");
-    const eventData = JSON.parse(fileContent);
+    const eventDataArray = JSON.parse(fileContent);
 
     // Filter or validate the event ID
-    if (eventData.event.id !== params.eventId) {
-      return NextResponse.json({ error: "Event not found" }, { status: 404 });
-    }
+    const eventData = eventDataArray.find(
+      (event: EventDescriptionProps) => event.event.id === parseInt(params.eventId)
+    );
 
     return NextResponse.json(eventData, { status: 200 });
   } catch (error) {

@@ -16,9 +16,9 @@ import React from "react";
 import RegBtn from "./regBtn";
 import { notFound } from "next/navigation";
 
-interface EventDescriptionProps {
+export interface EventDescriptionProps {
   event: {
-    id: string;
+    id: number;
     name: string;
     description: string;
     startDate: string;
@@ -131,7 +131,7 @@ export default async function EventDescription({
               <div className="inline-flex justify-start items-center flex-row gap-3">
                 <MapPin className="shrink-0 text-orange-dark h-[20px] w-[20px]" />
                 <p className="line-clamp-1 font-normal text-lg">
-                  {location.name ?? "ไม่ระบุ"}
+                  {location.name !== "" ? location.name : "ไม่ระบุ"}
                 </p>
               </div>
             </div>
@@ -246,17 +246,21 @@ export default async function EventDescription({
               </div>
             )}
           </div>
-          { regLink && <div className="shrink-0 md:w-[35%]">
-            <div
-              className="md:sticky top-[80px] flex flex-col justify-center items-center gap-4 
+          {regLink && (
+            <div className="shrink-0 md:w-[35%]">
+              <div
+                className="md:sticky top-[80px] flex flex-col justify-center items-center gap-4 
             w-full h-auto pt-[20px] pb-[30px] px-[5%] border rounded-[10px] drop-shadow-lg bg-white"
-            >
-              <p className="text-left text-xl font-medium w-full">ลงทะเบียน</p>
-              <div className="flex flex-col gap-5 w-full">
-                <RegBtn url={regLink} />
+              >
+                <p className="text-left text-xl font-medium w-full">
+                  ลงทะเบียน
+                </p>
+                <div className="flex flex-col gap-5 w-full">
+                  <RegBtn url={regLink} />
+                </div>
               </div>
             </div>
-          </div>}
+          )}
         </div>
       </div>
     </section>
