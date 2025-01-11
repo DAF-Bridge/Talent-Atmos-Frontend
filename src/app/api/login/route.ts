@@ -3,7 +3,6 @@ import { formatExternalUrl } from "@/lib/utils";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  // console.log("Received POST request to /api/login");
   try {
     // Parse the incoming request body
     const body: unknown = await req.json();
@@ -18,13 +17,13 @@ export async function POST(req: Request) {
         zodErrors = { ...zodErrors, [issue.path[0]]: issue.message };
       });
     }
-    
-    // Delay for 3 seconds before sending the response, remove after you have a backend
-    // await new Promise((resolve) => setTimeout(resolve, 3000)); // 3000 ms = 3 seconds
 
     // If validation failed, return the error response
     if (Object.keys(zodErrors).length > 0) {
-      return NextResponse.json({ errors: zodErrors }, { status: 400 });
+      return NextResponse.json(
+        { errors: zodErrors, status: 400 },
+        { status: 400 }
+      );
     }
 
     // Send data to Golang backend if validation is successful
@@ -32,8 +31,10 @@ export async function POST(req: Request) {
     console.log(apiUrl)
 
     const res = await fetch(apiUrl, {
+      cache: "no-store",
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include", // Send and receive cookies
       body: JSON.stringify(result.data), // Send validated data
     });
 
@@ -46,21 +47,18 @@ export async function POST(req: Request) {
       );
     }
 
-    // If the backend responds successfully, parse the response
-    const resData = await res.json();
-
-    // Extract the JWT token from the response
-    const { token } = resData;
-
-    if (!token) {
+    const setCookieHeader = res.headers.get("set-cookie");
+    if (setCookieHeader) {
+      // Use NextResponse to forward the Set-Cookie header to the client
+      const response = NextResponse.json({ status: 200 });
+      response.headers.set("set-cookie", setCookieHeader);
+      return response;
+    } else {
       return NextResponse.json(
-        { error: "No token received from Go backend" },
+        { error: "Failed to set cookie" },
         { status: 500 }
       );
     }
-
-    // Return the token in the response
-    return NextResponse.json({ token }, { status: 200 });
   } catch (error) {
     console.error("Error in POST API:", error);
     return NextResponse.json(

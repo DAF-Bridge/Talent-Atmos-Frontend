@@ -73,14 +73,35 @@ export const profileSchema = z.object({
 export type TProfileSchema = z.infer<typeof profileSchema>;
 
 export type Event = {
-  title: string;
-  date: string;
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  startTime: string;
+  endTime: string;
+  picUrl: string;
+  location: string;
+  category: string;
+  organization: {
+    id: number;
+    name: string;
+    picUrl: string;
+  };
+};
+
+export type BriefOrganization = {
+  name: string;
   imgUrl: string;
 };
 
 export type Organization = {
+  id: number;
+  pic_url: string;
   name: string;
-  imgUrl: string;
+  description: string;
+  latitude: number;
+  longitude: number;
+  industry: string[];
 };
 
 export type Job = {
@@ -104,4 +125,25 @@ export type AuthContextType = {
   isAuth: boolean | null;
   userProfile: UserProfile | null;
   loading: boolean;
+  setAuthState: () => void;
+  removeAuthState: () => void;
+};
+
+export type Coordinate = {
+  latitude: number;
+  longitude: number;
+};
+
+export type Category = {
+  icon: React.ReactNode;
+  id:
+    | "all"
+    | "incubation"
+    | "networking"
+    | "forum"
+    | "exhibition"
+    | "competition"
+    | "workshop"
+    | "campaign";
+  title: string;
 };

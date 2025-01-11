@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "name": "Who Am I - ค้นหาตัวเองผ่านการทดลองทำงานจำลอง",
+    "startDate": "2024-11-16",
+    "endDate": "2024-11-16",
+    "startTime": "09:00",
+    "endTime": "16:30",
+    "location": "ลานชั้น 1 อาคารสวทช. โยธี",
+    "picUrl": "https://drive.google.com/uc?export=view&id=1ptEpKRbhtQJxJLdAfmMHOzMJgWfFOl9y",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 2,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  }
+]

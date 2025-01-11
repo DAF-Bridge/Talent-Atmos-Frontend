@@ -1,12 +1,12 @@
 "use client";
 
-import { Organization } from "@/lib/types";
+import { BriefOrganization } from "@/lib/types";
 import React from "react";
 import { useEffect, useState } from "react";
 import OrgCard from "../cards/OrgCard";
 
 export default function OrgListing() {
-  const [orgs, setOrgs] = useState<Organization[]>([]);
+  const [orgs, setOrgs] = useState<BriefOrganization[]>([]);
 
   useEffect(() => {
     fetch("/api/orgs")

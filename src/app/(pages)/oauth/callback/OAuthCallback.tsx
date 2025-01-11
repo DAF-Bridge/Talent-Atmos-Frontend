@@ -2,29 +2,19 @@
 
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import Cookies from "js-cookie";
-import { CookieExpiresDay } from "../../../../../config/config";
+import { useAuth } from "@/context/AuthContext";
 
 export default function OAuthCallbackPage() {
+  const { setAuthState } = useAuth();
   const searchParams = useSearchParams();
   const router = useRouter();
 
   useEffect(() => {
-    const token = searchParams.get("token");
-
-    if (token) {
-      // Save token in cookie
-      Cookies.set("authToken", token, {
-        expires: CookieExpiresDay, // 1 day
-        path: "/",
-        secure: process.env.NODE_ENV === "production", // HTTPS in production
-        sameSite: "strict",
-      });
-
-      // Redirect the user to the home page or any other page
+    const handleCallback = async () => {
       router.push("/");
-    }
-  }, [router, searchParams]);
+    };
+    handleCallback();
+  }, [router, searchParams, setAuthState]);
 
   return <></>;
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Talent Atmos",
@@ -14,11 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th">
+    <html lang="th" className="font-prompt">
       <body className="bg-cream-bg">
-        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <AuthProvider>{children}</AuthProvider>
-        </AppRouterCacheProvider>
+        <Toaster />
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

@@ -18,25 +18,26 @@ export async function POST(req: Request) {
       });
     }
 
-    // Delay for 3 seconds before sending the response
-    // await new Promise((resolve) => setTimeout(resolve, 3000)); // 3000 ms = 3 seconds
-
     // If validation failed, return the error response
     if (Object.keys(zodErrors).length > 0) {
-      return NextResponse.json({ errors: zodErrors }, { status: 400 });
+      return NextResponse.json(
+        { errors: zodErrors, status: 400 },
+        { status: 400 }
+      );
     }
 
     // Send data to Golang backend if validation is successful
-    const apiUrl = formatExternalUrl("/signup");
 
     const dataToBeSend = {
-      name: result.data?.firstName + " " + result.data?.lastName,     
-      email: result.data?.email,    
+      name: result.data?.firstName + " " + result.data?.lastName,
+      email: result.data?.email,
       password: result.data?.password,
-      phone: result.data?.phone,    
-    }
+      phone: result.data?.phone,
+    };
 
+    const apiUrl = formatExternalUrl("/signup");
     const res = await fetch(apiUrl, {
+      cache: "no-store",
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dataToBeSend), // Send validated data
@@ -45,27 +46,25 @@ export async function POST(req: Request) {
     if (!res.ok) {
       // If the Go backend returns an error
       const errorData = await res.json();
+
       return NextResponse.json(
-        { errors: errorData.message || "Failed to signup" },
+        { errors: errorData.error || "Failed to signup" },
         { status: res.status }
       );
     }
 
-    // If the backend responds successfully, parse the response
-    const resData = await res.json();
-
-    // Extract the JWT token from the response
-    const { token } = resData;
-
-    if (!token) {
+    const setCookieHeader = res.headers.get("set-cookie");
+    if (setCookieHeader) {
+      // Use NextResponse to forward the Set-Cookie header to the client
+      const response = NextResponse.json({ status: 200 });
+      response.headers.set("set-cookie", setCookieHeader);
+      return response;
+    } else {
       return NextResponse.json(
-        { error: "No token received from Go backend" },
+        { error: "Failed to set cookie" },
         { status: 500 }
       );
     }
-
-    // Return the token in the response
-    return NextResponse.json({ token }, { status: 200 });
   } catch (error) {
     console.error("Error in POST API:", error);
     return NextResponse.json(
