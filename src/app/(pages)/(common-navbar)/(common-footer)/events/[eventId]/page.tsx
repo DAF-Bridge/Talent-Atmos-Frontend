@@ -10,7 +10,11 @@ import {
   formatInternalUrl,
   formatTimeRange,
 } from "@/lib/utils";
-import { Calendar, Clock, MapPin } from "lucide-react";
+import {
+  IoCalendarSharp,
+  IoLocationSharp,
+  IoTimeOutline,
+} from "react-icons/io5";
 import Image from "next/image";
 import React from "react";
 import RegBtn from "./regBtn";
@@ -98,7 +102,7 @@ export default async function EventDescription({
           alt="อีเว้นท์-bg"
         />
         <div className="flex justify-center items-center h-full lg:w-[90%] xl:w-[80%] mx-auto px-4 py-4 drop-shadow-lg">
-          <div className="flex flex-col gap-3 justify-center  h-full md:max-w-[50%] rounded-l-[10px] px-10 md:bg-white">
+          <div className="flex flex-col gap-3 justify-center  h-full md:max-w-[50%] rounded-l-[10px] px-3 md:px-6 lg:px-10 md:bg-white">
             <div className="flex justify-start items-center gap-2">
               <div
                 className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
@@ -114,23 +118,23 @@ export default async function EventDescription({
               </div>
               <p className="truncate">{data.organization.name}</p>
             </div>
-            <p className="font-medium text-5xl line-clamp-1">{name}</p>
+            <p className="font-medium text-2xl lg:text-3xl line-clamp-1">{name}</p>
             <div className="inline-flex flex-col justify-start items-start gap-4 ">
               <div className="flex justify-start items-center flex-row gap-3">
-                <Calendar className="shrink-0 text-orange-dark h-[20px] w-[20px]" />
-                <p className="line-clamp-1 font-normal text-lg">
+                <IoCalendarSharp className="shrink-0 text-orange-dark text-lg" />
+                <p className="line-clamp-2 font-normal sm:text-base md:text-lg">
                   {startDate ? formatDateRange(startDate, endDate) : "ไม่ระบุ"}
                 </p>
               </div>
               <div className="inline-flex justify-start items-center flex-row gap-3">
-                <Clock className="shrink-0 text-orange-dark h-[20px] w-[20px]" />
-                <p className="line-clamp-1 font-normal text-lg">
+                <IoTimeOutline className="shrink-0 text-orange-dark text-lg" />
+                <p className="line-clamp-2 font-normal sm:text-base md:text-lg">
                   {startTime ? formatTimeRange(startTime, endTime) : "ไม่ระบุ"}
                 </p>
               </div>
               <div className="inline-flex justify-start items-center flex-row gap-3">
-                <MapPin className="shrink-0 text-orange-dark h-[20px] w-[20px]" />
-                <p className="line-clamp-1 font-normal text-lg">
+                <IoLocationSharp className="shrink-0 text-orange-dark text-lg" />
+                <p className="line-clamp-2 font-normal sm:text-base md:text-lg">
                   {location.name !== "" ? location.name : "ไม่ระบุ"}
                 </p>
               </div>
@@ -149,7 +153,7 @@ export default async function EventDescription({
           </div>
         </div>
       </div>
-      <div className="lg:w-[90%] xl:w-[80%] mx-auto px-14">
+      <div className="lg:w-[90%] xl:w-[80%] mx-auto px-3 md:px-10 lg:px-14">
         <p className="font-semibold text-2xl mt-[32px]">รายละเอียด</p>
         <div className="border w-full mt-[8px] mb-[16px]" />
         <div className="flex flex-col gap-[32px] md:gap-[4%] md:flex-row justify-between">
@@ -209,7 +213,7 @@ export default async function EventDescription({
                   {location.name ?? "ไม่ระบุ"}
                 </p>
                 <div
-                  className="w-[80%] rounded-[10px] max-w-[519px] bg-slate-500 overflow-hidden"
+                  className="w-full md:w-[80%] rounded-[10px] max-w-[519px] bg-slate-500 overflow-hidden"
                   style={{ aspectRatio: "519 / 365" }}
                 >
                   {location.lat !== null && location.lng !== null && (
@@ -228,18 +232,18 @@ export default async function EventDescription({
                     key={index}
                     className="grid grid-cols-10 text-base font-normal"
                   >
-                    <span className="col-span-2">{item.type}:</span>
+                    <span className="col-span-3 md:col-span-2">{item.type}:</span>
                     {item.url.includes("http") ? (
                       <a
                         href={item.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="col-span-8 underline hover:text-gray-inactive"
+                        className="col-span-7 md:col-span-8 underline hover:text-gray-inactive break-words whitespace-normal"
                       >
                         {item.url}
                       </a>
                     ) : (
-                      <span className="col-span-8">{item.url}</span>
+                      <span className="col-span-7 md:col-span-8 break-words whitespace-normal">{item.url}</span>
                     )}
                   </p>
                 ))}
