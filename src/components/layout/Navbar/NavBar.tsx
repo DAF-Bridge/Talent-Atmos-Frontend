@@ -21,6 +21,10 @@ export default function NavigationBar() {
     { label: "แผนที่", href: "/map" },
   ];
   const [isMiniMenuOpen, setIsMiniMenuOpen] = useState(false);
+  const handleCloseMenu = () => {
+    setIsMiniMenuOpen(!isMiniMenuOpen);
+  };
+
   return (
     <nav className="fixed bg-white shadow-md font-prompt top-0 z-50 w-full">
       <div className="max-w-[1170px] mx-auto px-6">
@@ -83,7 +87,11 @@ export default function NavigationBar() {
           <div className="px-2 pt-2 pb-1 mt-[-2px] w-full bg-white absolute shadow-md">
             {menuItems.map((item, k) => (
               <div key={k}>
-                <CompactNormalMenu label={item.label} href={item.href ?? ""} />
+                <CompactNormalMenu
+                  label={item.label}
+                  href={item.href}
+                  handleOnClick={() => handleCloseMenu()}
+                />
               </div>
             ))}
             {/* <div>

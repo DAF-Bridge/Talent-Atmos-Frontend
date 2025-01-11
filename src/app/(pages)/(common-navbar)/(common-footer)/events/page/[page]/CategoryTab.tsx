@@ -39,7 +39,7 @@ export default function CategoryTab() {
     {
       icon: <HiOutlinePresentationChartBar />,
       id: "forum",
-      title: "สัมมนา & ฟอรัม",
+      title: "สัมมนา ฟอรัม",
     },
     {
       icon: <CgDisplayGrid />,
@@ -144,7 +144,7 @@ export default function CategoryTab() {
                 className: "w-6 h-6", // Fixed icon size
               })}
             </div>
-            <p className="text-xs md:text-sm font-medium text-center whitespace-normal">
+            <p className="text-xs md:text-sm font-medium text-center break-words">
               {category.title}
             </p>
           </a>
