@@ -55,12 +55,24 @@ export default function BigFooter() {
               </div>
             </div>
           </div>
-          <Link href="mailto:talentsatmos@gmail.com" className="text-white font-normal text-base w-full">
-            Email : talentsatmos@gmail.com
-          </Link>
-          <Link href="tel:+66876428591" className="text-white font-normal text-base w-full">
-            โทรศัพท์ : +66876428591
-          </Link>
+          <div className="text-white font-normal text-base w-full">
+            Email :{" "}
+            <Link
+              href="mailto:talentsatmos@gmail.com"
+              className="hover:text-white/90 underline"
+            >
+              talentsatmos@gmail.com
+            </Link>
+          </div>
+          <div className="text-white font-normal text-base w-full">
+            โทรศัพท์ :{" "}
+            <Link
+              href="tel:+66876428591"
+              className="hover:text-white/90 underline"
+            >
+              +66876428591
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -69,7 +69,7 @@ export default function EventCard({
               alt="อีเว้นท์"
             />
           </div>
-          <div className="font-medium text-base md:text-lg line-clamp-1 duration-100 mt-1">
+          <div className="font-medium text-base lg:text-lg line-clamp-1 duration-100 mt-1">
             {title ?? "ไม่ระบุ"}
           </div>
         </Link>
