@@ -56,10 +56,10 @@ export default function BigFooter() {
             </div>
           </div>
           <div className="text-white font-normal text-base w-full">
-            Email : seabridgetalents.info@gmail.com
+            Email : talentsatmos@gmail.com
           </div>
           <div className="text-white font-normal text-base w-full">
-            โทรศัพท์ : +66 12 345 6789
+            โทรศัพท์ : +66876428591
           </div>
         </div>
       </div>
