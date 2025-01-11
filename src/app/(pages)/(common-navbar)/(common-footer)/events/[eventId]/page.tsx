@@ -67,10 +67,11 @@ export default async function EventDescription({
           src={picUrl}
           width={100}
           height={150}
-          alt="อีเว้นท์-bg"
+          alt="event-blur"
         />
+        {/* Tablet and PC Poster */}
         <div className="flex justify-center items-center h-full lg:w-[90%] xl:w-[80%] mx-auto px-4 py-4 drop-shadow-lg">
-          <div className="flex flex-col gap-3 justify-center  h-full md:max-w-[50%] rounded-l-[10px] px-3 md:px-6 lg:px-10 md:bg-white">
+          <div className="hidden md:flex flex-col gap-3 justify-center  h-full md:max-w-[50%] rounded-l-[10px] px-3 md:px-6 lg:px-10 md:bg-white">
             <div className="flex justify-start items-center gap-2">
               <div
                 className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
@@ -110,10 +111,10 @@ export default async function EventDescription({
               </div>
             </div>
           </div>
-          <div className="shrink-0 h-full -2">
-            <div className="h-full rounded-r-[10px] overflow-hidden ">
+          <div className="shrink-0 h-full md:rounded-r-[10px] overflow-hidden">
+            <div className="h-full rounded-[5px] md:rounded-none drop-shadow-md md:drop-shadow-none overflow-hidden ">
               <Image
-                className="object-cover hidden md:block  h-full w-auto"
+                className="object-cover h-full w-auto"
                 src={picUrl}
                 width={300}
                 height={500}
@@ -123,14 +124,60 @@ export default async function EventDescription({
           </div>
         </div>
       </div>
+      {/* Mobile Event Poster */}
+      <div className="md:hidden w-full mt-[15px]">
+        <div
+          className="flex flex-col gap-3 justify-center items-center  h-full md:max-w-[50%] 
+        rounded-l-[10px] px-3 md:px-6 lg:px-10 md:bg-white"
+        >
+          <div className="flex justify-start items-center gap-2">
+            <div
+              className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
+              style={{ aspectRatio: "1 / 1" }}
+            >
+              <Image
+                className="shrink-0 h-[35px] w-full object-cover"
+                src={data.organization.picUrl}
+                width={60}
+                height={60}
+                alt="org-profile"
+              />
+            </div>
+            <p className="text-sm truncate">{data.organization.name}</p>
+          </div>
+          <p className="font-medium text-lg line-clamp-1">
+            {name}
+          </p>
+          <div className="inline-flex flex-col justify-start items-center gap-2 ">
+            <div className="flex justify-start items-center flex-row gap-3">
+              <IoCalendarSharp className="shrink-0 text-orange-dark text-base" />
+              <p className="line-clamp-2 font-normal text-sm">
+                {startDate ? formatDateRange(startDate, endDate) : "ไม่ระบุ"}
+              </p>
+            </div>
+            <div className="inline-flex justify-start items-center flex-row gap-3">
+              <IoTimeOutline className="shrink-0 text-orange-dark text-lg" />
+              <p className="line-clamp-2 font-normal text-sm">
+                {startTime ? formatTimeRange(startTime, endTime) : "ไม่ระบุ"}
+              </p>
+            </div>
+            <div className="inline-flex justify-start items-center flex-row gap-3">
+              <IoLocationSharp className="shrink-0 text-orange-dark text-lg" />
+              <p className="line-clamp-2 font-normal text-sm">
+                {location.name !== "" ? location.name : "ไม่ระบุ"}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="lg:w-[90%] xl:w-[80%] mx-auto px-3 md:px-10 lg:px-14">
-        <p className="font-semibold text-2xl mt-[32px]">รายละเอียด</p>
+        <p className="font-semibold text-xl md:text-2xl mt-[32px]">รายละเอียด</p>
         <div className="border w-full mt-[8px] mb-[16px]" />
         <div className="flex flex-col gap-[32px] md:gap-[4%] md:flex-row justify-between">
           <div className="flex flex-col gap-[30px]">
             {description && (
               <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-2xl">คำอธิบายกิจกรรม</p>
+                <p className="font-semibold text-xl md:text-2xl">คำอธิบายกิจกรรม</p>
                 <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words">
                   {description}
                 </pre>
@@ -138,7 +185,7 @@ export default async function EventDescription({
             )}
             {highlight && (
               <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-2xl mt-[16px]">
+                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
                   ไฮไลท์ของกิจกรรม
                 </p>
                 <p className="text-base font-normal">{highlight}</p>
@@ -146,7 +193,7 @@ export default async function EventDescription({
             )}
             {requirements && (
               <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-2xl mt-[16px]">
+                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
                   คุณสมบัติผู้สมัคร
                 </p>
                 <p className="text-base font-normal">{requirements}</p>
@@ -154,7 +201,7 @@ export default async function EventDescription({
             )}
             {benefits && (
               <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-2xl mt-[16px]">
+                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
                   สิ่งที่จะได้รับ
                 </p>
                 <ul className="list-disc pl-6">
@@ -168,7 +215,7 @@ export default async function EventDescription({
             )}
             {timeline.length > 0 && (
               <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-2xl mt-[16px]">
+                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
                   ไทม์ไลน์และกำหนดการ
                 </p>
                 <div className="w-[90%]">
@@ -178,7 +225,7 @@ export default async function EventDescription({
             )}
             {location.name && (
               <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-2xl mt-[16px]">สถานที่</p>
+                <p className="font-semibold text-xl md:text-2xl mt-[16px]">สถานที่</p>
                 <p className="text-base font-normal">
                   {location.name ?? "ไม่ระบุ"}
                 </p>
@@ -194,7 +241,7 @@ export default async function EventDescription({
             )}
             {contact.length > 0 && (
               <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-2xl mt-[16px]">
+                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
                   ช่องทางติดต่อสอบถาม
                 </p>
                 {contact.map((item, index) => (

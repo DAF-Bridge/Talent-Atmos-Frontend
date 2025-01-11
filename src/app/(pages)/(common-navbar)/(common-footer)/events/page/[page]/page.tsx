@@ -37,12 +37,12 @@ export default async function EventListingPage({
   }
 
   return (
-    <div className="font-prompt max-w-[1170px] mx-auto px-6 mt-[100px] min-h-[80vh]">
-      <p className="text-2xl md:text-3xl text-center font-semibold mt-[22px]">
+    <div className="font-prompt max-w-[1170px] mx-auto px-6 mt-[90px] sm:mt-[100px] min-h-[80vh]">
+      <p className="text-xl md:text-3xl text-center font-semibold">
         ค้นหา <span className="text-orange-normal">&quot;อีเว้นท์&quot;</span>{" "}
         ที่ตอบโจทย์
       </p>
-      <div className="border-[1.5px] mt-[26px] border-gray-stroke/70" />
+      <div className="border-[1.5px] mt-[15px] sm:mt-[20px] border-gray-stroke/70" />
       <CategoryTab />
       <div className="flex justify-between items-center gap-5 w-full mt-[20px]">
         <EventSearch defaultValue={search} />

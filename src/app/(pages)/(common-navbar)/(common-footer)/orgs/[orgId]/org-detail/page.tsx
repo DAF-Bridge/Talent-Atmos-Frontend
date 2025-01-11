@@ -26,10 +26,10 @@ export default function OrgDescriptionPage() {
             ประเภทธุรกิจ :
           </p>
           <div className="flex flex-wrap justify-start items-center gap-2">
-            <Badge label="บริษัท" color="#ff7d29" />
-            <Badge label="บริษัท" color="#ff7d29" />
-            <Badge label="บริษัท" color="#ff7d29" />
-            <Badge label="บริษัท" color="#ff7d29" />
+            <Badge label="บริษัท" className="bg-orange-normal" />
+            <Badge label="บริษัท" className="bg-orange-normal" />
+            <Badge label="บริษัท" className="bg-orange-normal" />
+            <Badge label="บริษัท" className="bg-orange-normal" />
           </div>
         </div>
         <div className="flex gap-6 mt-1">

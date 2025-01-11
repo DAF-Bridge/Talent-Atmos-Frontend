@@ -116,7 +116,7 @@ export default function JobCard({
         </p>
         <div className="inline-flex gap-2 h-6 flex-wrap mt-4">
           {industry.map((label, i) => (
-            <Badge key={i} label={label} color="#F2F2F1" />
+            <Badge key={i} label={label} className="bg-[#F2F2F1]" />
           ))}
         </div>
         <div className="inline-flex justify-start items-center text-gray-inactive mt-2">

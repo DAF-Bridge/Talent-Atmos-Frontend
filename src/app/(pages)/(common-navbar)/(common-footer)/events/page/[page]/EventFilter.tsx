@@ -110,13 +110,13 @@ export function EventFilter() {
       <SheetTrigger asChild>
         <button
           className="flex justify-center items-center gap-1 border bg-white 
-        hover:drop-shadow-md border-gray-stroke rounded-[10px] h-[48px] px-4 
+        hover:drop-shadow-md border-gray-stroke rounded-[10px] h-[40px] sm:h-[48px] px-3 sm:px-4 
         text-gray-btngray relative"
         >
           <SlidersHorizontal className="h-[18px] w-[18px]" />
           <span className="hidden sm:block text-sm font-medium">ตัวกรอง</span>
           {getActiveFiltersCount() > 0 && (
-            <Badge color="#ff7d29" label={getActiveFiltersCount().toString()} />
+            <Badge className="absolute -top-2 -right-2 bg-orange-normal" label={getActiveFiltersCount().toString()} />
           )}
         </button>
       </SheetTrigger>
@@ -124,9 +124,9 @@ export function EventFilter() {
         <SheetHeader>
           <SheetTitle className="font-prompt">ตัวกรอง</SheetTitle>
         </SheetHeader>
-        <div className="py-6 space-y-8">
+        <div className="py-6 space-y-5">
           {/* Date Range Filter */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <Label>ช่วงเวลา</Label>
             <Select
               value={selectedDateRange}
@@ -156,7 +156,7 @@ export function EventFilter() {
           </div>
 
           {/* Location Filter */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <Label>สถานที่</Label>
             <Select
               value={selectedLocation}
@@ -177,7 +177,7 @@ export function EventFilter() {
           </div>
 
           {/* Audience Filter */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <Label>ประเภทผู้ชม</Label>
             <RadioGroup
               value={selectedAudience}
@@ -200,7 +200,7 @@ export function EventFilter() {
           </div>
 
           {/* Price Filter */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <Label>ราคา</Label>
             <Select value={selectedPrice} onValueChange={setSelectedPrice}>
               <SelectTrigger>
