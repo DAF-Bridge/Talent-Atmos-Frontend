@@ -57,7 +57,7 @@ jobs:
           fi
 
           MESSAGE=$(cat <<EOF
-            {
+          {
               "username": "GitHub Actions",
               "embeds": [{
                 "title": "Build $STATUS",
@@ -72,7 +72,7 @@ jobs:
                     [View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
                 "color": $(if [ "$STATUS" == "success" ]; then echo "3066993"; else echo "15158332"; fi)
               }]
-            }
+          }
           EOF
           )
 
