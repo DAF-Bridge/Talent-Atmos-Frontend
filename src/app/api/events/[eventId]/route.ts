@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
-import { EventDescriptionProps } from "@/app/(pages)/(common-navbar)/(common-footer)/events/[eventId]/page";
+import { EventDescriptionProps } from "@/lib/types";
 
 export async function GET(
   request: Request,
@@ -19,7 +19,8 @@ export async function GET(
 
     // Filter or validate the event ID
     const eventData = eventDataArray.find(
-      (event: EventDescriptionProps) => event.event.id === parseInt(params.eventId)
+      (event: EventDescriptionProps) =>
+        event.event.id === parseInt(params.eventId)
     );
 
     return NextResponse.json(eventData, { status: 200 });

@@ -48,16 +48,16 @@ export default function PCAvatar() {
         <>
           <Link href="/login">
             <div
-              className="flex justify-center items-center w-[122px] h-[46px] font-normal 
-            px-4 py-2 border border-gray-stroke text-black rounded-lg hover:text-orange-dark"
+              className="flex justify-center items-center w-[110px] h-[40px] font-normal 
+           border border-gray-stroke text-black rounded-lg hover:text-orange-dark"
             >
               เข้าสู่ระบบ
             </div>
           </Link>
           <Link href="/signup">
             <div
-              className="flex justify-center items-center w-[122px] h-[46px] 
-                  font-light px-4 py-2 bg-orange-normal text-white rounded-lg 
+              className="flex justify-center items-center w-[110px] h-[40px] 
+                  font-light bg-orange-normal text-white rounded-lg 
                   hover:bg-orange-dark"
             >
               สมัครสมาชิก

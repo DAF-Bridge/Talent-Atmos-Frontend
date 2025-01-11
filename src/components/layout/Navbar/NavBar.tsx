@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useState } from "react";
 import NormalMenu from "./NormalMenu";
 import CompactNormalMenu from "./CompactNormalMenu";
-// import AvatarProfile from "./PCAvatar";
-// import MobileAvatar from "./MobileAvatar";
+import AvatarProfile from "./PCAvatar";
+import MobileAvatar from "./MobileAvatar";
 
 export default function NavigationBar() {
   const menuItems = [
@@ -18,6 +18,7 @@ export default function NavigationBar() {
       label: "สมัครงาน",
       href: "/jobs",
     },
+    { label: "องค์กร", href: "/orgs" },
     { label: "แผนที่", href: "/map" },
   ];
   const [isMiniMenuOpen, setIsMiniMenuOpen] = useState(false);
@@ -27,7 +28,7 @@ export default function NavigationBar() {
 
   return (
     <nav className="fixed bg-white shadow-md font-prompt top-0 z-50 w-full">
-      <div className="max-w-[1170px] mx-auto px-6">
+      <div className="max-w-[1170px] mx-auto px-3 lg:px-6">
         <div className="flex justify-between h-[65px]">
           <div className="flex gap-[42px] ">
             {/* Logo */}
@@ -38,7 +39,7 @@ export default function NavigationBar() {
             </div>
 
             {/* Menu */}
-            <div className="hidden md:flex space-x-[38px] items-center">
+            <div className="hidden md:flex space-x-[30px] lg:space-x-[38px] items-center">
               {menuItems.map((item, k) => (
                 <div key={k} className="h-full flex items-center">
                   <NormalMenu label={item.label} href={item.href ?? ""} />
@@ -48,9 +49,9 @@ export default function NavigationBar() {
           </div>
 
           {/* Login/Signup Button */}
-          {/* <div className="hidden md:flex md:items-center space-x-4 ">
+          <div className="hidden md:flex md:items-center space-x-4 ">
             <AvatarProfile />
-          </div> */}
+          </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
@@ -94,9 +95,9 @@ export default function NavigationBar() {
                 />
               </div>
             ))}
-            {/* <div>
+            <div>
               <MobileAvatar />
-            </div> */}
+            </div>
           </div>
         </div>
       )}

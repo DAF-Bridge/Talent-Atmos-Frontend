@@ -19,39 +19,7 @@ import Image from "next/image";
 import React from "react";
 import RegBtn from "./regBtn";
 import { notFound } from "next/navigation";
-
-export interface EventDescriptionProps {
-  event: {
-    id: number;
-    name: string;
-    description: string;
-    startDate: string;
-    endDate?: string;
-    startTime: string;
-    endTime?: string;
-    price: string;
-    picUrl: string;
-    highlight: string;
-    requirements: string;
-    outcomes: Array<string>;
-    timeline: Array<{ date: string; content: string }>;
-    benefits: Array<string>;
-    location: {
-      name: string;
-      map_url: string;
-      image_url: string;
-      lat: number;
-      lng: number;
-    };
-    contact: Array<{ type: string; url: string }>;
-    regLink: string;
-  };
-  organization: {
-    id: number;
-    name: string;
-    picUrl: string;
-  };
-}
+import { EventDescriptionProps } from "@/lib/types";
 
 export default async function EventDescription({
   params,
@@ -118,7 +86,9 @@ export default async function EventDescription({
               </div>
               <p className="truncate">{data.organization.name}</p>
             </div>
-            <p className="font-medium text-2xl lg:text-3xl line-clamp-1">{name}</p>
+            <p className="font-medium text-2xl lg:text-3xl line-clamp-1">
+              {name}
+            </p>
             <div className="inline-flex flex-col justify-start items-start gap-4 ">
               <div className="flex justify-start items-center flex-row gap-3">
                 <IoCalendarSharp className="shrink-0 text-orange-dark text-lg" />
@@ -232,7 +202,9 @@ export default async function EventDescription({
                     key={index}
                     className="grid grid-cols-10 text-base font-normal"
                   >
-                    <span className="col-span-3 md:col-span-2">{item.type}:</span>
+                    <span className="col-span-3 md:col-span-2">
+                      {item.type}:
+                    </span>
                     {item.url.includes("http") ? (
                       <a
                         href={item.url}
@@ -243,7 +215,9 @@ export default async function EventDescription({
                         {item.url}
                       </a>
                     ) : (
-                      <span className="col-span-7 md:col-span-8 break-words whitespace-normal">{item.url}</span>
+                      <span className="col-span-7 md:col-span-8 break-words whitespace-normal">
+                        {item.url}
+                      </span>
                     )}
                   </p>
                 ))}
