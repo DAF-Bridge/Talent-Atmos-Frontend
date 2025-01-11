@@ -22,7 +22,7 @@ export default async function EventList({
     search ?? ""
   }&category=${category ?? ""}`;
   apiUrl = formatInternalUrl(apiUrl);
-  console.log(apiUrl);
+
   let events: Event[] = [];
   let totalPages: number = 0;
 
@@ -36,7 +36,7 @@ export default async function EventList({
     const data = await response.json();
 
     events = data.events;
-    console.log(data);
+
     // calculate total pages
     totalPages = Math.ceil(data.total_events / maxEventsPerPage);
   } catch (error) {
