@@ -68,27 +68,32 @@ export const formatDateRange = (
 
   const formatDate = (date: Date): string => {
     return date.toLocaleDateString("th-TH", {
-      year: "numeric",
-      month: "long",
+      day: "numeric",
+      year: "2-digit",
+      month: "short",
+      timeZone: "UTC",
     });
   };
 
-  return end ? `${formatDate(start)} - ${formatDate(end)}` : formatDate(start);
+  if (end === "" || start.getDate() === end.getDate()) {
+    return formatDate(start);
+  }
+
+  return `${formatDate(start)} - ${formatDate(end)}`;
 };
 
 export const formatTimeRange = (
   startTime: string,
   endTime?: string
 ): string => {
-  const formatTime = (time: string): string => {
-    const [hour, minute] = time.split(":").map(Number);
-    const date = new Date();
-    date.setHours(hour, minute);
+  const formatTime = (isoTime: string): string => {
+    const date = new Date(isoTime);
 
     return date.toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit",
-      hour12: true,
+      hour12: false,
+      timeZone: "UTC",
     });
   };
 
@@ -97,3 +102,18 @@ export const formatTimeRange = (
     : formatTime(startTime);
 };
 
+// convert clock time (e.g., "17:00:00") to ISO string ("0001-01-01T17:00:00.000Z")
+export function convertTimeToISOString(clockTimeAt: string) {
+  const clockTime = new Date(`0001-01-01T${clockTimeAt}Z`);
+  return clockTime.toISOString();
+}
+
+// convert a date (e.g., "2015-03-25") to ISO string ("2015-03-25T00:00:00.000Z")
+export function convertDateToISOString(dateAt: string) {
+  const DateTime = new Date(dateAt);
+  return DateTime.toISOString();
+}
+
+
+// 2024-11-16 00:00:00+00 for database
+// 2024-11-16T00:00:00.000Z for api call

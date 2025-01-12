@@ -116,7 +116,7 @@ export function EventFilter() {
           <SlidersHorizontal className="h-[18px] w-[18px]" />
           <span className="hidden sm:block text-sm font-medium">ตัวกรอง</span>
           {getActiveFiltersCount() > 0 && (
-            <Badge className="absolute -top-2 -right-2 bg-orange-normal" label={getActiveFiltersCount().toString()} />
+            <Badge className="bg-orange-normal" label={getActiveFiltersCount().toString()} />
           )}
         </button>
       </SheetTrigger>

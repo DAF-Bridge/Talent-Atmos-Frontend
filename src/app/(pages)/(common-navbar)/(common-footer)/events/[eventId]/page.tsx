@@ -87,7 +87,7 @@ export default async function EventDescription({
               </div>
               <p className="truncate">{data.organization.name}</p>
             </div>
-            <p className="font-medium text-2xl lg:text-3xl line-clamp-1">
+            <p className="font-medium text-2xl lg:text-3xl line-clamp-2">
               {name}
             </p>
             <div className="inline-flex flex-col justify-start items-start gap-4 ">

@@ -48,7 +48,7 @@ export default function PCAvatar() {
         <>
           <Link href="/login">
             <div
-              className="flex justify-center items-center w-[110px] h-[40px] font-normal 
+              className="flex justify-center items-center w-[110px] h-[45px] font-normal 
            border border-gray-stroke text-black rounded-lg hover:text-orange-dark"
             >
               เข้าสู่ระบบ
@@ -56,7 +56,7 @@ export default function PCAvatar() {
           </Link>
           <Link href="/signup">
             <div
-              className="flex justify-center items-center w-[110px] h-[40px] 
+              className="flex justify-center items-center w-[110px] h-[45px] 
                   font-light bg-orange-normal text-white rounded-lg 
                   hover:bg-orange-dark"
             >
