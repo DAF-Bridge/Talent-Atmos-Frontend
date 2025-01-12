@@ -116,7 +116,10 @@ export function EventFilter() {
           <SlidersHorizontal className="h-[18px] w-[18px]" />
           <span className="hidden sm:block text-sm font-medium">ตัวกรอง</span>
           {getActiveFiltersCount() > 0 && (
-            <Badge className="bg-orange-normal" label={getActiveFiltersCount().toString()} />
+            <Badge
+              className="bg-orange-normal"
+              label={getActiveFiltersCount().toString()}
+            />
           )}
         </button>
       </SheetTrigger>
@@ -186,15 +189,30 @@ export function EventFilter() {
             >
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="general" id="r1" />
-                <Label htmlFor="r1">ทั่วไป</Label>
+                <Label
+                  htmlFor="r1"
+                  className="font-normal hover:cursor-pointer"
+                >
+                  ทั่วไป
+                </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="students" id="r2" />
-                <Label htmlFor="r2">นักเรียน/นักศึกษา</Label>
+                <Label
+                  htmlFor="r2"
+                  className="font-normal hover:cursor-pointer"
+                >
+                  นักเรียน/นักศึกษา
+                </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="professionals" id="r3" />
-                <Label htmlFor="r3">มืออาชีพ</Label>
+                <Label
+                  htmlFor="r3"
+                  className="font-normal hover:cursor-pointer"
+                >
+                  มืออาชีพ
+                </Label>
               </div>
             </RadioGroup>
           </div>
