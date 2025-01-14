@@ -48,7 +48,7 @@ export default function JobCard({
         <div className="flex flex-row justify-between items-start">
           <div className="flex flex-row gap-4 justify-start items-start flex-wrap">
             {imgUrl && (
-              <div className="shrink-0 w-[50px] h-[50px] rounded-[5px] overflow-hidden">
+              <div className="shrink-0 w-[50px] h-[50px] rounded-[5px] overflow-hidden shadow shadow-slate-300">
                 <Image
                   src={imgUrl}
                   className="w-full h-full object-cover"

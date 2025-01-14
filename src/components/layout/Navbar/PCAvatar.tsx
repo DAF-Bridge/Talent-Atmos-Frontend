@@ -45,31 +45,18 @@ export default function PCAvatar() {
   return (
     <>
       {!isAuth ? (
-        <>
-          <Link href="/login">
-            <div
-              className="flex justify-center items-center w-[110px] h-[45px] font-normal 
-           border border-gray-stroke text-black rounded-lg hover:text-orange-dark"
-            >
-              เข้าสู่ระบบ
-            </div>
-          </Link>
-          <Link href="/signup">
-            <div
-              className="flex justify-center items-center w-[110px] h-[45px] 
-                  font-light bg-orange-normal text-white rounded-lg 
-                  hover:bg-orange-dark"
-            >
-              สมัครสมาชิก
-            </div>
-          </Link>
-        </>
+        <Link href="/login">
+          <div className="flex h-[42px] justify-center items-center text-gray-800 hover:text-gray-600 font-normal">
+            เข้าสู่ระบบ / สมัครสมาชิก
+          </div>
+        </Link>
       ) : (
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen((prev) => !prev)}
             className={`shrink-0 h-[40px] w-[40px] rounded-full overflow-hidden ${
-              isOpen ? "ring-2 ring-orange-normal ring-offset-1" : ""}`}
+              isOpen ? "ring-2 ring-orange-normal ring-offset-1" : ""
+            }`}
           >
             {userProfile?.pic_url && userProfile.pic_url.trim() !== "" ? (
               <Image
