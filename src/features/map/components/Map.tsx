@@ -7,6 +7,7 @@ import { Organization } from "@/lib/types";
 import { createPortal } from "react-dom";
 import { CustomPopup } from "./MapPopup";
 
+
 // Add custom CSS to override Mapbox popup styles
 const customPopupStyle = `
 .mapboxgl-popup-content {

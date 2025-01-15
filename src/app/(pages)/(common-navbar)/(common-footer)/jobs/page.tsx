@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React from "react";
-import JobSideBar from "./JobSideBar";
-import JobCard from "@/components/cards/JobCard";
-import ListPagination from "@/components/Pagination/ListPagination";
+import JobCard from "@/components/common/JobCard";
+import ListPagination from "@/components/common/ListPagination";
+import JobSideBar from "@/features/jobs/components/JobSideBar";
 
 export default function JobListingPage() {
   return (

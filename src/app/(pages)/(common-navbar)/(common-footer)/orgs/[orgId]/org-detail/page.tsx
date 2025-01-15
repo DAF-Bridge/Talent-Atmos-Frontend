@@ -1,8 +1,8 @@
-import Badge from "@/components/cards/Badge";
+import Badge from "@/components/common/Badge";
 import StaticMap from "@/components/ui/StaticMap";
 import React, { Suspense } from "react";
-import GalleryCarousel from "../Gallery";
 import Spinner from "@/components/ui/spinner";
+import GalleryCarousel from "@/features/orgs/components/Gallery";
 
 export default function OrgDescriptionPage() {
   const mockGallery = [

@@ -1,6 +1,6 @@
 "use client";
 
-import Badge from "@/components/cards/Badge";
+import Badge from "@/components/common/Badge";
 import { formatRelativeTime } from "@/lib/utils";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
@@ -92,7 +92,9 @@ export default function JobCard({
                     </div>
                   )}
                 </div>
-                <span className="hidden md:block mx-2 text-lg font-extrabold">•</span>
+                <span className="hidden md:block mx-2 text-lg font-extrabold">
+                  •
+                </span>
                 <span className="text-base font-normal text-orange-normal translate-y-[2px]">
                   {`฿${salary}/เดือน`}
                 </span>

@@ -1,4 +1,4 @@
-import EventCard from "@/components/cards/EventCard";
+import EventCard from "@/components/common/EventCard";
 import Spinner from "@/components/ui/spinner";
 import { Event } from "@/lib/types";
 import { formatExternalUrl } from "@/lib/utils";

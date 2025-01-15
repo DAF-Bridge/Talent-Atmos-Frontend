@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
   const maxEventsPerPage = 12;
 
   // Path to the JSON file
-  const filePath = path.join(process.cwd(), "src", "data", "events.json");
+  const filePath = path.join(process.cwd(), "src", "features", "events", "data", "events.json");
 
   try {
     // Read and parse the events data

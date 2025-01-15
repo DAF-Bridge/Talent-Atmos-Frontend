@@ -1,4 +1,4 @@
-import JobCard from "@/components/cards/JobCard";
+import JobCard from "@/components/common/JobCard";
 import Spinner from "@/components/ui/spinner";
 import React, { Suspense } from "react";
 

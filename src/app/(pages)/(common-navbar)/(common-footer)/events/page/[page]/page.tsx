@@ -1,14 +1,15 @@
 import React, { Suspense } from "react";
-import CategoryTab from "./CategoryTab";
-import { EventSearch } from "./EventSearch";
-import { EventFilter } from "./EventFilter";
-import EventList from "./EventList";
-import { EventListSkeleton } from "@/components/skeletons/EventListSkeleton";
+
+import { EventListSkeleton } from "@/features/events/components/EventListSkeleton";
 import { redirect } from "next/navigation";
 import { Category } from "@/lib/types";
+import CategoryTab from "@/features/events/components/CategoryTab";
+import { EventSearch } from "@/features/events/components/EventSearch";
+import { EventFilter } from "@/features/events/components/EventFilter";
+import EventList from "@/features/events/components/EventList";
 export const dynamic = "force-dynamic"; // Ensure fresh data on each request
 
-export default async function EventListingPage({
+export default async function EventListingPageComp({
   params,
   searchParams,
 }: Readonly<{

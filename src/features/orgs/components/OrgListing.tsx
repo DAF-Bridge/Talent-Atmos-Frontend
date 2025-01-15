@@ -1,9 +1,8 @@
 "use client";
 
 import { BriefOrganization } from "@/lib/types";
-import React from "react";
-import { useEffect, useState } from "react";
-import OrgCard from "../cards/OrgCard";
+import React, { useEffect, useState } from "react";
+import OrgCard from "./OrgCard";
 
 export default function OrgListing() {
   const [orgs, setOrgs] = useState<BriefOrganization[]>([]);

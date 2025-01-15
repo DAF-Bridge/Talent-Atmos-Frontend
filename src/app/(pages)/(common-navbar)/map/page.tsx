@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useCallback, useState } from "react";
-import MapComponent from "./Map";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -22,10 +21,11 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import { provinces } from "./SelectInputObj";
-import OrgMapCard from "./OrgMapCard";
+import { provinces } from "@/features/map/config/SelectInputObj";
 import { Organization } from "@/lib/types";
 import { Button } from "@/components/ui/button";
+import MapComponent from "@/features/map/components/Map";
+import OrgMapCard from "@/features/map/components/OrgMapCard";
 
 const organizations = [
   {

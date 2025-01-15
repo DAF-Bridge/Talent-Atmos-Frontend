@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import OrgCard from "@/components/cards/OrgCard";
+import OrgCard from "@/features/orgs/components/OrgCard";
 
 describe("OrgCard", () => {
   test("renders OrgCard component", () => {

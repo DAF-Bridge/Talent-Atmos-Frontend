@@ -1,9 +1,3 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import StaticMap from "@/components/ui/StaticMap";
 import {
   formatDateRange,
@@ -17,9 +11,10 @@ import {
 } from "react-icons/io5";
 import Image from "next/image";
 import React from "react";
-import RegBtn from "./regBtn";
 import { notFound } from "next/navigation";
 import { EventDescriptionProps } from "@/lib/types";
+import TimelineAccordion from "@/features/events/components/TimelineAccordion";
+import RegBtn from "@/features/events/components/regBtn";
 
 export default async function EventDescription({
   params,
@@ -27,8 +22,7 @@ export default async function EventDescription({
   params: { eventId: string }; // Accept event ID from URL params
 }>) {
   const { eventId } = params;
-
-  const apiUrl = formatInternalUrl("/api/events/" + eventId);
+  const apiUrl = formatInternalUrl("/api/event/" + eventId);
   const res = await fetch(apiUrl, {
     cache: "no-cache",
   });
@@ -128,7 +122,7 @@ export default async function EventDescription({
       <div className="md:hidden w-full mt-[15px]">
         <div
           className="flex flex-col gap-3 justify-center items-center  h-full md:max-w-[50%] 
-        rounded-l-[10px] px-3 md:px-6 lg:px-10 md:bg-white"
+          rounded-l-[10px] px-3 md:px-6 lg:px-10 md:bg-white"
         >
           <div className="flex justify-start items-center gap-2">
             <div
@@ -145,9 +139,7 @@ export default async function EventDescription({
             </div>
             <p className="text-sm truncate">{data.organization.name}</p>
           </div>
-          <p className="font-medium text-lg line-clamp-1">
-            {name}
-          </p>
+          <p className="font-medium text-lg line-clamp-1">{name}</p>
           <div className="inline-flex flex-col justify-start items-center gap-2 ">
             <div className="flex justify-start items-center flex-row gap-3">
               <IoCalendarSharp className="shrink-0 text-orange-dark text-base" />
@@ -171,13 +163,17 @@ export default async function EventDescription({
         </div>
       </div>
       <div className="lg:w-[90%] xl:w-[80%] mx-auto px-3 md:px-10 lg:px-14">
-        <p className="font-semibold text-xl md:text-2xl mt-[32px]">รายละเอียด</p>
+        <p className="font-semibold text-xl md:text-2xl mt-[32px]">
+          รายละเอียด
+        </p>
         <div className="border w-full mt-[8px] mb-[16px]" />
         <div className="flex flex-col gap-[32px] md:gap-[4%] md:flex-row justify-between">
           <div className="flex flex-col gap-[30px]">
             {description && (
               <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-xl md:text-2xl">คำอธิบายกิจกรรม</p>
+                <p className="font-semibold text-xl md:text-2xl">
+                  คำอธิบายกิจกรรม
+                </p>
                 <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words">
                   {description}
                 </pre>
@@ -225,7 +221,9 @@ export default async function EventDescription({
             )}
             {location.name && (
               <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-xl md:text-2xl mt-[16px]">สถานที่</p>
+                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
+                  สถานที่
+                </p>
                 <p className="text-base font-normal">
                   {location.name ?? "ไม่ระบุ"}
                 </p>
@@ -275,7 +273,7 @@ export default async function EventDescription({
             <div className="shrink-0 md:w-[35%]">
               <div
                 className="md:sticky top-[80px] flex flex-col justify-center items-center gap-4 
-            w-full h-auto pt-[20px] pb-[30px] px-[5%] border rounded-[10px] drop-shadow-lg bg-white"
+              w-full h-auto pt-[20px] pb-[30px] px-[5%] border rounded-[10px] drop-shadow-lg bg-white"
               >
                 <p className="text-left text-xl font-medium w-full">
                   ลงทะเบียน
@@ -289,29 +287,5 @@ export default async function EventDescription({
         </div>
       </div>
     </section>
-  );
-}
-
-interface TimelineAccordionProps {
-  timelineArr: Array<{
-    date: string;
-    content: string;
-  }>;
-}
-
-function TimelineAccordion({ timelineArr }: Readonly<TimelineAccordionProps>) {
-  if (timelineArr.length === 0) return;
-  return (
-    <Accordion
-      type="multiple"
-      className="w-full border rounded-[10px] bg-[#F4F4F5] px-5"
-    >
-      {timelineArr.map((day, index) => (
-        <AccordionItem key={index} value={`item-${index}`}>
-          <AccordionTrigger>{day.date}</AccordionTrigger>
-          <AccordionContent>{day.content}</AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
   );
 }

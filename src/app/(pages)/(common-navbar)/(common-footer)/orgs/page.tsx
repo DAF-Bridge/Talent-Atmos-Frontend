@@ -1,13 +1,6 @@
 import * as React from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
-import { lazy, Suspense } from "react";
-import JobCarouselSkeleton from "@/components/skeletons/JobCarouselSkeleton";
-import OrgCard from "@/components/cards/OrgCard";
-
-// lazy load
-const JobCarouselWrapper = lazy(
-  () => import("@/components/wrappers/JobCarouselWrapper")
-);
+import OrgCard from "@/features/orgs/components/OrgCard";
 
 export default function OrgListingPage() {
   return (
@@ -17,17 +10,6 @@ export default function OrgListingPage() {
         <span className="text-orange-normal"> &quot;องค์กร&quot; </span>
         <span className="text-black">ที่ตอบโจทย์เป้าหมายของคุณ</span>
         {/* <span className="text-gray-400 text-sm ml-2">({`จำนวนองค์กรทั้งหมด`})</span> */}
-      </div>
-
-      <div className="mt-8">
-        <p className="font-medium text-2xl">งานที่เปิดรับสมัคร</p>
-      </div>
-
-      <div className="flex justify-between mt-4">
-        {/* <OrgCarousel /> */}
-        <Suspense fallback={<JobCarouselSkeleton />}>
-          <JobCarouselWrapper />
-        </Suspense>
       </div>
 
       {/* <div className="border-[1.5px] mt-[26px] border-gray-stroke/70" /> */}

@@ -11,6 +11,8 @@ export async function GET(
     const filePath = path.join(
       process.cwd(),
       "src",
+      "features",
+      "events",
       "data",
       "eventDetail.json"
     );

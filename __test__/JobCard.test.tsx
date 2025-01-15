@@ -1,4 +1,4 @@
-import JobCard from "@/components/cards/JobCard";
+import JobCard from "@/components/common/JobCard";
 import { render, screen } from "@testing-library/react";
 
 describe("JobCard", () => {

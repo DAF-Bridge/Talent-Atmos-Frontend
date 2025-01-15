@@ -1,10 +1,11 @@
+import OrgTab from "@/features/orgs/components/OrgTab";
 import Image from "next/image";
-import OrgTab from "../OrgTab";
 
 interface OrgPageLayoutProps {
   params: { orgId: string };
   children: React.ReactNode;
 }
+
 
 export default function OrgPageLayout({
   children,

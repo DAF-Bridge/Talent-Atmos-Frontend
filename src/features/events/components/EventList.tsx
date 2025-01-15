@@ -1,5 +1,5 @@
-import EventCard from "@/components/cards/EventCard";
-import ListPagination from "@/components/Pagination/ListPagination";
+import EventCard from "@/components/common/EventCard";
+import ListPagination from "@/components/common/ListPagination";
 import { Event } from "@/lib/types";
 import { formatInternalUrl } from "@/lib/utils";
 import React from "react";
