@@ -174,7 +174,9 @@ export default function JobSideBar() {
         </div>
       </div>
       <div className="flex justify-center">
-        <Button className="w-[50%] bg-orange-dark hover:bg-orange-normal text-base">ค้นหา</Button>
+        <Button className="w-[50%] bg-orange-dark hover:bg-orange-normal text-base">
+          ค้นหา
+        </Button>
       </div>
     </div>
   );

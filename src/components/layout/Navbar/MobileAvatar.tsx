@@ -28,17 +28,9 @@ export default function MobileAvatar() {
             <div
               className="
                     flex h-[42px] justify-center items-center text-gray-800 font-normal border-black 
-                    hover:text-orange-dark rounded-full border transition-all duration-200"
+                    hover:text-gray-500 rounded-full border transition-all duration-200"
             >
-              เข้าสู่ระบบ
-            </div>
-          </Link>
-          <Link href="/signup">
-            <div
-              className="flex h-[42px] justify-center items-center text-white bg-orange-normal 
-                    hover:bg-orange-dark rounded-full border transition-all duration-200"
-            >
-              สมัครสมาชิก
+              เข้าสู่ระบบ / สมัครสมาชิก
             </div>
           </Link>
         </div>

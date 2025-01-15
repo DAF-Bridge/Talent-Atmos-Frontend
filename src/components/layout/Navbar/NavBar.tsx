@@ -57,7 +57,7 @@ export default function NavigationBar() {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMiniMenuOpen(!isMiniMenuOpen)}
-              className="text-gray-800 hover:text-orange-dark focus:outline-none"
+              className="text-gray-800 hover:text-gray-600 focus:outline-none"
             >
               <svg
                 className="w-6 h-6"
@@ -83,24 +83,28 @@ export default function NavigationBar() {
       </div>
 
       {/* Mobile Menu */}
-      {isMiniMenuOpen && (
-        <div className="md:hidden ">
-          <div className="px-2 pt-2 pb-1 mt-[-2px] w-full bg-white absolute shadow-md">
-            {menuItems.map((item, k) => (
-              <div key={k}>
-                <CompactNormalMenu
-                  label={item.label}
-                  href={item.href}
-                  handleOnClick={() => handleCloseMenu()}
-                />
-              </div>
-            ))}
-            <div>
-              <MobileAvatar />
+
+      <div className="md:hidden">
+        <div
+          className={`px-2 pt-2 pb-1 mt-[-5px] w-full bg-white absolute shadow-md overflow-hidden 
+            transition-all duration-200 ease-in-out ${
+              isMiniMenuOpen ? "max-h-96 visible" : "max-h-0 invisible"
+            }`}
+        >
+          {menuItems.map((item, k) => (
+            <div key={k}>
+              <CompactNormalMenu
+                label={item.label}
+                href={item.href}
+                handleOnClick={() => handleCloseMenu()}
+              />
             </div>
+          ))}
+          <div>
+            <MobileAvatar />
           </div>
         </div>
-      )}
+      </div>
     </nav>
   );
 }
