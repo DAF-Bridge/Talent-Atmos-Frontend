@@ -296,14 +296,14 @@ export default function SignUpPage() {
               คุณยอมรับ
               <Link
                 className="ml-1 hover:underline text-orange-dark hover:text-orange-normal"
-                href={"/policies"}
+                href={"/info/tos"}
               >
                 ข้อกำหนดการใช้งาน
               </Link>
               <span> และ </span>
               <Link
                 className="ml-1 hover:underline text-orange-dark hover:text-orange-normal"
-                href={"/policies"}
+                href={"/info/privacy"}
               >
                 นโยบายความเป็นส่วนตัว
               </Link>
