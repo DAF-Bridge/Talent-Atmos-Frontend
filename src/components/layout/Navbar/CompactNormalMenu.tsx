@@ -15,8 +15,8 @@ export default function CompactNormalMenu({
   return (
     <Link href={href} onClick={handleOnClick}>
       <div
-        className="block text-gray-800 hover:bg-orange-normal hover:text-white 
-      transition-all duration-150 px-3 py-2 font-normal border-b"
+        className="block text-sm text-gray-800 hover:bg-orange-normal hover:text-white 
+      transition-all duration-150 px-3 py-3 font-normal"
       >
         {label}
       </div>

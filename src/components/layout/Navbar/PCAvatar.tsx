@@ -54,7 +54,7 @@ export default function PCAvatar() {
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen((prev) => !prev)}
-            className={`shrink-0 h-[40px] w-[40px] rounded-full overflow-hidden ${
+            className={`shrink-0 h-[40px] w-[40px] rounded-full overflow-hidden ease-in-out duration-100 ${
               isOpen ? "ring-2 ring-orange-normal ring-offset-1" : ""
             }`}
           >
@@ -67,20 +67,23 @@ export default function PCAvatar() {
                 height={100}
               />
             ) : (
-              <div className="flex justify-center items-center h-full w-full bg-slate-200">
+              <div className="flex justify-center items-center h-full w-full bg-slate-100">
                 {userProfile?.fname[0] + "" + userProfile?.lname[0]}
               </div>
             )}
           </button>
 
-          {isOpen && (
-            <div
-              className="absolute mt-[10px] flex flex-col gap-2  border w-[208px] 
-            right-0 top-[40px] bg-white rounded-lg py-4 shadow-lg"
-            >
-              <DropDownMenu />
-            </div>
-          )}
+          <div
+            className={`absolute mt-[10px] flex flex-col gap-2 border w-[208px] transition-all
+              right-0 top-[40px] bg-white rounded-lg py-4 shadow-lg ease-in-out duration-100
+              ${
+                isOpen
+                  ? "opacity-100 translate-y-0 scale-100"
+                  : "opacity-0 pointer-events-none -translate-y-2 scale-95"
+              }`}
+          >
+            <DropDownMenu />
+          </div>
         </div>
       )}
     </>

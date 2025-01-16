@@ -46,9 +46,9 @@ export default function JobCard({
     <div className="border rounded-[8px] bg-white p-5">
       <div className="flex flex-col">
         <div className="flex flex-row justify-between items-start">
-          <div className="flex flex-row gap-4 justify-start items-start flex-wrap">
+          <div className="flex flex-row gap-4 justify-start items-center flex-wrap">
             {imgUrl && (
-              <div className="shrink-0 w-[50px] h-[50px] rounded-[5px] overflow-hidden shadow shadow-slate-300">
+              <div className="shrink-0 w-[50px] h-[50px] rounded-full overflow-hidden shadow shadow-slate-300">
                 <Image
                   src={imgUrl}
                   className="w-full h-full object-cover"
@@ -64,13 +64,13 @@ export default function JobCard({
               ) : (
                 <p className="text-lg font-medium mb-1">{title}</p>
               )}
-              <div className="inline-flex flex-col md:flex-row gap-1">
+              <div className="inline-flex flex-col lg:flex-row items-start lg:items-center gap-1">
                 {orgName && (
                   <>
-                    <span className="text-base font-normal text-gray-inactive">
+                    <span className="text-sm font-normal text-gray-inactive translate-y-[1px]">
                       {orgName}
                     </span>
-                    <span className="hidden md:block mx-2 text-lg font-extrabold leading-none">
+                    <span className="hidden lg:block mx-2 text-lg font-extrabold leading-none">
                       •
                     </span>
                   </>
@@ -92,10 +92,10 @@ export default function JobCard({
                     </div>
                   )}
                 </div>
-                <span className="hidden md:block mx-2 text-lg font-extrabold">
+                <span className="hidden lg:block mx-2 text-lg font-extrabold">
                   •
                 </span>
-                <span className="text-base font-normal text-orange-normal translate-y-[2px]">
+                <span className="text-sm font-normal text-orange-normal translate-y-[1px]">
                   {`฿${salary}/เดือน`}
                 </span>
               </div>
@@ -104,7 +104,7 @@ export default function JobCard({
 
           <button
             onClick={handleBookmark}
-            className="p-3 border rounded-[8px] text-gray-inactive text-xl hover:bg-slate-50"
+            className="p-3 border rounded-[8px] text-gray-inactive text-base hover:bg-slate-50"
           >
             {isBookmarked ? (
               <FaBookmark className="text-orange-normal" />
@@ -113,7 +113,7 @@ export default function JobCard({
             )}
           </button>
         </div>
-        <p className="text-sm font-normal w-[80%] line-clamp-2 mt-4">
+        <p className="text-sm font-normal text-gray-btngray w-[80%] line-clamp-2 mt-4">
           {description}
         </p>
         <div className="inline-flex gap-2 h-6 flex-wrap mt-4">
