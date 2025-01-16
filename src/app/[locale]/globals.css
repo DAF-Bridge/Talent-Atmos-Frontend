@@ -83,7 +83,7 @@
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 5px;
-  border: 2px solid #f1f1f1;  /* Creates padding effect */
+  border: 2px solid #f1f1f1; /* Creates padding effect */
 }
 
 /* Handle on hover */
@@ -97,6 +97,12 @@
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* prevent scroll bar from disappearing */
+html body[data-scroll-locked] {
+  overflow: visible !important;
+  margin-right: 0 !important;
 }
 
 .auth-input {

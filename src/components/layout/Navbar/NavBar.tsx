@@ -7,6 +7,7 @@ import NormalMenu from "./NormalMenu";
 import CompactNormalMenu from "./CompactNormalMenu";
 import AvatarProfile from "./PCAvatar";
 import MobileAvatar from "./MobileAvatar";
+import LangSwitcher from "@/components/common/LangSwitcher";
 
 export default function NavigationBar() {
   const menuItems = [
@@ -29,8 +30,8 @@ export default function NavigationBar() {
   return (
     <nav className="fixed bg-white shadow-md font-prompt top-0 z-50 w-full">
       <div className="max-w-[1170px] mx-auto px-6">
-        <div className="flex justify-between h-[65px]">
-          <div className="flex gap-[42px] ">
+        <div className="flex justify-between items-center h-[65px]">
+          <div className="flex gap-[30px] lg:gap-[42px] ">
             {/* Logo */}
             <div className="flex-shrink-0 flex justify-center items-center">
               <Link href="/">
@@ -39,7 +40,7 @@ export default function NavigationBar() {
             </div>
 
             {/* Menu */}
-            <div className="hidden md:flex space-x-[30px] lg:space-x-[38px] items-center">
+            <div className="hidden md:flex space-x-[25px] lg:space-x-[38px] items-center">
               {menuItems.map((item, k) => (
                 <div key={k} className="h-full flex items-center">
                   <NormalMenu label={item.label} href={item.href ?? ""} />
@@ -48,36 +49,41 @@ export default function NavigationBar() {
             </div>
           </div>
 
-          {/* Login/Signup Button */}
-          <div className="hidden md:flex md:items-center space-x-4 ">
-            <AvatarProfile />
-          </div>
+          <div className="flex items-center gap-3">
+            <div>
+              <LangSwitcher />
+            </div>
+            {/* Login/Signup Button */}
+            <div className="hidden md:flex md:items-center space-x-4 ">
+              <AvatarProfile />
+            </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsMiniMenuOpen(!isMiniMenuOpen)}
-              className="text-gray-800 hover:text-gray-600 focus:outline-none"
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex items-center">
+              <button
+                onClick={() => setIsMiniMenuOpen(!isMiniMenuOpen)}
+                className="text-gray-800 hover:text-gray-600 focus:outline-none"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d={
-                    isMiniMenuOpen
-                      ? "M6 18L18 6M6 6l12 12"
-                      : "M4 6h16M4 12h16M4 18h16"
-                  }
-                />
-              </svg>
-            </button>
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d={
+                      isMiniMenuOpen
+                        ? "M6 18L18 6M6 6l12 12"
+                        : "M4 6h16M4 12h16M4 18h16"
+                    }
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>

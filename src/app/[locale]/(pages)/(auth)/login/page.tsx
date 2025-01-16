@@ -242,7 +242,7 @@ export default function LoginPage(): JSX.Element {
                 h-[48px] w-full text-sm font-normal justify-center items-center"
               >
                 <Image
-                  src={"./icon/google-icon.svg"}
+                  src={"/icon/google-icon.svg"}
                   width={33}
                   height={33}
                   alt="google-login"

@@ -86,7 +86,7 @@ export type EventDescriptionProps = {
     name: string;
     picUrl: string;
   };
-}
+};
 
 export type BriefOrganization = {
   name: string;
@@ -146,3 +146,5 @@ export type Category = {
     | "campaign";
   title: string;
 };
+
+export type LanguageCode = "th" | "en";

@@ -32,5 +32,311 @@
       "name": "Who Am I",
       "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
     }
+  },
+  {
+    "id": 3,
+    "name": "Who Am I - ค้นหาตัวเองผ่านการทดลองทำงานจำลอง",
+    "startDate": "2024-11-16T00:00:00.000Z",
+    "endDate": "2024-11-20T00:00:00.000Z",
+    "startTime": "0001-01-01T09:00:00.000Z",
+    "endTime": "0001-01-01T16:30:00.000Z",
+    "location": "ลานชั้น 1 อาคารสวทช. โยธี",
+    "picUrl": "https://drive.google.com/uc?export=view&id=1ptEpKRbhtQJxJLdAfmMHOzMJgWfFOl9y",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 4,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Who Am I - ค้นหาตัวเองผ่านการทดลองทำงานจำลอง",
+    "startDate": "2024-11-16T00:00:00.000Z",
+    "endDate": "2024-11-20T00:00:00.000Z",
+    "startTime": "0001-01-01T09:00:00.000Z",
+    "endTime": "0001-01-01T16:30:00.000Z",
+    "location": "ลานชั้น 1 อาคารสวทช. โยธี",
+    "picUrl": "https://drive.google.com/uc?export=view&id=1ptEpKRbhtQJxJLdAfmMHOzMJgWfFOl9y",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 6,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Who Am I - ค้นหาตัวเองผ่านการทดลองทำงานจำลอง",
+    "startDate": "2024-11-16T00:00:00.000Z",
+    "endDate": "2024-11-20T00:00:00.000Z",
+    "startTime": "0001-01-01T09:00:00.000Z",
+    "endTime": "0001-01-01T16:30:00.000Z",
+    "location": "ลานชั้น 1 อาคารสวทช. โยธี",
+    "picUrl": "https://drive.google.com/uc?export=view&id=1ptEpKRbhtQJxJLdAfmMHOzMJgWfFOl9y",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 8,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 9,
+    "name": "Who Am I - ค้นหาตัวเองผ่านการทดลองทำงานจำลอง",
+    "startDate": "2024-11-16T00:00:00.000Z",
+    "endDate": "2024-11-20T00:00:00.000Z",
+    "startTime": "0001-01-01T09:00:00.000Z",
+    "endTime": "0001-01-01T16:30:00.000Z",
+    "location": "ลานชั้น 1 อาคารสวทช. โยธี",
+    "picUrl": "https://drive.google.com/uc?export=view&id=1ptEpKRbhtQJxJLdAfmMHOzMJgWfFOl9y",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 10,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 11,
+    "name": "Who Am I - ค้นหาตัวเองผ่านการทดลองทำงานจำลอง",
+    "startDate": "2024-11-16T00:00:00.000Z",
+    "endDate": "2024-11-20T00:00:00.000Z",
+    "startTime": "0001-01-01T09:00:00.000Z",
+    "endTime": "0001-01-01T16:30:00.000Z",
+    "location": "ลานชั้น 1 อาคารสวทช. โยธี",
+    "picUrl": "https://drive.google.com/uc?export=view&id=1ptEpKRbhtQJxJLdAfmMHOzMJgWfFOl9y",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 12,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 13,
+    "name": "Who Am I - ค้นหาตัวเองผ่านการทดลองทำงานจำลอง",
+    "startDate": "2024-11-16T00:00:00.000Z",
+    "endDate": "2024-11-20T00:00:00.000Z",
+    "startTime": "0001-01-01T09:00:00.000Z",
+    "endTime": "0001-01-01T16:30:00.000Z",
+    "location": "ลานชั้น 1 อาคารสวทช. โยธี",
+    "picUrl": "https://drive.google.com/uc?export=view&id=1ptEpKRbhtQJxJLdAfmMHOzMJgWfFOl9y",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 14,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 15,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 16,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 17,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 18,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 18,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
+  },
+  {
+    "id": 18,
+    "name": "WHO AM I - เปิดโอกาสให้น้องๆได้เข้าศึกษาการทำงานและทดลองทำงาน",
+    "startDate": "",
+    "endDate": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "picUrl": "https://drive.google.com/uc?export=view&id=14JD4WbrFIIbAfNt6lbxefsmUrmEFE8Di",
+    "category": "All",
+    "price": "Free",
+    "organization": {
+      "id": 1,
+      "name": "Who Am I",
+      "picUrl": "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H"
+    }
   }
 ]

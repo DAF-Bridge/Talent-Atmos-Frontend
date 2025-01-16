@@ -2,15 +2,17 @@
 
 import BigFooter from "@/components/layout/BigFooter";
 import NavigationBar from "@/components/layout/Navbar/NavBar";
+import { useTranslations } from "next-intl";
 
 export default function Home() {
+  const t = useTranslations('HomePage');
   return (
     <>
       <NavigationBar />
       <div className="font-prompt max-w-[1170px] mx-auto px-6 mt-[60px] min-h-[80vh]">
         <div className="flex flex-col items-center justify-center h-[90vh] gap-4 py-auto">
           <p className="text-[90px] font-semibold text-center leading-none">
-            Talents Atmos
+          {t('title')}
           </p>
           <div className="flex flex-col items-center gap-10">
             <p className="text-center text-xl">
