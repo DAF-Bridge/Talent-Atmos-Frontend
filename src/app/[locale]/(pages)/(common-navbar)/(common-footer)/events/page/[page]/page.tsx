@@ -1,7 +1,5 @@
 import React, { Suspense } from "react";
-
 import { EventListSkeleton } from "@/features/events/components/EventListSkeleton";
-// import { redirect } from "next/navigation";
 import { Category } from "@/lib/types";
 import CategoryTab from "@/features/events/components/CategoryTab";
 import { EventSearch } from "@/features/events/components/EventSearch";
@@ -34,7 +32,6 @@ export default async function EventListingPageComp({
   ];
 
   if (!category || !availableCategories.includes(category as Category["id"])) {
-    // redirect(`?category=all`);
     redirect({
       href: "/events/page/1?category=all",
       locale: params.locale,

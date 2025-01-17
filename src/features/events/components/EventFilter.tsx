@@ -20,11 +20,12 @@ import Badge from "@/components/common/Badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState } from "react";
-// import { revalidatePath } from "next/cache";
+import { useState, useTransition } from "react";
 import { useRouter } from "@/i18n/routing";
+import LoadingCover from "@/components/common/LoadingCover";
 
 export function EventFilter() {
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -77,10 +78,12 @@ export function EventFilter() {
       params.delete("price");
     }
 
-    // window.location.href = `/events/page/1?${params.toString()}`;
-    router.push(`/events/page/1?${params.toString()}`);
-    // revalidatePath(`/events/page/1?${params.toString()}`);
     setIsFilterOpen(false);
+
+    startTransition(() => {
+      router.push(`/events/page/1?${params.toString()}`);
+      router.refresh();
+    });
   };
 
   const clearFilters = () => {
@@ -97,7 +100,12 @@ export function EventFilter() {
     params.delete("audience");
     params.delete("price");
 
-    window.location.href = `/events/page/1?${params.toString()}`;
+    setIsFilterOpen(false);
+
+    startTransition(() => {
+      router.push(`/events/page/1?${params.toString()}`);
+      router.refresh();
+    });
   };
 
   const getActiveFiltersCount = () => {
@@ -111,149 +119,156 @@ export function EventFilter() {
   };
 
   return (
-    <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
-      <SheetTrigger asChild>
-        <button
-          className="flex justify-center items-center gap-1 border bg-white 
+    <>
+      <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+        <SheetTrigger asChild>
+          <button
+            className="flex justify-center items-center gap-1 border bg-white 
         hover:drop-shadow-md border-gray-stroke rounded-[10px] h-[40px] sm:h-[48px] px-3 sm:px-4 
         text-gray-btngray relative"
-        >
-          <SlidersHorizontal className="h-[18px] w-[18px]" />
-          <span className="hidden sm:block text-sm font-medium">ตัวกรอง</span>
-          {getActiveFiltersCount() > 0 && (
-            <Badge
-              className="bg-orange-normal"
-              label={getActiveFiltersCount().toString()}
-            />
-          )}
-        </button>
-      </SheetTrigger>
-      <SheetContent className="font-prompt">
-        <SheetHeader>
-          <SheetTitle className="font-prompt">ตัวกรอง</SheetTitle>
-        </SheetHeader>
-        <div className="py-6 space-y-5">
-          {/* Date Range Filter */}
-          <div className="space-y-3">
-            <Label>ช่วงเวลา</Label>
-            <Select
-              value={selectedDateRange}
-              onValueChange={setSelectedDateRange}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="เลือกช่วงเวลา" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem className="hover:bg-slate-100" value="today">
-                  วันนี้
-                </SelectItem>
-                <SelectItem className="hover:bg-slate-100" value="tomorrow">
-                  พรุ่งนี้
-                </SelectItem>
-                <SelectItem className="hover:bg-slate-100" value="thisWeek">
-                  สัปดาห์นี้
-                </SelectItem>
-                <SelectItem className="hover:bg-slate-100" value="thisMonth">
-                  เดือนนี้
-                </SelectItem>
-                <SelectItem className="hover:bg-slate-100" value="nextMonth">
-                  เดือนหน้า
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+          >
+            <SlidersHorizontal className="h-[18px] w-[18px]" />
+            <span className="hidden sm:block text-sm font-medium">ตัวกรอง</span>
+            {getActiveFiltersCount() > 0 && (
+              <Badge
+                className="bg-orange-normal"
+                label={getActiveFiltersCount().toString()}
+              />
+            )}
+          </button>
+        </SheetTrigger>
+        <SheetContent className="font-prompt">
+          <SheetHeader>
+            <SheetTitle className="font-prompt">ตัวกรอง</SheetTitle>
+          </SheetHeader>
+          <div className="py-6 space-y-5">
+            {/* Date Range Filter */}
+            <div className="space-y-3">
+              <Label>ช่วงเวลา</Label>
+              <Select
+                value={selectedDateRange}
+                onValueChange={setSelectedDateRange}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="เลือกช่วงเวลา" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem className="hover:bg-slate-100" value="today">
+                    วันนี้
+                  </SelectItem>
+                  <SelectItem className="hover:bg-slate-100" value="tomorrow">
+                    พรุ่งนี้
+                  </SelectItem>
+                  <SelectItem className="hover:bg-slate-100" value="thisWeek">
+                    สัปดาห์นี้
+                  </SelectItem>
+                  <SelectItem className="hover:bg-slate-100" value="thisMonth">
+                    เดือนนี้
+                  </SelectItem>
+                  <SelectItem className="hover:bg-slate-100" value="nextMonth">
+                    เดือนหน้า
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-          {/* Location Filter */}
-          <div className="space-y-3">
-            <Label>สถานที่</Label>
-            <Select
-              value={selectedLocation}
-              onValueChange={setSelectedLocation}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="เลือกสถานที่" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem className="hover:bg-slate-100" value="online">
-                  ออนไลน์
-                </SelectItem>
-                <SelectItem className="hover:bg-slate-100" value="onsite">
-                  ออนไซต์
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+            {/* Location Filter */}
+            <div className="space-y-3">
+              <Label>สถานที่</Label>
+              <Select
+                value={selectedLocation}
+                onValueChange={setSelectedLocation}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="เลือกสถานที่" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem className="hover:bg-slate-100" value="online">
+                    ออนไลน์
+                  </SelectItem>
+                  <SelectItem className="hover:bg-slate-100" value="onsite">
+                    ออนไซต์
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-          {/* Audience Filter */}
-          <div className="space-y-3">
-            <Label>ประเภทผู้ชม</Label>
-            <RadioGroup
-              value={selectedAudience}
-              onValueChange={setSelectedAudience}
-              className="grid grid-cols-2 gap-y-[15px]"
-            >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="general" id="r1" />
-                <Label
-                  htmlFor="r1"
-                  className="font-normal hover:cursor-pointer"
-                >
-                  ทั่วไป
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="students" id="r2" />
-                <Label
-                  htmlFor="r2"
-                  className="font-normal hover:cursor-pointer"
-                >
-                  นักเรียน/นักศึกษา
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="professionals" id="r3" />
-                <Label
-                  htmlFor="r3"
-                  className="font-normal hover:cursor-pointer"
-                >
-                  มืออาชีพ
-                </Label>
-              </div>
-            </RadioGroup>
-          </div>
+            {/* Audience Filter */}
+            <div className="space-y-3">
+              <Label>ประเภทผู้ชม</Label>
+              <RadioGroup
+                value={selectedAudience}
+                onValueChange={setSelectedAudience}
+                className="grid grid-cols-2 gap-y-[15px]"
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="general" id="r1" />
+                  <Label
+                    htmlFor="r1"
+                    className="font-normal hover:cursor-pointer"
+                  >
+                    ทั่วไป
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="students" id="r2" />
+                  <Label
+                    htmlFor="r2"
+                    className="font-normal hover:cursor-pointer"
+                  >
+                    นักเรียน/นักศึกษา
+                  </Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="professionals" id="r3" />
+                  <Label
+                    htmlFor="r3"
+                    className="font-normal hover:cursor-pointer"
+                  >
+                    มืออาชีพ
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
 
-          {/* Price Filter */}
-          <div className="space-y-3">
-            <Label>ราคา</Label>
-            <Select value={selectedPrice} onValueChange={setSelectedPrice}>
-              <SelectTrigger>
-                <SelectValue placeholder="เลือกราคา" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem className="hover:bg-slate-100" value="free">
-                  ฟรี
-                </SelectItem>
-                <SelectItem className="hover:bg-slate-100" value="paid">
-                  มีค่าใช้จ่าย
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+            {/* Price Filter */}
+            <div className="space-y-3">
+              <Label>ราคา</Label>
+              <Select value={selectedPrice} onValueChange={setSelectedPrice}>
+                <SelectTrigger>
+                  <SelectValue placeholder="เลือกราคา" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem className="hover:bg-slate-100" value="free">
+                    ฟรี
+                  </SelectItem>
+                  <SelectItem className="hover:bg-slate-100" value="paid">
+                    มีค่าใช้จ่าย
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-          {/* Action Buttons */}
-          <div className="flex gap-4 pt-4">
-            <Button variant="outline" onClick={clearFilters} className="flex-1">
-              ล้างตัวกรอง
-            </Button>
-            <Button
-              onClick={applyFilters}
-              className="flex-1 bg-orange-dark hover:bg-orange-normal"
-            >
-              ใช้ตัวกรอง
-            </Button>
+            {/* Action Buttons */}
+            <div className="flex gap-4 pt-4">
+              <Button
+                variant="outline"
+                onClick={clearFilters}
+                className="flex-1"
+              >
+                ล้างตัวกรอง
+              </Button>
+              <Button
+                onClick={applyFilters}
+                className="flex-1 bg-orange-dark hover:bg-orange-normal"
+              >
+                ใช้ตัวกรอง
+              </Button>
+            </div>
           </div>
-        </div>
-      </SheetContent>
-    </Sheet>
+        </SheetContent>
+      </Sheet>
+      {isPending && <LoadingCover />}
+    </>
   );
 }

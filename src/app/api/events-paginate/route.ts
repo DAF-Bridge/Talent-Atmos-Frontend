@@ -39,6 +39,9 @@ export async function GET(request: NextRequest) {
       page * maxEventsPerPage
     );
 
+    //wait for 2 seconds before returning the response
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     return NextResponse.json({
       events: paginatedEvents,
       total_events: filteredEvents.length,

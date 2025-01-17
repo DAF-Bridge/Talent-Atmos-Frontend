@@ -1,8 +1,7 @@
 import EventCard from "@/components/common/EventCard";
 import ListPagination from "@/components/common/ListPagination";
-import { Event } from "@/lib/types";
-import { formatInternalUrl } from "@/lib/utils";
 import React from "react";
+import { fetchEvents } from "../api/fetchEvents";
 
 export interface EventListProps {
   currentPage: string;
@@ -17,31 +16,14 @@ export default async function EventList({
   category,
   maxEventsPerPage,
 }: Readonly<EventListProps>) {
-  // Construct the API URL based on search and category
-  let apiUrl = `/api/events-paginate?page=${currentPage}&search=${
-    search ?? ""
-  }&category=${category ?? ""}`;
-  apiUrl = formatInternalUrl(apiUrl);
+  const { events, totalEvents } = await fetchEvents(
+    currentPage,
+    search,
+    category
+  );
 
-  let events: Event[] = [];
-  let totalPages: number = 0;
-
-  try {
-    const response = await fetch(apiUrl, { cache: "no-store" });
-
-    if (!response.ok) {
-      throw new Error(`API call failed with status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    events = data.events;
-
-    // calculate total pages
-    totalPages = Math.ceil(data.total_events / maxEventsPerPage);
-  } catch (error) {
-    console.error("Error fetching events:", error);
-  }
+  // calculate total pages
+  const totalPages = Math.ceil(totalEvents / maxEventsPerPage);
   return (
     <>
       {events.length > 0 ? (
