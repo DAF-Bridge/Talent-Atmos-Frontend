@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import OrgCard from "@/features/orgs/components/OrgCard";
 import { getLangList, renderWithIntl } from "./renderUtilsWithInt";
 
