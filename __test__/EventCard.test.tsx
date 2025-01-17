@@ -22,7 +22,7 @@ describe("EventCard", () => {
         />,
         { locale: lang }
       );
-      const element = screen.getByText(/งานทดสอบ_Test_failed/i);
+      const element = screen.getByText(/งานทดสอบ/i);
       expect(element).toBeInTheDocument();
     });
   });
