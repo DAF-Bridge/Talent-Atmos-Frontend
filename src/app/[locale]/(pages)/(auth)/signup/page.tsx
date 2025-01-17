@@ -3,14 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, House } from "lucide-react";
-import Link from "next/link";
+import { Link, useRouter } from "@/i18n/routing";
 import React, { useState } from "react";
 import { useForm, type FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, TSignUpSchema } from "@/lib/types";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 import { formatInternalUrl } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 

@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import {
   Accordion,
@@ -9,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import DropDownMenu from "./DropDownMenu";
 import Image from "next/image";
+import { Link } from "@/i18n/routing";
 
 export default function MobileAvatar() {
   const { isAuth, userProfile, loading } = useAuth();

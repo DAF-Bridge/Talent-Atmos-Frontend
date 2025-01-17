@@ -1,23 +1,23 @@
 import React, { Suspense } from "react";
 
 import { EventListSkeleton } from "@/features/events/components/EventListSkeleton";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import { Category } from "@/lib/types";
 import CategoryTab from "@/features/events/components/CategoryTab";
 import { EventSearch } from "@/features/events/components/EventSearch";
 import { EventFilter } from "@/features/events/components/EventFilter";
 import EventList from "@/features/events/components/EventList";
+import { redirect } from "@/i18n/routing";
 export const dynamic = "force-dynamic"; // Ensure fresh data on each request
 
 export default async function EventListingPageComp({
   params,
   searchParams,
 }: Readonly<{
-  params: { page: string };
+  params: { page: string; locale: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }>) {
   const maxEventsPerPage = 12;
-
   const currentPage = params.page || "1";
   const search = searchParams.search?.toString() ?? "";
   const category = searchParams.category?.toString() ?? "";
@@ -34,7 +34,11 @@ export default async function EventListingPageComp({
   ];
 
   if (!category || !availableCategories.includes(category as Category["id"])) {
-    redirect(`?category=all`);
+    // redirect(`?category=all`);
+    redirect({
+      href: "/events/page/1?category=all",
+      locale: params.locale,
+    });
   }
 
   return (

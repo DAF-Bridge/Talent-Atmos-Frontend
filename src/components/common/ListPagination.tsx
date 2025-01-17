@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import {
   Pagination,
   PaginationContent,
@@ -11,9 +11,10 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { useEffect, useState } from "react";
+import { useRouter } from "@/i18n/routing";
 
 interface PaginationProps {
-  type: "events" | "jobs";
+  type: "events" | "jobs" | "orgs";
   totalPages: number;
 }
 
@@ -39,7 +40,7 @@ export default function ListPagination({
     const newSearchParams = new URLSearchParams(searchParams.toString());
 
     // Construct the base URL based on type
-    const basePath = type === "events" ? "/events/page/" : "/orgs/page/";
+    const basePath = `/${type}/page/`;
 
     // Combine the path with the search parameters
     const newPath = `${basePath}${page}${

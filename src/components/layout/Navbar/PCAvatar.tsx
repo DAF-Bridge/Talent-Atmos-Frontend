@@ -1,8 +1,8 @@
-import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import DropDownMenu from "./DropDownMenu";
 import Image from "next/image";
+import { Link } from "@/i18n/routing";
 
 export default function PCAvatar() {
   const { isAuth, userProfile, loading } = useAuth();

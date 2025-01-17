@@ -21,8 +21,11 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
+// import { revalidatePath } from "next/cache";
+import { useRouter } from "@/i18n/routing";
 
 export function EventFilter() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedType, setSelectedType] = useState(
@@ -74,7 +77,9 @@ export function EventFilter() {
       params.delete("price");
     }
 
-    window.location.href = `/events/page/1?${params.toString()}`;
+    // window.location.href = `/events/page/1?${params.toString()}`;
+    router.push(`/events/page/1?${params.toString()}`);
+    // revalidatePath(`/events/page/1?${params.toString()}`);
     setIsFilterOpen(false);
   };
 

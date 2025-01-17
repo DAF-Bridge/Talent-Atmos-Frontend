@@ -8,10 +8,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import Image from "next/image";
-import { usePathname } from "@/i18n/routing";
+import { usePathname, useRouter } from "@/i18n/routing";
 
 export default function LangSwitcher() {
   const router = useRouter();
@@ -20,7 +19,7 @@ export default function LangSwitcher() {
 
   // change locale language but main tain all the existing path
   const onSelectChange = (value: string) => {
-    router.replace(`/${value}/${currPathExcludeLocale}`);
+    router.push(currPathExcludeLocale, { locale: value });
   };
   return (
     <Select value={activeLocale} onValueChange={onSelectChange}>

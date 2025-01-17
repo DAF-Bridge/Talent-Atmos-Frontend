@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "@/i18n/routing";
 
 export default function OAuthCallbackPage() {
   const { setAuthState } = useAuth();

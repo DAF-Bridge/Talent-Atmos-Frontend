@@ -1,8 +1,8 @@
 import React from "react";
 import { Organization } from "@/lib/types";
 import Image from "next/image";
-import Link from "next/link";
 import Badge from "@/components/common/Badge";
+import { Link } from "@/i18n/routing";
 
 interface CustomPopupProps {
   organization: Organization;

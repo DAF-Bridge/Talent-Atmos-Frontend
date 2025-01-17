@@ -6,8 +6,8 @@ import {
   Settings,
   // Ticket,
 } from "lucide-react";
-import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import { Link } from "@/i18n/routing";
 
 export default function DropDownMenu() {
   const { removeAuthState } = useAuth();

@@ -1,10 +1,13 @@
 "use client";
 
+import { useRouter } from "@/i18n/routing";
 import { SearchIcon, X } from "lucide-react";
+// import { revalidatePath } from "next/cache";
 import { useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
 
 export function EventSearch({ defaultValue = "" }) {
+  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const searchParams = useSearchParams();
 
@@ -17,7 +20,9 @@ export function EventSearch({ defaultValue = "" }) {
     } else {
       params.delete("search");
     }
-    window.location.href = `/events/page/1?${params.toString()}`;
+    // window.location.href = `/events/page/1?${params.toString()}`;
+    router.push(`/events/page/1?${params.toString()}`);
+    // revalidatePath(`/events/page/1${params.toString()}`);
   };
 
   const handleInputChange = (term: string) => {
