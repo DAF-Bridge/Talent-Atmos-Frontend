@@ -37,15 +37,31 @@ jobs:
         continue-on-error: true
 
       - name: Run tests
+        id: test
         run: npm test
         continue-on-error: true
 
+      - name: Check test result
+        if: ${{ steps.test.outcome != 'success' }}
+        run: echo "Test stage failed."
+        id: test_failed # Marks the test as failed if this block executes
+
       - name: Build Next.js project
+        id: build
         run: npm run build
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }} # API in Netlify || produciton mode
           NEXT_PUBLIC_GO_API_URL: ${{ secrets.NEXT_PUBLIC_GO_API_URL }} # API in development mode
         continue-on-error: true
+
+      - name: Check build result
+        if: ${{ steps.build.outcome != 'success' }}
+        run: echo "Build stage failed."
+        id: build_failed # Marks the build as failed if this block executes
+
+    outputs:
+      test_status: ${{ steps.test.outcome }}
+      build_status: ${{ steps.build.outcome }}
 
   notify:
     needs: build
@@ -53,16 +69,25 @@ jobs:
     steps:
       - name: Send Discord notification
         run: |
-          STATUS="success"
-          if [ "${{ needs.build.result }}" == "failure" ]; then
+          TEST_STATUS="${{ needs.build.outputs.test_status }}"
+          BUILD_STATUS="${{ needs.build.outputs.build_status }}"
+
+          if [ "$TEST_STATUS" != "success" ]; then
+            STAGE="Test"
             STATUS="failure"
+          elif [ "$BUILD_STATUS" != "success" ]; then
+            STAGE="Build"
+            STATUS="failure"
+          else
+            STAGE="All stages"
+            STATUS="success"
           fi
 
           MESSAGE=$(cat <<EOF
           {
             "username": "GitHub Actions",
             "embeds": [{
-              "title": "Build $STATUS",
+              "title": "Workflow $STATUS - $STAGE Stage",
               "description": "Workflow: ${{ github.workflow }}\nActor: ${{ github.actor }}\nGithub-Commit-Head: ${{ github.sha }}\nBranch: ${{ github.ref_name }}\nRepository: ${{ github.repository }}\nCommit-msg: ${{ github.event.head_commit.message }}\nStatus: $STATUS\n[View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
               "color": $(if [ "$STATUS" == "success" ]; then echo "3066993"; else echo "15158332"; fi)
             }]
