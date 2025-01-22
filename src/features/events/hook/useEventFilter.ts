@@ -3,7 +3,6 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState, useTransition } from "react";
 
 interface EventFilters {
-  type: string;
   dateRange: string;
   location: string;
   audience: string;
@@ -18,7 +17,6 @@ export default function useEventFilter() {
   // Create a memoized version of the current URL params
   const currentFilters = useMemo(() => {
     return {
-      type: searchParams.get("type") ?? "",
       dateRange: searchParams.get("dateRange") ?? "",
       location: searchParams.get("location") ?? "",
       audience: searchParams.get("audience") ?? "",
@@ -63,7 +61,6 @@ export default function useEventFilter() {
   const clearFilters = () => {
     // Reset all filters to default values
     const defaultFilters: EventFilters = {
-      type: "",
       dateRange: "",
       location: "",
       audience: "",
@@ -72,8 +69,14 @@ export default function useEventFilter() {
 
     setFilters(defaultFilters);
 
+    const params = new URLSearchParams(searchParams);
+
+    Object.entries(defaultFilters).forEach(([key]) => {
+      params.delete(key);
+    });
+
     startTransition(() => {
-      router.push(`/events/page/1`, { scroll: false });
+      router.push(`/events/page/1?${params.toString()}`, { scroll: false });
       router.refresh();
     });
   };

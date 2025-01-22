@@ -33,6 +33,16 @@ export function EventFilter() {
   } = useEventFilter();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
+  const handleApplyFilters = () => {
+    applyFilters();
+    setIsFilterOpen(false);
+  };
+
+  const handleClearFilters = () => {
+    clearFilters();
+    setIsFilterOpen(false);
+  };
+
   return (
     <>
       <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
@@ -160,13 +170,13 @@ export function EventFilter() {
             <div className="flex gap-4 pt-4">
               <Button
                 variant="outline"
-                onClick={clearFilters}
+                onClick={handleClearFilters}
                 className="flex-1"
               >
                 ล้างตัวกรอง
               </Button>
               <Button
-                onClick={applyFilters}
+                onClick={handleApplyFilters}
                 className="flex-1 bg-orange-dark hover:bg-orange-normal"
               >
                 ใช้ตัวกรอง

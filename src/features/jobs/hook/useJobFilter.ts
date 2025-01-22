@@ -89,8 +89,14 @@ export function useJobFilters() {
 
     setFilters(defaultFilters);
 
+    const params = new URLSearchParams(searchParams);
+
+    Object.entries(defaultFilters).forEach(([key]) => {
+      params.delete(key);
+    });
+
     startTransition(() => {
-      router.push(`/jobs/page/1`, { scroll: false });
+      router.push(`/jobs/page/1?${params.toString()}`, { scroll: false });
       router.refresh();
     });
   };
