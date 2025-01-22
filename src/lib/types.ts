@@ -40,13 +40,52 @@ export type TLogInSchema = z.infer<typeof loginSchema>;
 
 export type Event = {
   id: number;
-  Name: string;
-  StartDate: string;
-  EndDate: string;
-  StartTime: string;
-  EndTime: string;
-  PicUrl: string;
-  Location: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  startTime: string;
+  endTime: string;
+  picUrl: string;
+  location: string;
+  category: string;
+  organization: {
+    id: number;
+    name: string;
+    picUrl: string;
+  };
+};
+
+export type EventDescriptionProps = {
+  event: {
+    id: number;
+    name: string;
+    description: string;
+    startDate: string;
+    endDate?: string;
+    startTime: string;
+    endTime?: string;
+    price: string;
+    picUrl: string;
+    highlight: string;
+    requirements: string;
+    outcomes: Array<string>;
+    timeline: Array<{ date: string; content: string }>;
+    benefits: Array<string>;
+    location: {
+      name: string;
+      map_url: string;
+      image_url: string;
+      lat: number;
+      lng: number;
+    };
+    contact: Array<{ type: string; url: string }>;
+    regLink: string;
+  };
+  organization: {
+    id: number;
+    name: string;
+    picUrl: string;
+  };
 };
 
 export type BriefOrganization = {
@@ -56,12 +95,13 @@ export type BriefOrganization = {
 
 export type Organization = {
   id: number;
+  pic_url: string;
   name: string;
   description: string;
   latitude: number;
   longitude: number;
   industry: string[];
-}
+};
 
 export type Job = {
   orgName: string;
@@ -92,3 +132,19 @@ export type Coordinate = {
   latitude: number;
   longitude: number;
 };
+
+export type Category = {
+  icon: React.ReactNode;
+  id:
+    | "all"
+    | "incubation"
+    | "networking"
+    | "forum"
+    | "exhibition"
+    | "competition"
+    | "workshop"
+    | "campaign";
+  title: string;
+};
+
+export type LanguageCode = "th" | "en";

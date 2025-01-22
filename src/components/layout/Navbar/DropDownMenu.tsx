@@ -1,19 +1,19 @@
 import React from "react";
 import {
-  Building2,
+  // Building2,
   CircleUserRound,
   LogOut,
   Settings,
-  Ticket,
+  // Ticket,
 } from "lucide-react";
-import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
+import { Link } from "@/i18n/routing";
 
 export default function DropDownMenu() {
   const { removeAuthState } = useAuth();
   return (
     <>
-      <div className="flex gap-1 ">
+      {/* <div className="flex gap-1 ">
         <div className="flex flex-col gap-[5px] w-full">
           <div className="flex justify-start items-center gap-1 pl-[20px]">
             <Ticket className="h-[18px] text-gray-inactive " />
@@ -34,8 +34,8 @@ export default function DropDownMenu() {
           </div>
         </div>
       </div>
-      <div className="border-b"></div>
-      <div className="flex gap-1 ">
+      <div className="border-b"></div> */}
+      {/* <div className="flex gap-1 ">
         <div className="flex flex-col gap-[5px] w-full">
           <div className="flex justify-start items-center gap-1 pl-[20px]">
             <Building2 className="h-[18px] text-gray-inactive " />
@@ -53,30 +53,30 @@ export default function DropDownMenu() {
           </div>
         </div>
       </div>
-      <div className="border-b"></div>
-      <div className="flex flex-col ">
+      <div className="border-b"></div> */}
+      <div className="flex flex-col gap-1">
         <Link href={"/profile"} className={btnStyleVariant2}>
           <>
             <CircleUserRound className="h-[18px]" />
-            <span className="text-base font-normal">โปรไฟล์</span>
+            <span className="text-sm font-normal">โปรไฟล์</span>
           </>
         </Link>
         <Link href={"/setting"} className={btnStyleVariant2}>
           <>
             <Settings className="h-[18px]" />
-            <span className="text-base font-normal">ตั้งค่าบัญชี</span>
+            <span className="text-sm font-normal">ตั้งค่าบัญชี</span>
           </>
         </Link>
         <button onClick={removeAuthState} className={btnStyleVariant2}>
           <LogOut className="h-[18px]" />
-          <span className="text-base font-normal">ออกจากระบบ</span>
+          <span className="text-sm font-normal">ออกจากระบบ</span>
         </button>
       </div>
     </>
   );
 }
 
-const btnStyleVariant1 =
-  "text-base font-normal py-[10px] md:py-2 hover:bg-gray-100 transition-all duration-150 pl-[47px]";
+// const btnStyleVariant1 =
+//   "text-base font-normal py-[10px] md:py-2 hover:bg-gray-100 transition-all duration-150 pl-[47px]";
 const btnStyleVariant2 =
-  "flex gap-1 justify-start items-center py-[10px] md:py-2 hover:bg-gray-100 transition-all duration-150 pl-[20px]";
+  "flex gap-1 justify-start items-center py-[12px] md:py-2 hover:bg-gray-100 transition-all duration-150 pl-[20px]";

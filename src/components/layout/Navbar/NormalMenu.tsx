@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import React from "react";
 
 interface NormalMenuProps {
@@ -8,7 +8,7 @@ interface NormalMenuProps {
 
 export default function NormalMenu({ label, href }: NormalMenuProps) {
   return (
-    <Link href={href} className="text-gray-800 hover:text-orange-dark">
+    <Link href={href} className="flex items-center text-gray-800 hover:text-orange-dark py-2">
       {label}
     </Link>
   );

@@ -1,12 +1,12 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import React from "react";
 import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 
 export default function BigFooter() {
   return (
     <div className="bg-[#1D1D1D] py-11 font-prompt rounded-t-[20px] mt-[87px]">
-      <div className="flex flex-wrap gap-10 lg:justify-between max-w-[1170px] mx-auto px-10">
+      <div className="flex flex-wrap gap-10 lg:justify-between max-w-[1170px] mx-auto px-6">
         <div className="flex flex-col gap-[21px]">
           {/* Logo */}
           <div className="flex max-h-[80px] justify-start items-center">
@@ -31,35 +31,47 @@ export default function BigFooter() {
               ช่องทางติดต่อ
             </div>
             <div className="flex gap-6 justify-start items-center h-7 mt-6 ">
-              <Link className="h-full w-auto" href={"fb"}>
+              <div className="h-full w-auto">
                 <FaFacebook
                   className="h-full w-auto hover:text-gray-300 "
                   width={50}
                   height={50}
                 />
-              </Link>
-              <Link className="h-full w-auto" href={"ig"}>
+              </div>
+              <div className="h-full w-auto">
                 <FaInstagram
                   className="h-full w-auto hover:text-gray-300"
                   width={50}
                   height={50}
                 />
-              </Link>
+              </div>
 
-              <Link className="h-full w-auto" href={"yt"}>
+              <div className="h-full w-auto">
                 <FaYoutube
                   className="h-full w-auto hover:text-gray-300"
                   width={50}
                   height={50}
                 />
-              </Link>
+              </div>
             </div>
           </div>
           <div className="text-white font-normal text-base w-full">
-            Email : seabridgetalents.info@gmail.com
+            Email :{" "}
+            <Link
+              href="mailto:talentsatmos@gmail.com"
+              className="hover:text-white/90 underline"
+            >
+              talentsatmos@gmail.com
+            </Link>
           </div>
           <div className="text-white font-normal text-base w-full">
-            โทรศัพท์ : +66 12 345 6789
+            โทรศัพท์ :{" "}
+            <Link
+              href="tel:+66876428591"
+              className="hover:text-white/90 underline"
+            >
+              +66876428591
+            </Link>
           </div>
         </div>
       </div>

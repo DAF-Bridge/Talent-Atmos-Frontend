@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import {
   Accordion,
@@ -9,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import DropDownMenu from "./DropDownMenu";
 import Image from "next/image";
+import { Link } from "@/i18n/routing";
 
 export default function MobileAvatar() {
   const { isAuth, userProfile, loading } = useAuth();
@@ -23,28 +23,20 @@ export default function MobileAvatar() {
   return (
     <>
       {!isAuth ? (
-        <div className="flex flex-col gap-2 mt-4 mb-2">
+        <div className="flex flex-col gap-2 mt-5">
           <Link href="/login">
             <div
               className="
-                    flex h-[42px] justify-center items-center text-gray-800 font-normal border-black 
-                    hover:text-orange-dark rounded-full border transition-all duration-200"
+                    flex h-[42px] justify-center items-center font-normal hover:bg-slate-50 text-black
+                    rounded-full border transition-all duration-200 text-sm"
             >
-              เข้าสู่ระบบ
-            </div>
-          </Link>
-          <Link href="/signup">
-            <div
-              className="flex h-[42px] justify-center items-center text-white bg-orange-normal 
-                    hover:bg-orange-dark rounded-full border transition-all duration-200"
-            >
-              สมัครสมาชิก
+              เข้าสู่ระบบ / สมัครสมาชิก
             </div>
           </Link>
         </div>
       ) : (
         <Accordion type="multiple" className="w-full">
-          <AccordionItem className="px-3" value={`item-${1}`}>
+          <AccordionItem className="px-3 border-none" value={`item-${1}`}>
             <AccordionTrigger className="hover:no-underline py-[10px]">
               <div className="flex justify-center items-center w-full gap-2">
                 <div
