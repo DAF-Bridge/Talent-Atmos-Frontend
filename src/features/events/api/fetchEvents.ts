@@ -6,15 +6,31 @@ export interface FetchEventsResponse {
   totalEvents: number;
 }
 
-export async function fetchEvents(
-  page: string,
-  search?: string,
-  category?: string
-): Promise<FetchEventsResponse> {
+interface FetchEventsParams {
+  page: string;
+  search?: string;
+  category?: string;
+  dateRange?: string;
+  location?: string;
+  audience?: string;
+  price?: string;
+}
+
+export async function fetchEvents({
+  page,
+  search,
+  category,
+  dateRange,
+  location,
+  audience,
+  price,
+}: FetchEventsParams): Promise<FetchEventsResponse> {
   const apiUrl = formatInternalUrl(
     `/api/events-paginate?page=${page}&search=${search ?? ""}&category=${
       category ?? ""
-    }`
+    }&dateRange=${dateRange ?? ""}&location=${location ?? ""}&audience=${
+      audience ?? ""
+    }&price=${price ?? ""}`
   );
 
   try {

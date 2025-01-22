@@ -20,12 +20,20 @@ export default async function EventListingPageComp({
   const currentPage = params.page || "1";
   const search = searchParams.search?.toString() ?? "";
   const category = searchParams.category?.toString() ?? "";
+  const dateRange = searchParams.dateRange?.toString() ?? "";
+  const location = searchParams.location?.toString() ?? "";
+  const audience = searchParams.audience?.toString() ?? "";
+  const price = searchParams.price?.toString() ?? "";
 
-  const { events, totalEvents } = await fetchEvents(
-    currentPage,
+  const { events, totalEvents } = await fetchEvents({
+    page: currentPage,
     search,
-    category
-  );
+    category,
+    dateRange,
+    location,
+    audience,
+    price,
+  });
 
   // calculate total pages
   const totalPages = Math.ceil(totalEvents / maxEventsPerPage);
