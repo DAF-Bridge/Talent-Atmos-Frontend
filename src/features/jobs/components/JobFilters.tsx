@@ -23,7 +23,11 @@ import {
 import LoadingCover from "@/components/common/LoadingCover";
 import { useJobFilters } from "../hook/useJobFilter";
 
-export default function JobFilters() {
+interface JobFiltersProps {
+  onClose?: () => void;
+}
+
+export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
   const { filters, updateFilter, applyFilters, clearFilters, isPending } =
     useJobFilters();
 
@@ -52,12 +56,22 @@ export default function JobFilters() {
     }
   };
 
+  const handleClearFilters = () => {
+    clearFilters();
+    onClose?.();
+  };
+
+  const handleApplyFilters = () => {
+    applyFilters();
+    onClose?.();
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row justify-between items-center">
         <p className="text-xl font-semibold">ตัวกรอง</p>
         <button
-          onClick={clearFilters}
+          onClick={handleClearFilters}
           className="border rounded-md p-2 group hover:bg-slate-100"
         >
           <RiResetRightFill className="text-xl" />
@@ -246,7 +260,7 @@ export default function JobFilters() {
       </div>
       <div className={`flex justify-center ${isOpen ? "mt-5" : ""}`}>
         <Button
-          onClick={applyFilters}
+          onClick={handleApplyFilters}
           className="w-[50%] bg-orange-dark hover:bg-orange-normal text-base"
           disabled={!!salaryError}
         >

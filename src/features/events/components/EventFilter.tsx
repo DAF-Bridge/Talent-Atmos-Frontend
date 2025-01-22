@@ -3,6 +3,7 @@
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -54,6 +55,9 @@ export function EventFilter() {
         <SheetContent className="font-prompt">
           <SheetHeader>
             <SheetTitle className="font-prompt">ตัวกรอง</SheetTitle>
+            <SheetDescription className="sr-only">
+              เลือกตัวกรอง
+            </SheetDescription>
           </SheetHeader>
           <div className="py-6 space-y-5">
             {/* Date Range Filter */}

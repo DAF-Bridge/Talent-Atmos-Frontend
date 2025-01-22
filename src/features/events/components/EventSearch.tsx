@@ -64,7 +64,7 @@ export function EventSearch({ defaultValue = "" }) {
           <X className="h-[18px] w-[18px] text-gray-inactive" />
         </button>
       )}
-      <div className="bg-white absolute top-0 rounded-r-full pr-1 right-0 h-[40px] md:h-[46px] w-[55px] flex items-center justify-end">
+      <div className="bg-white absolute top-0 rounded-r-full md:pr-1 right-0 h-[40px] md:h-[46px] w-[55px] flex items-center justify-end">
         <button
           onClick={() => handleSearchRedirect(searchTerm)}
           disabled={isPending}
