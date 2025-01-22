@@ -33,6 +33,7 @@ export default async function EventListingPageComp({
     location,
     audience,
     price,
+    maxEventsPerPage,
   });
 
   // calculate total pages

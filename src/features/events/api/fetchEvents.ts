@@ -14,6 +14,7 @@ interface FetchEventsParams {
   location?: string;
   audience?: string;
   price?: string;
+  maxEventsPerPage?: number;
 }
 
 export async function fetchEvents({
@@ -24,13 +25,16 @@ export async function fetchEvents({
   location,
   audience,
   price,
+  maxEventsPerPage,
 }: FetchEventsParams): Promise<FetchEventsResponse> {
   const apiUrl = formatInternalUrl(
-    `/api/events-paginate?page=${page}&search=${search ?? ""}&category=${
-      category ?? ""
-    }&dateRange=${dateRange ?? ""}&location=${location ?? ""}&audience=${
-      audience ?? ""
-    }&price=${price ?? ""}`
+    `/api/events-paginate?page=${page}&offset=${
+      maxEventsPerPage?.toString() ?? ""
+    }&search=${search ?? ""}&category=${category ?? ""}&dateRange=${
+      dateRange ?? ""
+    }&location=${location ?? ""}&audience=${audience ?? ""}&price=${
+      price ?? ""
+    }`
   );
 
   try {
