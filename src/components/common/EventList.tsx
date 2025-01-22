@@ -1,29 +1,17 @@
 import EventCard from "@/components/common/EventCard";
 import ListPagination from "@/components/common/ListPagination";
 import React from "react";
-import { fetchEvents } from "../api/fetchEvents";
+import { Event } from "@/lib/types";
 
 export interface EventListProps {
-  currentPage: string;
-  search?: string;
-  category?: string;
-  maxEventsPerPage: number;
+  events: Event[];
+  totalPages: number;
 }
 
 export default async function EventList({
-  currentPage,
-  search,
-  category,
-  maxEventsPerPage,
+  events,
+  totalPages,
 }: Readonly<EventListProps>) {
-  const { events, totalEvents } = await fetchEvents(
-    currentPage,
-    search,
-    category
-  );
-
-  // calculate total pages
-  const totalPages = Math.ceil(totalEvents / maxEventsPerPage);
   return (
     <>
       {events.length > 0 ? (

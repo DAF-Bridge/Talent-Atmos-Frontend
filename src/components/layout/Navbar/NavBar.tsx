@@ -17,7 +17,7 @@ export default function NavigationBar() {
     },
     {
       label: "สมัครงาน",
-      href: "/jobs",
+      href: "/jobs/page/1",
     },
     { label: "องค์กร", href: "/orgs" },
     { label: "แผนที่", href: "/map" },

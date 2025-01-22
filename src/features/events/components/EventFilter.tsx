@@ -1,7 +1,5 @@
 "use client";
 
-import { SlidersHorizontal } from "lucide-react";
-import { useSearchParams } from "next/navigation";
 import {
   Sheet,
   SheetContent,
@@ -16,126 +14,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Badge from "@/components/common/Badge";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState, useTransition } from "react";
-import { useRouter } from "@/i18n/routing";
+import { useState } from "react";
 import LoadingCover from "@/components/common/LoadingCover";
+import FilterBtn from "@/components/common/FilterBtn";
+import useEventFilter from "../hook/useEventFilter";
 
 export function EventFilter() {
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const {
+    filters,
+    updateFilter,
+    applyFilters,
+    clearFilters,
+    isPending,
+    getActiveFiltersCount,
+  } = useEventFilter();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [selectedType, setSelectedType] = useState(
-    searchParams.get("type") ?? ""
-  );
-  const [selectedDateRange, setSelectedDateRange] = useState(
-    searchParams.get("dateRange") ?? ""
-  );
-  const [selectedLocation, setSelectedLocation] = useState(
-    searchParams.get("location") ?? ""
-  );
-  const [selectedAudience, setSelectedAudience] = useState(
-    searchParams.get("audience") ?? ""
-  );
-  const [selectedPrice, setSelectedPrice] = useState(
-    searchParams.get("price") ?? ""
-  );
-
-  const applyFilters = () => {
-    const params = new URLSearchParams(searchParams);
-
-    if (selectedType) {
-      params.set("type", selectedType);
-    } else {
-      params.delete("type");
-    }
-
-    if (selectedDateRange) {
-      params.set("dateRange", selectedDateRange);
-    } else {
-      params.delete("dateRange");
-    }
-
-    if (selectedLocation) {
-      params.set("location", selectedLocation);
-    } else {
-      params.delete("location");
-    }
-
-    if (selectedAudience) {
-      params.set("audience", selectedAudience);
-    } else {
-      params.delete("audience");
-    }
-
-    if (selectedPrice) {
-      params.set("price", selectedPrice);
-    } else {
-      params.delete("price");
-    }
-
-    setIsFilterOpen(false);
-
-    startTransition(() => {
-      router.push(`/events/page/1?${params.toString()}`);
-      router.refresh();
-    });
-  };
-
-  const clearFilters = () => {
-    setSelectedType("");
-    setSelectedDateRange("");
-    setSelectedLocation("");
-    setSelectedAudience("");
-    setSelectedPrice("");
-
-    const params = new URLSearchParams(searchParams);
-    params.delete("type");
-    params.delete("dateRange");
-    params.delete("location");
-    params.delete("audience");
-    params.delete("price");
-
-    setIsFilterOpen(false);
-
-    startTransition(() => {
-      router.push(`/events/page/1?${params.toString()}`);
-      router.refresh();
-    });
-  };
-
-  const getActiveFiltersCount = () => {
-    return [
-      selectedType,
-      selectedDateRange,
-      selectedLocation,
-      selectedAudience,
-      selectedPrice,
-    ].filter(Boolean).length;
-  };
 
   return (
     <>
       <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
         <SheetTrigger asChild>
-          <button
-            className="flex justify-center items-center gap-1 border bg-white 
-        hover:drop-shadow-md border-gray-stroke rounded-[10px] h-[40px] sm:h-[48px] px-3 sm:px-4 
-        text-gray-btngray relative"
-          >
-            <SlidersHorizontal className="h-[18px] w-[18px]" />
-            <span className="hidden sm:block text-sm font-medium">ตัวกรอง</span>
-            {getActiveFiltersCount() > 0 && (
-              <Badge
-                className="bg-orange-normal"
-                label={getActiveFiltersCount().toString()}
-              />
-            )}
-          </button>
+          <div>
+            <FilterBtn getActiveFiltersCount={getActiveFiltersCount} />
+          </div>
         </SheetTrigger>
         <SheetContent className="font-prompt">
           <SheetHeader>
@@ -146,8 +50,8 @@ export function EventFilter() {
             <div className="space-y-3">
               <Label>ช่วงเวลา</Label>
               <Select
-                value={selectedDateRange}
-                onValueChange={setSelectedDateRange}
+                value={filters.dateRange}
+                onValueChange={(value) => updateFilter("dateRange", value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="เลือกช่วงเวลา" />
@@ -176,8 +80,8 @@ export function EventFilter() {
             <div className="space-y-3">
               <Label>สถานที่</Label>
               <Select
-                value={selectedLocation}
-                onValueChange={setSelectedLocation}
+                value={filters.location}
+                onValueChange={(value) => updateFilter("location", value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="เลือกสถานที่" />
@@ -197,8 +101,8 @@ export function EventFilter() {
             <div className="space-y-3">
               <Label>ประเภทผู้ชม</Label>
               <RadioGroup
-                value={selectedAudience}
-                onValueChange={setSelectedAudience}
+                value={filters.audience}
+                onValueChange={(value) => updateFilter("audience", value)}
                 className="grid grid-cols-2 gap-y-[15px]"
               >
                 <div className="flex items-center space-x-2">
@@ -234,7 +138,10 @@ export function EventFilter() {
             {/* Price Filter */}
             <div className="space-y-3">
               <Label>ราคา</Label>
-              <Select value={selectedPrice} onValueChange={setSelectedPrice}>
+              <Select
+                value={filters.price}
+                onValueChange={(value) => updateFilter("price", value)}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="เลือกราคา" />
                 </SelectTrigger>

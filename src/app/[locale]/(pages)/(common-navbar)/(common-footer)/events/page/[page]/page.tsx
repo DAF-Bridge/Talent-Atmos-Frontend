@@ -4,8 +4,9 @@ import { Category } from "@/lib/types";
 import CategoryTab from "@/features/events/components/CategoryTab";
 import { EventSearch } from "@/features/events/components/EventSearch";
 import { EventFilter } from "@/features/events/components/EventFilter";
-import EventList from "@/features/events/components/EventList";
+import EventList from "@/components/common/EventList";
 import { redirect } from "@/i18n/routing";
+import { fetchEvents } from "@/features/events/api/fetchEvents";
 export const dynamic = "force-dynamic"; // Ensure fresh data on each request
 
 export default async function EventListingPageComp({
@@ -19,6 +20,15 @@ export default async function EventListingPageComp({
   const currentPage = params.page || "1";
   const search = searchParams.search?.toString() ?? "";
   const category = searchParams.category?.toString() ?? "";
+
+  const { events, totalEvents } = await fetchEvents(
+    currentPage,
+    search,
+    category
+  );
+
+  // calculate total pages
+  const totalPages = Math.ceil(totalEvents / maxEventsPerPage);
 
   const availableCategories: Category["id"][] = [
     "all",
@@ -53,12 +63,7 @@ export default async function EventListingPageComp({
       <Suspense
         fallback={<EventListSkeleton maxEventsPerPage={maxEventsPerPage} />}
       >
-        <EventList
-          currentPage={currentPage}
-          search={search}
-          category={category}
-          maxEventsPerPage={maxEventsPerPage}
-        />
+        <EventList events={events} totalPages={totalPages} />
       </Suspense>
     </div>
   );

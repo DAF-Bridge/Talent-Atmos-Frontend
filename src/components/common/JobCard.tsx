@@ -4,7 +4,7 @@ import Badge from "@/components/common/Badge";
 import { formatRelativeTime } from "@/lib/utils";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 interface JobCardProps {
@@ -38,7 +38,7 @@ export default function JobCard({
   industry,
   isBooked = false,
 }: Readonly<JobCardProps>) {
-  const [isBookmarked, setIsBookmarked] = React.useState(isBooked);
+  const [isBookmarked, setIsBookmarked] = useState(isBooked);
   const handleBookmark = () => {
     setIsBookmarked(!isBookmarked);
   };
@@ -60,14 +60,14 @@ export default function JobCard({
             )}
             <div className="flex flex-col gap-1">
               {imgUrl ? (
-                <p className="text-base font-normal">{title}</p>
+                <p className="text-sm sm:text-base font-normal">{title}</p>
               ) : (
-                <p className="text-lg font-medium mb-1">{title}</p>
+                <p className="text-base sm:text-lg font-medium mb-1">{title}</p>
               )}
               <div className="inline-flex flex-col lg:flex-row items-start lg:items-center gap-1">
                 {orgName && (
                   <>
-                    <span className="text-sm font-normal text-gray-inactive translate-y-[1px]">
+                    <span className="text-xs sm:text-sm font-normal text-gray-inactive translate-y-[1px]">
                       {orgName}
                     </span>
                     <span className="hidden lg:block mx-2 text-lg font-extrabold leading-none">
@@ -75,20 +75,26 @@ export default function JobCard({
                     </span>
                   </>
                 )}
-                <div className="flex flex-none justify-start items-center gap-2">
+                <div className="flex flex-wrap justify-start items-center gap-2">
                   {work_type && (
                     <div className="inline-flex justify-center items-center bg-gray-100 rounded-[5px] px-2 py-0.5">
-                      <p className="text-xs line-clamp-1">{work_type}</p>
+                      <p className="text-[10px] sm:text-xs line-clamp-1">
+                        {work_type}
+                      </p>
                     </div>
                   )}
                   {workplace && (
                     <div className="inline-flex justify-center items-center bg-gray-100 rounded-[5px] px-2 py-0.5">
-                      <p className="text-xs line-clamp-1">{workplace}</p>
+                      <p className="text-[10px] sm:text-xs line-clamp-1">
+                        {workplace}
+                      </p>
                     </div>
                   )}
                   {career_stage && (
                     <div className="inline-flex justify-center items-center bg-gray-100 rounded-[5px] px-2 py-0.5">
-                      <p className="text-xs line-clamp-1">{career_stage}</p>
+                      <p className="text-[10px] sm:text-xs line-clamp-1">
+                        {career_stage}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -113,19 +119,21 @@ export default function JobCard({
             )}
           </button>
         </div>
-        <p className="text-sm font-normal text-gray-btngray w-[80%] line-clamp-2 mt-4">
+        <p className="text-sm font-normal text-gray-btngray w-full md:w-[80%] line-clamp-2 mt-4">
           {description}
         </p>
-        <div className="inline-flex gap-2 h-6 flex-wrap mt-4">
+        <div className="inline-flex gap-2 flex-wrap h-fit mt-4">
           {industry.map((label, i) => (
             <Badge key={i} label={label} className="bg-[#F2F2F1]" />
           ))}
         </div>
-        <div className="inline-flex justify-start items-center text-gray-inactive mt-2">
-          <MapPin className="shrink-0 h-[15px]" />
-          <span className="text-sm text-right">{`${province}, ${country}`}</span>
+        <div className="inline-flex flex-wrap justify-start items-center text-gray-inactive mt-2">
+          <MapPin className="shrink-0 h-[12px] sm:h-[15px]" />
+          <span className="text-xs sm:text-sm text-left">{`${province}, ${country}`}</span>
           <span className="mx-2 text-lg font-extrabold">•</span>
-          <p className="text-sm">{formatRelativeTime(updatedDate)}</p>
+          <p className="text-xs sm:text-sm">
+            {formatRelativeTime(updatedDate)}
+          </p>
         </div>
       </div>
     </div>

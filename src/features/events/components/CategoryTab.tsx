@@ -86,17 +86,21 @@ export default function CategoryTab() {
     const params = new URLSearchParams(searchParams);
     // Update the category parameter
     params.set("category", categoryId);
-    // Reset to page 1 when changing categories
-    params.set("page", "1");
+
+    // Get the base path by removing the existing page/number pattern
+    const basePath = pathname.replace(/\/page\/\d+/, "");
 
     startTransition(() => {
-      // Use router.push and wait for navigation to complete
-      router.push(`${pathname}?${params.toString()}`, { scroll: false });
-      // Trigger a revalidation after navigation
+      // Construct new path with page/1 and the category parameter
+      router.push(
+        `${basePath}/page/1?${params.toString()}`,
+        {
+          scroll: false,
+        }
+      );
       router.refresh();
     });
   };
-
   // Hide scroll buttons when not needed
   const [showButtons, setShowButtons] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);

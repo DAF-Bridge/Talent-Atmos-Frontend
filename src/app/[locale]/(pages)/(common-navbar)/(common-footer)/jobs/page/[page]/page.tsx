@@ -1,8 +1,9 @@
 import Image from "next/image";
 import React from "react";
-import JobCard from "@/components/common/JobCard";
 import ListPagination from "@/components/common/ListPagination";
 import JobSideBar from "@/features/jobs/components/JobSideBar";
+import JobListing from "@/components/common/JobListing";
+import JobFilterMobile from "@/features/jobs/components/JobFilterMobile";
 
 export default function JobListingPage() {
   return (
@@ -31,30 +32,19 @@ export default function JobListingPage() {
           </div>
         </div>
       </div>
-      <div className="flex max-w-[1170px] mx-auto px-6 min-h-[60vh] mt-6">
+      <div className="flex flex-col md:flex-row max-w-[1170px] mx-auto px-6 min-h-[60vh] mt-6">
         {/* sidebar */}
         <div className="hidden md:block min-w-[240px] w-[25%]">
           <JobSideBar />
         </div>
+        <div className="md:hidden mb-4">
+          <div>
+            <JobFilterMobile />
+          </div>
+        </div>
 
         <div className="flex flex-col gap-5 md:pl-4 w-full md:w-[75%]">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <JobCard
-              key={index}
-              orgName="องค์กรทดสอบ 1"
-              title="พนักงานทดสอบ 1"
-              description="สร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณ"
-              work_type="Fulltime"
-              workplace="Hybrid"
-              career_stage="Entry-Level"
-              province="กรุงเทพมหานคร"
-              country="ประเทศไทย"
-              salary="30,000"
-              imgUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
-              updatedDate="2024-12-29:10:00"
-              industry={["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"]}
-            />
-          ))}
+          <JobListing />
           <div className="mt-6">
             <ListPagination type="jobs" totalPages={5} />
           </div>

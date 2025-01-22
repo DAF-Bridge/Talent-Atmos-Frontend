@@ -141,20 +141,6 @@ const MapComponent: React.FC<MapProps> = ({
 
   useEffect(() => {
     if (selectedOrg && mapRef.current) {
-      // Close all other popups
-      Object.values(popupsRef.current).forEach((popup) => popup.remove());
-
-      // Show popup for selected organization
-      const marker = markersRef.current[selectedOrg.id];
-      if (marker) {
-        const popup = marker.getPopup();
-        popup?.addTo(mapRef.current);
-      }
-    }
-  }, [selectedOrg]);
-
-  useEffect(() => {
-    if (selectedOrg && mapRef.current) {
       const { latitude, longitude } = selectedOrg;
       mapRef.current.flyTo({
         center: [longitude, latitude],
