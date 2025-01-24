@@ -26,6 +26,8 @@ import { Organization } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import MapComponent from "@/features/map/components/Map";
 import OrgMapCard from "@/features/map/components/OrgMapCard";
+import { X } from "lucide-react";
+import { IoSearch } from "react-icons/io5";
 
 const organizations = [
   {
@@ -436,6 +438,11 @@ export default function MapPage() {
   const [selectedOrg, setSelectedOrg] = useState<Organization | null>(null);
   const [flyToTrigger, setFlyToTrigger] = useState(0); // Add a trigger value to force map to fly even when selecting the same org
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleClearInput = () => {
+    setSearchTerm("");
+  };
 
   const handleCardClick = useCallback((org: Organization) => {
     setSelectedOrg(org);
@@ -447,17 +454,35 @@ export default function MapPage() {
     <div className="relative mx-auto overflow-hidden">
       <div
         className="absolute z-10 backdrop-blur-[2px] flex justify-center gap-3 
-      items-center w-full mt-[65px] h-[76px]"
+      items-center w-full mt-[65px] h-[76px] px-4"
       >
-        <Input
-          className="rounded-full w-[20%] h-[48px] pl-5 hover:shadow-md"
-          type="text"
-          id="name-search"
-          placeholder="ค้นหาจากชื่อ"
-        />
+        <div className="relative">
+          <Input
+            className="rounded-full w-full max-w-[300px] h-[42px] hover:shadow-md pl-9 placeholder:font-light 
+            placeholder:text-sm text-sm md:text-base"
+            type="text"
+            id="name-search"
+            placeholder="ค้นหาจากชื่อ"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <IoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-xl text-gray-inactive" />
+          {searchTerm && (
+            <button
+              onClick={handleClearInput}
+              className="absolute top-1/2 transform -translate-y-1/2 right-[10px] h-[30px] w-[30px] 
+            flex items-center justify-center bg-white"
+            >
+              <X className="h-[18px] w-[18px] text-gray-inactive" />
+            </button>
+          )}
+        </div>
 
         <Select>
-          <SelectTrigger className="max-w-[250px] h-[48px] rounded-full pl-5 text-base font-normal hover:shadow-md">
+          <SelectTrigger
+            className="max-w-[250px] w-[150px] h-[42px] rounded-full pl-5 text-base 
+          font-normal hover:shadow-md flex items-center justify-between gap-2"
+          >
             <SelectValue
               className="font-light placeholder:font-light [&:not(:placeholder-shown)]:font-normal"
               placeholder="สถานที่"
@@ -486,10 +511,10 @@ export default function MapPage() {
       </div>
       {/* list of organizations (for PC) */}
       <div
-        className="absolute z-10 mt-[150px] ml-[40px] h-[70vh] w-[412px] border rounded-[20px] 
+        className="absolute z-10 mt-[150px] ml-[10px] lg:ml-[40px] h-[70vh] w-[40%] max-w-[412px] border rounded-[20px] 
       bg-white shadow-lg py-[20px] px-[15px] hidden md:block"
       >
-        <p className="text-xl font-medium">{`รายการทั้งหมด (${organizations.length})`}</p>
+        <p className="text-gray-inactive text-sm lg:text-base font-medium">{`รายการทั้งหมด (${organizations.length})`}</p>
         <div className="flex flex-col gap-1 h-[95%] overflow-y-auto min-h-0">
           {organizations.map((org) => (
             <OrgMapCard
@@ -506,9 +531,10 @@ export default function MapPage() {
       <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
         <DrawerTrigger
           className="fixed z-10 bottom-5 left-1/2 transform -translate-x-1/2 hover:drop-shadow-md hover:-translate-y-1
-        bg-orange-normal text-white rounded-full py-2 px-4 shadow-md md:hidden transition-all duration-150"
+        bg-orange-normal text-white rounded-full py-2 px-4 shadow-md md:hidden transition-all duration-150
+        flex items-center justify-center"
         >
-          <span className="font-medium">{`รายการทั้งหมด (${organizations.length})`}</span>
+          <span className="text-sm font-medium">{`รายการทั้งหมด (${organizations.length})`}</span>
         </DrawerTrigger>
         <DrawerContent className="p-4 bg-white md:hidden">
           <DrawerHeader>

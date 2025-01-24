@@ -46,7 +46,7 @@ export default function JobListingPage({
         </div>
 
         <div className="md:pl-4 w-full md:w-[70%]">
-          <div className="flex justify-between md:justify-end items-center mb-4">
+          <div className="flex justify-between md:justify-end items-center gap-4 mb-4">
             <div className="w-full max-w-[350px]">
               <DynamicSearchBar defaultValue={search} type="jobs" />
             </div>
