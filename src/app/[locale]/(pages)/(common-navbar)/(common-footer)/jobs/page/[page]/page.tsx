@@ -21,9 +21,7 @@ export default function JobListingPage({
         px-6 gap-5 lg:gap-28 h-[120px] overflow-hidden"
         >
           <div className="flex flex-col items-start">
-            <p className="text-2xl font-semibold">
-              ค้นหางานที่ตอบโจทย์
-            </p>
+            <p className="text-2xl font-semibold">ค้นหางานที่ตอบโจทย์</p>
             <p className="text-gray-inactive text-sm">
               อยากสร้างการเปลี่ยนแปลงใช่ไหม?
               พบงานที่สร้างผลกระทบเชิงบวกได้ที่นี่!
@@ -48,7 +46,12 @@ export default function JobListingPage({
         <div className="md:pl-4 w-full md:w-[70%]">
           <div className="flex justify-between md:justify-end items-center gap-4 mb-4">
             <div className="w-full max-w-[350px]">
-              <DynamicSearchBar defaultValue={search} type="jobs" />
+              <DynamicSearchBar
+                defaultValue={search}
+                type="jobs"
+                fullPlace="ค้นหาชื่องาน บริษัท หรือคีย์เวิร์ด"
+                briefPlace="ค้นหาคีย์เวิร์ดงาน"
+              />
             </div>
             <div className="md:hidden">
               <JobFilterMobile />

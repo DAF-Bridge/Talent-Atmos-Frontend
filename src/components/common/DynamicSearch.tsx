@@ -3,17 +3,21 @@
 import { useRouter } from "@/i18n/routing";
 import { SearchIcon, X } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import LoadingCover from "./LoadingCover";
 
 interface DynamicSearchBarProps {
   type: "events" | "jobs" | "orgs";
   defaultValue: string;
+  fullPlace: string;
+  briefPlace: string;
 }
 
 export function DynamicSearchBar({
   defaultValue = "",
   type,
+  fullPlace,
+  briefPlace,
 }: Readonly<DynamicSearchBarProps>) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -57,6 +61,23 @@ export function DynamicSearchBar({
     // }
   };
 
+  const DynamicPlaceholder = (full: string, brief: string) => {
+    const [placeholder, setPlaceholder] = useState(
+      window.innerWidth < 425 ? brief : full
+    );
+
+    useEffect(() => {
+      const handleResize = () => {
+        setPlaceholder(window.innerWidth < 425 ? brief : full);
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }, [full, brief]);
+
+    return placeholder;
+  };
+
   return (
     <div className="flex-grow bg-white relative w-full max-w-[455px] border border-gray-300 rounded-full">
       <input
@@ -64,10 +85,10 @@ export function DynamicSearchBar({
         value={searchTerm}
         onChange={(e) => handleInputChange(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="ค้นหาคีย์เวิร์ด"
+        placeholder={DynamicPlaceholder(fullPlace, briefPlace)}
         disabled={isPending}
         className="flex-grow h-[40px] md:h-[46px] w-full px-4 placeholder:text-gray-inactive 
-        placeholder:font-light text-gray-700 bg-transparent outline-none"
+        placeholder:font-light placeholder:text-sm text-gray-700 bg-transparent outline-none"
       />
       {searchTerm && (
         <button

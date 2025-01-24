@@ -68,7 +68,12 @@ export default async function EventListingPageComp({
       <CategoryTab />
       <div className="flex justify-between items-start gap-5 w-full mt-[20px]">
         <div className="flex flex-col md:flex-row flex-wrap justify-start items-start md:items-center flex-grow gap-x-6 gap-y-4">
-          <DynamicSearchBar defaultValue={search} type="events" />
+          <DynamicSearchBar
+            defaultValue={search}
+            type="events"
+            fullPlace="ค้นหาชื่ออีเว้นท์ สถานที่ หรือคีย์เวิร์ด"
+            briefPlace="ค้นหาคีย์เวิร์ดอีเว้นท์"
+          />
           <EsgFilter />
         </div>
         <EventFilter />
