@@ -57,7 +57,7 @@ export default function OrgPageLayout({
       <div className="mt-[10px] sm:mt-[120px] w-full">
         <OrgTab />
       </div>
-      <div className="flex flex-col gap-[60px] mt-8">{children}</div>
+      <div className="flex flex-col gap-[60px] mt-8 min-h-[10vh]">{children}</div>
     </div>
   );
 }

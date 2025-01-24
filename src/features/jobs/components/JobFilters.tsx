@@ -10,14 +10,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { RiResetRightFill } from "react-icons/ri";
-import { IoSearch } from "react-icons/io5";
-import { FaChevronDown } from "react-icons/fa";
+// import { RiResetRightFill } from "react-icons/ri";
+// import { IoSearch } from "react-icons/io5";
+// import { FaChevronDown } from "react-icons/fa";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import {
   CareerStageEnum,
-  ESGJobCategory,
+  // ESGJobCategory,
   WorkTypeEnum,
 } from "../config/filters";
 import LoadingCover from "@/components/common/LoadingCover";
@@ -28,10 +28,11 @@ interface JobFiltersProps {
 }
 
 export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
-  const { filters, updateFilter, applyFilters, clearFilters, isPending } =
+  const { filters, updateFilter, applyFilters, clearFilters, isPending, getActiveFiltersCount } =
     useJobFilters();
 
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
+  const isOpen = true;
 
   const [salaryError, setSalaryError] = useState("");
 
@@ -57,18 +58,20 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
   };
 
   const handleClearFilters = () => {
+    if (getActiveFiltersCount() === 0) return;
     clearFilters();
     onClose?.();
   };
 
   const handleApplyFilters = () => {
+    if (getActiveFiltersCount() === 0) return;
     applyFilters();
     onClose?.();
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-row justify-between items-center">
+    <div className="flex flex-col gap-5">
+      {/* <div className="flex flex-row justify-between items-center">
         <p className="text-xl font-semibold">ตัวกรอง</p>
         <button
           onClick={handleClearFilters}
@@ -76,9 +79,9 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
         >
           <RiResetRightFill className="text-xl" />
         </button>
-      </div>
+      </div> */}
 
-      <div
+      {/* <div
         className="rounded-full bg-orange-normal/50 p-1 border-2 
       border-orange-dark shadow-lg hover:shadow-orange-300/50 transition-shadow"
       >
@@ -106,9 +109,9 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
             ))}
           </SelectContent>
         </Select>
-      </div>
+      </div> */}
 
-      <div>
+      {/* <div>
         <Label className="text-base font-normal" htmlFor="keyword-search">
           ค้นหาจากคีย์เวิร์ด
         </Label>
@@ -122,7 +125,7 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
           />
           <IoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-xl text-gray-inactive" />
         </div>
-      </div>
+      </div> */}
 
       <div>
         <Label className="text-base font-normal" htmlFor="location-search">
@@ -149,7 +152,7 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
         </div>
       </div>
 
-      <div className="flex justify-end">
+      {/* <div className="flex justify-end">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="inline-flex justify-end items-center gap-1 text-sm font-light text-gray-inactive 
@@ -162,7 +165,7 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
             }`}
           />
         </button>
-      </div>
+      </div> */}
 
       {/* Extra menu */}
       <div
@@ -170,7 +173,7 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
           isOpen ? "max-h-96" : "max-h-0"
         }`}
       >
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
             <p className="flex justify-start items-center">
               {"เงินเดือน (บาท)"}
@@ -258,7 +261,14 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
           </div>
         </div>
       </div>
-      <div className={`flex justify-center ${isOpen ? "mt-5" : ""}`}>
+      <div className="flex justify-center gap-4 mt-2">
+        <Button
+          variant="outline"
+          onClick={handleClearFilters}
+          className="flex-1"
+        >
+          ล้างตัวกรอง
+        </Button>
         <Button
           onClick={handleApplyFilters}
           className="w-[50%] bg-orange-dark hover:bg-orange-normal text-base"

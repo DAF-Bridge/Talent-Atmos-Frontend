@@ -14,12 +14,12 @@ export default function FilterBtn({
   return (
     <button
       className="flex justify-center items-center gap-1 border bg-white 
-      hover:drop-shadow-md border-gray-stroke rounded-[10px] h-[40px] sm:h-[48px] px-3 sm:px-4 
+      hover:drop-shadow-md border-gray-stroke rounded-[10px] h-[40px] md:h-[48px] px-3 md:px-4 
       text-gray-btngray relative"
     >
       <SlidersHorizontal className="h-[18px] w-[18px]" />
       <span
-        className={`text-sm font-medium ${canShorten ? "hidden sm:block" : ""}`}
+        className={`text-sm font-medium ${canShorten ? "hidden md:block" : ""}`}
       >
         ตัวกรอง
       </span>

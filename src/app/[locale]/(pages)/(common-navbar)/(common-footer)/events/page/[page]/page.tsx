@@ -2,11 +2,11 @@ import React, { Suspense } from "react";
 import { EventListSkeleton } from "@/features/events/components/EventListSkeleton";
 import { Category } from "@/lib/types";
 import CategoryTab from "@/features/events/components/CategoryTab";
-import { EventSearch } from "@/features/events/components/EventSearch";
 import { EventFilter } from "@/features/events/components/EventFilter";
 import EventList from "@/components/common/EventList";
 import { redirect } from "@/i18n/routing";
 import { fetchEvents } from "@/features/events/api/fetchEvents";
+import { DynamicSearchBar } from "@/components/common/DynamicSearch";
 export const dynamic = "force-dynamic"; // Ensure fresh data on each request
 
 export default async function EventListingPageComp({
@@ -27,7 +27,7 @@ export default async function EventListingPageComp({
 
   const { events, totalEvents } = await fetchEvents({
     page: currentPage,
-    search,
+    query: search,
     category,
     dateRange,
     location,
@@ -66,7 +66,7 @@ export default async function EventListingPageComp({
       <div className="border-[1.5px] mt-[15px] sm:mt-[20px] border-gray-stroke/70" />
       <CategoryTab />
       <div className="flex justify-between items-center gap-5 w-full mt-[20px]">
-        <EventSearch defaultValue={search} />
+        <DynamicSearchBar defaultValue={search} type="events" />
         <EventFilter />
       </div>
       <Suspense

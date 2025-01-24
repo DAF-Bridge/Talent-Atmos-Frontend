@@ -35,11 +35,13 @@ export function EventFilter() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const handleApplyFilters = () => {
+    if (getActiveFiltersCount() === 0) return;
     applyFilters();
     setIsFilterOpen(false);
   };
 
   const handleClearFilters = () => {
+    if (getActiveFiltersCount() === 0) return;
     clearFilters();
     setIsFilterOpen(false);
   };
