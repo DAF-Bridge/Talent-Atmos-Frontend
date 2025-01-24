@@ -18,22 +18,22 @@ export default function JobListingPage({
       <div className="w-full bg-[#F7F8FC]">
         <div
           className="flex justify-between lg:justify-start items-center max-w-[1170px] mx-auto 
-        px-6 gap-5 lg:gap-20 h-[130px] overflow-hidden"
+        px-6 gap-5 lg:gap-28 h-[120px] overflow-hidden"
         >
           <div className="flex flex-col items-start">
-            <p className="text-2xl lg:text-3xl font-semibold">
+            <p className="text-2xl font-semibold">
               ค้นหางานที่ตอบโจทย์
             </p>
-            <p className="text-gray-inactive text-sm lg:text-base">
+            <p className="text-gray-inactive text-sm">
               อยากสร้างการเปลี่ยนแปลงใช่ไหม?
               พบงานที่สร้างผลกระทบเชิงบวกได้ที่นี่!
             </p>
           </div>
-          <div className="hidden sm:block md:mt-16 min-w-[200px]">
+          <div className="hidden sm:block sm:mt-12 min-w-[200px]">
             <Image
               src={"/hiring-banner.svg"}
-              height={262}
-              width={440}
+              height={200}
+              width={370}
               alt="banner"
             />
           </div>

@@ -44,8 +44,8 @@ export const ESGJobCategory = [
     value: "governance",
     label: "G : ธรรมาภิบาล",
   },
-  {
-    value: "normal",
-    label: "งานทั่วไป",
-  },
+  // {
+  //   value: "normal",
+  //   label: "งานทั่วไป",
+  // },
 ];

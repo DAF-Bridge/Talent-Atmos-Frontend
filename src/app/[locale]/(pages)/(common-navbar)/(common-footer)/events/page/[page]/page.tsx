@@ -7,6 +7,7 @@ import EventList from "@/components/common/EventList";
 import { redirect } from "@/i18n/routing";
 import { fetchEvents } from "@/features/events/api/fetchEvents";
 import { DynamicSearchBar } from "@/components/common/DynamicSearch";
+import EsgFilter from "@/components/common/EsgFilter";
 export const dynamic = "force-dynamic"; // Ensure fresh data on each request
 
 export default async function EventListingPageComp({
@@ -65,8 +66,11 @@ export default async function EventListingPageComp({
       </p>
       <div className="border-[1.5px] mt-[15px] sm:mt-[20px] border-gray-stroke/70" />
       <CategoryTab />
-      <div className="flex justify-between items-center gap-5 w-full mt-[20px]">
-        <DynamicSearchBar defaultValue={search} type="events" />
+      <div className="flex justify-between items-start gap-5 w-full mt-[20px]">
+        <div className="flex flex-col md:flex-row flex-wrap justify-start items-start md:items-center flex-grow gap-x-6 gap-y-4">
+          <DynamicSearchBar defaultValue={search} type="events" />
+          <EsgFilter />
+        </div>
         <EventFilter />
       </div>
       <Suspense
