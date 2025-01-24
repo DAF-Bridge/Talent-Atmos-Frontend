@@ -22,7 +22,7 @@ export function DynamicSearchBar({
   const activeSearchTerm = searchParams.get("search");
 
   const handleSearchRedirect = (term: string) => {
-    if (searchTerm === "" && activeSearchTerm === "") return;
+    if (searchTerm === "" && activeSearchTerm === null) return;
 
     const params = new URLSearchParams(searchParams);
     if (term) {
