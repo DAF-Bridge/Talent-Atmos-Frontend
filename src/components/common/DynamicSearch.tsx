@@ -19,9 +19,10 @@ export function DynamicSearchBar({
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(defaultValue);
   const [isPending, startTransition] = useTransition();
+  const activeSearchTerm = searchParams.get("search");
 
   const handleSearchRedirect = (term: string) => {
-    if (searchTerm === "") return;
+    if (searchTerm === "" && activeSearchTerm === "") return;
 
     const params = new URLSearchParams(searchParams);
     if (term) {
@@ -57,7 +58,7 @@ export function DynamicSearchBar({
   };
 
   return (
-    <div className="flex-grow bg-white relative max-w-[455px] border border-gray-300 rounded-full">
+    <div className="flex-grow bg-white relative w-full max-w-[455px] border border-gray-300 rounded-full">
       <input
         type="text"
         value={searchTerm}
