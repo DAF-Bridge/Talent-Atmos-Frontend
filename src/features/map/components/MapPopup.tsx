@@ -1,17 +1,21 @@
 import React from "react";
-import { Organization } from "@/lib/types";
+import { Organization, Event } from "@/lib/types";
 import Image from "next/image";
 import Badge from "@/components/common/Badge";
 import { Link } from "@/i18n/routing";
 
 interface CustomPopupProps {
-  organization: Organization;
+  data: Organization | Event;
+  currentTab: string;
 }
 
-export const CustomPopup: React.FC<CustomPopupProps> = ({ organization }) => {
+export const CustomPopup: React.FC<CustomPopupProps> = ({
+  data,
+  currentTab,
+}) => {
   const handleMapLinkClick = () => {
     window.open(
-      `https://www.google.com/maps/search/?api=1&query=${organization.latitude},${organization.longitude}`,
+      `https://www.google.com/maps/search/?api=1&query=${data.latitude},${data.longitude}`,
       "_blank"
     );
   };
@@ -20,7 +24,9 @@ export const CustomPopup: React.FC<CustomPopupProps> = ({ organization }) => {
       <div className="flex gap-2 items-center">
         <Image
           src={
-            "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw"
+            currentTab === "org"
+              ? (data as Organization).pic_url
+              : (data as Event).picUrl
           }
           className="h-full max-w-[60px] object-cover rounded-xl border"
           style={{ aspectRatio: "1 / 1" }}
@@ -29,20 +35,30 @@ export const CustomPopup: React.FC<CustomPopupProps> = ({ organization }) => {
           alt="org-image"
         />
         <h3 className="text-sm md:text-base font-normal text-gray-900">
-          {organization.name}
+          {data.name}
         </h3>
       </div>
-      <p className="text-xs md:text-sm font-light text-gray-600 mt-1">
-        {organization.description}
-      </p>
-      <div className="inline-flex flex-wrap mt-2 gap-1">
-        {organization.industry.map((label, i) => (
-          <Badge key={i} label={label} />
-        ))}
-      </div>
+      {
+        <p className="text-xs md:text-sm font-light text-gray-600 mt-1">
+          {currentTab === "org"
+            ? (data as Organization).description
+            : (data as Event).location}
+        </p>
+      }
+      {currentTab === "org" && (
+        <div className="inline-flex flex-wrap mt-2 gap-1">
+          {(data as Organization).industry.map((label, i) => (
+            <Badge key={i} label={label} />
+          ))}
+        </div>
+      )}
       <div className="flex gap-3 justify-end w-full mt-4">
         <Link
-          href={`/orgs/${organization.id}/org-detail`}
+          href={
+            currentTab === "org"
+              ? `/orgs/${data.id}/org-jobs`
+              : `/events/${data.id}`
+          }
           className="inline-flex justify-center items-center py-[6px] px-2 rounded-full w-full border-[1px]
           font-light text-sm md:text-base hover:bg-slate-50 text-black transition-colors duration-150 focus:outline-none"
         >

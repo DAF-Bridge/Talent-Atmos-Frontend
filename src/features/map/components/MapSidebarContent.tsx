@@ -4,23 +4,27 @@
 // import { SlidersHorizontal, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MapFiltersContent } from "@/features/map/components/MapFilter";
-import { Organization } from "@/lib/types";
+import { Organization, Event } from "@/lib/types";
 import MapSearchBar from "./MapSearchBar";
-import OrgCardList from "./OrgCardList";
 import MapListTab from "./MapListTab";
+import OrgCardList from "./OrgCardList";
+// import { useSearchParams } from "next/navigation";
+import EventCardList from "./EventCardList";
 
 interface MapSidebarContentProps {
-  organizations: Organization[];
-  selectedOrg: Organization | null;
-  handleCardClick: (organization: Organization) => void;
+  data: Organization[] | Event[];
+  selectedItem: Organization | Event | null;
+  handleCardClick: (organization: Organization | Event) => void;
   defaultValue: string;
+  currentTab: string;
 }
 
 export default function MapSidebarContent({
-  organizations,
-  selectedOrg,
+  data,
+  selectedItem,
   handleCardClick,
   defaultValue,
+  currentTab,
 }: Readonly<MapSidebarContentProps>) {
   // const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);
 
@@ -72,7 +76,7 @@ export default function MapSidebarContent({
             "transition-all duration-150 delay-150 mb-1",
             isFilterSidebarOpen ? "opacity-0 cursor-not-allowed" : "opacity-100"
           )}
-        >{`รายการทั้งหมด (${organizations.length})`}</p>
+        >{`รายการทั้งหมด (${data.length})`}</p>
         <div
           className={cn(
             "h-[85%] overflow-y-auto min-h-0 pr-2",
@@ -80,11 +84,19 @@ export default function MapSidebarContent({
             isFilterSidebarOpen ? "opacity-0 cursor-not-allowed" : "opacity-100"
           )}
         >
-          <OrgCardList
-            organizations={organizations}
-            selectedOrg={selectedOrg}
-            handleCardClick={handleCardClick}
-          />
+          {currentTab === "org" ? (
+            <OrgCardList
+              organizations={data as Organization[]}
+              selectedOrg={selectedItem as Organization}
+              handleCardClick={handleCardClick}
+            />
+          ) : (
+            <EventCardList
+              events={data as Event[]}
+              selectedEvent={selectedItem as Event}
+              handleCardClick={handleCardClick}
+            />
+          )}
         </div>
       </div>
     </>

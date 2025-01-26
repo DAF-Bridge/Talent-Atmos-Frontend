@@ -9,26 +9,30 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { Organization } from "@/lib/types";
-import OrgCardList from "./OrgCardList";
+import { Organization, Event } from "@/lib/types";
 import MapSearchBar from "./MapSearchBar";
+import OrgCardList from "./OrgCardList";
+import EventCardList from "./EventCardList";
+import MapListTab from "./MapListTab";
 
 interface MapMobileDrawerProps {
   isDrawerOpen: boolean;
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  organizations: Organization[];
-  selectedOrg: Organization | null;
-  handleCardClick: (org: Organization) => void;
+  data: Organization[] | Event[];
+  selectedItem: Organization | Event | null;
+  handleCardClick: (org: Organization | Event) => void;
+  currentTab: string;
 }
 
 export default function MapMobileDrawer({
   isDrawerOpen,
   setIsDrawerOpen,
-  organizations,
-  selectedOrg,
+  data,
+  selectedItem,
   handleCardClick,
+  currentTab,
 }: Readonly<MapMobileDrawerProps>) {
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+  const handlePointerDown = (e: React.PointerEvent) => {
     e.stopPropagation();
   };
   return (
@@ -39,24 +43,35 @@ export default function MapMobileDrawer({
       bg-white text-black rounded-full py-2 px-4 shadow-md transition-all duration-150
       flex items-center justify-center"
         >
-          <span className="text-sm font-medium">{`รายการทั้งหมด (${organizations.length})`}</span>
+          <span className="text-sm font-medium">{`รายการทั้งหมด (${data.length})`}</span>
         </DrawerTrigger>
         <DrawerContent className="p-4 bg-white md:hidden">
           <DrawerHeader>
-            <DrawerTitle>{`รายการทั้งหมด (${organizations.length})`}</DrawerTitle>
+            <DrawerTitle>{`รายการทั้งหมด (${data.length})`}</DrawerTitle>
           </DrawerHeader>
+          <div className="mb-4">
+            <MapListTab />
+          </div>
           <div className="mb-4">
             <MapSearchBar defaultValue="" />
           </div>
           <div
             className="h-[50vh] overflow-y-auto"
-            onTouchStart={handleTouchStart}
+            onPointerDown={handlePointerDown}
           >
-            <OrgCardList
-              organizations={organizations}
-              selectedOrg={selectedOrg}
-              handleCardClick={handleCardClick}
-            />
+            {currentTab === "org" ? (
+              <OrgCardList
+                organizations={data as Organization[]}
+                selectedOrg={selectedItem as Organization}
+                handleCardClick={handleCardClick}
+              />
+            ) : (
+              <EventCardList
+                events={data as Event[]}
+                selectedEvent={selectedItem as Event}
+                handleCardClick={handleCardClick}
+              />
+            )}
           </div>
           <DrawerFooter className="mt-4">
             <DrawerClose>

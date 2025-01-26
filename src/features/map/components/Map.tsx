@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { Coordinate, Organization } from "@/lib/types";
+import { Coordinate, Organization, Event } from "@/lib/types";
 import { createPortal } from "react-dom";
 import { CustomPopup } from "./MapPopup";
 import { createRoot } from "react-dom/client";
@@ -43,23 +43,25 @@ const customPopupStyle = `
 `;
 
 interface MapProps {
-  organizations: Organization[];
+  data: Organization[] | Event[];
   flyToTrigger: number; // Add this prop to force fly animation
   flyToUserTrigger: number;
-  selectedOrg: Organization | null;
-  handleCardClick: (org: Organization) => void;
+  selectedItem: Organization | Event | null;
+  handleCardClick: (org: Organization | Event) => void;
   userLocation?: Coordinate;
+  currentTab: string;
 }
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 
 const MapComponent: React.FC<MapProps> = ({
-  organizations,
+  data,
   flyToTrigger,
   flyToUserTrigger,
-  selectedOrg,
+  selectedItem,
   handleCardClick,
   userLocation,
+  currentTab,
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -134,11 +136,11 @@ const MapComponent: React.FC<MapProps> = ({
       userLocationMarkerRef.current = userLocationMarker;
     }
 
-    // Create popups for organizations
-    organizations.forEach((org) => {
+    // Create popups for data
+    data.forEach((item) => {
       // Create a DOM node for the popup content
       const popupNode = document.createElement("div");
-      popupNodesRef.current[org.id] = popupNode;
+      popupNodesRef.current[item.id] = popupNode;
 
       const popup = new mapboxgl.Popup({
         anchor: "top",
@@ -147,17 +149,17 @@ const MapComponent: React.FC<MapProps> = ({
       }).setDOMContent(popupNode);
 
       const marker = new mapboxgl.Marker({ color: "#FF6400" })
-        .setLngLat([org.longitude, org.latitude])
+        .setLngLat([item.longitude, item.latitude])
         .setPopup(popup)
         .addTo(map);
 
-      // Add click event listener to the marker to set the selected organization
+      // Add click event listener to the marker to set the selected itemanization
       marker.getElement().addEventListener("click", () => {
-        handleCardClick(org); // Make sure handleCardClick is correctly updating the state
+        handleCardClick(item); // Make sure handleCardClick is correctly updating the state
       });
 
-      markersRef.current[org.id] = marker;
-      popupsRef.current[org.id] = popup;
+      markersRef.current[item.id] = marker;
+      popupsRef.current[item.id] = popup;
     });
 
     const markers = markersRef.current;
@@ -170,27 +172,27 @@ const MapComponent: React.FC<MapProps> = ({
       if (userMarker) userMarker.remove();
       map.remove();
     };
-  }, [organizations, handleCardClick, mapCenter, userLocation]);
+  }, [data, handleCardClick, mapCenter, userLocation]);
 
   // Show popup for the selected organization
   useEffect(() => {
-    if (selectedOrg && mapRef.current) {
+    if (selectedItem && mapRef.current) {
       // Close all other popups
       Object.values(popupsRef.current).forEach((popup) => popup.remove());
 
       // Show popup for selected organization
-      const marker = markersRef.current[selectedOrg.id];
+      const marker = markersRef.current[selectedItem.id];
       if (marker) {
         const popup = marker.getPopup();
         popup?.addTo(mapRef.current);
       }
     }
-  }, [selectedOrg, flyToTrigger]);
+  }, [selectedItem, flyToTrigger]);
 
   // Fly to the selected organization
   useEffect(() => {
-    if (selectedOrg && mapRef.current) {
-      const { latitude, longitude } = selectedOrg;
+    if (selectedItem && mapRef.current) {
+      const { latitude, longitude } = selectedItem;
       mapRef.current.flyTo({
         center: [longitude, latitude],
         zoom: 14,
@@ -198,7 +200,7 @@ const MapComponent: React.FC<MapProps> = ({
         // duration: 1000,
       });
     }
-  }, [selectedOrg, flyToTrigger]); // Re-run this effect when selectedCoordinates change
+  }, [selectedItem, flyToTrigger]); // Re-run this effect when selectedCoordinates change
 
   // Fly to user location
   useEffect(() => {
@@ -217,10 +219,13 @@ const MapComponent: React.FC<MapProps> = ({
     <div className="relative h-[100vh] w-[100vw]">
       <div ref={mapContainerRef} className="w-full h-full" />
       {/* Render popups using portals */}
-      {organizations.map((org) => {
-        const popupNode = popupNodesRef.current[org.id];
+      {data.map((item) => {
+        const popupNode = popupNodesRef.current[item.id];
         return popupNode
-          ? createPortal(<CustomPopup organization={org} />, popupNode)
+          ? createPortal(
+              <CustomPopup data={item} currentTab={currentTab} />,
+              popupNode
+            )
           : null;
       })}
     </div>

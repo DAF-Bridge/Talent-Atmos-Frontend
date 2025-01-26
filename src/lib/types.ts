@@ -47,6 +47,9 @@ export type Event = {
   endTime: string;
   picUrl: string;
   location: string;
+  latitude: number;
+  longitude: number;
+  price: string;
   category: string;
   organization: {
     id: number;

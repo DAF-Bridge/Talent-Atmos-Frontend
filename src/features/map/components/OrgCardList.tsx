@@ -26,10 +26,10 @@ export default function OrgCardList({
         ))
       ) : (
         <div className="flex flex-col items-center justify-center mt-[100px] mb-[150px]">
-          <p className="text-2xl font-medium text-gray-600 mb-2">ไม่พบข้อมูล</p>
-          <p className="text-gray-500">
+          <p className="text-2xl font-medium text-gray-600 mb-2">ไม่พบองค์กร</p>
+          {/* <p className="text-gray-500">
             กรุณาลองค้นหาด้วยคำค้นอื่น หรือลองเปลี่ยนตัวกรอง
-          </p>
+          </p> */}
         </div>
       )}
     </div>
