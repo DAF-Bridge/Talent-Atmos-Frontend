@@ -103,7 +103,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="font-prompt lg:overflow-hidden h-full sm:h-[100vh]">
+    <div className="font-prompt overflow-hidden h-[100vh]">
       <form
         className="relative flex flex-col items-center gap-3 sm:gap-5 w-full lg:max-w-[914px] bg-white drop-shadow-2xl h-full
         lg:rounded-t-[20px] mx-auto lg:mt-[43px] px-[50px] md:px-[84px] "
