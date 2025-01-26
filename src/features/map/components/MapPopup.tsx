@@ -51,7 +51,7 @@ export const CustomPopup: React.FC<CustomPopupProps> = ({ organization }) => {
         <button
           onClick={handleMapLinkClick}
           style={{ aspectRatio: "1 / 1" }}
-          className="flex w-10 h-10 justify-center items-center z-10 top-2 right-2 
+          className="shrink-0 flex w-10 h-10 justify-center items-center z-10 top-2 right-2 
                 bg-white rounded-full border hover:drop-shadow-md"
         >
           <Image

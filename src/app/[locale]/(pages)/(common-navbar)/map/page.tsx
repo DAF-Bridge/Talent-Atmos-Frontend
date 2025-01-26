@@ -1,33 +1,19 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-
-import { provinces } from "@/features/map/config/SelectInputObj";
-import { Organization } from "@/lib/types";
-import { Button } from "@/components/ui/button";
+import React, { useCallback, useEffect, useState } from "react";
+import { Coordinate, Organization } from "@/lib/types";
 import MapComponent from "@/features/map/components/Map";
-import OrgMapCard from "@/features/map/components/OrgMapCard";
-import { X } from "lucide-react";
-import { IoSearch } from "react-icons/io5";
+import MapSidebarContent from "@/features/map/components/MapSidebarContent";
+import MapMobileDrawer from "@/features/map/components/MapMobileDrawer";
+// import MapMobileFilterSheet from "@/features/map/components/MapMobileFilterSheet";
+import { cn } from "@/lib/utils";
+import { ChevronLeft, Locate } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const organizations = [
   {
@@ -434,15 +420,23 @@ const organizations = [
   },
 ];
 
-export default function MapPage() {
+// const organizations: Organization[] = [];
+
+export default function MapPage({
+  // params,
+  searchParams,
+}: Readonly<{
+  params: { page: string; locale: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}>) {
+  const search = searchParams.search?.toString() ?? "";
+  // const currentTab = searchParams.tab?.toString() ?? "";
   const [selectedOrg, setSelectedOrg] = useState<Organization | null>(null);
   const [flyToTrigger, setFlyToTrigger] = useState(0); // Add a trigger value to force map to fly even when selecting the same org
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const handleClearInput = () => {
-    setSearchTerm("");
-  };
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [userLocation, setUserLocation] = useState<Coordinate>();
+  const [flyToUserTrigger, setFlyToUserTrigger] = useState(0);
 
   const handleCardClick = useCallback((org: Organization) => {
     setSelectedOrg(org);
@@ -450,122 +444,108 @@ export default function MapPage() {
     setFlyToTrigger((prev) => prev + 1);
   }, []);
 
+  const handleFocusUser = () => {
+    if (userLocation) {
+      setFlyToUserTrigger((prev) => prev + 1);
+    }
+  };
+
+  const getUserLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          // Handle successful location retrieval
+          // console.log(latitude, longitude);
+          setUserLocation({ latitude, longitude });
+        },
+        (error) => {
+          // Handle location error
+          console.error("Error getting location:", error.message);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser");
+    }
+  };
+
+  useEffect(() => {
+    getUserLocation();
+  }, []);
+
   return (
-    <div className="relative mx-auto overflow-hidden">
-      <div
-        className="absolute z-10 backdrop-blur-[2px] flex justify-center gap-3 
-      items-center w-full mt-[65px] h-[76px] px-4"
-      >
-        <div className="relative">
-          <Input
-            className="rounded-full w-full max-w-[300px] h-[42px] hover:shadow-md pl-9 placeholder:font-light 
-            placeholder:text-sm text-sm md:text-base"
-            type="text"
-            id="name-search"
-            placeholder="ค้นหาจากชื่อ"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <IoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-xl text-gray-inactive" />
-          {searchTerm && (
-            <button
-              onClick={handleClearInput}
-              className="absolute top-1/2 transform -translate-y-1/2 right-[10px] h-[30px] w-[30px] 
-            flex items-center justify-center bg-white"
-            >
-              <X className="h-[18px] w-[18px] text-gray-inactive" />
-            </button>
+    <TooltipProvider>
+      <div className="relative mx-auto overflow-hidden">
+        <div
+          className={cn(
+            "absolute z-10 pt-[90px] top-0 h-full w-[43%] lg:w-[50%] max-w-[420px] bg-white shadow-lg pb-[65px] pl-[15px] lg:pl-[30px] pr-[15px] hidden md:block transition-transform duration-300 ease-in-out",
+            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
           )}
-        </div>
-
-        <Select>
-          <SelectTrigger
-            className="max-w-[250px] w-[150px] h-[42px] rounded-full pl-5 text-base 
-          font-normal hover:shadow-md flex items-center justify-between gap-2"
-          >
-            <SelectValue
-              className="font-light placeholder:font-light [&:not(:placeholder-shown)]:font-normal"
-              placeholder="สถานที่"
-            />
-          </SelectTrigger>
-          <SelectContent>
-            {Object.entries(provinces).map(([region, provinceList]) => (
-              <SelectGroup key={region}>
-                <SelectLabel className="bg-gray-50 text-center text-sm">
-                  {region}
-                </SelectLabel>
-
-                {provinceList.map((province) => (
-                  <SelectItem
-                    className="text-sm"
-                    key={province}
-                    value={province}
-                  >
-                    {province}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      {/* list of organizations (for PC) */}
-      <div
-        className="absolute z-10 mt-[150px] ml-[10px] lg:ml-[40px] h-[70vh] w-[40%] max-w-[412px] border rounded-[20px] 
-      bg-white shadow-lg py-[20px] px-[15px] hidden md:block"
-      >
-        <p className="text-gray-inactive text-sm lg:text-base font-medium">{`รายการทั้งหมด (${organizations.length})`}</p>
-        <div className="flex flex-col gap-1 h-[95%] overflow-y-auto min-h-0">
-          {organizations.map((org) => (
-            <OrgMapCard
-              key={org.id}
-              organization={org}
-              isSelected={selectedOrg?.id === org.id}
-              onCardClick={handleCardClick}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* list of organizations (for mobile) */}
-      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerTrigger
-          className="fixed z-10 bottom-5 left-1/2 transform -translate-x-1/2 hover:drop-shadow-md hover:-translate-y-1
-        bg-orange-normal text-white rounded-full py-2 px-4 shadow-md md:hidden transition-all duration-150
-        flex items-center justify-center"
         >
-          <span className="text-sm font-medium">{`รายการทั้งหมด (${organizations.length})`}</span>
-        </DrawerTrigger>
-        <DrawerContent className="p-4 bg-white md:hidden">
-          <DrawerHeader>
-            <DrawerTitle>{`รายการทั้งหมด (${organizations.length})`}</DrawerTitle>
-          </DrawerHeader>
-          <div className="flex flex-col gap-1 h-[70vh] overflow-y-auto">
-            {organizations.map((org) => (
-              <OrgMapCard
-                key={org.id}
-                organization={org}
-                isSelected={selectedOrg?.id === org.id}
-                onCardClick={handleCardClick}
-              />
-            ))}
-          </div>
-          <DrawerFooter className="mt-4">
-            <DrawerClose>
-              <Button variant="outline" className="w-full">
-                ปิด
-              </Button>
-            </DrawerClose>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+          <MapSidebarContent
+            organizations={organizations}
+            selectedOrg={selectedOrg}
+            handleCardClick={handleCardClick}
+            defaultValue={search}
+          />
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <button
+                onClick={() => setIsSidebarOpen((prev) => !prev)}
+                className="absolute top-[50%] -right-6 bg-white rounded-r-md py-3 drop-shadow-md z-10"
+              >
+                <ChevronLeft
+                  className={cn(
+                    "w-6 h-6",
+                    isSidebarOpen ? "rotate-0" : "rotate-180"
+                  )}
+                />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent className="bg-black text-white" side="right">
+              <p>{isSidebarOpen ? "ปิดเมนู" : "เปิดเมนู"}</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
 
-      <MapComponent
-        organizations={organizations}
-        flyToTrigger={flyToTrigger}
-        selectedOrg={selectedOrg}
-        setSelectedOrg={handleCardClick}
-      />
-    </div>
+        {/* list of organizations (for mobile) */}
+        <div
+          className="fixed z-10 bottom-5 left-1/2 md:hidden transform -translate-x-1/2 flex 
+           justify-center items-center gap-4"
+        >
+          <MapMobileDrawer
+            isDrawerOpen={isDrawerOpen}
+            setIsDrawerOpen={setIsDrawerOpen}
+            organizations={organizations}
+            selectedOrg={selectedOrg}
+            handleCardClick={handleCardClick}
+          />
+          {/* <MapMobileFilterSheet /> */}
+        </div>
+
+        <MapComponent
+          organizations={organizations}
+          flyToTrigger={flyToTrigger}
+          selectedOrg={selectedOrg}
+          handleCardClick={handleCardClick}
+          userLocation={userLocation}
+          flyToUserTrigger={flyToUserTrigger}
+        />
+        <Tooltip delayDuration={0}>
+          <TooltipTrigger asChild>
+            <button
+              onClick={handleFocusUser}
+              className="absolute flex justify-center items-center bottom-12 md:bottom-8 right-2 md:right-4 rounded-full drop-shadow-lg shadow-md
+              w-[40px] h-[40px] bg-orange-normal hover:bg-orange-dark transition-all duration-150"
+            >
+              <Locate className="w-[20px] h-[20px] text-white" />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent className="bg-black text-white" side="left">
+            <p>ไปที่ตําแหน่งปัจจุบัน</p>
+          </TooltipContent>
+        </Tooltip>
+      </div>
+    </TooltipProvider>
   );
 }
