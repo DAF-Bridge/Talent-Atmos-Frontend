@@ -349,20 +349,24 @@ export default function MapPage({
           flyToUserTrigger={flyToUserTrigger}
           currentTab={currentTab}
         />
-        <Tooltip delayDuration={0}>
-          <TooltipTrigger asChild>
-            <button
-              onClick={handleFocusUser}
-              className="absolute flex justify-center items-center bottom-12 md:bottom-8 right-2 md:right-4 rounded-full drop-shadow-lg shadow-md
+        <div
+          className="fixed z-10 bottom-3 right-1 flex justify-center items-center gap-4"
+        >
+          <Tooltip delayDuration={0}>
+            <TooltipTrigger asChild>
+              <button
+                onClick={handleFocusUser}
+                className="absolute flex justify-center items-center bottom-12 md:bottom-8 right-2 md:right-4 rounded-full drop-shadow-lg shadow-md
               w-[40px] h-[40px] bg-orange-normal hover:bg-orange-dark transition-all duration-150"
-            >
-              <Locate className="w-[20px] h-[20px] text-white" />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent className="bg-black text-white" side="left">
-            <p>ไปที่ตําแหน่งปัจจุบัน</p>
-          </TooltipContent>
-        </Tooltip>
+              >
+                <Locate className="w-[20px] h-[20px] text-white" />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent className="bg-black text-white" side="left">
+              <p>ไปที่ตําแหน่งปัจจุบัน</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
       </div>
     </TooltipProvider>
   );
