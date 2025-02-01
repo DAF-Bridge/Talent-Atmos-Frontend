@@ -23,14 +23,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           token: ${{secrets.GH_PAT}}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: "20.10.0" # Your Node.js version
+          cache: "npm"
 
       - name: Install dependencies
         run: npm install
