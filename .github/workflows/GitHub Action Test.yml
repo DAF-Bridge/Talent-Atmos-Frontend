@@ -65,7 +65,7 @@ jobs:
         uses: nwtgck/actions-netlify@v2
         with:
           publish-dir: .next # Default Next.js build output
-          production-branch: main
+          production-branch: develop-did # Branch to deploy to Netlify || production mode !! Need to be changed in the future
           github-token: ${{ secrets.GITHUB_TOKEN }}
           deploy-message: "Deployed from GitHub Actions 🚀"
           alias: production
