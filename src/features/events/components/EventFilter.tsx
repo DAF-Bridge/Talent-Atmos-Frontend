@@ -35,11 +35,13 @@ export function EventFilter() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const handleApplyFilters = () => {
+    // if (getActiveFiltersCount() === 0) return;
     applyFilters();
     setIsFilterOpen(false);
   };
 
   const handleClearFilters = () => {
+    // if (getActiveFiltersCount() === 0) return;
     clearFilters();
     setIsFilterOpen(false);
   };
@@ -181,7 +183,7 @@ export function EventFilter() {
               </Button>
               <Button
                 onClick={handleApplyFilters}
-                className="flex-1 bg-orange-dark hover:bg-orange-normal"
+                className="flex-1 bg-orange-normal hover:bg-orange-normal/80 "
               >
                 ใช้ตัวกรอง
               </Button>

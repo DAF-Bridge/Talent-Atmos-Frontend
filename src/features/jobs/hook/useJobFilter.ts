@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState, useTransition } from "react";
 
 interface JobFilters {
   esgJobCategory: string;
-  search: string;
+  // search: string;
   location: string;
   remote: boolean;
   minSalary: number;
@@ -22,7 +22,7 @@ export function useJobFilters() {
   const currentFilters = useMemo(
     () => ({
       esgJobCategory: searchParams.get("esgJobCategory") ?? "",
-      search: searchParams.get("search") ?? "",
+      // search: searchParams.get("search") ?? "",
       location: searchParams.get("location") ?? "",
       remote: searchParams.get("remote") === "true",
       minSalary: searchParams.get("minSalary")
@@ -78,7 +78,7 @@ export function useJobFilters() {
     // Reset all filters to default values
     const defaultFilters: JobFilters = {
       esgJobCategory: "",
-      search: "",
+      // search: "",
       location: "",
       remote: false,
       minSalary: 0,

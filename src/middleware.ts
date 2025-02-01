@@ -13,9 +13,12 @@ const protectedRoutes = [""];
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
-  // Exclude specific file types directly in middleware
-  if (/\.(png|jpg|jpeg|svg|gif|webp|ico)$/.test(path)) {
-    return NextResponse.next(); // Skip middleware processing for these file types
+  // Exclude specific static files from middleware processing
+  if (
+    path === "/manifest.json" || // Ensure manifest.json is served directly
+    /\.(png|jpg|jpeg|svg|gif|webp|ico|txt)$/.test(path) // Skip processing for other static file types
+  ) {
+    return NextResponse.next();
   }
 
   // Run the intl middleware

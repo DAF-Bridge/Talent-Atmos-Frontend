@@ -2,11 +2,12 @@ import React, { Suspense } from "react";
 import { EventListSkeleton } from "@/features/events/components/EventListSkeleton";
 import { Category } from "@/lib/types";
 import CategoryTab from "@/features/events/components/CategoryTab";
-import { EventSearch } from "@/features/events/components/EventSearch";
 import { EventFilter } from "@/features/events/components/EventFilter";
 import EventList from "@/components/common/EventList";
 import { redirect } from "@/i18n/routing";
 import { fetchEvents } from "@/features/events/api/fetchEvents";
+import { DynamicSearchBar } from "@/components/common/DynamicSearch";
+import EsgFilter from "@/components/common/EsgFilter";
 export const dynamic = "force-dynamic"; // Ensure fresh data on each request
 
 export default async function EventListingPageComp({
@@ -20,12 +21,21 @@ export default async function EventListingPageComp({
   const currentPage = params.page || "1";
   const search = searchParams.search?.toString() ?? "";
   const category = searchParams.category?.toString() ?? "";
+  const dateRange = searchParams.dateRange?.toString() ?? "";
+  const location = searchParams.location?.toString() ?? "";
+  const audience = searchParams.audience?.toString() ?? "";
+  const price = searchParams.price?.toString() ?? "";
 
-  const { events, totalEvents } = await fetchEvents(
-    currentPage,
-    search,
-    category
-  );
+  const { events, totalEvents } = await fetchEvents({
+    page: currentPage,
+    query: search,
+    category,
+    dateRange,
+    location,
+    audience,
+    price,
+    maxEventsPerPage,
+  });
 
   // calculate total pages
   const totalPages = Math.ceil(totalEvents / maxEventsPerPage);
@@ -56,8 +66,16 @@ export default async function EventListingPageComp({
       </p>
       <div className="border-[1.5px] mt-[15px] sm:mt-[20px] border-gray-stroke/70" />
       <CategoryTab />
-      <div className="flex justify-between items-center gap-5 w-full mt-[20px]">
-        <EventSearch defaultValue={search} />
+      <div className="flex justify-between items-start gap-5 w-full mt-[20px]">
+        <div className="flex flex-col md:flex-row flex-wrap justify-start items-start md:items-center flex-grow gap-x-6 gap-y-4">
+          <DynamicSearchBar
+            defaultValue={search}
+            type="events"
+            fullPlace="ค้นหาชื่ออีเว้นท์ สถานที่ หรือคีย์เวิร์ด"
+            briefPlace="ค้นหาคีย์เวิร์ดอีเว้นท์"
+          />
+          <EsgFilter />
+        </div>
         <EventFilter />
       </div>
       <Suspense

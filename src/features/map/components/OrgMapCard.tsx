@@ -18,7 +18,7 @@ export default function OrgMapCard({
   return (
     <button
       onClick={() => onCardClick(organization)}
-      className={`flex justify-between items-center gap-10 md:gap-2 rounded-[20px] h-[106px] py-2 pr-2 pl-4 
+      className={`flex justify-between items-center gap-2 sm:gap-10 md:gap-2 rounded-[20px] h-[106px] py-2 pr-2 pl-4 
         hover:bg-slate-100 transition-colors duration-150 
         ${isSelected ? "bg-slate-100" : ""}`}
     >
@@ -26,14 +26,14 @@ export default function OrgMapCard({
         <span className="text-sm font-medium line-clamp-1">
           {organization.name}
         </span>
-        <span className="text-sm font-light line-clamp-2 ">
+        <span className="text-xs lg:text-sm font-light line-clamp-2 ">
           {organization.description}
         </span>
       </div>
       <div className="h-full">
         <Image
           src={organization.pic_url}
-          className="h-full max-w-[88px] object-cover rounded-[17px] border"
+          className="h-full max-w-[70px] lg:max-w-[88px] object-cover rounded-[17px] border"
           style={{ aspectRatio: "1 / 1" }}
           height={100}
           width={100}

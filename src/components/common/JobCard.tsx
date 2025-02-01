@@ -1,27 +1,12 @@
 "use client";
 
 import Badge from "@/components/common/Badge";
+import { JobCardProps } from "@/lib/types";
 import { formatRelativeTime } from "@/lib/utils";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
-
-interface JobCardProps {
-  title: string;
-  description: string;
-  work_type: string;
-  workplace: string;
-  career_stage: string;
-  province: string;
-  country: string;
-  salary: string;
-  imgUrl?: string;
-  updatedDate: string;
-  orgName?: string;
-  industry: string[];
-  isBooked?: boolean;
-}
 
 export default function JobCard({
   title,
@@ -119,7 +104,7 @@ export default function JobCard({
             )}
           </button>
         </div>
-        <p className="text-sm font-normal text-gray-btngray w-full md:w-[80%] line-clamp-2 mt-4">
+        <p className="text-sm font-normal text-gray-btngray w-[90%] line-clamp-2 mt-4">
           {description}
         </p>
         <div className="inline-flex gap-2 flex-wrap h-fit mt-4">

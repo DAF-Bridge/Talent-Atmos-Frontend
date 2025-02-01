@@ -1,20 +1,48 @@
 import { Event } from "@/lib/types";
-import { formatInternalUrl } from "@/lib/utils";
+import { formatExternalUrl } from "@/lib/utils";
 
 export interface FetchEventsResponse {
   events: Event[];
   totalEvents: number;
 }
 
-export async function fetchEvents(
-  page: string,
-  search?: string,
-  category?: string
-): Promise<FetchEventsResponse> {
-  const apiUrl = formatInternalUrl(
-    `/api/events-paginate?page=${page}&search=${search ?? ""}&category=${
-      category ?? ""
-    }`
+interface FetchEventsParams {
+  orgId?: number;
+  page: string;
+  query?: string;
+  category?: string;
+  dateRange?: string;
+  location?: string;
+  audience?: string;
+  price?: string;
+  maxEventsPerPage?: number;
+}
+
+export async function fetchEvents({
+  orgId,
+  page,
+  query,
+  category,
+  dateRange,
+  location,
+  audience,
+  price,
+  maxEventsPerPage,
+}: FetchEventsParams): Promise<FetchEventsResponse> {
+  const params = new URLSearchParams();
+
+  if (orgId) params.append("orgId", orgId.toString());
+  if (page) params.append("page", page.toString());
+  if (maxEventsPerPage) params.append("offset", maxEventsPerPage.toString());
+  if (query) params.append("q", query);
+  if (category) params.append("category", category);
+  if (dateRange) params.append("dateRange", dateRange);
+  if (location) params.append("location", location);
+  if (audience) params.append("audience", audience);
+  if (price) params.append("price", price);
+
+  const apiUrl = formatExternalUrl(
+    `/events-paginate/search${params.toString() ? "?" + params.toString() : ""}`
   );
 
   try {

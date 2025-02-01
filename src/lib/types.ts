@@ -47,6 +47,9 @@ export type Event = {
   endTime: string;
   picUrl: string;
   location: string;
+  latitude: number;
+  longitude: number;
+  price: string;
   category: string;
   organization: {
     id: number;
@@ -148,3 +151,19 @@ export type Category = {
 };
 
 export type LanguageCode = "th" | "en";
+
+export interface JobCardProps {
+  title: string;
+  description: string;
+  work_type: string;
+  workplace: string;
+  career_stage: string;
+  province: string;
+  country: string;
+  salary: string;
+  imgUrl?: string;
+  updatedDate: string;
+  orgName?: string;
+  industry: string[];
+  isBooked?: boolean;
+}

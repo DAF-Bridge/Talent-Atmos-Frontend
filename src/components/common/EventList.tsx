@@ -3,7 +3,7 @@ import ListPagination from "@/components/common/ListPagination";
 import React from "react";
 import { Event } from "@/lib/types";
 
-export interface EventListProps {
+interface EventListProps {
   events: Event[];
   totalPages: number;
 }

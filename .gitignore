@@ -47,3 +47,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Service Worker generated files
+sw.js
+sw.js.map
+workbox-*.js
+workbox-*.js.map
+
