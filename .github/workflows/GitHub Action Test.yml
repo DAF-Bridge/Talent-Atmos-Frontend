@@ -1,4 +1,4 @@
-name: Web App CI
+name: Talent Atmos Web App CI/CD
 
 on:
   push:
@@ -59,10 +59,26 @@ jobs:
         if: ${{ steps.build.outcome != 'success' }}
         run: echo "Build stage failed."
         id: build_failed # Marks the build as failed if this block executes
+     
+      - name: Deploy to Netlify
+        id: deploy
+        uses: nwtgck/actions-netlify@v2
+        with:
+          publish-dir: .next # Default Next.js build output
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deployed from GitHub Actions 🚀"
+          alias: production
+          enable-pull-request-comment: true
+        env:
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+        continue-on-error: true
 
     outputs:
       test_status: ${{ steps.test.outcome }}
       build_status: ${{ steps.build.outcome }}
+      deploy_status: ${{ steps.deploy.outcome }}
 
   notify:
     needs: build
@@ -72,15 +88,22 @@ jobs:
         run: |
           TEST_STATUS="${{ needs.build.outputs.test_status }}"
           BUILD_STATUS="${{ needs.build.outputs.build_status }}"
+          DEPLOY_STATUS="${{ needs.build.outputs.deploy_status }}"
 
-          if [ "$TEST_STATUS" != "success" ]; then
+          if [ "$TEST_STATUS" != "success" ] && [ "$BUILD_STATUS" != "success" ] && [ "$DEPLOY_STATUS" != "success" ]; then
+            STAGE="All"  
+            STATUS="failed"
+          elif [ "$TEST_STATUS" != "success" ]; then
             STAGE="Test"
-            STATUS="failure"
+            STATUS="failed"
           elif [ "$BUILD_STATUS" != "success" ]; then
             STAGE="Build"
-            STATUS="failure"
+            STATUS="failed"
+          elif [ "$DEPLOY_STATUS" != "success" ]; then
+            STAGE="Deploy"
+            STATUS="failed"
           else
-            STAGE="All stages"
+            STAGE="All"
             STATUS="success"
           fi
 
