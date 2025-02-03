@@ -16,6 +16,7 @@ export async function GET(
       "data",
       "eventDetail.json"
     );
+    // Hi
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const eventDataArray = JSON.parse(fileContent);
 
