@@ -12,7 +12,7 @@ import { useRouter } from "@/i18n/routing";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { formatExternalUrl, formatInternalUrl } from "@/lib/utils";
+import { formatExternalUrl } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage(): JSX.Element {
@@ -45,8 +45,7 @@ export default function LoginPage(): JSX.Element {
 
     try {
       // Send POST request to Next API
-      const apiUrl = formatInternalUrl("/api/login");
-      const response = await fetch(apiUrl, {
+      const response = await fetch("/api/login", {
         cache: "no-store",
         method: "POST",
         headers: {

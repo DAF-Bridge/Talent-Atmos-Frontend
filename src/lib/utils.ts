@@ -5,13 +5,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatInternalUrl(url: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+// export function formatInternalUrl(url: string) {
+//   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-  // Ensure we have a properly formatted URL
-  const apiUrl = new URL(url, baseUrl).toString();
-  return apiUrl;
-}
+//   // Ensure we have a properly formatted URL
+//   const apiUrl = new URL(url, baseUrl).toString();
+//   return apiUrl;
+// }
 
 export function formatExternalUrl(url: string) {
   const baseUrl = process.env.NEXT_PUBLIC_GO_API_URL;

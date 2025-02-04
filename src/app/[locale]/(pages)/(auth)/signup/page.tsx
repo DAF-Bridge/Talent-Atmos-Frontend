@@ -10,7 +10,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, TSignUpSchema } from "@/lib/types";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
-import { formatInternalUrl } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 
 export default function SignUpPage() {
@@ -47,8 +46,7 @@ export default function SignUpPage() {
 
     try {
       // Send POST request to Next API
-      const apiUrl = formatInternalUrl("/api/signup");
-      const response = await fetch(apiUrl, {
+      const response = await fetch("/api/signup", {
         cache: "no-store",
         method: "POST",
         headers: {
