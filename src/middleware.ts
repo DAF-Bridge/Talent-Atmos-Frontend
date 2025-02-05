@@ -15,7 +15,8 @@ export async function middleware(req: NextRequest) {
 
   // Exclude specific file types and paths
   if (
-    /\.(png|jpg|jpeg|svg|gif|webp|ico)$/.test(path) ||
+    path === "/manifest.json" || // Ensure manifest.json is served directly
+    /\.(png|jpg|jpeg|svg|gif|webp|ico)$/.test(path) || // Skip processing for other static file types
     path.startsWith("/_next") ||
     path.startsWith("/api")
   ) {
