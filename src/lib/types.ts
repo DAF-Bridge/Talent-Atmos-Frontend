@@ -115,12 +115,13 @@ export type Job = {
 
 export type UserProfile = {
   ID: number;
-  fname: string;
-  lname: string;
-  email: string;
-  phone: string;
-  pic_url: string;
-  user_id: number;
+  FirstName: string;
+  LastName: string;
+  Email: string;
+  Phone: string;
+  PicUrl: string;
+  UserID: number;
+  Bio: string;
 };
 
 export type AuthContextType = {

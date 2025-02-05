@@ -11,6 +11,7 @@ import { signupSchema, TSignUpSchema } from "@/lib/types";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/AuthContext";
+import { formatInternalUrl } from "@/lib/utils";
 
 export default function SignUpPage() {
   const { setAuthState } = useAuth();
@@ -46,7 +47,8 @@ export default function SignUpPage() {
 
     try {
       // Send POST request to Next API
-      const response = await fetch("/api/signup", {
+      const apiUrl = formatInternalUrl("/api/auth/signup");
+      const response = await fetch(apiUrl, {
         cache: "no-store",
         method: "POST",
         headers: {

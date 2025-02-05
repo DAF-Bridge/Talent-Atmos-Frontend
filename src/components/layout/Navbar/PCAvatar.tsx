@@ -58,17 +58,17 @@ export default function PCAvatar() {
               isOpen ? "ring-2 ring-orange-normal ring-offset-1" : ""
             }`}
           >
-            {userProfile?.pic_url && userProfile.pic_url.trim() !== "" ? (
+            {userProfile?.PicUrl && userProfile.PicUrl.trim() !== "" ? (
               <Image
                 className="object-cover h-full w-full"
-                src={userProfile?.pic_url}
+                src={userProfile?.PicUrl}
                 alt="user"
                 width={100}
                 height={100}
               />
             ) : (
               <div className="flex justify-center items-center h-full w-full bg-slate-100">
-                {userProfile?.fname[0] + "" + userProfile?.lname[0]}
+                {userProfile?.FirstName[0] + "" + userProfile?.LastName[0]}
               </div>
             )}
           </button>

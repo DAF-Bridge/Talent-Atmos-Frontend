@@ -1,6 +1,7 @@
 import StaticMap from "@/components/ui/StaticMap";
 import {
   formatDateRange,
+  formatInternalUrl,
   formatTimeRange,
 } from "@/lib/utils";
 import {
@@ -21,7 +22,8 @@ export default async function EventDescription({
   params: { eventId: string }; // Accept event ID from URL params
 }>) {
   const { eventId } = params;
-  const res = await fetch("/api/event/" + eventId, {
+  const apiUrl = formatInternalUrl("/api/event/" + eventId);
+  const res = await fetch(apiUrl, {
     cache: "no-cache",
   });
 

@@ -3,12 +3,14 @@
 import { BriefOrganization } from "@/lib/types";
 import React, { useEffect, useState } from "react";
 import OrgCard from "./OrgCard";
+import { formatInternalUrl } from "@/lib/utils";
 
 export default function OrgListing() {
   const [orgs, setOrgs] = useState<BriefOrganization[]>([]);
 
   useEffect(() => {
-    fetch("/api/orgs")
+    const apiUrl = formatInternalUrl("/api/orgs");
+    fetch(apiUrl)
       .then((response) => response.json())
       .then((response) => {
         setOrgs(response.data);
