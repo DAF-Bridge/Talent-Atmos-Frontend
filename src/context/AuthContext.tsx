@@ -10,10 +10,8 @@ import React, {
   useCallback,
 } from "react";
 import { AuthContextType, UserProfile } from "@/lib/types";
-import {
-  // formatExternalUrl,
-  formatInternalUrl,
-} from "@/lib/utils";
+import { formatInternalUrl } from "@/lib/utils";
+import Cookie from "js-cookie";
 
 const AuthContext = createContext<AuthContextType>({
   isAuth: null,
@@ -26,12 +24,11 @@ const AuthContext = createContext<AuthContextType>({
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuth, setIsAuth] = useState<boolean | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
 
   const fetchUserProfile = useCallback(async () => {
-    if (!isAuth) return; // Skip fetching if user is not authenticated
-
+    setLoading(true);
     try {
       const apiUrl = formatInternalUrl("/api/auth/current-user");
 
@@ -47,33 +44,41 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const data = await response.json();
         setUserProfile(data);
         setIsAuth(true);
+        // Set a flag cookie when authentication is successful
+        Cookie.set("hasAuth", "true", { path: "/", sameSite: "strict" });
       } else {
-        const data = await response.json();
-        setUserProfile(null);
-        setIsAuth(false);
-        console.log(data);
+        // throw error
+        throw new Error("Failed to fetch user profile");
       }
     } catch (err) {
       console.error(err);
+      setUserProfile(null);
       setIsAuth(false);
+      // Remove the flag cookie on authentication failure
+      Cookie.remove("hasAuth", { path: "/" });
     } finally {
       setLoading(false);
     }
-  }, [setUserProfile, setIsAuth, setLoading, isAuth]);
+  }, [setUserProfile, setIsAuth, setLoading]);
+
+  const checkAuthFlag = useCallback(() => {
+    return Cookie.get("hasAuth") === "true";
+  }, []);
 
   useEffect(() => {
     const initializeAuth = async () => {
       setIsHydrated(true);
-      try {
+      // Only fetch if there's an indication of authentication
+      if (checkAuthFlag()) {
         await fetchUserProfile();
-      } catch (error) {
+      } else {
         setIsAuth(false);
         setLoading(false);
       }
     };
 
     initializeAuth();
-  }, [fetchUserProfile]);
+  }, [fetchUserProfile, checkAuthFlag]);
 
   const setAuthState = useCallback(async () => {
     setIsAuth(true);
