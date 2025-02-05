@@ -30,6 +30,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isHydrated, setIsHydrated] = useState(false);
 
   const fetchUserProfile = useCallback(async () => {
+    if (!isAuth) return; // Skip fetching if user is not authenticated
+    
     try {
       const apiUrl = formatInternalUrl("/api/auth/current-user");
 
