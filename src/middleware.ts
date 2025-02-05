@@ -8,7 +8,7 @@ import { formatExternalUrl } from "@/lib/utils";
 const intlMiddleware = createMiddleware(routing);
 
 // Specify protected routes (including localized versions)
-const protectedRoutes = [""];
+const protectedRoutes = ["/admin"];
 
 export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
@@ -39,7 +39,7 @@ export async function middleware(req: NextRequest) {
       req.headers.get("Authorization")?.replace("Bearer ", ""); // Get token from Authorization header
 
     if (!token) {
-      return NextResponse.redirect(new URL("/signin", req.url));
+      return NextResponse.redirect(new URL("/login", req.url));
     }
 
     try {
@@ -54,11 +54,11 @@ export async function middleware(req: NextRequest) {
 
       if (!response.ok) {
         console.warn(`Protected route access denied: ${path}`);
-        return NextResponse.redirect(new URL("/signin", req.url));
+        return NextResponse.redirect(new URL("/login", req.url));
       }
     } catch (error) {
       console.error("Token validation error:", error);
-      return NextResponse.redirect(new URL("/signin", req.url));
+      return NextResponse.redirect(new URL("/login", req.url));
     }
   }
 
