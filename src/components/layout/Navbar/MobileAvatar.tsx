@@ -43,12 +43,12 @@ export default function MobileAvatar() {
                   style={{ aspectRatio: "1 / 1" }}
                   className="shrink-0 h-[40px] w-[40px] rounded-full overflow-hidden"
                 >
-                  <Avatar className="h-8 w-8 rounded-full">
+                  <Avatar className="h-full w-full rounded-full">
                     <AvatarImage
                       src={userProfile?.PicUrl}
                       alt={userProfile?.FirstName}
                     />
-                    <AvatarFallback className="rounded-lg">
+                    <AvatarFallback>
                       {userProfile?.FirstName[0] +
                         "" +
                         userProfile?.LastName[0]}

@@ -47,8 +47,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         // Set a flag cookie when authentication is successful
         Cookie.set("hasAuth", "true", { path: "/", sameSite: "strict" });
       } else {
-        // throw error
-        throw new Error("Failed to fetch user profile");
+        const data = await response.json();
+        setUserProfile(null);
+        setIsAuth(false);
+        console.log(data);
+        // Remove the flag cookie on authentication failure
+        Cookie.remove("hasAuth", { path: "/" });
       }
     } catch (err) {
       console.error(err);

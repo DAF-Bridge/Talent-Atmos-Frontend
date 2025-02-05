@@ -58,12 +58,12 @@ export default function PCAvatar() {
               isOpen ? "ring-2 ring-orange-normal ring-offset-1" : ""
             }`}
           >
-            <Avatar className="h-8 w-8 rounded-full">
+            <Avatar className="h-full w-full rounded-full">
               <AvatarImage
                 src={userProfile?.PicUrl}
                 alt={userProfile?.FirstName}
               />
-              <AvatarFallback className="rounded-lg">
+              <AvatarFallback>
                 {userProfile?.FirstName[0] + "" + userProfile?.LastName[0]}
               </AvatarFallback>
             </Avatar>
