@@ -1,10 +1,10 @@
-import createNextIntlPlugin from 'next-intl/plugin';
+import createNextIntlPlugin from "next-intl/plugin";
 import withPWAInit from "@ducanh2912/next-pwa";
 
 const withPWA = withPWAInit({
   dest: "public",
-  manifest: '/manifest.json', // Add leading slash
-  disable: process.env.NODE_ENV === 'development',
+  manifest: "/manifest.json", // Add leading slash
+  disable: process.env.NODE_ENV === "development",
 });
 
 const withNextIntl = createNextIntlPlugin();

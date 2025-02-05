@@ -10,7 +10,10 @@ import React, {
   useCallback,
 } from "react";
 import { AuthContextType, UserProfile } from "@/lib/types";
-import { formatExternalUrl, formatInternalUrl } from "@/lib/utils";
+import {
+  // formatExternalUrl,
+  formatInternalUrl,
+} from "@/lib/utils";
 
 const AuthContext = createContext<AuthContextType>({
   isAuth: null,
@@ -28,7 +31,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchUserProfile = useCallback(async () => {
     try {
-      const apiUrl = formatExternalUrl("/current-user-profile");
+      const apiUrl = formatInternalUrl("/api/auth/current-user");
 
       const response = await fetch(apiUrl, {
         cache: "no-store",
@@ -38,11 +41,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         credentials: "include",
       });
 
-      if (!response.ok) throw new Error("Unauthorized");
-
-      const data = await response.json();
-      setUserProfile(data);
-      setIsAuth(true);
+      if (response.ok) {
+        const data = await response.json();
+        setUserProfile(data);
+        setIsAuth(true);
+      } else {
+        const data = await response.json();
+        setUserProfile(null);
+        setIsAuth(false);
+        console.log(data);
+      }
     } catch (err) {
       console.error(err);
       setIsAuth(false);
