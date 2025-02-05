@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchUserProfile = useCallback(async () => {
     if (!isAuth) return; // Skip fetching if user is not authenticated
-    
+
     try {
       const apiUrl = formatInternalUrl("/api/auth/current-user");
 
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setLoading(false);
     }
-  }, [setUserProfile]);
+  }, [setUserProfile, setIsAuth, setLoading, isAuth]);
 
   useEffect(() => {
     const initializeAuth = async () => {
