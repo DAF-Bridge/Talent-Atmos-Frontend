@@ -45,18 +45,18 @@ export default function MobileAvatar() {
                 >
                   <Avatar className="h-full w-full rounded-full">
                     <AvatarImage
-                      src={userProfile?.PicUrl}
-                      alt={userProfile?.FirstName}
+                      src={userProfile?.picUrl}
+                      alt={userProfile?.firstName}
                     />
                     <AvatarFallback>
-                      {userProfile?.FirstName[0] +
+                      {userProfile?.firstName[0] +
                         "" +
-                        userProfile?.LastName[0]}
+                        userProfile?.lastName[0]}
                     </AvatarFallback>
                   </Avatar>
                 </div>
                 <div className="w-full text-left">
-                  <p>{userProfile?.FirstName + " " + userProfile?.LastName}</p>
+                  <p>{userProfile?.firstName + " " + userProfile?.lastName}</p>
                 </div>
               </div>
             </AccordionTrigger>

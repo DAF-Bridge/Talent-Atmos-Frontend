@@ -1,15 +1,15 @@
 "use client";
 
-import React, {
+import {
   createContext,
   useState,
   useEffect,
   useContext,
-  ReactNode,
+  type ReactNode,
   useMemo,
   useCallback,
 } from "react";
-import { AuthContextType, UserProfile } from "@/lib/types";
+import type { AuthContextType, UserProfile } from "@/lib/types";
 import { formatInternalUrl } from "@/lib/utils";
 import Cookie from "js-cookie";
 
@@ -26,6 +26,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+
+  const checkAuthFlag = useCallback(() => {
+    return Cookie.get("hasAuth") === "true"
+  }, [])
+
+  const removeCookies = useCallback(() => {
+    Cookie.remove("hasAuth", { path: "/" });
+    Cookie.remove("authToken", { path: "/" });
+  }, [])
 
   const fetchUserProfile = useCallback(async () => {
     setLoading(true);
@@ -44,37 +53,36 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const data = await response.json();
         setUserProfile(data);
         setIsAuth(true);
+        console.log("You are authenticated");
         // Set a flag cookie when authentication is successful
         Cookie.set("hasAuth", "true", { path: "/", sameSite: "strict" });
       } else {
-        const data = await response.json();
-        setUserProfile(null);
-        setIsAuth(false);
-        console.log(data);
-        // Remove the flag cookie on authentication failure
-        Cookie.remove("hasAuth", { path: "/" });
+        throw new Error("Authentication failed");
       }
     } catch (err) {
       console.error(err);
       setUserProfile(null);
       setIsAuth(false);
-      // Remove the flag cookie on authentication failure
-      Cookie.remove("hasAuth", { path: "/" });
+      // Remove the flag cookie and authToken on authentication failure
+      removeCookies();
     } finally {
       setLoading(false);
     }
-  }, [setUserProfile, setIsAuth, setLoading]);
-
-  const checkAuthFlag = useCallback(() => {
-    return Cookie.get("hasAuth") === "true";
-  }, []);
+  }, [removeCookies]);
 
   useEffect(() => {
     const initializeAuth = async () => {
       setIsHydrated(true);
       // Only fetch if there's an indication of authentication
       if (checkAuthFlag()) {
-        await fetchUserProfile();
+        try {
+          await fetchUserProfile();
+        } catch (error) {
+          // If fetchUserProfile fails, remove both hasAuth and authToken
+          removeCookies();
+          setIsAuth(false);
+          setUserProfile(null);
+        }
       } else {
         setIsAuth(false);
         setLoading(false);
@@ -82,10 +90,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     initializeAuth();
-  }, [fetchUserProfile, checkAuthFlag]);
+  }, [fetchUserProfile, checkAuthFlag, removeCookies]);
 
+  // will set auth state if fetchUserProfile is complete
   const setAuthState = useCallback(async () => {
-    setIsAuth(true);
     await fetchUserProfile();
   }, [fetchUserProfile]);
 
@@ -97,8 +105,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
     setIsAuth(false);
     setUserProfile(null);
+    // Remove both hasAuth and authToken cookies
+    removeCookies();
     window.location.href = "/";
-  }, []);
+  }, [removeCookies]);
 
   const contextValue = useMemo(
     () => ({

@@ -10,7 +10,7 @@ export default function OAuthCallbackPage() {
 
   useEffect(() => {
     const handleCallback = async () => {
-      setAuthState();
+      await setAuthState();
       router.push("/");
     };
     handleCallback();

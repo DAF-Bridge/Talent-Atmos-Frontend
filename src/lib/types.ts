@@ -114,14 +114,15 @@ export type Job = {
 };
 
 export type UserProfile = {
-  ID: number;
-  FirstName: string;
-  LastName: string;
-  Email: string;
-  Phone: string;
-  PicUrl: string;
-  UserID: number;
-  Bio: string;
+  id: number; // userID
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  picUrl: string;
+  language: string;
+  role: string;
+  updatedAt: string;
 };
 
 export type AuthContextType = {

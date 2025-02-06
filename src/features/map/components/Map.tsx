@@ -95,7 +95,7 @@ const MapComponent: React.FC<MapProps> = ({
     ) {
       setMapCenter(userLocation);
     }
-  }, [userLocation]);
+  }, [userLocation, mapCenter]);
 
   // Initialize the map
   useEffect(() => {
