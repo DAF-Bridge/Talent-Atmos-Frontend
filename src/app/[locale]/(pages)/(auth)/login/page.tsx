@@ -12,8 +12,9 @@ import { useRouter } from "@/i18n/routing";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { formatExternalUrl, formatInternalUrl } from "@/lib/utils";
+import { formatInternalUrl } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
+import GoogleLoginBtn from "@/features/auth/GoogleLoginBtn";
 
 export default function LoginPage(): JSX.Element {
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -22,9 +23,9 @@ export default function LoginPage(): JSX.Element {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleGoogleLogin = () => {
-    window.location.href = formatExternalUrl("/auth/google");
-  };
+  // const handleGoogleLogin = () => {
+  //   window.location.href = formatExternalUrl("/auth/google");
+  // };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -71,7 +72,7 @@ export default function LoginPage(): JSX.Element {
           toast.dismiss(successToastId); // Clear the success toast
           setIsRedirecting(false);
           router.push("/"); // Redirect to home
-        }, 1500); // Delay of 1.5 seconds for users to see the success message
+        }, 1000); // Delay of 1.5 seconds for users to see the success message
 
         return;
       } else {
@@ -235,29 +236,8 @@ export default function LoginPage(): JSX.Element {
               <p className="mx-2 text-sm">หรือ</p>
               <div className="w-full border border-gray-300 relative" />
             </div>
-            <div className="flex flex-col xl:flex-row justify-center gap-[10px]">
-              <button
-                onClick={handleGoogleLogin}
-                className="inline-flex gap-1 border hover:border-black/30 hover:shadow-md rounded-[10px] 
-                h-[48px] w-full text-sm font-normal justify-center items-center"
-              >
-                <Image
-                  src={"/icon/google-icon.svg"}
-                  width={33}
-                  height={33}
-                  alt="google-login"
-                />
-                เข้าสู่ระบบด้วย Google
-              </button>
-              {/* <button className="oauth-btn">
-                <Image
-                  src={"./icon/fb-icon.svg"}
-                  width={33}
-                  height={33}
-                  alt="google-login"
-                />
-                เข้าสู่ระบบด้วย Facebook
-              </button> */}
+            <div className="w-full">
+              <GoogleLoginBtn />
             </div>
           </div>
         </div>
