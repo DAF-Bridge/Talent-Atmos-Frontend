@@ -12,6 +12,7 @@ import {
 import type { AuthContextType, UserProfile } from "@/lib/types";
 import { formatInternalUrl } from "@/lib/utils";
 import Cookie from "js-cookie";
+import toast from "react-hot-toast";
 
 const AuthContext = createContext<AuthContextType>({
   isAuth: null,
@@ -28,13 +29,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isHydrated, setIsHydrated] = useState(false);
 
   const checkAuthFlag = useCallback(() => {
-    return Cookie.get("hasAuth") === "true"
-  }, [])
-
-  const removeCookies = useCallback(() => {
-    Cookie.remove("hasAuth", { path: "/" });
-    Cookie.remove("authToken", { path: "/" });
-  }, [])
+    return Cookie.get("hasAuth") === "true";
+  }, []);
 
   const fetchUserProfile = useCallback(async () => {
     setLoading(true);
@@ -64,11 +60,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUserProfile(null);
       setIsAuth(false);
       // Remove the flag cookie and authToken on authentication failure
-      removeCookies();
+      Cookie.remove("hasAuth", { path: "/" });
     } finally {
       setLoading(false);
     }
-  }, [removeCookies]);
+  }, []);
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -79,7 +75,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           await fetchUserProfile();
         } catch (error) {
           // If fetchUserProfile fails, remove both hasAuth and authToken
-          removeCookies();
+          Cookie.remove("hasAuth", { path: "/" });
           setIsAuth(false);
           setUserProfile(null);
         }
@@ -90,7 +86,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
 
     initializeAuth();
-  }, [fetchUserProfile, checkAuthFlag, removeCookies]);
+  }, [fetchUserProfile, checkAuthFlag]);
 
   // will set auth state if fetchUserProfile is complete
   const setAuthState = useCallback(async () => {
@@ -99,16 +95,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const removeAuthState = useCallback(async () => {
     const apiUrl = formatInternalUrl("/api/auth/logout");
-    await fetch(apiUrl, {
+    const res = await fetch(apiUrl, {
       method: "POST",
       credentials: "include",
     });
-    setIsAuth(false);
-    setUserProfile(null);
-    // Remove both hasAuth and authToken cookies
-    removeCookies();
-    window.location.href = "/";
-  }, [removeCookies]);
+    if (res.ok) {
+      setIsAuth(false);
+      setUserProfile(null);
+      // Remove both hasAuth and authToken cookies
+      Cookie.remove("hasAuth", { path: "/" });
+      window.location.href = "/";
+    }else{
+      console.log("Logout Failed");
+      toast.error("Logout Failed");
+    }
+  }, []);
 
   const contextValue = useMemo(
     () => ({

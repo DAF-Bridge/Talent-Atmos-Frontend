@@ -9,6 +9,7 @@ export async function POST() {
   });
 
   const data = await res.json();
+  console.log(res.headers.get("set-cookie"));
   const setCookieHeader = res.headers.get("set-cookie");
   //manually set cookie if needed
   const nextRes = NextResponse.json(data.message, { status: res.status });
