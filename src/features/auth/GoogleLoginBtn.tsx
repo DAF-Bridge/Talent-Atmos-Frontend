@@ -10,6 +10,8 @@ export default function GoogleLoginBtn() {
   const router = useRouter();
   const login = useGoogleLogin({
     flow: "auth-code",
+    ux_mode:"redirect",
+    redirect_uri: process.env.NEXT_PUBLIC_API_URL,
     onSuccess: async (tokenResponse) => {
       // console.log(tokenResponse);
       const apiUrl = formatInternalUrl(
