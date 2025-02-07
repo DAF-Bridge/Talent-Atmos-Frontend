@@ -4,6 +4,7 @@ import { formatInternalUrl } from "@/lib/utils";
 import { useGoogleLogin } from "@react-oauth/google";
 import Image from "next/image";
 import React from "react";
+import toast from "react-hot-toast";
 
 export default function GoogleLoginBtn() {
   const { setAuthState } = useAuth();
@@ -28,7 +29,12 @@ export default function GoogleLoginBtn() {
       // console.log("token: "+token);
       if (res.ok) {
         setAuthState();
-        router.push("/");
+        const toastId = toast.success("เข้าสู่ระบบสําเร็จ");
+        setTimeout(() => {
+          toast.dismiss(toastId); // Clear the success toast
+          router.push("/"); // Redirect to home
+        }, 1000);
+
       } else {
         console.log("Golang Callback Failed");
       }
