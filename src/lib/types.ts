@@ -38,7 +38,7 @@ export const loginSchema = z.object({
 
 export type TLogInSchema = z.infer<typeof loginSchema>;
 
-export type Event = {
+export interface Event {
   id: number;
   name: string;
   startDate: string;
@@ -56,9 +56,9 @@ export type Event = {
     name: string;
     picUrl: string;
   };
-};
+}
 
-export type EventDescriptionProps = {
+export interface EventDescriptionProps {
   event: {
     id: number;
     name: string;
@@ -89,7 +89,7 @@ export type EventDescriptionProps = {
     name: string;
     picUrl: string;
   };
-};
+}
 
 export type BriefOrganization = {
   name: string;
@@ -104,13 +104,6 @@ export type Organization = {
   latitude: number;
   longitude: number;
   industry: string[];
-};
-
-export type Job = {
-  orgName: string;
-  imgUrl: string;
-  jobTitle: string;
-  location: string;
 };
 
 export type UserProfile = {
@@ -155,17 +148,28 @@ export type Category = {
 export type LanguageCode = "th" | "en";
 
 export interface JobCardProps {
+  id: number;
   title: string;
   description: string;
-  work_type: string;
-  workplace: string;
-  career_stage: string;
+  workplace: "remote" | "onsite" | "hybrid";
+  work_type: "fulltime" | "parttime" | "volunteer" | "internship";
+  career_stage: "entrylevel" | "midlevel" | "senior";
   province: string;
   country: string;
-  salary: string;
+  salary: number;
   imgUrl?: string;
   updatedDate: string;
   orgName?: string;
   industry: string[];
-  isBooked?: boolean;
+}
+
+export interface JobDescriptionPage extends JobCardProps {
+  scope: string;
+  prerequisite: { name: string; url: string }[];
+  workplaceDesc?: string;
+  hours_per_day: string;
+  qualifications: string;
+  benefits: string;
+  quantity: number;
+  period: string;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import JobCard from "./JobCard";
 import { JobCardProps } from "@/lib/types";
-// import ListPagination from "./ListPagination";
+import ListPagination from "./ListPagination";
 
 interface JobListProps {
   jobs: JobCardProps[];
@@ -10,15 +10,150 @@ interface JobListProps {
 
 export default function JobListing({
   // jobs,
-  // totalPages,
+  totalPages,
 }: Readonly<JobListProps>) {
+  const jobMock: JobCardProps[] = [
+    {
+      id: 1,
+      title: "พนักงานทดสอบ 1",
+      description:
+        "สร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณ",
+      work_type: "fulltime",
+      workplace: "hybrid",
+      career_stage: "entrylevel",
+      province: "กรุงเทพมหานคร",
+      country: "ประเทศไทย",
+      salary: 30000,
+      updatedDate: "2024-12-29:10:00",
+      industry: ["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"],
+    },
+    {
+      id: 2,
+      title: "พนักงานทดสอบ 2",
+      description:
+        "วิเคราะห์ข้อมูลสำหรับบริษัททดสอบ 2 เพื่อปรับปรุงประสิทธิภาพ",
+      work_type: "parttime",
+      workplace: "remote",
+      career_stage: "midlevel",
+      province: "เชียงใหม่",
+      country: "ประเทศไทย",
+      salary: 20000,
+      updatedDate: "2025-01-01:10:00",
+      industry: ["IT", "ข้อมูล", "วิเคราะห์"],
+    },
+    {
+      id: 3,
+      title: "พนักงานทดสอบ 3",
+      description: "ดูแลระบบไอทีสำหรับองค์กรทดสอบ 3 เพื่อประสิทธิภาพสูงสุด",
+      work_type: "fulltime",
+      workplace: "onsite",
+      career_stage: "senior",
+      province: "ภูเก็ต",
+      country: "ประเทศไทย",
+      salary: 40000,
+      updatedDate: "2025-01-02:09:00",
+      industry: ["IT", "ระบบ", "องค์กร"],
+    },
+    {
+      id: 4,
+      title: "พนักงานทดสอบ 4",
+      description: "ออกแบบเว็บไซต์ให้กับองค์กรทดสอบ 4 โดยใช้เครื่องมือทันสมัย",
+      work_type: "fulltime",
+      workplace: "hybrid",
+      career_stage: "entrylevel",
+      province: "ชลบุรี",
+      country: "ประเทศไทย",
+      salary: 32000,
+      updatedDate: "2025-01-03:12:00",
+      industry: ["IT", "เทคโนโลยี", "องค์กร"],
+    },
+    {
+      id: 5,
+      title: "พนักงานทดสอบ 5",
+      description: "พัฒนาระบบสำหรับองค์กรทดสอบ 5 ด้วยความปลอดภัยสูงสุด",
+      work_type: "fulltime",
+      workplace: "hybrid",
+      career_stage: "entrylevel",
+      province: "ระยอง",
+      country: "ประเทศไทย",
+      salary: 28000,
+      updatedDate: "2025-01-04:15:00",
+      industry: ["IT", "ระบบ", "เทคโนโลยี"],
+    },
+    {
+      id: 6,
+      title: "พนักงานทดสอบ 6",
+      description: "ออกแบบ UX/UI ให้กับเว็บไซต์องค์กรทดสอบ 6",
+      work_type: "fulltime",
+      workplace: "hybrid",
+      career_stage: "entrylevel",
+      province: "นครราชสีมา",
+      country: "ประเทศไทย",
+      salary: 25000,
+      updatedDate: "2025-01-05:11:00",
+      industry: ["ออกแบบ", "UX/UI", "เทคโนโลยี"],
+    },
+    {
+      id: 7,
+      title: "พนักงานทดสอบ 7",
+      description: "บริหารโครงการพัฒนาระบบองค์กรทดสอบ 7",
+      work_type: "fulltime",
+      workplace: "hybrid",
+      career_stage: "entrylevel",
+      province: "ขอนแก่น",
+      country: "ประเทศไทย",
+      salary: 45000,
+      updatedDate: "2025-01-06:14:00",
+      industry: ["การบริหาร", "โครงการ", "เทคโนโลยี"],
+    },
+    {
+      id: 8,
+      title: "พนักงานทดสอบ 8",
+      description: "สร้างกลยุทธ์การตลาดออนไลน์ให้กับองค์กรทดสอบ 8",
+      work_type: "fulltime",
+      workplace: "hybrid",
+      career_stage: "entrylevel",
+      province: "เชียงราย",
+      country: "ประเทศไทย",
+      salary: 35000,
+      updatedDate: "2025-01-07:13:00",
+      industry: ["การตลาด", "ดิจิทัล", "เทคโนโลยี"],
+    },
+    {
+      id: 9,
+      title: "พนักงานทดสอบ 9",
+      description: "ติดตั้งระบบเครือข่ายให้กับองค์กรทดสอบ 9",
+      work_type: "fulltime",
+      workplace: "hybrid",
+      career_stage: "entrylevel",
+      province: "สงขลา",
+      country: "ประเทศไทย",
+      salary: 29000,
+      updatedDate: "2025-01-08:16:00",
+      industry: ["เครือข่าย", "IT", "เทคโนโลยี"],
+    },
+    {
+      id: 10,
+      title: "พนักงานทดสอบ 10",
+      description: "สนับสนุนงานด้านไอทีและเทคนิคองค์กรทดสอบ 10",
+      work_type: "fulltime",
+      workplace: "hybrid",
+      career_stage: "entrylevel",
+      province: "กรุงเทพมหานคร",
+      country: "ประเทศไทย",
+      salary: 31000,
+      updatedDate: "2025-01-09:10:00",
+      industry: ["ไอที", "เทคโนโลยี", "องค์กร"],
+    },
+  ];
   return (
     <div>
-      {/* {jobs.length > 0 ? (
+      {jobMock.length > 0 ? (
         <>
           <div className="flex flex-col gap-5 w-full">
-            {jobs.map((job) => (
+            {jobMock.map((job) => (
               <JobCard
+                id={job.id}
                 key={job.title}
                 title={job.title}
                 description={job.description}
@@ -32,7 +167,6 @@ export default function JobListing({
                 orgName={job.orgName}
                 industry={job.industry}
                 updatedDate={job.updatedDate}
-                isBooked={job.isBooked}
               />
             ))}
           </div>
@@ -51,11 +185,12 @@ export default function JobListing({
             กรุณาลองค้นหาด้วยคำค้นอื่น หรือลองเปลี่ยนตัวกรอง
           </p>
         </div>
-      )} */}
-      <div className="flex flex-col gap-5 w-full">
+      )}
+      {/* <div className="flex flex-col gap-5 w-full">
         {Array.from({ length: 5 }).map((_, index) => (
           <JobCard
             key={index}
+            id={index}
             orgName="องค์กรทดสอบ 1"
             title="พนักงานทดสอบ 1"
             description="สร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณสร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณ"
@@ -64,13 +199,13 @@ export default function JobListing({
             career_stage="Entry-Level"
             province="กรุงเทพมหานคร"
             country="ประเทศไทย"
-            salary="30,000"
+            salary=30000
             imgUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
             updatedDate="2024-12-29:10:00"
             industry={["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"]}
           />
         ))}
-      </div>
+      </div> */}
     </div>
     // </>
   );
