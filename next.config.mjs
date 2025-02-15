@@ -7,7 +7,7 @@ const withPWA = withPWAInit({
   disable: process.env.NODE_ENV === "development",
 });
 
-const AWS_BUCKET_URL = process.env.AWS_URL;
+const AWS_BUCKET_URL = process.env.AWS_BUCKET_URL || "default-bucket-url";
 
 const withNextIntl = createNextIntlPlugin();
 
