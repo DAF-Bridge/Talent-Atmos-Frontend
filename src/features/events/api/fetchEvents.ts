@@ -1,5 +1,5 @@
 import { Event } from "@/lib/types";
-import { formatExternalUrl } from "@/lib/utils";
+import {  formatInternalUrl } from "@/lib/utils";
 
 export interface FetchEventsResponse {
   events: Event[];
@@ -7,7 +7,7 @@ export interface FetchEventsResponse {
 }
 
 interface FetchEventsParams {
-  orgId?: number;
+  // orgId?: number;
   page: string;
   query?: string;
   category?: string;
@@ -19,7 +19,7 @@ interface FetchEventsParams {
 }
 
 export async function fetchEvents({
-  orgId,
+  // orgId,
   page,
   query,
   category,
@@ -29,20 +29,30 @@ export async function fetchEvents({
   price,
   maxEventsPerPage,
 }: FetchEventsParams): Promise<FetchEventsResponse> {
-  const params = new URLSearchParams();
+  // const params = new URLSearchParams();
 
-  if (orgId) params.append("orgId", orgId.toString());
-  if (page) params.append("page", page.toString());
-  if (maxEventsPerPage) params.append("offset", maxEventsPerPage.toString());
-  if (query) params.append("q", query);
-  if (category) params.append("category", category);
-  if (dateRange) params.append("dateRange", dateRange);
-  if (location) params.append("location", location);
-  if (audience) params.append("audience", audience);
-  if (price) params.append("price", price);
+  // if (orgId) params.append("orgId", orgId.toString());
+  // if (page) params.append("page", page.toString());
+  // if (maxEventsPerPage) params.append("offset", maxEventsPerPage.toString());
+  // if (query) params.append("q", query);
+  // if (category) params.append("category", category);
+  // if (dateRange) params.append("dateRange", dateRange);
+  // if (location) params.append("location", location);
+  // if (audience) params.append("audience", audience);
+  // if (price) params.append("price", price);
 
-  const apiUrl = formatExternalUrl(
-    `/events-paginate/search${params.toString() ? "?" + params.toString() : ""}`
+  // const apiUrl = formatInternalUrl(
+  //   `/api/events-paginate/search${params.toString() ? "?" + params.toString() : ""}`
+  // );
+
+  const apiUrl = formatInternalUrl(
+    `/api/events-paginate?page=${page}&offset=${
+      maxEventsPerPage?.toString() ?? ""
+    }&search=${query ?? ""}&category=${category ?? ""}&dateRange=${
+      dateRange ?? ""
+    }&location=${location ?? ""}&audience=${audience ?? ""}&price=${
+      price ?? ""
+    }`
   );
 
   try {

@@ -70,13 +70,6 @@ export default function MapSidebarContent({
         </div>
 
         {/* list of organizations */}
-        <p
-          className={cn(
-            "text-gray-inactive text-sm font-base",
-            "transition-all duration-150 delay-150 mb-1",
-            isFilterSidebarOpen ? "opacity-0 cursor-not-allowed" : "opacity-100"
-          )}
-        >{`รายการทั้งหมด (${data.length})`}</p>
         <div
           className={cn(
             "h-[85%] overflow-y-auto min-h-0 pr-2",

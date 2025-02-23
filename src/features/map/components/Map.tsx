@@ -148,6 +148,9 @@ const MapComponent: React.FC<MapProps> = ({
         closeOnClick: true,
       }).setDOMContent(popupNode);
 
+      // don't create marker if lat long is null
+      if (!item.latitude || !item.longitude) return;
+
       const marker = new mapboxgl.Marker({ color: "#FF6400" })
         .setLngLat([item.longitude, item.latitude])
         .setPopup(popup)
@@ -193,6 +196,7 @@ const MapComponent: React.FC<MapProps> = ({
   useEffect(() => {
     if (selectedItem && mapRef.current) {
       const { latitude, longitude } = selectedItem;
+      if (!latitude || !longitude) return;
       mapRef.current.flyTo({
         center: [longitude, latitude],
         zoom: 14,

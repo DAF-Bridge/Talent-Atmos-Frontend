@@ -2,22 +2,43 @@ import Badge from "@/components/common/Badge";
 import StaticMap from "@/components/ui/StaticMap";
 import React, { Suspense } from "react";
 import Spinner from "@/components/ui/spinner";
+import { formatInternalUrl } from "@/lib/utils";
+import { notFound } from "next/navigation";
 import GalleryCarousel from "@/features/orgs/components/Gallery";
+import { OrganizationDescription } from "@/lib/types";
+import Link from "next/link";
 
-export default function OrgDescriptionPage() {
-  const mockGallery = [
-    "https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd",
+export default async function OrgDescriptionPage({
+  params,
+}: Readonly<{
+  params: { orgId: string }; // Accept event ID from URL params
+}>) {
+  const { orgId } = params;
+  const apiUrl = formatInternalUrl("/api/org/" + orgId);
+  const res = await fetch(apiUrl, {
+    cache: "no-cache",
+  });
 
-    "https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc",
+  if (!res.ok) {
+    notFound();
+  }
 
-    "https://drive.google.com/uc?export=view&id=1ZR2xgI4izSkZ4fEGEOr54fxDh7t2R-Uf",
+  const orgData: OrganizationDescription = await res.json();
+  const {
+    industries,
+    specialty,
+    description,
+    address,
+    email,
+    phone,
+    website,
+    facebook,
+    instagram,
+    latitude,
+    longitude,
+    gallery,
+  } = orgData;
 
-    "https://drive.google.com/uc?export=view&id=1D9ldIaOqNZVaGemuZiKPbHHZOgAv46S9",
-
-    "https://drive.google.com/uc?export=view&id=1UqwGnXRwvZOXfOVAmVKa8oAlzcRzPXMq",
-
-    "https://drive.google.com/uc?export=view&id=1HtTWidBNH7dPhGhRCnWAkkmZ3WQQtKIw",
-  ];
   return (
     <Suspense fallback={<Spinner />}>
       <div className="flex flex-col gap-[60px]">
@@ -28,10 +49,9 @@ export default function OrgDescriptionPage() {
               ประเภทธุรกิจ :
             </p>
             <div className="flex flex-wrap justify-start items-center gap-2">
-              <Badge label="บริษัท" className="bg-orange-normal" />
-              <Badge label="บริษัท" className="bg-orange-normal" />
-              <Badge label="บริษัท" className="bg-orange-normal" />
-              <Badge label="บริษัท" className="bg-orange-normal" />
+              {industries.map((type: string, index: number) => (
+                <Badge key={index} label={type} className="bg-orange-normal" />
+              ))}
             </div>
           </div>
           <div className="flex gap-6 mt-1">
@@ -39,18 +59,16 @@ export default function OrgDescriptionPage() {
               ความชำนาญ :
             </p>
             <p className="text-left text-sm sm:text-base font-normal">
-              พัฒนาโครงการสตาร์ทอัพและการเป็นผู้ประกอบการ
+              {specialty}
             </p>
           </div>
-          <p className="mt-2 text-sm sm:text-base leading-loose">
-            โครงการสร้างสตาร์ทอัพและการเป็นผู้ประกอบการของมหาวิทยาลัยเชียงใหม่เป็นโปรแกรมที่มุ่งเน้นการพัฒนานักศึกษาและบุคคลทั่วไปที่มีความสนใจในการเริ่มต้นธุรกิจ
-            และการเป็นผู้ประกอบการ โดยมีเป้าหมายเพื่อสร้างพื้นฐานความรู้ ทักษะ
-            และเครือข่ายที่จำเป็นสำหรับการเริ่มต้นและบริหารจัดการสตาร์ทอัพอย่างมีประสิทธิภาพ
-          </p>
+          <pre className="mt-4 font-prompt text-base font-normal whitespace-pre-wrap break-words">
+            {description}
+          </pre>
         </div>
 
         <div className="flex gap-6">
-          <div className="flex flex-col lg:flex-row gap-10 lg:gap-6">
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-6 w-full">
             <div className="flex flex-col gap-[60px]">
               <div className="flex flex-col gap-3">
                 <p className="text-lg sm:text-xl font-semibold">
@@ -61,8 +79,7 @@ export default function OrgDescriptionPage() {
                     ที่ตั้ง :
                   </p>
                   <p className="text-sm sm:text-base font-normal col-span-3">
-                    builds Space CMU ซอย เขลางค์ 4 ตำบลสุเทพ อำเภอเมืองเชียงใหม่
-                    เชียงใหม่ 50200 เทศบาลนครเชียงใหม่, จังหวัดเชียงใหม่ 50200
+                    {address}
                   </p>
                 </div>
                 <div className="grid grid-cols-4">
@@ -70,7 +87,7 @@ export default function OrgDescriptionPage() {
                     อีเมล :
                   </p>
                   <p className="text-sm sm:text-base font-normal col-span-3">
-                    builds@cmu.ac.th
+                    {email}
                   </p>
                 </div>
                 <div className="grid grid-cols-4">
@@ -78,51 +95,82 @@ export default function OrgDescriptionPage() {
                     เบอร์โทรศัพท์ :
                   </p>
                   <p className="text-sm sm:text-base font-normal col-span-3">
-                    081-123-4567
+                    {phone}
                   </p>
                 </div>
               </div>
               <div className="flex flex-col gap-3">
-                <p className="text-lg sm:text-xl font-semibold ">
-                  ช่องทางอื่นๆ
-                </p>
+                <p className="text-lg sm:text-xl font-semibold">ช่องทางอื่นๆ</p>
                 <div className="grid grid-cols-4">
                   <p className="text-left shrink-0 text-sm sm:text-base">
                     เว็บไซต์ :
                   </p>
-                  <p className="text-sm sm:text-base font-normal col-span-3">
-                    buildscmu.com
-                  </p>
+                  {
+                    // if start with https use <a> else use <p>
+                    website.startsWith("https://") ? (
+                      <Link
+                        href={website}
+                        className="text-sm sm:text-base font-normal col-span-3 underline text-blue-600"
+                      >
+                        {website}
+                      </Link>
+                    ) : (
+                      <p className="text-sm sm:text-base font-normal col-span-3">
+                        {website}
+                      </p>
+                    )
+                  }
                 </div>
                 <div className="grid grid-cols-4">
                   <p className="text-left shrink-0 text-sm sm:text-base">
                     เฟสบุ้ค :
                   </p>
-                  <p className="text-sm sm:text-base font-normal col-span-3">
-                    builds - CMU Startup & Entrepreneurial Program 
-                  </p>
+                  {
+                    // if start with https use <a> else use <p>
+                    facebook.startsWith("https://") ? (
+                      <Link
+                        href={facebook}
+                        className="text-sm sm:text-base font-normal col-span-3 underline text-blue-600"
+                      >
+                        {facebook}
+                      </Link>
+                    ) : (
+                      <p className="text-sm sm:text-base font-normal col-span-3">
+                        {facebook}
+                      </p>
+                    )
+                  }
                 </div>
                 <div className="grid grid-cols-4">
                   <p className="text-left shrink-0 text-sm sm:text-base">
                     อินสตาแกรม :
                   </p>
-                  <p className="text-sm sm:text-base font-normal col-span-3">
-                    builds CMU
-                  </p>
+                  {
+                    // if start with https use <a> else use <p>
+                    instagram.startsWith("https://") ? (
+                      <a
+                        href={instagram}
+                        className="text-sm sm:text-base font-normal col-span-3 underline text-blue-600"
+                      >
+                        {instagram}
+                      </a>
+                    ) : (
+                      <p className="text-sm sm:text-base font-normal col-span-3">
+                        {instagram}
+                      </p>
+                    )
+                  }
                 </div>
               </div>
             </div>
-            <div
-              className="rounded-[10px] col-span-2 h-[300px] lg:h-[365px] bg-slate-200 
-          w-full max-w-[520px] overflow-hidden drop"
-            >
-              <StaticMap lat={18.80207753602652} lng={98.96766808636778} />
+            <div className="rounded-[10px] col-span-2 h-[300px] lg:h-[365px] bg-slate-200 w-full max-w-[520px] overflow-hidden drop">
+              <StaticMap lat={latitude} lng={longitude} />
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-3">
           <p className="text-lg sm:text-xl font-semibold">แกลลอรี่องค์กร</p>
-          <GalleryCarousel gallery={mockGallery} />
+          <GalleryCarousel gallery={gallery} />
         </div>
       </div>
     </Suspense>

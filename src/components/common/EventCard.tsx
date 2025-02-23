@@ -13,7 +13,7 @@ interface EventCardProps {
   title: string;
   startDate: string;
   endDate?: string;
-  startTime: string;
+  startTime?: string;
   endTime?: string;
   location: string;
   imgUrl: string;

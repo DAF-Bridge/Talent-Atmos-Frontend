@@ -7,7 +7,7 @@ import EventList from "@/components/common/EventList";
 import { redirect } from "@/i18n/routing";
 import { fetchEvents } from "@/features/events/api/fetchEvents";
 import { DynamicSearchBar } from "@/components/common/DynamicSearch";
-import EsgFilter from "@/components/common/EsgFilter";
+// import EsgFilter from "@/components/common/EsgFilter";
 export const dynamic = "force-dynamic"; // Ensure fresh data on each request
 
 export default async function EventListingPageComp({
@@ -74,7 +74,7 @@ export default async function EventListingPageComp({
             fullPlace="ค้นหาชื่ออีเว้นท์ สถานที่ หรือคีย์เวิร์ด"
             briefPlace="ค้นหาคีย์เวิร์ดอีเว้นท์"
           />
-          <EsgFilter />
+          {/* <EsgFilter /> */}
         </div>
         <EventFilter />
       </div>

@@ -47,8 +47,8 @@ export interface Event {
   endTime: string;
   picUrl: string;
   location: string;
-  latitude: number;
-  longitude: number;
+  latitude: number | null;
+  longitude: number | null;
   price: string;
   category: string;
   organization: {
@@ -96,15 +96,27 @@ export type BriefOrganization = {
   imgUrl: string;
 };
 
-export type Organization = {
+export interface Organization {
   id: number;
   pic_url: string;
   name: string;
-  description: string;
+  headline: string;
   latitude: number;
   longitude: number;
-  industry: string[];
+  industries: string[];
 };
+
+export interface OrganizationDescription extends Organization {
+  description: string;
+  specialty: string;
+  website: string;
+  email: string;
+  phone: string;
+  facebook: string;
+  instagram: string;
+  address: string;
+  gallery: string[];
+}
 
 export type UserProfile = {
   id: number; // userID
@@ -151,9 +163,9 @@ export interface JobCardProps {
   id: number;
   title: string;
   description: string;
-  workplace: "remote" | "onsite" | "hybrid";
-  work_type: "fulltime" | "parttime" | "volunteer" | "internship";
-  career_stage: "entrylevel" | "midlevel" | "senior";
+  workplace: string;
+  work_type: string;
+  career_stage: string;
   province: string;
   country: string;
   salary: number;

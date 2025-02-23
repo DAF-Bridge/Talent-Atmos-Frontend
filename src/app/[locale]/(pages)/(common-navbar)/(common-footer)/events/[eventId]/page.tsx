@@ -13,7 +13,7 @@ import Image from "next/image";
 import React from "react";
 import { notFound } from "next/navigation";
 import { EventDescriptionProps } from "@/lib/types";
-import TimelineAccordion from "@/features/events/components/TimelineAccordion";
+// import TimelineAccordion from "@/features/events/components/TimelineAccordion";
 import RegBtn from "@/features/events/components/regBtn";
 
 export default async function EventDescription({
@@ -43,11 +43,11 @@ export default async function EventDescription({
     endTime,
     // price,
     picUrl,
-    highlight,
-    benefits,
-    requirements,
+    // highlight,
+    // benefits,
+    // requirements,
     // outcomes,
-    timeline,
+    // timeline,
     location,
     contact,
     regLink,
@@ -179,46 +179,7 @@ export default async function EventDescription({
                 </pre>
               </div>
             )}
-            {highlight && (
-              <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
-                  ไฮไลท์ของกิจกรรม
-                </p>
-                <p className="text-base font-normal">{highlight}</p>
-              </div>
-            )}
-            {requirements && (
-              <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
-                  คุณสมบัติผู้สมัคร
-                </p>
-                <p className="text-base font-normal">{requirements}</p>
-              </div>
-            )}
-            {benefits && (
-              <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
-                  สิ่งที่จะได้รับ
-                </p>
-                <ul className="list-disc pl-6">
-                  {benefits.map((item, index) => (
-                    <li key={index} className="text-base font-normal">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {timeline.length > 0 && (
-              <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
-                  ไทม์ไลน์และกำหนดการ
-                </p>
-                <div className="w-[90%]">
-                  <TimelineAccordion timelineArr={timeline} />
-                </div>
-              </div>
-            )}
+
             {location.name && (
               <div className="flex flex-col gap-[10px]">
                 <p className="font-semibold text-xl md:text-2xl mt-[16px]">
@@ -227,14 +188,14 @@ export default async function EventDescription({
                 <p className="text-base font-normal">
                   {location.name ?? "ไม่ระบุ"}
                 </p>
-                <div
-                  className="w-full md:w-[80%] rounded-[10px] max-w-[519px] bg-slate-500 overflow-hidden"
-                  style={{ aspectRatio: "519 / 365" }}
-                >
-                  {location.lat !== null && location.lng !== null && (
+                {location.lat !== null && location.lng !== null && (
+                  <div
+                    className="w-full md:w-[80%] rounded-[10px] max-w-[519px] bg-slate-500 overflow-hidden"
+                    style={{ aspectRatio: "519 / 365" }}
+                  >
                     <StaticMap lat={location.lat} lng={location.lng} />
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             )}
             {contact.length > 0 && (

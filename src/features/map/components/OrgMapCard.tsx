@@ -27,13 +27,13 @@ export default function OrgMapCard({
           {organization.name}
         </span>
         <span className="text-xs lg:text-sm font-light line-clamp-2 ">
-          {organization.description}
+          {organization.headline}
         </span>
       </div>
-      <div className="h-full">
+      <div className="h-full shrink-0">
         <Image
           src={organization.pic_url}
-          className="h-full max-w-[70px] lg:max-w-[88px] object-cover rounded-[17px] border"
+          className="h-full max-w-[88px] object-cover rounded-[17px] border shrink-0"
           style={{ aspectRatio: "1 / 1" }}
           height={100}
           width={100}

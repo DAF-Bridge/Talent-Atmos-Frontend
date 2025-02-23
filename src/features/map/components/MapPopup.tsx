@@ -41,13 +41,13 @@ export const CustomPopup: React.FC<CustomPopupProps> = ({
       {
         <p className="text-xs md:text-sm font-light text-gray-600 mt-1">
           {currentTab === "org"
-            ? (data as Organization).description
+            ? (data as Organization).headline
             : (data as Event).location}
         </p>
       }
       {currentTab === "org" && (
         <div className="inline-flex flex-wrap mt-2 gap-1">
-          {(data as Organization).industry.map((label, i) => (
+          {(data as Organization).industries.map((label, i) => (
             <Badge key={i} label={label} />
           ))}
         </div>
@@ -56,7 +56,7 @@ export const CustomPopup: React.FC<CustomPopupProps> = ({
         <Link
           href={
             currentTab === "org"
-              ? `/orgs/${data.id}/org-jobs`
+              ? `/orgs/${data.id}/org-detail`
               : `/events/${data.id}`
           }
           className="inline-flex justify-center items-center py-[6px] px-2 rounded-full w-full border-[1px]
