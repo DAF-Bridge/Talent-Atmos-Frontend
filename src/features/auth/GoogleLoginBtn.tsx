@@ -1,40 +1,25 @@
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "@/i18n/routing";
-import { formatInternalUrl } from "@/lib/utils";
 import { useGoogleLogin } from "@react-oauth/google";
 import Image from "next/image";
 import React from "react";
 import toast from "react-hot-toast";
+import { googleOauthCallback } from "./api/action";
 
 export default function GoogleLoginBtn() {
   const { setAuthState } = useAuth();
   const router = useRouter();
   const login = useGoogleLogin({
     flow: "auth-code",
-    // ux_mode:"redirect",
-    // redirect_uri: process.env.NEXT_PUBLIC_API_URL,
     onSuccess: async (tokenResponse) => {
-      // console.log(tokenResponse);
-      const apiUrl = formatInternalUrl(
-        "/api/auth/google-callback?code=" + tokenResponse.code
-      );
-      const res = await fetch(apiUrl, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      // const token = await res.json();
-      // console.log("token: "+token);
-      if (res.ok) {
+      const result = await googleOauthCallback(tokenResponse.code);
+      if (result.success) {
         setAuthState();
         const toastId = toast.success("เข้าสู่ระบบสําเร็จ");
         setTimeout(() => {
           toast.dismiss(toastId); // Clear the success toast
           router.push("/"); // Redirect to home
         }, 1000);
-
       } else {
         console.log("Golang Callback Failed");
       }
@@ -45,15 +30,6 @@ export default function GoogleLoginBtn() {
     },
   });
   return (
-    // <GoogleLogin
-    //   onSuccess={(credentialResponse) => {
-    //     console.log(credentialResponse);
-    //   }}
-    //   onError={() => {
-    //     console.log("Login Failed");
-    //   }}
-    //   size="large"
-    // />
     <button
       onClick={() => login()}
       className="inline-flex gap-2 border hover:border-black/30 hover:shadow-md rounded-[10px]

@@ -7,8 +7,6 @@ const withPWA = withPWAInit({
   disable: process.env.NODE_ENV === "development",
 });
 
-const AWS_BUCKET_URL = process.env.AWS_BUCKET_URL || "default-bucket-url";
-
 const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
@@ -42,8 +40,18 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: AWS_BUCKET_URL,
         pathname: "/**", // This allows any path under the bucket
+        hostname: process.env.NEXT_PUBLIC_S3_BUCKET1,
+      },
+      {
+        protocol: "https",
+        pathname: "/**", // This allows any path under the bucket
+        hostname: process.env.NEXT_PUBLIC_S3_BUCKET2,
+      },
+      {
+        protocol: "https",
+        pathname: "/**", // This allows any path under the bucket
+        hostname: process.env.NEXT_PUBLIC_S3_BUCKET3,
       },
     ], // Allow images from Google Drive
   },

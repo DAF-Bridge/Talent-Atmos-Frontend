@@ -13,163 +13,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
-const organizations: Organization[] = [
-  {
-    id: 1,
-    name: "WHO AM I",
-    headline:
-      "โครงการศึกษาดูงานสาขาวิชาชีพที่เป็นที่นิยมภายใต้แนวคิด ค้นพบตัวตนผ่านการจำลองสายอาชีพ",
-    latitude: 13.763780542604183,
-    longitude: 100.52863581347013,
-    industries: ["Social", "เทคโนโลยี", "สตาร์ทอัพ"],
-    pic_url:
-      "https://drive.google.com/uc?export=view&id=19SrmpaRgGQOI5PZXY7SG0AFC8S6GGldi",
-  },
-  {
-    id: 2,
-    name: "Innovator's Academy",
-    headline:
-      "สถาบันเตรียมเข้ามหาวิทยาลัยเฉพาะทางด้านธุรกิจ Innovator’s Preparation Academy for Business Degrees and Careers",
-    latitude: 13.746009792682637,
-    longitude: 100.5324055231956,
-    industries: ["Social"],
-    pic_url:
-      "https://drive.google.com/uc?export=view&id=1AOtDOpQuJt4OUxsLXO7GlsUlHxyMABuy",
-  },
-];
-
-const events: Event[] = [
-  {
-    id: 5,
-    name: "เปิดรับสมัคร Rabbit Start Core Team 2025 🐰💬",
-    startDate: "2025-01-28T00:00:00.000Z",
-    endDate: "2025-02-23T00:00:00.000Z",
-    startTime: "",
-    endTime: "",
-    location: "Discord Online Meeting",
-    latitude: null,
-    longitude: null,
-    picUrl:
-      "https://drive.google.com/uc?export=view&id=17F1Dym0aujDkLKdz4E1hJ0CiBAnZYuSH",
-    category: "All",
-    price: "Free",
-    organization: {
-      id: 1,
-      name: "Who Am I",
-      picUrl:
-        "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H",
-    },
-  },
-  {
-    id: 2,
-    name: "GYBN Thailand เปิดรับสมัครทีมงานหน้าใหม่ 2025",
-    startDate: "2025-02-14T00:00:00.000Z",
-    endDate: "2025-02-20T00:00:00.000Z",
-    startTime: "",
-    endTime: "",
-    location: "Love Wildlife Foundation",
-    picUrl:
-      "https://drive.google.com/uc?export=view&id=1WqALjgS9DOVbs_ya13QgoXAeTNrxZLGh",
-    category: "All",
-    latitude: 13.757568725943385,
-    longitude: 100.50936290762168,
-    price: "Free",
-    organization: {
-      id: 1,
-      name: "Who Am I",
-      picUrl:
-        "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H",
-    },
-  },
-  {
-    id: 4,
-    name: "Rabbit Start Saturday Club 🐰💬",
-    startDate: "2025-02-15T00:00:00.000Z",
-    endDate: "",
-    startTime: "",
-    endTime: "",
-    location: "Discord Online Meeting",
-    latitude: null,
-    longitude: null,
-    picUrl:
-      "https://drive.google.com/uc?export=view&id=1M6B_t2A0VT79y96kuD-L5j1DRyFyk7-y",
-    category: "All",
-    price: "Free",
-    organization: {
-      id: 1,
-      name: "Who Am I",
-      picUrl:
-        "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H",
-    },
-  },
-  {
-    id: 3,
-    name: "Policy Café ครั้งที่ 4 กับหัวข้อ “Climate Communication: หยิบแก้วชา มาคุยเรื่องการขับเคลื่อนสิ่งแวดล้อม”",
-    startDate: "2025-02-23T00:00:00.000Z",
-    endDate: "",
-    startTime: "0001-01-01T09:00:00.000Z",
-    endTime: "0001-01-01T16:30:00.000Z",
-    location: "เจดีย์คาเฟ่แอนด์บาร์",
-    latitude: 13.755113111741556,
-    longitude: 100.50667321540301,
-    picUrl:
-      "https://drive.google.com/uc?export=view&id=1uOu3VemcS8qgiuy-zvynUIjq1HfQp_1v",
-    category: "All",
-    price: "Free",
-    organization: {
-      id: 1,
-      name: "Who Am I",
-      picUrl:
-        "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H",
-    },
-  },
-  {
-    id: 6,
-    name: "Who Am I - ค้นหาตัวเองผ่านการทดลองทำงานจำลอง",
-    startDate: "2025-03-01T00:00:00.000Z",
-    endDate: "2025-03-02T00:00:00.000Z",
-    startTime: "0001-01-01T09:00:00.000Z",
-    endTime: "0001-01-01T16:30:00.000Z",
-    location: "อาคาร JW tower ชั้น 3 ศรีนครินทร์ เขตสวนหลวง กรุงเทพฯ",
-    latitude: 13.745365885505796,
-    longitude: 100.64404603656816,
-    picUrl:
-      "https://drive.google.com/uc?export=view&id=17vBfOqClPDSD_nD9rLhXA8_LjNXTxQQ1",
-    category: "All",
-    price: "Free",
-    organization: {
-      id: 1,
-      name: "Who Am I",
-      picUrl:
-        "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H",
-    },
-  },
-  {
-    id: 1,
-    name: "WHO AM I สายไหนที่ใช่สำหรับเรา? มาค้นหากันเถอะ",
-    startDate: "2024-11-16T00:00:00.000Z",
-    endDate: "",
-    startTime: "0001-01-01T09:00:00.000Z",
-    endTime: "0001-01-01T16:30:00.000Z",
-    location: "สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติ",
-    latitude: 13.765648,
-    longitude: 100.524063,
-    picUrl:
-      "https://drive.google.com/uc?export=view&id=1UNJTDVhdym8-NWID244-TCgJIxxPcB0H",
-    category: "All",
-    price: "Free",
-    organization: {
-      id: 1,
-      name: "Who Am I",
-      picUrl:
-        "https://drive.google.com/uc?export=view&id=1KDX58e7WJ-JqXFV8_a2_2Z1Jalil4M-H",
-    },
-  },
-];
-
-// const organizations: Organization[] = [];
-// const events: Event[] = [];
+import {
+  getAllEventsLocation,
+  getAllOrgsLocation,
+} from "@/features/map/api/action";
 
 export default function MapPage({
   // params,
@@ -178,6 +25,8 @@ export default function MapPage({
   params: { page: string; locale: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }>) {
+  const [organizations, setOrganizations] = useState<Organization[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
   const currentTab = searchParams.tab?.toString() ?? "org";
   const search = searchParams.search?.toString() ?? "";
   const [selectedItem, setSelectedItem] = useState<Organization | Event | null>(
@@ -188,6 +37,23 @@ export default function MapPage({
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [userLocation, setUserLocation] = useState<Coordinate>();
   const [flyToUserTrigger, setFlyToUserTrigger] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      setIsLoading(true);
+      const orgs = await getAllOrgsLocation();
+      // console.log(orgs);
+      setOrganizations(orgs);
+
+      const events = await getAllEventsLocation();
+      // console.log(events);
+      setEvents(events);
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
 
   const data: Organization[] | Event[] =
     currentTab === "org" ? organizations : events;
@@ -237,6 +103,7 @@ export default function MapPage({
           )}
         >
           <MapSidebarContent
+            isLoading={isLoading}
             data={data}
             selectedItem={selectedItem}
             handleCardClick={handleCardClick}
@@ -287,6 +154,7 @@ export default function MapPage({
           userLocation={userLocation}
           flyToUserTrigger={flyToUserTrigger}
           currentTab={currentTab}
+          isLoading={isLoading}
         />
         <div className="fixed z-10 bottom-3 right-1 flex justify-center items-center gap-4">
           <Tooltip delayDuration={0}>

@@ -4,14 +4,15 @@ import Image from "next/image";
 import React from "react";
 
 interface OrgCardProps {
+  readonly id: number;
   readonly name: string;
   readonly imgUrl: string;
 }
 
-export default function OrgCard({ name, imgUrl }: OrgCardProps) {
+export default function OrgCard({ id,name, imgUrl }: OrgCardProps) {
   return (
     <Link
-      href={"/org"}
+      href={`/orgs/${id}/org-detail`}
       className="flex flex-col border  hover:shadow-md rounded-[10px] 
     group hover:cursor-pointer duration-100 overflow-hidden bg-white drop-shadow-md"
     >

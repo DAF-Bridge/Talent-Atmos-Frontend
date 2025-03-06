@@ -1,18 +1,10 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow, isSameDay } from "date-fns";
 import { th, enUS } from "date-fns/locale";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-}
-
-export function formatInternalUrl(url: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
-  // Ensure we have a properly formatted URL
-  const apiUrl = new URL(url, baseUrl).toString();
-  return apiUrl;
 }
 
 export function formatExternalUrl(url: string) {
@@ -51,7 +43,7 @@ export const formatDateRange = (
     });
   };
 
-  if (end === "" || start.getDate() === end.getDate()) {
+  if (end === "" || isSameDay(start, end)) {
     return formatDate(start);
   }
 
@@ -63,13 +55,13 @@ export const formatTimeRange = (
   endTime?: string
 ): string => {
   const formatTime = (isoTime: string): string => {
-    const date = new Date(isoTime);
+    const date = new Date(`1970-01-01T${isoTime}Z`); // Prepend date to ensure valid parsing
 
     return date.toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
-      timeZone: "UTC",
+      timeZone: "UTC", // Keep it in UTC to prevent unwanted timezone shifts
     });
   };
 

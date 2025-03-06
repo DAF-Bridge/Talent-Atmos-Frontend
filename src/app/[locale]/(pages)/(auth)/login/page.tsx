@@ -3,8 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { loginSchema, TLogInSchema } from "@/lib/types";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, House } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,9 +10,10 @@ import { useRouter } from "@/i18n/routing";
 import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { formatInternalUrl } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 import GoogleLoginBtn from "@/features/auth/GoogleLoginBtn";
+import { logIn } from "@/features/auth/api/action";
+
 
 export default function LoginPage(): JSX.Element {
   const [isRedirecting, setIsRedirecting] = useState(false);
@@ -22,10 +21,6 @@ export default function LoginPage(): JSX.Element {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
-
-  // const handleGoogleLogin = () => {
-  //   window.location.href = formatExternalUrl("/auth/google");
-  // };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -35,9 +30,11 @@ export default function LoginPage(): JSX.Element {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    setError,
-  } = useForm<TLogInSchema>({
-    resolver: zodResolver(loginSchema),
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const onSubmit = async (data: FieldValues) => {
@@ -45,26 +42,17 @@ export default function LoginPage(): JSX.Element {
     const loadingToastId = toast.loading("รอสักครู่...");
 
     try {
-      // Send POST request to Next API
-      const apiUrl = formatInternalUrl("/api/auth/login");
-      const response = await fetch(apiUrl, {
-        cache: "no-store",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // Send and receive cookies
-        body: JSON.stringify(data),
+      const result = await logIn({
+        email: data.email,
+        password: data.password,
       });
 
       // On-Recieve Response : Dismiss the loading toast
       toast.dismiss(loadingToastId);
 
-      // if the response if ok redirect to home, if not, show error toast
-      if (response.ok) {
-        // // Update isAuth to true
-        setAuthState(); // Update the auth state globally
-        setIsRedirecting(true);
+      if (result.success) {
+        // Await the full auth state setup
+        setAuthState();
         const successToastId = toast.success("เข้าสู่ระบบสําเร็จ");
 
         // Delay the redirect to show the toast
@@ -73,36 +61,14 @@ export default function LoginPage(): JSX.Element {
           setIsRedirecting(false);
           router.push("/"); // Redirect to home
         }, 1000); // Delay of 1.5 seconds for users to see the success message
-
-        return;
       } else {
-        // if the server validation caught an error
-        const responseData = await response.json();
-
-        // set the errors to each field
-        if (responseData.errors) {
-          const errors = responseData.errors;
-          if (responseData.status === 400) {
-            Object.entries(responseData.errors).forEach(([key, message]) => {
-              setError(key as keyof TLogInSchema, {
-                type: "server",
-                message: message as string,
-              });
-            });
-          } else {
-            const errorMessage =
-              typeof errors === "string"
-                ? errors
-                : "An unknown error occurred.";
-            toast.error(errorMessage);
-          }
-        }
+        throw new Error(result.error);
       }
     } catch (error) {
       // if fail to sent request to server
       toast.dismiss();
-      toast.error("เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");
-      console.error(error);
+      toast.error(error instanceof Error ? error.message : "เกิดข้อผิดพลาด");
+      console.error("Login error:", error);
     }
   };
 
@@ -162,7 +128,13 @@ export default function LoginPage(): JSX.Element {
                   )}
                 </Label>
                 <Input
-                  {...register("email")}
+                  {...register("email", {
+                    required: "กรุณากรอกอีเมล",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "อีเมลไม่ถูกต้อง",
+                    },
+                  })}
                   className="auth-input"
                   type="email"
                   id="email"
@@ -180,7 +152,9 @@ export default function LoginPage(): JSX.Element {
                 </Label>
                 <div className="relative">
                   <Input
-                    {...register("password")}
+                    {...register("password", {
+                      required: "กรุณากรอกรหัสผ่าน",
+                    })}
                     className="auth-input "
                     type={showPassword ? "text" : "password"}
                     id="password"

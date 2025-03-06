@@ -1,32 +1,31 @@
-// import Image from "next/image";
 import Image from "next/image";
 import React from "react";
-// import JobSideBar from "@/features/jobs/components/JobSideBar";
-// import JobListing from "@/components/common/JobListing";
-// import JobFilterMobile from "@/features/jobs/components/JobFilterMobile";
-// import { DynamicSearchBar } from "@/components/common/DynamicSearch";
+import JobSideBar from "@/features/jobs/components/JobSideBar";
+import JobListing from "@/components/common/JobListing";
+import JobFilterMobile from "@/features/jobs/components/JobFilterMobile";
+import { DynamicSearchBar } from "@/components/common/DynamicSearch";
+import { getJobs } from "@/features/jobs/api/action";
+import { JobCardProps } from "@/lib/types";
 
-export default function JobListingPage({
+export const dynamic = "force-dynamic";
+
+export default async function JobListingPage({
   // params,
-  // searchParams,
+  searchParams,
 }: Readonly<{
   params: { page: string; locale: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Record<string, string>;
 }>) {
-  // const search = searchParams.search?.toString() ?? "";
+  const search = searchParams.search?.toString() ?? "";
+
+  const result = await getJobs(searchParams);
+  const jobs: JobCardProps[] = result.data?.jobs ?? [];
+  const totalJobs = result.data?.totalJobs ?? 0;
+  const totalPage = Math.ceil(totalJobs / 10);
+
   return (
     <div className="font-prompt mt-[65px] min-h-[80vh] w-full">
-      <div className="flex justify-center items-center w-full pt-10">
-        <Image
-        src="/page/under-dev.svg"
-        width={1000}
-        height={200}
-        alt="banner"
-        className="max-w-[600px] w-full"
-      />
-      </div>
-      
-      {/* <div className="w-full bg-[#F7F8FC]">
+      <div className="w-full bg-[#F7F8FC]">
         <div
           className="flex justify-between lg:justify-start items-center max-w-[1170px] mx-auto 
         px-6 gap-5 lg:gap-28 h-[120px] overflow-hidden"
@@ -47,8 +46,8 @@ export default function JobListingPage({
             />
           </div>
         </div>
-      </div> */}
-      {/* <div className="flex flex-col md:flex-row max-w-[1170px] mx-auto px-6 min-h-[60vh] mt-5">
+      </div>
+      <div className="flex flex-col md:flex-row max-w-[1170px] mx-auto px-6 min-h-[60vh] mt-5">
         <div className="hidden md:block min-w-[240px] w-[30%]">
           <JobSideBar />
         </div>
@@ -67,9 +66,9 @@ export default function JobListingPage({
               <JobFilterMobile />
             </div>
           </div>
-          <JobListing jobs={[]} totalPages={5} />
+          <JobListing jobs={jobs} totalPages={totalPage} />
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

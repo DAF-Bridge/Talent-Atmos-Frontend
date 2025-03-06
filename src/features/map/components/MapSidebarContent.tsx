@@ -10,6 +10,7 @@ import MapListTab from "./MapListTab";
 import OrgCardList from "./OrgCardList";
 // import { useSearchParams } from "next/navigation";
 import EventCardList from "./EventCardList";
+import Spinner from "@/components/ui/spinner";
 
 interface MapSidebarContentProps {
   data: Organization[] | Event[];
@@ -17,6 +18,7 @@ interface MapSidebarContentProps {
   handleCardClick: (organization: Organization | Event) => void;
   defaultValue: string;
   currentTab: string;
+  isLoading: boolean;
 }
 
 export default function MapSidebarContent({
@@ -25,6 +27,7 @@ export default function MapSidebarContent({
   handleCardClick,
   defaultValue,
   currentTab,
+  isLoading,
 }: Readonly<MapSidebarContentProps>) {
   // const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState(false);
 
@@ -69,28 +72,37 @@ export default function MapSidebarContent({
           <MapFiltersContent />
         </div>
 
-        {/* list of organizations */}
-        <div
-          className={cn(
-            "h-[85%] overflow-y-auto min-h-0 pr-2",
-            "transition-all duration-150 delay-150",
-            isFilterSidebarOpen ? "opacity-0 cursor-not-allowed" : "opacity-100"
-          )}
-        >
-          {currentTab === "org" ? (
-            <OrgCardList
-              organizations={data as Organization[]}
-              selectedOrg={selectedItem as Organization}
-              handleCardClick={handleCardClick}
-            />
-          ) : (
-            <EventCardList
-              events={data as Event[]}
-              selectedEvent={selectedItem as Event}
-              handleCardClick={handleCardClick}
-            />
-          )}
-        </div>
+        {/* list of data */}
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center mt-[100px]">
+            <Spinner />
+            Loading...
+          </div>
+        ) : (
+          <div
+            className={cn(
+              "h-[85%] overflow-y-auto min-h-0 pr-2",
+              "transition-all duration-150 delay-150",
+              isFilterSidebarOpen
+                ? "opacity-0 cursor-not-allowed"
+                : "opacity-100"
+            )}
+          >
+            {currentTab === "org" ? (
+              <OrgCardList
+                organizations={data as Organization[]}
+                selectedOrg={selectedItem as Organization}
+                handleCardClick={handleCardClick}
+              />
+            ) : (
+              <EventCardList
+                events={data as Event[]}
+                selectedEvent={selectedItem as Event}
+                handleCardClick={handleCardClick}
+              />
+            )}
+          </div>
+        )}
       </div>
     </>
   );

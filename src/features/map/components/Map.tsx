@@ -50,6 +50,7 @@ interface MapProps {
   handleCardClick: (org: Organization | Event) => void;
   userLocation?: Coordinate;
   currentTab: string;
+  isLoading: boolean;
 }
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
@@ -62,6 +63,7 @@ const MapComponent: React.FC<MapProps> = ({
   handleCardClick,
   userLocation,
   currentTab,
+  isLoading,
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -99,7 +101,7 @@ const MapComponent: React.FC<MapProps> = ({
 
   // Initialize the map
   useEffect(() => {
-    if (!mapContainerRef.current) return;
+    if (!mapContainerRef.current || isLoading) return;
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -175,7 +177,7 @@ const MapComponent: React.FC<MapProps> = ({
       if (userMarker) userMarker.remove();
       map.remove();
     };
-  }, [data, handleCardClick, mapCenter, userLocation]);
+  }, [data, handleCardClick, mapCenter, userLocation, isLoading]);
 
   // Show popup for the selected organization
   useEffect(() => {

@@ -26,7 +26,7 @@ export default async function EventList({
                 endDate={event.endDate}
                 startTime={event.startTime}
                 endTime={event.endTime}
-                location={event.location}
+                location={event.locationName}
                 imgUrl={event.picUrl}
                 orgName={event.organization.name}
                 orgPicUrl={event.organization.picUrl}

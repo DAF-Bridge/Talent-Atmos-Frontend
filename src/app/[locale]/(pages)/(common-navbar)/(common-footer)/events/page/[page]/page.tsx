@@ -5,8 +5,8 @@ import CategoryTab from "@/features/events/components/CategoryTab";
 import { EventFilter } from "@/features/events/components/EventFilter";
 import EventList from "@/components/common/EventList";
 import { redirect } from "@/i18n/routing";
-import { fetchEvents } from "@/features/events/api/fetchEvents";
 import { DynamicSearchBar } from "@/components/common/DynamicSearch";
+import { fetchAllEvents } from "@/features/events/api/action";
 // import EsgFilter from "@/components/common/EsgFilter";
 export const dynamic = "force-dynamic"; // Ensure fresh data on each request
 
@@ -26,9 +26,9 @@ export default async function EventListingPageComp({
   const audience = searchParams.audience?.toString() ?? "";
   const price = searchParams.price?.toString() ?? "";
 
-  const { events, totalEvents } = await fetchEvents({
+  const { events, totalEvents } = await fetchAllEvents({
     page: currentPage,
-    query: search,
+    search,
     category,
     dateRange,
     location,

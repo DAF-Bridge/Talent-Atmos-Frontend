@@ -31,7 +31,7 @@ export default function EventMapCard({
         </span>
         <span className="flex justify-start items-center gap-1 text-xs lg:text-sm font-light line-clamp-1">
           <IoLocationSharp className="w-3 h-3 text-black" />
-          {event.location !== "" ? event.location : "ไม่ระบุ"}
+          {event.locationName !== "" ? event.locationName : "ไม่ระบุ"}
         </span>
       </div>
       <div className="h-full">

@@ -2,11 +2,9 @@ import Badge from "@/components/common/Badge";
 import StaticMap from "@/components/ui/StaticMap";
 import React, { Suspense } from "react";
 import Spinner from "@/components/ui/spinner";
-import { formatInternalUrl } from "@/lib/utils";
 import { notFound } from "next/navigation";
-import GalleryCarousel from "@/features/orgs/components/Gallery";
 import { OrganizationDescription } from "@/lib/types";
-import Link from "next/link";
+import { getOrgsDescription } from "@/features/orgs/api/action";
 
 export default async function OrgDescriptionPage({
   params,
@@ -14,16 +12,12 @@ export default async function OrgDescriptionPage({
   params: { orgId: string }; // Accept event ID from URL params
 }>) {
   const { orgId } = params;
-  const apiUrl = formatInternalUrl("/api/org/" + orgId);
-  const res = await fetch(apiUrl, {
-    cache: "no-cache",
-  });
+  const data: OrganizationDescription = await getOrgsDescription(orgId);
 
-  if (!res.ok) {
+  if (!data) {
     notFound();
   }
 
-  const orgData: OrganizationDescription = await res.json();
   const {
     industries,
     specialty,
@@ -31,13 +25,10 @@ export default async function OrgDescriptionPage({
     address,
     email,
     phone,
-    website,
-    facebook,
-    instagram,
+    organizationContacts,
     latitude,
     longitude,
-    gallery,
-  } = orgData;
+  } = data;
 
   return (
     <Suspense fallback={<Spinner />}>
@@ -49,8 +40,12 @@ export default async function OrgDescriptionPage({
               ประเภทธุรกิจ :
             </p>
             <div className="flex flex-wrap justify-start items-center gap-2">
-              {industries.map((type: string, index: number) => (
-                <Badge key={index} label={type} className="bg-orange-normal" />
+              {industries.map((industry) => (
+                <Badge
+                  key={industry.id}
+                  label={industry.name}
+                  className="bg-orange-normal"
+                />
               ))}
             </div>
           </div>
@@ -99,79 +94,47 @@ export default async function OrgDescriptionPage({
                   </p>
                 </div>
               </div>
-              <div className="flex flex-col gap-3">
-                <p className="text-lg sm:text-xl font-semibold">ช่องทางอื่นๆ</p>
-                <div className="grid grid-cols-4">
-                  <p className="text-left shrink-0 text-sm sm:text-base">
-                    เว็บไซต์ :
+              {organizationContacts && organizationContacts.length > 0 && (
+                <div className="flex flex-col gap-3">
+                  <p className="text-lg sm:text-xl font-semibold">
+                    ช่องทางอื่นๆ
                   </p>
-                  {
-                    // if start with https use <a> else use <p>
-                    website.startsWith("https://") ? (
-                      <Link
-                        href={website}
-                        className="text-sm sm:text-base font-normal col-span-3 underline text-blue-600"
-                      >
-                        {website}
-                      </Link>
-                    ) : (
-                      <p className="text-sm sm:text-base font-normal col-span-3">
-                        {website}
-                      </p>
-                    )
-                  }
+                  {organizationContacts.map((item, index) => (
+                    <p
+                      key={index}
+                      className="grid grid-cols-10 text-base font-normal"
+                    >
+                      <span className="col-span-3 md:col-span-2">
+                        {item.media}:
+                      </span>
+                      {item.mediaLink.includes("http") ? (
+                        <a
+                          href={item.mediaLink}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="col-span-7 md:col-span-8 underline hover:text-gray-inactive break-words whitespace-normal"
+                        >
+                          {item.mediaLink}
+                        </a>
+                      ) : (
+                        <span className="col-span-7 md:col-span-8 break-words whitespace-normal">
+                          {item.mediaLink}
+                        </span>
+                      )}
+                    </p>
+                  ))}
                 </div>
-                <div className="grid grid-cols-4">
-                  <p className="text-left shrink-0 text-sm sm:text-base">
-                    เฟสบุ้ค :
-                  </p>
-                  {
-                    // if start with https use <a> else use <p>
-                    facebook.startsWith("https://") ? (
-                      <Link
-                        href={facebook}
-                        className="text-sm sm:text-base font-normal col-span-3 underline text-blue-600"
-                      >
-                        {facebook}
-                      </Link>
-                    ) : (
-                      <p className="text-sm sm:text-base font-normal col-span-3">
-                        {facebook}
-                      </p>
-                    )
-                  }
-                </div>
-                <div className="grid grid-cols-4">
-                  <p className="text-left shrink-0 text-sm sm:text-base">
-                    อินสตาแกรม :
-                  </p>
-                  {
-                    // if start with https use <a> else use <p>
-                    instagram.startsWith("https://") ? (
-                      <a
-                        href={instagram}
-                        className="text-sm sm:text-base font-normal col-span-3 underline text-blue-600"
-                      >
-                        {instagram}
-                      </a>
-                    ) : (
-                      <p className="text-sm sm:text-base font-normal col-span-3">
-                        {instagram}
-                      </p>
-                    )
-                  }
-                </div>
-              </div>
+              )}
             </div>
             <div className="rounded-[10px] col-span-2 h-[300px] lg:h-[365px] bg-slate-200 w-full max-w-[520px] overflow-hidden drop">
               <StaticMap lat={latitude} lng={longitude} />
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-3">
+        {/* <div className="flex flex-col gap-3">
           <p className="text-lg sm:text-xl font-semibold">แกลลอรี่องค์กร</p>
           <GalleryCarousel gallery={gallery} />
-        </div>
+        </div> */}
       </div>
     </Suspense>
   );

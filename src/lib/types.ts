@@ -31,13 +31,6 @@ export const signupSchema = z
 
 export type TSignUpSchema = z.infer<typeof signupSchema>;
 
-export const loginSchema = z.object({
-  email: z.string().email({ message: "กรุณากรอกอีเมล" }),
-  password: z.string().min(1, { message: "กรุณากรอกรหัสผ่าน" }),
-});
-
-export type TLogInSchema = z.infer<typeof loginSchema>;
-
 export interface Event {
   id: number;
   name: string;
@@ -46,11 +39,11 @@ export interface Event {
   startTime: string;
   endTime: string;
   picUrl: string;
-  location: string;
+  locationName: string;
   latitude: number | null;
   longitude: number | null;
   price: string;
-  category: string;
+  category: string[];
   organization: {
     id: number;
     name: string;
@@ -59,31 +52,20 @@ export interface Event {
 }
 
 export interface EventDescriptionProps {
-  event: {
-    id: number;
-    name: string;
-    description: string;
-    startDate: string;
-    endDate?: string;
-    startTime: string;
-    endTime?: string;
-    price: string;
-    picUrl: string;
-    highlight: string;
-    requirements: string;
-    outcomes: Array<string>;
-    timeline: Array<{ date: string; content: string }>;
-    benefits: Array<string>;
-    location: {
-      name: string;
-      map_url: string;
-      image_url: string;
-      lat: number;
-      lng: number;
-    };
-    contact: Array<{ type: string; url: string }>;
-    regLink: string;
-  };
+  id: number;
+  name: string;
+  content: string;
+  startDate: string;
+  endDate?: string;
+  startTime: string;
+  endTime?: string;
+  priceType: string;
+  picUrl: string;
+  locationName: string;
+  latitude: number;
+  longitude: number;
+  contactChannels: { media: string; mediaLink: string }[];
+  registerLink: string;
   organization: {
     id: number;
     name: string;
@@ -104,18 +86,36 @@ export interface Organization {
   latitude: number;
   longitude: number;
   industries: string[];
-};
+}
 
-export interface OrganizationDescription extends Organization {
-  description: string;
-  specialty: string;
-  website: string;
+export interface OrganizationDescription {
+  id: number;
+  name: string;
   email: string;
   phone: string;
-  facebook: string;
-  instagram: string;
+  picUrl: string;
+  bgUrl: string;
+  headline: string;
+  specialty: string;
+  description: string;
   address: string;
-  gallery: string[];
+  province: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+  organizationContacts: [
+    {
+      media: string;
+      mediaLink: string;
+    }
+  ];
+  industries: [
+    {
+      id: number;
+      name: string;
+    }
+  ];
+  updatedAt: string;
 }
 
 export type UserProfile = {
@@ -164,24 +164,46 @@ export interface JobCardProps {
   title: string;
   description: string;
   workplace: string;
-  work_type: string;
-  career_stage: string;
+  workType: string;
+  careerStage: string;
   province: string;
   country: string;
   salary: number;
-  imgUrl?: string;
-  updatedDate: string;
-  orgName?: string;
-  industry: string[];
+  updatedAt: string;
+  categories: [{ value: string; label: string }];
+  organization?: string;
+  orgPicUrl?: string;
 }
 
-export interface JobDescriptionPage extends JobCardProps {
+export interface JobDescriptionPage {
+  id: number;
+  title: string;
+  description: string;
+  orgPicUrl: string;
   scope: string;
-  prerequisite: { name: string; url: string }[];
-  workplaceDesc?: string;
-  hours_per_day: string;
-  qualifications: string;
-  benefits: string;
-  quantity: number;
+  prerequisite: [
+    {
+      value: number;
+      title: string;
+      link: string;
+    }
+  ];
+  workplace: string;
+  workType: string;
+  careerStage: string;
   period: string;
+  hoursPerDay: string;
+  qualifications: string;
+  quantity: number;
+  salary: number;
+  province: string;
+  country: string;
+  status: string;
+  categories: [
+    {
+      value: number;
+      label: string;
+    }
+  ];
+  UpdatedAt: string;
 }

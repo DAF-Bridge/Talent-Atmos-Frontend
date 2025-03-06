@@ -42,7 +42,7 @@ export const CustomPopup: React.FC<CustomPopupProps> = ({
         <p className="text-xs md:text-sm font-light text-gray-600 mt-1">
           {currentTab === "org"
             ? (data as Organization).headline
-            : (data as Event).location}
+            : (data as Event).locationName}
         </p>
       }
       {currentTab === "org" && (
