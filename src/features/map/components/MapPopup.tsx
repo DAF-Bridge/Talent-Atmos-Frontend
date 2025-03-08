@@ -45,9 +45,15 @@ export const CustomPopup: React.FC<CustomPopupProps> = ({
             : (data as Event).locationName}
         </p>
       }
-      {currentTab === "org" && (
+      {currentTab === "org" ? (
         <div className="inline-flex flex-wrap mt-2 gap-1">
           {(data as Organization).industries.map((label, i) => (
+            <Badge key={i} label={label} />
+          ))}
+        </div>
+      ) : (
+        <div className="inline-flex flex-wrap mt-2 gap-1">
+          {(data as Event).category.map((label, i) => (
             <Badge key={i} label={label} />
           ))}
         </div>

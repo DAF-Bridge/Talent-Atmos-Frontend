@@ -98,7 +98,7 @@ export default function JobCard({
         </p>
         <div className="inline-flex gap-2 flex-wrap h-fit mt-4">
           {categories.map((sector, i) => (
-            <Badge key={i} label={sector.label} className="bg-[#F2F2F1]" />
+            <Badge key={i} label={sector} className="bg-[#F2F2F1]" />
           ))}
         </div>
         <div className="inline-flex flex-wrap justify-start items-center text-gray-inactive mt-2">

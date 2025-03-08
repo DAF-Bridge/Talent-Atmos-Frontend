@@ -11,7 +11,7 @@ export default async function OrgJobsPage({
 
   return (
     <Suspense fallback={<Spinner />}>
-      {jobs.length > 0 ? (
+      {jobs.length > 0 && jobs ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {jobs.map((job) => (
             <JobCard

@@ -2,9 +2,9 @@ import Badge from "@/components/common/Badge";
 import StaticMap from "@/components/ui/StaticMap";
 import React, { Suspense } from "react";
 import Spinner from "@/components/ui/spinner";
-import { notFound } from "next/navigation";
 import { OrganizationDescription } from "@/lib/types";
 import { getOrgsDescription } from "@/features/orgs/api/action";
+import NotFoundSVG from "@/components/page/NotFound";
 
 export default async function OrgDescriptionPage({
   params,
@@ -15,7 +15,7 @@ export default async function OrgDescriptionPage({
   const data: OrganizationDescription = await getOrgsDescription(orgId);
 
   if (!data) {
-    notFound();
+    return NotFoundSVG();
   }
 
   const {

@@ -170,7 +170,7 @@ export interface JobCardProps {
   country: string;
   salary: number;
   updatedAt: string;
-  categories: [{ value: string; label: string }];
+  categories: string[];
   organization?: string;
   orgPicUrl?: string;
 }
@@ -192,18 +192,23 @@ export interface JobDescriptionPage {
   workType: string;
   careerStage: string;
   period: string;
-  hoursPerDay: string;
   qualifications: string;
   quantity: number;
   salary: number;
   province: string;
   country: string;
   status: string;
+  registerLink: string;
+  organization: {
+    id: number;
+    name: string;
+    picUrl: string;
+  };
   categories: [
     {
       value: number;
       label: string;
     }
   ];
-  UpdatedAt: string;
+  updatedAt: string;
 }

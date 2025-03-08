@@ -6,6 +6,7 @@ export async function getAllEventsLocation() {
   const apiUrl = formatExternalUrl("/location-map/events");
   const res = await fetch(apiUrl, { cache: "no-store" });
   const data = await res.json();
+  console.log(data);
 
   if (res.ok) {
     return data;

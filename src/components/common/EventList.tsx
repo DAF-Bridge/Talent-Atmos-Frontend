@@ -28,9 +28,9 @@ export default async function EventList({
                 endTime={event.endTime}
                 location={event.locationName}
                 imgUrl={event.picUrl}
+                orgId={event.organization.id}
                 orgName={event.organization.name}
                 orgPicUrl={event.organization.picUrl}
-                showOrg={false}
               />
             ))}
           </div>

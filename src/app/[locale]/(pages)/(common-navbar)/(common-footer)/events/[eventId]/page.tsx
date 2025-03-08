@@ -7,7 +7,6 @@ import {
 } from "react-icons/io5";
 import Image from "next/image";
 import React from "react";
-import { notFound } from "next/navigation";
 import { EventDescriptionProps } from "@/lib/types";
 import RegBtn from "@/features/events/components/regBtn";
 import { getEventDescription } from "@/features/events/api/action";
@@ -17,6 +16,8 @@ import parse, {
   Element,
   DOMNode,
 } from "html-react-parser";
+import { Link } from "@/i18n/routing";
+import NotFoundSVG from "@/components/page/NotFound";
 
 export default async function EventDescription({
   params,
@@ -25,10 +26,10 @@ export default async function EventDescription({
 }>) {
   const { eventId } = params;
   const data: EventDescriptionProps = await getEventDescription(eventId);
-  console.log(data);
+  // console.log(data);
 
   if (!data) {
-    return notFound();
+    return <NotFoundSVG />;
   }
 
   const {
@@ -95,19 +96,26 @@ export default async function EventDescription({
           <div className="hidden md:flex flex-col gap-3 justify-center  h-full md:max-w-[50%] rounded-l-[10px] px-3 md:px-6 lg:px-10 md:bg-white">
             {(data.organization.name || data.organization.picUrl) && (
               <div className="flex justify-start items-center gap-2">
-                <div
-                  className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
-                  style={{ aspectRatio: "1 / 1" }}
+                <Link
+                  href={`/orgs/${data.organization.id}/org-detail`}
+                  className="inline-flex justify-start items-center gap-2"
                 >
-                  <Image
-                    className="shrink-0 h-full w-full object-cover"
-                    src={data.organization.picUrl}
-                    width={60}
-                    height={60}
-                    alt="org-profile"
-                  />
-                </div>
-                <p className="truncate">{data.organization.name}</p>
+                  <div
+                    className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
+                    style={{ aspectRatio: "1 / 1" }}
+                  >
+                    <Image
+                      className="shrink-0 h-full w-full object-cover"
+                      src={data.organization.picUrl}
+                      width={60}
+                      height={60}
+                      alt="org-profile"
+                    />
+                  </div>
+                  <span className="line-clamp-1 text-base hover:text-orange-dark">
+                    {data.organization.name}
+                  </span>
+                </Link>
               </div>
             )}
             <p className="font-medium text-2xl lg:text-3xl line-clamp-2">
@@ -155,19 +163,26 @@ export default async function EventDescription({
         >
           {(data.organization.name || data.organization.picUrl) && (
             <div className="flex justify-start items-center gap-2">
-              <div
-                className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
-                style={{ aspectRatio: "1 / 1" }}
+              <Link
+                href={`/orgs/${data.organization.id}/org-detail`}
+                className="inline-flex justify-start items-center gap-2"
               >
-                <Image
-                  className="shrink-0 h-[35px] w-full object-cover"
-                  src={data.organization.picUrl}
-                  width={60}
-                  height={60}
-                  alt="org-profile"
-                />
-              </div>
-              <p className="text-sm truncate">{data.organization.name}</p>
+                <div
+                  className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
+                  style={{ aspectRatio: "1 / 1" }}
+                >
+                  <Image
+                    className="shrink-0 h-full w-full object-cover"
+                    src={data.organization.picUrl}
+                    width={60}
+                    height={60}
+                    alt="org-profile"
+                  />
+                </div>
+                <span className="line-clamp-1 text-base hover:text-orange-dark">
+                  {data.organization.name}
+                </span>
+              </Link>
             </div>
           )}
           <p className="font-medium text-lg line-clamp-1">{name}</p>

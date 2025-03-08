@@ -2,12 +2,7 @@ import { formatDateRange } from "@/lib/utils";
 import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import React from "react";
-import {
-  // IoCalendarSharp,
-  IoLocationSharp,
-  // IoTimeOutline,
-} from "react-icons/io5";
-// import Badge from "./Badge";
+import { IoLocationSharp } from "react-icons/io5";
 
 interface EventCardProps {
   title: string;
@@ -17,6 +12,7 @@ interface EventCardProps {
   endTime?: string;
   location: string;
   imgUrl: string;
+  orgId: number;
   orgName: string;
   orgPicUrl: string;
   cardId: string;
@@ -30,6 +26,7 @@ export default function EventCard({
   // endTime,
   location,
   imgUrl,
+  orgId,
   orgName,
   orgPicUrl,
   cardId,
@@ -39,7 +36,8 @@ export default function EventCard({
     <div className="flex flex-col gap-1">
       {showOrg && (
         <div className="flex flex-row gap-2 justify-start items-center h-auto w-full pr-3">
-          <div
+          <Link
+            href={`/orgs/${orgId}/org-detail`}
             className="h-auto w-[20%] max-w-[45px] overflow-hidden rounded-full bg-[#F5F5F5]"
             style={{ aspectRatio: "1 / 1" }}
           >
@@ -50,9 +48,14 @@ export default function EventCard({
               height={300}
               alt="org-profile"
             />
-          </div>
-          <div className="font-regular text-xs md:text-sm flex-grow min-w-0 line-clamp-1 break-words">
-            {orgName}
+          </Link>
+          <div className="font-regular text-xs md:text-sm flex-grow min-w-0 line-clamp-1 break-words ">
+            <Link
+              href={`/orgs/${orgId}/org-detail`}
+              className="hover:text-orange-dark"
+            >
+              {orgName}
+            </Link>
           </div>
         </div>
       )}
@@ -92,7 +95,7 @@ export default function EventCard({
             </div>
           </div> */}
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
-            <IoLocationSharp className="w-3 h-3 md:w-4 md:h-4 text-orange-dark" />
+            <IoLocationSharp className="shrink-0 w-3 h-3 md:w-4 md:h-4 text-orange-dark" />
             <div className="line-clamp-1 font-light text-xs md:text-sm">
               {location !== "" ? location : "ไม่ระบุ"}
             </div>

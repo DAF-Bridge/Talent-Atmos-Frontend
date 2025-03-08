@@ -1,3 +1,4 @@
+import NotFoundSVG from "@/components/page/NotFound";
 import { Button } from "@/components/ui/button";
 import { getJobDescription } from "@/features/jobs/api/action";
 import { JobDescriptionPage } from "@/lib/types";
@@ -5,7 +6,7 @@ import { formatRelativeTime } from "@/lib/utils";
 import {
   Calendar,
   MapPin,
-  Clock,
+  // Clock,
   DollarSign,
   Briefcase,
   Users,
@@ -17,13 +18,27 @@ export default async function JobPage({
   params,
 }: Readonly<{ params: { jobId: string; locale: string } }>) {
   const job: JobDescriptionPage = await getJobDescription(params.jobId);
+
+  if (!job) {
+    return <NotFoundSVG />;
+  }
+
   return (
     <main className="container mx-auto sm:py-8 mt-[65px]">
       <div className="bg-white rounded-lg sm:shadow-md max-w-4xl mx-auto sm:drop-shadow-md">
         <div className="p-6">
           <h1 className="text-2xl md:text-3xl font-bold">{job.title}</h1>
           <div className="mb-6 text-sm text-gray-500">
-            Last updated: {formatRelativeTime(job.UpdatedAt, params.locale)}
+            <Link
+              href={`/orgs/${job.organization.id}/org-detail`}
+              className="underline hover:text-gray-700"
+            >
+              {job.organization.name}
+            </Link>
+            <span className="text-lg mx-2">•</span>
+            <span className="text-xs font-light">
+              Last updated: {formatRelativeTime(job.updatedAt, params.locale)}
+            </span>
           </div>
 
           <div className="grid grid-cols-2 gap-4 mb-6">
@@ -37,12 +52,12 @@ export default async function JobPage({
               <MapPin className="text-primary shrink-0" />
               <span className="text-sm text-gray-700">{job.workplace}</span>
             </div>
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <Clock className="text-primary shrink-0" />
               <span className="text-sm text-gray-700">
                 {job.hoursPerDay} hours/day
               </span>
-            </div>
+            </div> */}
             <div className="flex items-center gap-2">
               <Calendar className="text-primary shrink-0" />
               <span className="text-sm text-gray-700">{job.period}</span>

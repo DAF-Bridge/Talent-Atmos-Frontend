@@ -11,7 +11,7 @@ export default async function OrgEventsPage({
 
   return (
     <Suspense fallback={<Spinner />}>
-      {events.length > 0 ? (
+      {events.length > 0 && events ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-12  gap-x-[5%] lg:gap-x-[3%]">
           {events.map((event) => (
             <EventCard
@@ -24,8 +24,9 @@ export default async function OrgEventsPage({
               endTime={event.endTime}
               location={event.locationName}
               imgUrl={event.picUrl}
-              orgName="มหาวิทยาลัยเชียงใหม่"
-              orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
+              orgId={event.organization.id}
+              orgName={event.organization.name}
+              orgPicUrl={event.organization.picUrl}
               showOrg={false}
             />
           ))}
