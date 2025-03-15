@@ -1,17 +1,22 @@
 import { screen } from "@testing-library/react";
-import OrgCard from "@/features/orgs/components/OrgCard";
+import { OrganizationCard } from "@/features/orgs/components/OrgCard";
 import { getLangList, renderWithIntl } from "./renderUtilsWithInt";
 
-describe("OrgCard", () => {
+describe("OrganizationCard", () => {
   const langList = getLangList();
 
   langList.forEach((lang) => {
-    test("renders OrgCard component", () => {
+    test("renders OrganizationCard component", () => {
       renderWithIntl(
-        <OrgCard
+        <OrganizationCard
           id={1}
           name="ไทยสตาร์ทอัพ"
-          imgUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
+          pictureUrl={"https://drive.google.com/uc?export=view&id="}
+          province={""}
+          country={""}
+          industries={[]}
+          headline={""}
+          locale={""}
         />,
         { locale: lang }
       );
@@ -19,12 +24,17 @@ describe("OrgCard", () => {
       expect(element).toBeInTheDocument();
     });
 
-    test("renders OrgCard component with different props", () => {
+    test("renders OrganizationCard component with different props", () => {
       renderWithIntl(
-        <OrgCard
+        <OrganizationCard
           id={1}
           name="SEA Bridge Talent"
-          imgUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
+          pictureUrl={"https://drive.google.com/uc?export=view&id="}
+          province={""}
+          country={""}
+          industries={[]}
+          headline={""}
+          locale={""}
         />,
         { locale: lang }
       );
@@ -34,10 +44,15 @@ describe("OrgCard", () => {
 
     test("check if the image is rendered", () => {
       renderWithIntl(
-        <OrgCard
+        <OrganizationCard
           id={1}
           name="SEA Bridge Talent"
-          imgUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
+          pictureUrl={"https://drive.google.com/uc?export=view&id="}
+          province={""}
+          country={""}
+          industries={[]}
+          headline={""}
+          locale={""}
         />,
         { locale: lang }
       );
