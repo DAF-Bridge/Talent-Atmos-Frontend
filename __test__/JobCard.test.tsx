@@ -20,7 +20,19 @@ describe("JobCard", () => {
           orgPicUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
           id={0}
           updatedAt={""}
-          categories={[]}
+          categories={[
+            { value: 1, label: "IT" },
+            { value: 2, label: "เทคโนโลยี" },
+            { value: 3, label: "องค์กร" },
+            { value: 4, label: "งานทดสอบ" },
+          ]}
+          prerequisite={[]}
+          location={""}
+          organization={{
+            id: 0,
+            name: "",
+            picUrl: "",
+          }}
         />,
         { locale: lang }
       ); // ARRANGE
@@ -42,7 +54,19 @@ describe("JobCard", () => {
           orgPicUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
           id={0}
           updatedAt={""}
-          categories={["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"]}
+          categories={[
+            { value: 1, label: "IT" },
+            { value: 2, label: "เทคโนโลยี" },
+            { value: 3, label: "องค์กร" },
+            { value: 4, label: "งานทดสอบ" },
+          ]}
+          prerequisite={[]}
+          location={""}
+          organization={{
+            id: 0,
+            name: "",
+            picUrl: "",
+          }}
         />,
         { locale: lang }
       );
@@ -64,7 +88,19 @@ describe("JobCard", () => {
           orgPicUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
           id={0}
           updatedAt={""}
-          categories={["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"]}
+          categories={[
+            { value: 1, label: "IT" },
+            { value: 2, label: "เทคโนโลยี" },
+            { value: 3, label: "องค์กร" },
+            { value: 4, label: "งานทดสอบ" },
+          ]}
+          prerequisite={[]}
+          location={""}
+          organization={{
+            id: 0,
+            name: "",
+            picUrl: "",
+          }}
         />,
         { locale: lang }
       );
@@ -86,7 +122,19 @@ describe("JobCard", () => {
           orgPicUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
           id={0}
           updatedAt={""}
-          categories={["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"]}
+          categories={[
+            { value: 1, label: "IT" },
+            { value: 2, label: "เทคโนโลยี" },
+            { value: 3, label: "องค์กร" },
+            { value: 4, label: "งานทดสอบ" },
+          ]}
+          prerequisite={[]}
+          location={""}
+          organization={{
+            id: 0,
+            name: "",
+            picUrl: "",
+          }}
         />,
         { locale: lang }
       );
