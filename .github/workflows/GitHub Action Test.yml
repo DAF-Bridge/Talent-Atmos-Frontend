@@ -40,6 +40,10 @@ jobs:
       - name: Run tests
         id: test
         run: npm test
+        env:
+          NEXT_PUBLIC_S3_BUCKET1: ${{ secrets.NEXT_PUBLIC_S3_BUCKET1 }}
+          NEXT_PUBLIC_S3_BUCKET2: ${{ secrets.NEXT_PUBLIC_S3_BUCKET2 }}
+          NEXT_PUBLIC_S3_BUCKET3: ${{ secrets.NEXT_PUBLIC_S3_BUCKET3 }}
         continue-on-error: true
 
       - name: Check test result
@@ -136,7 +140,7 @@ jobs:
         run: echo "Docker image successfully pushed to GitHub Container Registry"
 
   notify:
-    needs: build
+    needs: [build, deploy]
     runs-on: ubuntu-latest
     steps:
       - name: Send Discord notification
