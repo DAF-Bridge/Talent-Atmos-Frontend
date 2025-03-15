@@ -5,7 +5,6 @@ import { Link } from "@/i18n/routing";
 import { useState } from "react";
 import NormalMenu from "./NormalMenu";
 import CompactNormalMenu from "./CompactNormalMenu";
-import AvatarProfile from "./PCAvatar";
 import MobileAvatar from "./MobileAvatar";
 import LangSwitcher from "@/components/common/LangSwitcher";
 
@@ -54,12 +53,12 @@ export default function NavigationBar() {
               <LangSwitcher />
             </div>
             {/* Login/Signup Button */}
-            <div className="hidden md:flex md:items-center space-x-4 ">
+            {/* <div className="hidden md:flex md:items-center space-x-4 ">
               <AvatarProfile />
-            </div>
+            </div> */}
 
             {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center">
+            {/* <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsMiniMenuOpen(!isMiniMenuOpen)}
                 className="text-black focus:outline-none"
@@ -83,7 +82,7 @@ export default function NavigationBar() {
                   />
                 </svg>
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

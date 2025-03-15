@@ -10,8 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, TSignUpSchema } from "@/lib/types";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
-import { formatInternalUrl } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
+import { signUp } from "@/features/auth/api/action";
 
 export default function SignUpPage() {
   const { setAuthState } = useAuth();
@@ -46,59 +46,40 @@ export default function SignUpPage() {
     const loadingToastId = toast.loading("รอสักครู่...");
 
     try {
-      // Send POST request to Next API
-      const apiUrl = formatInternalUrl("/api/signup");
-      const response = await fetch(apiUrl, {
-        cache: "no-store",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const result = await signUp(data);
 
       // On-Recieve Response : Dismiss the loading toast once we have a response
       toast.dismiss(loadingToastId);
 
-      // if the response if ok redirect to home, if not, show error toast
-      if (response.ok) {
-        setAuthState(); // Update the auth state globally
+      if (result.status === 400) {
+        Object.entries(result.errors).forEach(([key, message]) => {
+          setError(key as keyof TSignUpSchema, {
+            type: "server",
+            message: message as string,
+          });
+        });
+        return;
+      }
+
+      if (result.success) {
+        // Await the full auth state setup
+        setAuthState();
         const successToastId = toast.success("ลงทะเบียนสําเร็จ");
+
         // Delay the redirect to show the toast
         setTimeout(() => {
           toast.dismiss(successToastId); // Clear the success toast
           router.push("/"); // Redirect to home
-        }, 1500); // Delay of 1.5 seconds for users to see the success message
+        }, 1000); // Delay of 1.5 seconds for users to see the success message
         return;
       } else {
-        // if the server validation caught an error
-        const responseData = await response.json();
-
-        // set the errors to each field
-        if (responseData.errors) {
-          const errors = responseData.errors;
-
-          if (responseData.status === 400) {
-            Object.entries(responseData.errors).forEach(([key, message]) => {
-              setError(key as keyof TSignUpSchema, {
-                type: "server",
-                message: message as string,
-              });
-            });
-          } else {
-            const errorMessage =
-              typeof errors === "string"
-                ? errors
-                : "An unknown error occurred.";
-            toast.error(errorMessage);
-          }
-        }
+        throw new Error(result.error);
       }
     } catch (error) {
       // if fail to sent request to server
       toast.dismiss();
-      toast.error("เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");
-      console.error(error);
+      toast.error(error instanceof Error ? error.message : "เกิดข้อผิดพลาด");
+      console.error("Login error:", error);
     }
   };
 

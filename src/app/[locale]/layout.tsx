@@ -7,6 +7,7 @@ import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import { LanguageCode } from "@/lib/types";
+import GoogleAuthProvider from "@/context/GoogleOAuthProvider";
 
 const APP_NAME = "Talents Atmos";
 const APP_DEFAULT_TITLE = "Talents Atmos";
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     template: APP_TITLE_TEMPLATE,
   },
   icons: {
-    icon: "/icon/head.svg"
+    icon: "/icon/head.svg",
   },
   description: APP_DESCRIPTION,
   manifest: "/manifest.json",
@@ -77,7 +78,9 @@ export default async function RootLayout({
       <body className="bg-cream-bg">
         <NextIntlClientProvider messages={messages}>
           <Toaster />
-          <AuthProvider>{children}</AuthProvider>
+          <GoogleAuthProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </GoogleAuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

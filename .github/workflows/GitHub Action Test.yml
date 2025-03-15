@@ -40,6 +40,10 @@ jobs:
       - name: Run tests
         id: test
         run: npm test
+        env:
+          NEXT_PUBLIC_S3_BUCKET1: ${{ secrets.NEXT_PUBLIC_S3_BUCKET1 }}
+          NEXT_PUBLIC_S3_BUCKET2: ${{ secrets.NEXT_PUBLIC_S3_BUCKET2 }}
+          NEXT_PUBLIC_S3_BUCKET3: ${{ secrets.NEXT_PUBLIC_S3_BUCKET3 }}
         continue-on-error: true
 
       - name: Check test result
@@ -53,13 +57,31 @@ jobs:
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }} # API in Netlify || produciton mode
           NEXT_PUBLIC_GO_API_URL: ${{ secrets.NEXT_PUBLIC_GO_API_URL }} # API in development mode
+          NEXT_PUBLIC_S3_BUCKET1: ${{ secrets.NEXT_PUBLIC_S3_BUCKET1 }}
+          NEXT_PUBLIC_S3_BUCKET2: ${{ secrets.NEXT_PUBLIC_S3_BUCKET2 }}
+          NEXT_PUBLIC_S3_BUCKET3: ${{ secrets.NEXT_PUBLIC_S3_BUCKET3 }}
         continue-on-error: true
 
       - name: Check build result
         if: ${{ steps.build.outcome != 'success' }}
         run: echo "Build stage failed."
         id: build_failed # Marks the build as failed if this block executes
-     
+
+    outputs:
+      test_status: ${{ steps.test.outcome }}
+      build_status: ${{ steps.build.outcome }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: ${{ needs.build.outputs.build_status == 'success' }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{secrets.GH_PAT}}
+
       - name: Deploy to Netlify
         id: deploy
         uses: nwtgck/actions-netlify@v2
@@ -76,19 +98,62 @@ jobs:
         continue-on-error: true
 
     outputs:
-      test_status: ${{ steps.test.outcome }}
-      build_status: ${{ steps.build.outcome }}
       deploy_status: ${{ steps.deploy.outcome }}
 
+  container_build_push:
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    if: ${{ needs.build.outputs.build_status == 'success' && needs.build.outputs.test_status == 'success' }}
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and Push Docker Image
+        run: |
+          IMAGE_NAME=ghcr.io/$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
+          TAG=latest
+          COMMIT_HASH=${{ github.sha }}
+
+          VERSION_TAG=$IMAGE_NAME:$COMMIT_HASH
+
+          docker build -t $IMAGE_NAME:$TAG -t $VERSION_TAG .
+          docker push $IMAGE_NAME:$TAG
+          docker push $VERSION_TAG
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          NEXT_PUBLIC_GO_API_URL: ${{ secrets.NEXT_PUBLIC_GO_API_URL }}
+          NEXT_PUBLIC_S3_BUCKET1: ${{ secrets.NEXT_PUBLIC_S3_BUCKET1 }}
+          NEXT_PUBLIC_S3_BUCKET2: ${{ secrets.NEXT_PUBLIC_S3_BUCKET2 }}
+          NEXT_PUBLIC_S3_BUCKET3: ${{ secrets.NEXT_PUBLIC_S3_BUCKET3 }}
+
+      - name: Notify on Success
+        if: ${{ steps.container_build_push.outcome == 'success' }}
+        run: echo "Docker image successfully pushed to GitHub Container Registry"
+
   notify:
-    needs: build
+    needs: [build, deploy]
     runs-on: ubuntu-latest
     steps:
       - name: Send Discord notification
         run: |
           TEST_STATUS="${{ needs.build.outputs.test_status }}"
           BUILD_STATUS="${{ needs.build.outputs.build_status }}"
-          DEPLOY_STATUS="${{ needs.build.outputs.deploy_status }}"
+          DEPLOY_STATUS="${{ needs.deploy.outputs.deploy_status }}"
 
           if [ "$TEST_STATUS" != "success" ] && [ "$BUILD_STATUS" != "success" ] && [ "$DEPLOY_STATUS" != "success" ]; then
             STAGE="All"  
@@ -112,7 +177,7 @@ jobs:
             "username": "GitHub Actions",
             "embeds": [{
               "title": "Workflow $STATUS - $STAGE Stage",
-              "description": "Workflow: ${{ github.workflow }}\nActor: ${{ github.actor }}\nGithub-Commit-Head: ${{ github.sha }}\nBranch: ${{ github.ref_name }}\nRepository: ${{ github.repository }}\nCommit-msg: ${{ github.event.head_commit.message }}\nStatus: $STATUS\n[View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+              "description": "Workflow: **${{ github.workflow }}**\\nActor: ${{ github.actor }}\nGithub-Commit-Head: ${{ github.sha }}\nBranch: **${{ github.ref_name }}**\\nRepository: **${{ github.repository }}**\\nCommit-msg: ${{ github.event.head_commit.message }}\nStatus: $STATUS\n[View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
               "color": $(if [ "$STATUS" == "success" ]; then echo "3066993"; else echo "15158332"; fi)
             }]
           }

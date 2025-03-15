@@ -1,17 +1,17 @@
 "use client";
 
-import React, {
+import {
   createContext,
   useState,
   useEffect,
   useContext,
-  ReactNode,
+  type ReactNode,
   useMemo,
   useCallback,
 } from "react";
-import { AuthContextType, UserProfile } from "@/lib/types";
-import { formatExternalUrl } from "@/lib/utils";
-import Cookie from "js-cookie";
+import type { AuthContextType, UserProfile } from "@/lib/types";
+import toast from "react-hot-toast";
+import { getCurrentUser, logOut } from "@/features/auth/api/action";
 
 const AuthContext = createContext<AuthContextType>({
   isAuth: null,
@@ -24,74 +24,59 @@ const AuthContext = createContext<AuthContextType>({
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuth, setIsAuth] = useState<boolean | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [isHydrated, setIsHydrated] = useState(false); // Track hydration state
+  const [loading, setLoading] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   const fetchUserProfile = useCallback(async () => {
+    setLoading(true);
     try {
-      const apiUrl = formatExternalUrl("/current-user-profile");
-
-      const response = await fetch(apiUrl, {
-        cache: "no-store", // More aggressive no-cache
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // Ensures cookies are sent with the request
-      });
-
-      if (!response.ok) throw new Error("Unauthorized");
-
-      const data: UserProfile = await response.json();
-      setUserProfile(data);
+      const result = await getCurrentUser();
+      if (!result.success) {
+        throw new Error(result.error);
+      }
+      setUserProfile(result.data);
       setIsAuth(true);
-      // Set a flag cookie when authentication is successful
-      Cookie.set("hasAuth", "true", { path: "/", sameSite: "strict" });
     } catch (err) {
       console.error(err);
+      setUserProfile(null);
       setIsAuth(false);
-      // Remove the flag cookie on authentication failure
-      Cookie.remove("hasAuth", { path: "/" });
     } finally {
       setLoading(false);
     }
   }, []);
 
-  const checkAuthFlag = useCallback(() => {
-    return Cookie.get("hasAuth") === "true";
-  }, []);
-
   useEffect(() => {
     const initializeAuth = async () => {
-      // Ensure the component is hydrated
       setIsHydrated(true);
 
-      // Only fetch if there's an indication of authentication
-      if (checkAuthFlag()) {
+      try {
         await fetchUserProfile();
-      } else {
+      } catch (error) {
         setIsAuth(false);
-        setLoading(false);
+        setUserProfile(null);
       }
     };
 
     initializeAuth();
-  }, [fetchUserProfile, checkAuthFlag]);
+  }, [fetchUserProfile]);
 
+  // will set auth state if fetchUserProfile is complete
   const setAuthState = useCallback(async () => {
-    setIsAuth(true);
-    fetchUserProfile();
+    await fetchUserProfile();
   }, [fetchUserProfile]);
 
   const removeAuthState = useCallback(async () => {
-    await fetch(formatExternalUrl("/logout"), {
-      method: "POST",
-      credentials: "include",
-    });
-    setIsAuth(false);
-    setUserProfile(null);
+    const result = await logOut();
+    if (result.success) {
+      setIsAuth(false);
+      setUserProfile(null);
+      window.location.href = "/";
+    } else {
+      console.log("Logout Failed");
+      toast.error("Logout Failed");
+    }
   }, []);
 
-  // Wrap the context value in useMemo to avoid unnecessary recalculations
   const contextValue = useMemo(
     () => ({
       isAuth,
@@ -103,9 +88,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     [isAuth, userProfile, loading, setAuthState, removeAuthState]
   );
 
-  // Delay rendering until hydrated
   if (!isHydrated) {
-    return null; // Prevent rendering during SSR
+    return null;
   }
 
   return (

@@ -1,27 +1,17 @@
 import EventCard from "@/components/common/EventCard";
 import Spinner from "@/components/ui/spinner";
+import { getAllOrgsEvents } from "@/features/orgs/api/action";
 import { Event } from "@/lib/types";
-import { formatExternalUrl } from "@/lib/utils";
 import React, { Suspense } from "react";
 
-export default async function page() {
-  const apiUrl = formatExternalUrl("/events");
-  let events: Event[] = [];
+export default async function OrgEventsPage({
+  params,
+}: Readonly<{ params: { orgId: string } }>) {
+  const events: Event[] = await getAllOrgsEvents(params.orgId);
 
-  try {
-    const response = await fetch(apiUrl, { cache: "no-cache" });
-
-    if (!response.ok) {
-      throw new Error(`API call failed with status: ${response.status}`);
-    }
-
-    events = await response.json();
-  } catch (error) {
-    console.error("Error fetching events:", error);
-  }
   return (
     <Suspense fallback={<Spinner />}>
-      {events.length > 0 ? (
+      {events.length > 0 && events ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-12  gap-x-[5%] lg:gap-x-[3%]">
           {events.map((event) => (
             <EventCard
@@ -32,11 +22,13 @@ export default async function page() {
               endDate={event.endDate}
               startTime={event.startTime}
               endTime={event.endTime}
-              location={event.location}
+              location={event.locationName}
               imgUrl={event.picUrl}
-              orgName="มหาวิทยาลัยเชียงใหม่"
-              orgPicUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
+              orgId={event.organization.id}
+              orgName={event.organization.name}
+              orgPicUrl={event.organization.picUrl}
               showOrg={false}
+              categories={event.categories}
             />
           ))}
         </div>
@@ -46,7 +38,8 @@ export default async function page() {
             ไม่พบอีเว้นท์
           </p>
           <p className="text-gray-500">
-          องค์กรนี้ยังไม่เคยให้ข้อมูลเกี่ยวกับกิจกรรม หรือยังไม่เคยจัดกิจกรรมใด ๆ มาก่อน
+            องค์กรนี้ยังไม่เคยให้ข้อมูลเกี่ยวกับกิจกรรม
+            หรือยังไม่เคยจัดกิจกรรมใด ๆ มาก่อน
           </p>
         </div>
       )}

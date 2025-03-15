@@ -1,30 +1,44 @@
+import { getOrgsDescription } from "@/features/orgs/api/action";
 import OrgTab from "@/features/orgs/components/OrgTab";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 interface OrgPageLayoutProps {
   params: { orgId: string };
   children: React.ReactNode;
 }
 
+type OrgTabsProps = {
+  name: string;
+  picUrl: string;
+  bgUrl: string;
+  headline: string;
+};
 
-export default function OrgPageLayout({
+export default async function OrgPageLayout({
   children,
   params,
 }: Readonly<OrgPageLayoutProps>) {
   const { orgId } = params;
+  const data: OrgTabsProps = await getOrgsDescription(orgId);
+
+  if (!data) {
+    notFound();
+  }
+
+  const { name, picUrl, headline, bgUrl } = data;
+
   return (
     <div className="max-w-[1170px] mx-auto px-6 mt-[90px] sm:mt-[77px] pb-16">
       <div className="relative">
         <div className="hidden sm:block w-full h-[150px] sm:h-[200px] rounded-[20px] overflow-hidden">
-          <Image
+          {bgUrl && <Image
             className="w-full h-full object-cover"
-            src={
-              "https://drive.google.com/uc?export=view&id=1qOsmXXIF7qUOzv9RKNxkZGdOSmpKymxL"
-            }
+            src={bgUrl}
             height={800}
             width={1000}
             alt={"organization-background-image"}
-          />
+          />}
         </div>
         <div className="relative sm:absolute -bottom-[90%] sm:-bottom-[50%] left-0 ">
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 justify-center items-center">
@@ -34,9 +48,7 @@ export default function OrgPageLayout({
             >
               <Image
                 className="w-full h-full object-cover"
-                src={
-                  "https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-                }
+                src={picUrl || "https://via.placeholder.com/150"}
                 height={500}
                 width={500}
                 alt={"organization-background-image"}
@@ -44,11 +56,10 @@ export default function OrgPageLayout({
             </div>
             <div className="flex flex-col sm:mt-11 text-center sm:text-left">
               <p className="text-lg sm:text-2xl font-medium line-clamp-1">
-                builds มหาวิทยาลัยเชียงใหม่ {orgId}
+                {name}
               </p>
               <p className="text-sm sm:text-base font-light line-clamp-2">
-                Startup & Entrepreneurial Program
-                โปรแกรมการสร้างสตาร์ทอัพและผู้ประกอบการ มหาวิทยาลัยเชียงใหม่
+                {headline}
               </p>
             </div>
           </div>
@@ -57,7 +68,9 @@ export default function OrgPageLayout({
       <div className="mt-[10px] sm:mt-[120px] w-full">
         <OrgTab />
       </div>
-      <div className="flex flex-col gap-[60px] mt-8 min-h-[10vh]">{children}</div>
+      <div className="flex flex-col gap-[60px] mt-8 min-h-[10vh]">
+        {children}
+      </div>
     </div>
   );
 }

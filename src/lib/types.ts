@@ -31,14 +31,7 @@ export const signupSchema = z
 
 export type TSignUpSchema = z.infer<typeof signupSchema>;
 
-export const loginSchema = z.object({
-  email: z.string().email({ message: "กรุณากรอกอีเมล" }),
-  password: z.string().min(1, { message: "กรุณากรอกรหัสผ่าน" }),
-});
-
-export type TLogInSchema = z.infer<typeof loginSchema>;
-
-export type Event = {
+export interface Event {
   id: number;
   name: string;
   startDate: string;
@@ -46,81 +39,100 @@ export type Event = {
   startTime: string;
   endTime: string;
   picUrl: string;
-  location: string;
+  locationName: string;
+  locationType: string;
+  province: string;
+  country: string;
+  audience: string;
+  latitude: number | null;
+  longitude: number | null;
+  price: string;
+  categories: { value: number; label: string }[];
+  organization: {
+    id: number;
+    name: string;
+    picUrl: string;
+  };
+  updatedAt: string;
+}
+
+export interface EventDescriptionProps {
+  id: number;
+  name: string;
+  content: string;
+  startDate: string;
+  endDate?: string;
+  startTime: string;
+  endTime?: string;
+  priceType: string;
+  picUrl: string;
+  locationName: string;
   latitude: number;
   longitude: number;
-  price: string;
-  category: string;
+  contactChannels: { media: string; mediaLink: string }[];
+  registerLink: string;
   organization: {
     id: number;
     name: string;
     picUrl: string;
   };
-};
-
-export type EventDescriptionProps = {
-  event: {
-    id: number;
-    name: string;
-    description: string;
-    startDate: string;
-    endDate?: string;
-    startTime: string;
-    endTime?: string;
-    price: string;
-    picUrl: string;
-    highlight: string;
-    requirements: string;
-    outcomes: Array<string>;
-    timeline: Array<{ date: string; content: string }>;
-    benefits: Array<string>;
-    location: {
-      name: string;
-      map_url: string;
-      image_url: string;
-      lat: number;
-      lng: number;
-    };
-    contact: Array<{ type: string; url: string }>;
-    regLink: string;
-  };
-  organization: {
-    id: number;
-    name: string;
-    picUrl: string;
-  };
-};
+}
 
 export type BriefOrganization = {
   name: string;
   imgUrl: string;
 };
 
-export type Organization = {
+export interface Organization {
   id: number;
   pic_url: string;
   name: string;
-  description: string;
+  headline: string;
   latitude: number;
   longitude: number;
-  industry: string[];
-};
+  industries: string[];
+}
 
-export type Job = {
-  orgName: string;
-  imgUrl: string;
-  jobTitle: string;
-  location: string;
-};
-
-export type UserProfile = {
-  ID: number;
-  fname: string;
-  lname: string;
+export interface OrganizationDescription {
+  id: number;
+  name: string;
   email: string;
   phone: string;
-  pic_url: string;
-  user_id: number;
+  picUrl: string;
+  bgUrl: string;
+  headline: string;
+  specialty: string;
+  description: string;
+  address: string;
+  province: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+  organizationContacts: [
+    {
+      media: string;
+      mediaLink: string;
+    }
+  ];
+  industries: [
+    {
+      id: number;
+      name: string;
+    }
+  ];
+  updatedAt: string;
+}
+
+export type UserProfile = {
+  id: number; // userID
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  picUrl: string;
+  language: string;
+  role: string;
+  updatedAt: string;
 };
 
 export type AuthContextType = {
@@ -146,24 +158,74 @@ export type Category = {
     | "exhibition"
     | "competition"
     | "workshop"
-    | "campaign";
+    | "campaign"
+    | "environment"
+    | "social"
+    | "governance";
   title: string;
 };
 
 export type LanguageCode = "th" | "en";
 
 export interface JobCardProps {
+  id: number;
   title: string;
+  orgPicUrl: string;
+  prerequisite: string[];
   description: string;
-  work_type: string;
+  location: string;
   workplace: string;
-  career_stage: string;
+  workType: string;
+  careerStage: string;
+  salary: number;
+  categories: {
+    value: number;
+    label: string;
+  }[];
+  organization: {
+    id: number;
+    name: string;
+    picUrl: string;
+  };
   province: string;
   country: string;
-  salary: string;
-  imgUrl?: string;
-  updatedDate: string;
-  orgName?: string;
-  industry: string[];
-  isBooked?: boolean;
+  updatedAt: string;
+}
+
+export interface JobDescriptionPage {
+  id: number;
+  title: string;
+  description: string;
+  orgPicUrl: string;
+  scope: string;
+  prerequisite: [
+    {
+      value: number;
+      title: string;
+      link: string;
+    }
+  ];
+  workplace: string;
+  workType: string;
+  careerStage: string;
+  period: string;
+  qualifications: string;
+  quantity: number;
+  salary: number;
+  province: string;
+  country: string;
+  status: string;
+  registerLink: string;
+  organization: {
+    id: number;
+    name: string;
+    picUrl: string;
+  };
+  categories: [
+    {
+      value: number;
+      label: string;
+    }
+  ];
+  updatedAt: string;
 }

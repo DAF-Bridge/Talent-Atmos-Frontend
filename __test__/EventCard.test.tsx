@@ -19,6 +19,7 @@ describe("EventCard", () => {
           orgName="องค์กรทดสอบ"
           orgPicUrl="https://drive.google.com/uc?export=view&id=1-wqxOT_uo1pE_mEPHbJVoirMMH2Be3Ks"
           cardId="1"
+          orgId={0}
         />,
         { locale: lang }
       );

@@ -1,9 +1,5 @@
 import StaticMap from "@/components/ui/StaticMap";
-import {
-  formatDateRange,
-  formatInternalUrl,
-  formatTimeRange,
-} from "@/lib/utils";
+import { formatDateRange, formatTimeRange } from "@/lib/utils";
 import {
   IoCalendarSharp,
   IoLocationSharp,
@@ -11,10 +7,17 @@ import {
 } from "react-icons/io5";
 import Image from "next/image";
 import React from "react";
-import { notFound } from "next/navigation";
 import { EventDescriptionProps } from "@/lib/types";
-import TimelineAccordion from "@/features/events/components/TimelineAccordion";
 import RegBtn from "@/features/events/components/regBtn";
+import { getEventDescription } from "@/features/events/api/action";
+import parse, {
+  domToReact,
+  HTMLReactParserOptions,
+  Element,
+  DOMNode,
+} from "html-react-parser";
+import { Link } from "@/i18n/routing";
+import NotFoundSVG from "@/components/page/NotFound";
 
 export default async function EventDescription({
   params,
@@ -22,36 +25,61 @@ export default async function EventDescription({
   params: { eventId: string }; // Accept event ID from URL params
 }>) {
   const { eventId } = params;
-  const apiUrl = formatInternalUrl("/api/event/" + eventId);
-  const res = await fetch(apiUrl, {
-    cache: "no-cache",
-  });
+  const data: EventDescriptionProps = await getEventDescription(eventId);
+  console.log(data);
 
-  if (!res.ok) {
-    notFound();
+  if (!data) {
+    return <NotFoundSVG />;
   }
-
-  const data: EventDescriptionProps = await res.json();
 
   const {
     // id,
     name,
-    description,
+    content,
     startDate,
     endDate,
     startTime,
     endTime,
-    // price,
     picUrl,
-    highlight,
-    benefits,
-    requirements,
-    // outcomes,
-    timeline,
-    location,
-    contact,
-    regLink,
-  } = data.event;
+    locationName,
+    latitude,
+    longitude,
+    contactChannels,
+    registerLink,
+  } = data;
+
+  const options: HTMLReactParserOptions = {
+    replace(domNode) {
+      // Check if domNode is an instance of Element and has attribs
+      if (domNode instanceof Element && domNode.attribs) {
+        const { name, children } = domNode;
+
+        if (name === "ul") {
+          return (
+            <ul className="list-disc ml-5">
+              {domToReact(children as DOMNode[], options)}
+            </ul>
+          );
+        }
+
+        if (name === "ol") {
+          return (
+            <ol className="list-decimal ml-5">
+              {domToReact(children as DOMNode[], options)}
+            </ol>
+          );
+        }
+
+        if (name === "p") {
+          return (
+            <p className="mb-4">{domToReact(children as DOMNode[], options)}</p>
+          );
+        }
+
+        // Add more custom replacements as needed
+      }
+    },
+  };
 
   return (
     <section className="font-prompt relative h-full w-full mt-[60px]">
@@ -66,21 +94,30 @@ export default async function EventDescription({
         {/* Tablet and PC Poster */}
         <div className="flex justify-center items-center h-full lg:w-[90%] xl:w-[80%] mx-auto px-4 py-4 drop-shadow-lg">
           <div className="hidden md:flex flex-col gap-3 justify-center  h-full md:max-w-[50%] rounded-l-[10px] px-3 md:px-6 lg:px-10 md:bg-white">
-            <div className="flex justify-start items-center gap-2">
-              <div
-                className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
-                style={{ aspectRatio: "1 / 1" }}
-              >
-                <Image
-                  className="shrink-0 h-full w-full object-cover"
-                  src={data.organization.picUrl}
-                  width={60}
-                  height={60}
-                  alt="org-profile"
-                />
+            {(data.organization.name || data.organization.picUrl) && (
+              <div className="flex justify-start items-center gap-2">
+                <Link
+                  href={`/orgs/${data.organization.id}/org-detail`}
+                  className="inline-flex justify-start items-center gap-2"
+                >
+                  <div
+                    className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
+                    style={{ aspectRatio: "1 / 1" }}
+                  >
+                    <Image
+                      className="shrink-0 h-full w-full object-cover"
+                      src={data.organization.picUrl}
+                      width={60}
+                      height={60}
+                      alt="org-profile"
+                    />
+                  </div>
+                  <span className="line-clamp-1 text-base hover:text-orange-dark">
+                    {data.organization.name}
+                  </span>
+                </Link>
               </div>
-              <p className="truncate">{data.organization.name}</p>
-            </div>
+            )}
             <p className="font-medium text-2xl lg:text-3xl line-clamp-2">
               {name}
             </p>
@@ -100,7 +137,7 @@ export default async function EventDescription({
               <div className="inline-flex justify-start items-center flex-row gap-3">
                 <IoLocationSharp className="shrink-0 text-orange-dark text-lg" />
                 <p className="line-clamp-2 font-normal sm:text-base md:text-lg">
-                  {location.name !== "" ? location.name : "ไม่ระบุ"}
+                  {locationName !== "" ? locationName : "ไม่ระบุ"}
                 </p>
               </div>
             </div>
@@ -124,21 +161,30 @@ export default async function EventDescription({
           className="flex flex-col gap-3 justify-center items-center  h-full md:max-w-[50%] 
           rounded-l-[10px] px-3 md:px-6 lg:px-10 md:bg-white"
         >
-          <div className="flex justify-start items-center gap-2">
-            <div
-              className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
-              style={{ aspectRatio: "1 / 1" }}
-            >
-              <Image
-                className="shrink-0 h-[35px] w-full object-cover"
-                src={data.organization.picUrl}
-                width={60}
-                height={60}
-                alt="org-profile"
-              />
+          {(data.organization.name || data.organization.picUrl) && (
+            <div className="flex justify-start items-center gap-2">
+              <Link
+                href={`/orgs/${data.organization.id}/org-detail`}
+                className="inline-flex justify-start items-center gap-2"
+              >
+                <div
+                  className="inline-flex h-auto max-w-[40px] overflow-hidden rounded-full"
+                  style={{ aspectRatio: "1 / 1" }}
+                >
+                  <Image
+                    className="shrink-0 h-full w-full object-cover"
+                    src={data.organization.picUrl}
+                    width={60}
+                    height={60}
+                    alt="org-profile"
+                  />
+                </div>
+                <span className="line-clamp-1 text-base hover:text-orange-dark">
+                  {data.organization.name}
+                </span>
+              </Link>
             </div>
-            <p className="text-sm truncate">{data.organization.name}</p>
-          </div>
+          )}
           <p className="font-medium text-lg line-clamp-1">{name}</p>
           <div className="inline-flex flex-col justify-start items-center gap-2 ">
             <div className="flex justify-start items-center flex-row gap-3">
@@ -156,7 +202,7 @@ export default async function EventDescription({
             <div className="inline-flex justify-start items-center flex-row gap-3">
               <IoLocationSharp className="shrink-0 text-orange-dark text-lg" />
               <p className="line-clamp-2 font-normal text-sm">
-                {location.name !== "" ? location.name : "ไม่ระบุ"}
+                {locationName !== "" ? locationName : "ไม่ระบุ"}
               </p>
             </div>
           </div>
@@ -166,102 +212,63 @@ export default async function EventDescription({
         <p className="font-semibold text-xl md:text-2xl mt-[32px]">
           รายละเอียด
         </p>
-        <div className="border w-full mt-[8px] mb-[16px]" />
+        <div className="w-full mt-[8px] mb-[16px]" />
         <div className="flex flex-col gap-[32px] md:gap-[4%] md:flex-row justify-between">
-          <div className="flex flex-col gap-[30px]">
-            {description && (
+          <div className="flex flex-col gap-[30px] w-full">
+            {content && (
               <div className="flex flex-col gap-[10px]">
                 <p className="font-semibold text-xl md:text-2xl">
                   คำอธิบายกิจกรรม
                 </p>
-                <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words">
-                  {description}
-                </pre>
-              </div>
-            )}
-            {highlight && (
-              <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
-                  ไฮไลท์ของกิจกรรม
-                </p>
-                <p className="text-base font-normal">{highlight}</p>
-              </div>
-            )}
-            {requirements && (
-              <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
-                  คุณสมบัติผู้สมัคร
-                </p>
-                <p className="text-base font-normal">{requirements}</p>
-              </div>
-            )}
-            {benefits && (
-              <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
-                  สิ่งที่จะได้รับ
-                </p>
-                <ul className="list-disc pl-6">
-                  {benefits.map((item, index) => (
-                    <li key={index} className="text-base font-normal">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {timeline.length > 0 && (
-              <div className="flex flex-col gap-[10px]">
-                <p className="font-semibold text-xl md:text-2xl mt-[16px]">
-                  ไทม์ไลน์และกำหนดการ
-                </p>
-                <div className="w-[90%]">
-                  <TimelineAccordion timelineArr={timeline} />
+                <div className="font-prompt text-base font-normal whitespace-pre-wrap break-words">
+                  {parse(content, options)}
                 </div>
               </div>
             )}
-            {location.name && (
-              <div className="flex flex-col gap-[10px]">
+
+            {locationName && (
+              <div className="flex flex-col gap-[10px] w-full">
                 <p className="font-semibold text-xl md:text-2xl mt-[16px]">
                   สถานที่
                 </p>
                 <p className="text-base font-normal">
-                  {location.name ?? "ไม่ระบุ"}
+                  {locationName ?? "ไม่ระบุ"}
                 </p>
-                <div
-                  className="w-full md:w-[80%] rounded-[10px] max-w-[519px] bg-slate-500 overflow-hidden"
-                  style={{ aspectRatio: "519 / 365" }}
-                >
-                  {location.lat !== null && location.lng !== null && (
-                    <StaticMap lat={location.lat} lng={location.lng} />
-                  )}
-                </div>
+                {latitude !== null && longitude !== null && (
+                  <div
+                    className="w-full md:w-[80%] rounded-[10px] max-w-[519px] bg-slate-500 overflow-hidden"
+                    style={{ aspectRatio: "519 / 365" }}
+                  >
+                    <StaticMap lat={latitude} lng={longitude} />
+                  </div>
+                )}
               </div>
             )}
-            {contact.length > 0 && (
+            {contactChannels && contactChannels.length > 0 && (
               <div className="flex flex-col gap-[10px]">
                 <p className="font-semibold text-xl md:text-2xl mt-[16px]">
                   ช่องทางติดต่อสอบถาม
                 </p>
-                {contact.map((item, index) => (
+                {contactChannels.map((item, index) => (
                   <p
                     key={index}
                     className="grid grid-cols-10 text-base font-normal"
                   >
                     <span className="col-span-3 md:col-span-2">
-                      {item.type}:
+                      {item.media}:
                     </span>
-                    {item.url.includes("http") ? (
+                    {item.mediaLink.includes("http") ? (
                       <a
-                        href={item.url}
+                        href={item.mediaLink}
                         target="_blank"
                         rel="noreferrer"
                         className="col-span-7 md:col-span-8 underline hover:text-gray-inactive break-words whitespace-normal"
                       >
-                        {item.url}
+                        {item.mediaLink}
                       </a>
                     ) : (
                       <span className="col-span-7 md:col-span-8 break-words whitespace-normal">
-                        {item.url}
+                        {item.mediaLink}
                       </span>
                     )}
                   </p>
@@ -269,7 +276,7 @@ export default async function EventDescription({
               </div>
             )}
           </div>
-          {regLink && (
+          {registerLink && (
             <div className="shrink-0 md:w-[35%]">
               <div
                 className="md:sticky top-[80px] flex flex-col justify-center items-center gap-4 
@@ -279,7 +286,7 @@ export default async function EventDescription({
                   ลงทะเบียน
                 </p>
                 <div className="flex flex-col gap-5 w-full">
-                  <RegBtn url={regLink} />
+                  <RegBtn url={registerLink} />
                 </div>
               </div>
             </div>

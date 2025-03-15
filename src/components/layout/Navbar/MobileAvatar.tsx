@@ -7,8 +7,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import DropDownMenu from "./DropDownMenu";
-import Image from "next/image";
 import { Link } from "@/i18n/routing";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function MobileAvatar() {
   const { isAuth, userProfile, loading } = useAuth();
@@ -43,22 +43,20 @@ export default function MobileAvatar() {
                   style={{ aspectRatio: "1 / 1" }}
                   className="shrink-0 h-[40px] w-[40px] rounded-full overflow-hidden"
                 >
-                  {userProfile?.pic_url && userProfile.pic_url.trim() !== "" ? (
-                    <Image
-                      className="object-cover h-full w-full rounded-full"
-                      src={userProfile?.pic_url}
-                      alt="user"
-                      width={100}
-                      height={100}
+                  <Avatar className="h-full w-full rounded-full">
+                    <AvatarImage
+                      src={userProfile?.picUrl}
+                      alt={userProfile?.firstName}
                     />
-                  ) : (
-                    <div className="flex justify-center items-center h-full w-full bg-slate-200">
-                      {userProfile?.fname[0] + "" + userProfile?.lname[0]}
-                    </div>
-                  )}
+                    <AvatarFallback>
+                      {userProfile?.firstName[0] +
+                        "" +
+                        userProfile?.lastName[0]}
+                    </AvatarFallback>
+                  </Avatar>
                 </div>
                 <div className="w-full text-left">
-                  <p>{userProfile?.fname + " " + userProfile?.lname}</p>
+                  <p>{userProfile?.firstName + " " + userProfile?.lastName}</p>
                 </div>
               </div>
             </AccordionTrigger>

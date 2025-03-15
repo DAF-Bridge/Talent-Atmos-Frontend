@@ -23,7 +23,7 @@ export default function Home() {
             <button
               onClick={() =>
                 window.open(
-                  "https://docs.google.com/forms/d/e/1FAIpQLScypo4gJcWAKZ6l3ONk7LcyLTq0V2gns5Nm8t2znDWJa1e3oQ/viewform?usp=dialog",
+                  "https://docs.google.com/forms/d/e/1FAIpQLScoSWKAD5WRiycqEcIzGKN3vaIP7KgnFtpr7X8BaPJu017PpQ/viewform?usp=dialog",
                   "_blank"
                 )
               }

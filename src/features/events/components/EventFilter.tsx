@@ -131,15 +131,6 @@ export function EventFilter() {
                   </Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="students" id="r2" />
-                  <Label
-                    htmlFor="r2"
-                    className="font-normal hover:cursor-pointer"
-                  >
-                    นักเรียน/นักศึกษา
-                  </Label>
-                </div>
-                <div className="flex items-center space-x-2">
                   <RadioGroupItem value="professionals" id="r3" />
                   <Label
                     htmlFor="r3"

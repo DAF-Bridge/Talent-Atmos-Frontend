@@ -1,3 +1,5 @@
+import { Building2, Leaf, Users } from "lucide-react";
+
 export const WorkTypeEnum = [
   {
     value: "fulltime",
@@ -33,19 +35,23 @@ export const CareerStageEnum = [
 
 export const ESGJobCategory = [
   {
+    icon: Leaf,
     value: "environment",
-    label: "E : สิ่งแวดล้อม",
+    label: "สิ่งแวดล้อม",
   },
   {
+    icon: Users,
     value: "social",
-    label: "S : สังคม",
+    label: "สังคม",
   },
   {
+    icon: Building2,
     value: "governance",
-    label: "G : ธรรมาภิบาล",
+    label: "ธรรมาภิบาล",
   },
-  // {
-  //   value: "normal",
-  //   label: "งานทั่วไป",
-  // },
+  {
+    icon: null,
+    value: "general",
+    label: "งานทั่วไป",
+  },
 ];

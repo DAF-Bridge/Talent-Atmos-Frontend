@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import DropDownMenu from "./DropDownMenu";
-import Image from "next/image";
 import { Link } from "@/i18n/routing";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function PCAvatar() {
   const { isAuth, userProfile, loading } = useAuth();
@@ -58,19 +58,15 @@ export default function PCAvatar() {
               isOpen ? "ring-2 ring-orange-normal ring-offset-1" : ""
             }`}
           >
-            {userProfile?.pic_url && userProfile.pic_url.trim() !== "" ? (
-              <Image
-                className="object-cover h-full w-full"
-                src={userProfile?.pic_url}
-                alt="user"
-                width={100}
-                height={100}
+            <Avatar className="h-full w-full rounded-full">
+              <AvatarImage
+                src={userProfile?.picUrl}
+                alt={userProfile?.firstName}
               />
-            ) : (
-              <div className="flex justify-center items-center h-full w-full bg-slate-100">
-                {userProfile?.fname[0] + "" + userProfile?.lname[0]}
-              </div>
-            )}
+              <AvatarFallback>
+                {userProfile?.firstName[0] + "" + userProfile?.lastName[0]}
+              </AvatarFallback>
+            </Avatar>
           </button>
 
           <div

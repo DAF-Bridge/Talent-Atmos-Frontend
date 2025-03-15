@@ -1,15 +1,19 @@
 import * as React from "react";
-import { Search, SlidersHorizontal } from "lucide-react";
-import OrgCard from "@/features/orgs/components/OrgCard";
+import { OrganizationCard } from "@/features/orgs/components/OrgCard";
+import { Search } from "lucide-react";
+import { getAllOrgs } from "@/features/orgs/api/action";
 
-export default function OrgListingPage() {
+export default async function OrgListingPage({
+  params,
+}: Readonly<{ params: { locale: string } }>) {
+  const orgs = await getAllOrgs();
+  console.log(orgs);
   return (
     <div className="font-prompt max-w-[1170px] mx-auto px-6 pb-5 mt-[100px]">
       <div className="text-center font-semibold text-2xl border-b-2 pb-[11px]">
         <span className="text-black">ค้นหา</span>
         <span className="text-orange-normal"> &quot;องค์กร&quot; </span>
         <span className="text-black">ที่ตอบโจทย์เป้าหมายของคุณ</span>
-        {/* <span className="text-gray-400 text-sm ml-2">({`จำนวนองค์กรทั้งหมด`})</span> */}
       </div>
 
       {/* <div className="border-[1.5px] mt-[26px] border-gray-stroke/70" /> */}
@@ -26,27 +30,40 @@ export default function OrgListingPage() {
             </button>
           </div>
         </div>
-        <button className="flex justify-center items-center border bg-white hover:drop-shadow-md border-gray-stroke rounded-[10px] h-[48px] min-w-[48px] px-3 max-w-[104px] text-gray-btngray">
+        {/* <button className="flex justify-center items-center border bg-white hover:drop-shadow-md border-gray-stroke rounded-[10px] h-[48px] min-w-[48px] px-3 max-w-[104px] text-gray-btngray">
           <SlidersHorizontal className="h-[18px] w-[18px]" />
 
           <span className="hidden sm:block text-sm font-medium ml-2">
             ตัวกรอง
           </span>
-        </button>
+        </button> */}
       </div>
 
       <div className="flex flex-col mt-8">
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-y-[1%] sm:gap-y-[2%] md:gap-y-[4%] gap-x-[3%] md:gap-x-[2%]">
-          {/* display at minimum 12 events per page */}
-          {Array.from({ length: 12 }).map((_, index) => (
-            <OrgCard
-              key={index}
-              name={"org.name"}
-              imgUrl={
-                "https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
-              }
-            />
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-[1%] sm:gap-y-[2%] md:gap-y-[4%] gap-x-[3%] md:gap-x-[2%]">
+          {orgs.map(
+            (org: {
+              headline: string;
+              industries: { id: number; name: string }[];
+              country: string;
+              province: string;
+              id: number;
+              name: string;
+              picUrl: string;
+            }) => (
+              <OrganizationCard
+                id={org.id}
+                key={org.id}
+                name={org.name}
+                pictureUrl={org.picUrl}
+                province={org.province}
+                country={org.country}
+                industries={org.industries}
+                headline={org.headline}
+                locale={params.locale}
+              />
+            )
+          )}
         </div>
       </div>
       {/* <div className="flex justify-center mt-3">

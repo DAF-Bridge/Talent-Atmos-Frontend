@@ -50,6 +50,7 @@ interface MapProps {
   handleCardClick: (org: Organization | Event) => void;
   userLocation?: Coordinate;
   currentTab: string;
+  isLoading: boolean;
 }
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
@@ -62,6 +63,7 @@ const MapComponent: React.FC<MapProps> = ({
   handleCardClick,
   userLocation,
   currentTab,
+  isLoading,
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -95,11 +97,11 @@ const MapComponent: React.FC<MapProps> = ({
     ) {
       setMapCenter(userLocation);
     }
-  }, [userLocation]);
+  }, [userLocation, mapCenter]);
 
   // Initialize the map
   useEffect(() => {
-    if (!mapContainerRef.current) return;
+    if (!mapContainerRef.current || isLoading) return;
 
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -148,6 +150,9 @@ const MapComponent: React.FC<MapProps> = ({
         closeOnClick: true,
       }).setDOMContent(popupNode);
 
+      // don't create marker if lat long is null
+      if (!item.latitude || !item.longitude) return;
+
       const marker = new mapboxgl.Marker({ color: "#FF6400" })
         .setLngLat([item.longitude, item.latitude])
         .setPopup(popup)
@@ -172,7 +177,7 @@ const MapComponent: React.FC<MapProps> = ({
       if (userMarker) userMarker.remove();
       map.remove();
     };
-  }, [data, handleCardClick, mapCenter, userLocation]);
+  }, [data, handleCardClick, mapCenter, userLocation, isLoading]);
 
   // Show popup for the selected organization
   useEffect(() => {
@@ -193,6 +198,7 @@ const MapComponent: React.FC<MapProps> = ({
   useEffect(() => {
     if (selectedItem && mapRef.current) {
       const { latitude, longitude } = selectedItem;
+      if (!latitude || !longitude) return;
       mapRef.current.flyTo({
         center: [longitude, latitude],
         zoom: 14,
