@@ -36,6 +36,7 @@ export default async function EventListingPageComp({
     price,
     maxEventsPerPage,
   });
+  console.log(events);
 
   // calculate total pages
   const totalPages = Math.ceil(totalEvents / maxEventsPerPage);
@@ -49,9 +50,13 @@ export default async function EventListingPageComp({
     "competition",
     "workshop",
     "campaign",
+    "environment",
+    "social",
+    "governance",
   ];
 
   if (!category || !availableCategories.includes(category as Category["id"])) {
+    console.log(availableCategories)
     redirect({
       href: "/events/page/1?category=all",
       locale: params.locale,

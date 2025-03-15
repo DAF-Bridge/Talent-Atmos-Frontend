@@ -11,9 +11,15 @@ import { GrWorkshop } from "react-icons/gr";
 import { CgDisplayGrid } from "react-icons/cg";
 import { MdOutlinedFlag } from "react-icons/md";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Leaf,
+  Users,
+  Building2,
+} from "lucide-react";
 import { IoIosGlobe } from "react-icons/io";
-import { Category } from "@/lib/types";
+import type { Category } from "@/lib/types";
 import LoadingCover from "@/components/common/LoadingCover";
 
 export default function CategoryTab() {
@@ -29,6 +35,21 @@ export default function CategoryTab() {
       icon: <IoIosGlobe />,
       id: "all",
       title: "ทั้งหมด",
+    },
+    {
+      icon: <Leaf className="text-green-500" />,
+      id: "environment",
+      title: "Environment",
+    },
+    {
+      icon: <Users className="text-yellow-500" />,
+      id: "social",
+      title: "Social",
+    },
+    {
+      icon: <Building2 className="text-blue-500" />,
+      id: "governance",
+      title: "Governance",
     },
     {
       icon: <HiOutlineRocketLaunch />,
@@ -92,12 +113,9 @@ export default function CategoryTab() {
 
     startTransition(() => {
       // Construct new path with page/1 and the category parameter
-      router.push(
-        `${basePath}/page/1?${params.toString()}`,
-        {
-          scroll: false,
-        }
-      );
+      router.push(`${basePath}/page/1?${params.toString()}`, {
+        scroll: false,
+      });
       router.refresh();
     });
   };
@@ -122,6 +140,43 @@ export default function CategoryTab() {
     return () => window.removeEventListener("resize", checkScroll);
   }, []);
 
+  // Get category-specific background color when selected
+  const getCategoryBgColor = (categoryId: string) => {
+    const baseStyles = "transition-colors duration-150 ";
+
+    if (currentCategory === categoryId) {
+      switch (categoryId) {
+        case "environment":
+          return baseStyles + "text-green-500";
+        case "social":
+          return baseStyles + "text-yellow-500";
+        case "governance":
+          return baseStyles + "text-blue-500";
+        default:
+          return baseStyles + "text-orange-normal";
+      }
+    }
+
+    switch (categoryId) {
+      case "environment":
+        return (
+          baseStyles +
+          "text-gray-inactive hover:text-green-500"
+        );
+      case "social":
+        return (
+          baseStyles +
+          "text-gray-inactive hover:text-yellow-500"
+        );
+      case "governance":
+        return (
+          baseStyles + "text-gray-inactive hover:text-blue-500"
+        );
+      default:
+        return baseStyles + "text-gray-inactive hover:text-gray-inactive/60";
+    }
+  };
+
   return (
     <div className="relative w-full my-[15px]">
       {showButtons && (
@@ -145,7 +200,7 @@ export default function CategoryTab() {
 
       <div
         ref={scrollContainerRef}
-        className="flex md:grid md:grid-cols-8 overflow-x-auto scrollbar-hide gap-4 px-0 mx-9 md:mx-0"
+        className="flex md:grid md:grid-cols-11 overflow-x-auto scrollbar-hide gap-4 px-0 mx-9 md:mx-0"
         onScroll={checkScroll}
       >
         {categoriesList.map((category) => (
@@ -153,17 +208,13 @@ export default function CategoryTab() {
             onClick={() => handleCategoryClick(category.id)}
             key={category.id}
             className={`flex flex-col justify-start items-center gap-2 
-              min-w-[80px] md:min-w-0 md:w-full rounded-md hover:border
+              min-w-[80px] md:min-w-0 md:w-full rounded-md
               transition-colors duration-150 py-1
-              ${
-                currentCategory === category.id
-                  ? "text-orange-normal border bg-white"
-                  : "text-gray-inactive hover:text-gray-inactive/60"
-              }`}
+              ${getCategoryBgColor(category.id)}`}
           >
             <div className="w-8 h-8 flex items-center justify-center">
               {React.cloneElement(category.icon as React.ReactElement, {
-                className: "w-6 h-6",
+                className: `w-6 h-6`,
               })}
             </div>
             <p className="text-xs md:text-sm font-medium text-center break-words">

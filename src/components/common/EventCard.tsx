@@ -3,6 +3,8 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import React from "react";
 import { IoLocationSharp } from "react-icons/io5";
+import Badge from "./Badge";
+import { Tag } from "lucide-react";
 
 interface EventCardProps {
   title: string;
@@ -17,13 +19,12 @@ interface EventCardProps {
   orgPicUrl: string;
   cardId: string;
   showOrg?: boolean;
+  categories: { value: number; label: string }[];
 }
 export default function EventCard({
   title,
   startDate,
   endDate,
-  // startTime,
-  // endTime,
   location,
   imgUrl,
   orgId,
@@ -31,6 +32,7 @@ export default function EventCard({
   orgPicUrl,
   cardId,
   showOrg = true,
+  categories,
 }: Readonly<EventCardProps>) {
   return (
     <div className="flex flex-col gap-1">
@@ -38,7 +40,7 @@ export default function EventCard({
         <div className="flex flex-row gap-2 justify-start items-center h-auto w-full pr-3">
           <Link
             href={`/orgs/${orgId}/org-detail`}
-            className="h-auto w-[20%] max-w-[45px] overflow-hidden rounded-full bg-[#F5F5F5]"
+            className="h-auto w-[25%] max-w-[45px] overflow-hidden rounded-full bg-[#F5F5F5]"
             style={{ aspectRatio: "1 / 1" }}
           >
             <Image
@@ -76,35 +78,27 @@ export default function EventCard({
           <div className="line-clamp-1 text-sm min-h-5 text-gray-500 mt-3">
             {startDate ? formatDateRange(startDate, endDate) : "ไม่ระบุ"}
           </div>
-          <div className="font-medium text-base line-clamp-2 mt-2 min-h-[3rem]">
+          <div className="font-medium text-base line-clamp-1 mt-1 min-h-[2rem]">
             {title ?? "ไม่ระบุ"}
           </div>
         </Link>
+        <div className="flex items-center gap-1">
+          <Tag className="w-3 h-3 text-orange-dark" />
+          <p className="text-xs text-gray-inactive">หมวดหมู่</p>
+        </div>
+        <div className="inline-flex flex-wrap gap-1">
+          {categories?.map((category, index) => (
+            <Badge key={index} label={category.label} />
+          ))}
+        </div>
 
-        <div className="flex flex-col gap-2 mt-1">
-          {/* <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
-            <IoCalendarSharp className="w-3 h-3 md:w-4 md:h-4 text-orange-dark" />
-            <div className="line-clamp-1 font-light text-xs md:text-sm">
-              {startDate ? formatDateRange(startDate, endDate) : "ไม่ระบุ"}
-            </div>
-          </div> */}
-          {/* <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
-            <IoTimeOutline className="w-3 h-3 md:w-4 md:h-4 text-orange-dark" />
-            <div className="line-clamp-1 font-light text-xs md:text-sm">
-              {startTime ? formatTimeRange(startTime, endTime) : "ไม่ระบุ"}
-            </div>
-          </div> */}
+        <div className="flex flex-col gap-2 mt-2">
           <div className="flex min-w-0 break-words justify-start items-center flex-row gap-2">
             <IoLocationSharp className="shrink-0 w-3 h-3 md:w-4 md:h-4 text-orange-dark" />
             <div className="line-clamp-1 font-light text-xs md:text-sm">
               {location !== "" ? location : "ไม่ระบุ"}
             </div>
           </div>
-          {/* <div className="inline-flex flex-wrap gap-1">
-            <Badge label={"Technology"} className="text-[10px] h-fit" />
-            <Badge label={"Startup"} className="text-[10px] h-fit" />
-            <Badge label={"Finance"} className="text-[10px] h-fit" />
-          </div> */}
         </div>
       </div>
     </div>

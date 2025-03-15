@@ -1,40 +1,76 @@
+import Badge from "@/components/common/Badge";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { Link } from "@/i18n/routing";
+import { getProvinceNameByCode } from "@/lib/utils";
+import { MapPin } from "lucide-react";
 import Image from "next/image";
 
-import React from "react";
-
-interface OrgCardProps {
-  readonly id: number;
-  readonly name: string;
-  readonly imgUrl: string;
+interface OrganizationCardProps {
+  id: number;
+  name: string;
+  pictureUrl: string;
+  province: string;
+  country: string;
+  industries: { id: number; name: string }[];
+  headline: string;
+  locale: string;
 }
 
-export default function OrgCard({ id,name, imgUrl }: OrgCardProps) {
+export function OrganizationCard({
+  id,
+  name,
+  pictureUrl,
+  province,
+  country,
+  industries,
+  headline,
+  locale,
+}: Readonly<OrganizationCardProps>) {
   return (
-    <Link
-      href={`/orgs/${id}/org-detail`}
-      className="flex flex-col border  hover:shadow-md rounded-[10px] 
-    group hover:cursor-pointer duration-100 overflow-hidden bg-white drop-shadow-md"
-    >
-      <div className="relative flex justify-center items-center w-auto overflow-hidden group">
-        <div
-          className="bg-gray-900/70 flex justify-center items-center absolute h-full w-full 
-        z-10 opacity-0 group-hover:opacity-100 transform translate-y-full group-hover:translate-y-0 
-        duration-300 px-5"
-        >
-          <p className="text-white text-2xl font-medium text-center line-clamp-3">
-            {name}
-          </p>
-        </div>
-        <Image
-          className="block h-full w-full object-cover"
-          style={{ aspectRatio: "5 / 3" }}
-          src={imgUrl}
-          width={500}
-          height={500}
-          alt="องค์กร"
-        />
-      </div>
+    <Link href={`/orgs/${id}/org-detail`}>
+      <Card className="overflow-hidden transition-all hover:shadow-md h-full">
+        <CardHeader className="p-4">
+          <div className="flex items-center gap-3">
+            <div className="relative h-16 w-16 overflow-hidden rounded-md shrink-0">
+              <Image
+                src={pictureUrl}
+                alt={`${name}-logo`}
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div>
+              <h3 className="font-semibold text-lg line-clamp-1">{name}</h3>
+              <div className="flex items-center text-sm text-muted-foreground gap-1">
+                <MapPin className="h-3.5 w-3.5" />
+                <span>
+                  {getProvinceNameByCode(province, locale)}, {country}
+                </span>
+              </div>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="p-4 pt-0">
+          <h2 className="text-sm font-base mb-2 text-muted-foreground line-clamp-1">
+            {headline}
+          </h2>
+          <div className="flex flex-wrap gap-1.5">
+            {industries.map((industry) => (
+              <Badge
+                key={industry.id}
+                className="font-normal"
+                label={industry.name}
+              />
+            ))}
+          </div>
+        </CardContent>
+        <CardFooter className="sr-only"></CardFooter>
+      </Card>
     </Link>
   );
 }

@@ -39,10 +39,11 @@ export async function fetchAllEvents({
   const apiUrl = formatExternalUrl(
     `/events-paginate/search?q=${search ?? ""}&page=${page ?? ""}&offset=${
       maxEventsPerPage ?? ""
-    }&category=${category ?? ""}&dateRange=${dateRange ?? ""}&location=${
+    }&categories=${category ?? ""}&dateRange=${dateRange ?? ""}&location=${
       location ?? ""
     }&audience=${audience ?? ""}&price=${price ?? ""}`
   );
+  console.log(apiUrl);
 
   const res = await fetch(apiUrl, { cache: "no-store" });
   const data = await res.json();

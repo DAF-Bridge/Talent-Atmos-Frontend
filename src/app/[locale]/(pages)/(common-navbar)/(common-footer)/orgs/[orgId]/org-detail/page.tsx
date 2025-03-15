@@ -5,6 +5,7 @@ import Spinner from "@/components/ui/spinner";
 import { OrganizationDescription } from "@/lib/types";
 import { getOrgsDescription } from "@/features/orgs/api/action";
 import NotFoundSVG from "@/components/page/NotFound";
+// import { sortIndustries } from "@/lib/utils";
 
 export default async function OrgDescriptionPage({
   params,
@@ -41,11 +42,7 @@ export default async function OrgDescriptionPage({
             </p>
             <div className="flex flex-wrap justify-start items-center gap-2">
               {industries.map((industry) => (
-                <Badge
-                  key={industry.id}
-                  label={industry.name}
-                  className="bg-orange-normal"
-                />
+                <Badge key={industry.id} label={industry.name} />
               ))}
             </div>
           </div>

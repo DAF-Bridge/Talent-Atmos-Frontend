@@ -8,6 +8,7 @@ export default async function OrgJobsPage({
   params,
 }: Readonly<{ params: { orgId: string } }>) {
   const jobs: JobCardProps[] = await getAllOrgsJobs(params.orgId);
+  console.log(jobs);
 
   return (
     <Suspense fallback={<Spinner />}>
@@ -25,8 +26,12 @@ export default async function OrgJobsPage({
               province={job.province}
               country={job.country}
               salary={job.salary}
-              updatedAt={job.updatedAt}
+              orgPicUrl={job.orgPicUrl}
+              organization={job.organization}
               categories={job.categories}
+              updatedAt={job.updatedAt}
+              prerequisite={job.prerequisite}
+              location={job.location}
             />
           ))}
         </div>

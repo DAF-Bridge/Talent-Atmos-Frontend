@@ -44,7 +44,7 @@ export async function getAllOrgsEvents(orgId: string) {
   const apiUrl = formatExternalUrl(`/orgs/${orgId}/events`);
   const res = await fetch(apiUrl, { cache: "no-store" });
   const data = await res.json();
-  console.log(data);
+  // console.log(data[0].categories);
 
   if (res.ok && data) {
     return data;

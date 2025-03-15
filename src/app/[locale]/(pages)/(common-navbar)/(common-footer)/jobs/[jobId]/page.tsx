@@ -1,3 +1,4 @@
+import Badge from "@/components/common/Badge";
 import NotFoundSVG from "@/components/page/NotFound";
 import { Button } from "@/components/ui/button";
 import { getJobDescription } from "@/features/jobs/api/action";
@@ -77,12 +78,7 @@ export default async function JobPage({
           </div>
           <div className="flex flex-wrap gap-2 mb-6">
             {job.categories.map((sector) => (
-              <span
-                key={sector.value}
-                className="px-3 py-1 bg-gray-100 rounded-full text-sm"
-              >
-                {sector.label}
-              </span>
+              <Badge key={sector.value} label={sector.label} className="text-sm"/>
             ))}
           </div>
 

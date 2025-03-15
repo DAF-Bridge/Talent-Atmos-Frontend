@@ -40,15 +40,20 @@ export interface Event {
   endTime: string;
   picUrl: string;
   locationName: string;
+  locationType: string;
+  province: string;
+  country: string;
+  audience: string;
   latitude: number | null;
   longitude: number | null;
   price: string;
-  category: string[];
+  categories: { value: number; label: string }[];
   organization: {
     id: number;
     name: string;
     picUrl: string;
   };
+  updatedAt: string;
 }
 
 export interface EventDescriptionProps {
@@ -153,7 +158,10 @@ export type Category = {
     | "exhibition"
     | "competition"
     | "workshop"
-    | "campaign";
+    | "campaign"
+    | "environment"
+    | "social"
+    | "governance";
   title: string;
 };
 
@@ -162,17 +170,26 @@ export type LanguageCode = "th" | "en";
 export interface JobCardProps {
   id: number;
   title: string;
+  orgPicUrl: string;
+  prerequisite: string[];
   description: string;
+  location: string;
   workplace: string;
   workType: string;
   careerStage: string;
+  salary: number;
+  categories: {
+    value: number;
+    label: string;
+  }[];
+  organization: {
+    id: number;
+    name: string;
+    picUrl: string;
+  };
   province: string;
   country: string;
-  salary: number;
   updatedAt: string;
-  categories: string[];
-  organization?: string;
-  orgPicUrl?: string;
 }
 
 export interface JobDescriptionPage {

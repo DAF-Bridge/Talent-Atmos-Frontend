@@ -26,7 +26,7 @@ export default async function EventDescription({
 }>) {
   const { eventId } = params;
   const data: EventDescriptionProps = await getEventDescription(eventId);
-  // console.log(data);
+  console.log(data);
 
   if (!data) {
     return <NotFoundSVG />;

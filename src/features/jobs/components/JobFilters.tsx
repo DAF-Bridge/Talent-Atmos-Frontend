@@ -112,7 +112,10 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
                   className="text-orange-950 focus:bg-orange-500/10 hover:bg-orange-500/10 focus:text-orange-700 
                    cursor-pointer transition-colors"
                 >
-                  {x.label}
+                  <div className="flex items-center gap-2">
+                    {x.icon && <x.icon className="w-5 h-5" />}
+                    <span>{x.label}</span>
+                  </div>
                 </SelectItem>
               ))}
             </SelectContent>
@@ -161,19 +164,19 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
         </div>
 
         <div className="flex justify-end">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="inline-flex justify-end items-center gap-1 text-sm font-light text-gray-inactive 
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="inline-flex justify-end items-center gap-1 text-sm font-light text-gray-inactive 
         hover:text-gray-700 transition-colors mt-1 w-fit py-1"
-        >
-          ตัวเลือกเพิ่มเติม
-          <FaChevronDown
-            className={`mt-[2px] transform transition-transform duration-150 ${
-              isOpen ? "rotate-180" : "rotate-0"
-            }`}
-          />
-        </button>
-      </div>
+          >
+            ตัวเลือกเพิ่มเติม
+            <FaChevronDown
+              className={`mt-[2px] transform transition-transform duration-150 ${
+                isOpen ? "rotate-180" : "rotate-0"
+              }`}
+            />
+          </button>
+        </div>
 
         {/* Extra menu */}
         <div

@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { formatDistanceToNow, isSameDay } from "date-fns";
 import { th, enUS } from "date-fns/locale";
+import { provinces } from "@/features/map/config/SelectInputObj";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -84,3 +85,50 @@ export function convertDateToISOString(dateAt: string) {
 
 // 2024-11-16 00:00:00+00 for database
 // 2024-11-16T00:00:00.000Z for api call
+
+export function getProvinceNameByCode(
+  code: string,
+  locale: string
+): string | undefined {
+  const province = provinces.find((province) => province.code === code);
+
+  if (!province) {
+    return undefined;
+  }
+
+  return province[locale as keyof typeof province];
+}
+
+
+// export function sortIndustries(
+//   industries: {
+//     id: number;
+//     name: string;
+//   }[]
+// ) {
+//   const sortedArr: { id: number; name: string }[] = [];
+//   industries.forEach((item) => {
+//     if (
+//       item.name === "environment" ||
+//       item.name === "Environment" ||
+//       item.name === "social" ||
+//       item.name === "Social" ||
+//       item.name === "governance" ||
+//       item.name === "Governance"
+//     )
+//       sortedArr.push(item);
+//   });
+//   industries.forEach((item) => {
+//     if (
+//       item.name !== "environment" &&
+//       item.name !== "Environment" &&
+//       item.name !== "social" &&
+//       item.name !== "Social" &&
+//       item.name !== "governance" &&
+//       item.name !== "Governance"
+//     )
+//       sortedArr.push(item);
+//   });
+
+//   return sortedArr;
+// }

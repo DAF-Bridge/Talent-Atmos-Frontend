@@ -1,10 +1,13 @@
 import * as React from "react";
-import OrgCard from "@/features/orgs/components/OrgCard";
+import { OrganizationCard } from "@/features/orgs/components/OrgCard";
 import { Search } from "lucide-react";
 import { getAllOrgs } from "@/features/orgs/api/action";
 
-export default async function OrgListingPage() {
+export default async function OrgListingPage({
+  params,
+}: Readonly<{ params: { locale: string } }>) {
   const orgs = await getAllOrgs();
+  console.log(orgs);
   return (
     <div className="font-prompt max-w-[1170px] mx-auto px-6 pb-5 mt-[100px]">
       <div className="text-center font-semibold text-2xl border-b-2 pb-[11px]">
@@ -37,10 +40,30 @@ export default async function OrgListingPage() {
       </div>
 
       <div className="flex flex-col mt-8">
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-y-[1%] sm:gap-y-[2%] md:gap-y-[4%] gap-x-[3%] md:gap-x-[2%]">
-          {orgs.map((org: { id: number; name: string; picUrl: string }) => (
-            <OrgCard key={org.id} id={org.id} name={org.name} imgUrl={org.picUrl} />
-          ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-[1%] sm:gap-y-[2%] md:gap-y-[4%] gap-x-[3%] md:gap-x-[2%]">
+          {orgs.map(
+            (org: {
+              headline: string;
+              industries: { id: number; name: string }[];
+              country: string;
+              province: string;
+              id: number;
+              name: string;
+              picUrl: string;
+            }) => (
+              <OrganizationCard
+                id={org.id}
+                key={org.id}
+                name={org.name}
+                pictureUrl={org.picUrl}
+                province={org.province}
+                country={org.country}
+                industries={org.industries}
+                headline={org.headline}
+                locale={params.locale}
+              />
+            )
+          )}
         </div>
       </div>
       {/* <div className="flex justify-center mt-3">

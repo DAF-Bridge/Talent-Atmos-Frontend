@@ -1,17 +1,17 @@
 "use client";
 
 import React from "react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectGroup,
+//   SelectItem,
+//   SelectLabel,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { provinces } from "../config/SelectInputObj";
+// import { provinces } from "../config/SelectInputObj";
 import MultipleSelector, { Option } from "@/components/ui/MultiSelector";
 import { useSearchParams } from "next/navigation";
 
@@ -22,7 +22,7 @@ export function MapFiltersContent() {
   return (
     <div className="flex flex-col gap-4">
       <p>{currentTab === "org" ? "องค์กร" : "กิจกรรม"}</p>
-      <div>
+      {/* <div>
         <Label className="text-base font-normal" htmlFor="location-search">
           สถานที่
         </Label>
@@ -53,7 +53,7 @@ export function MapFiltersContent() {
             ))}
           </SelectContent>
         </Select>
-      </div>
+      </div> */}
       <div>
         <Label className="text-base font-normal" htmlFor="keyword-search">
           ค้นหาจากคีย์เวิร์ด

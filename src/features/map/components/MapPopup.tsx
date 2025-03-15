@@ -53,8 +53,8 @@ export const CustomPopup: React.FC<CustomPopupProps> = ({
         </div>
       ) : (
         <div className="inline-flex flex-wrap mt-2 gap-1">
-          {(data as Event).category.map((label, i) => (
-            <Badge key={i} label={label} />
+          {(data as Event).categories.map((item, i) => (
+            <Badge key={i} label={item.label} />
           ))}
         </div>
       )}

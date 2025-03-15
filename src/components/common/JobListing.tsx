@@ -12,7 +12,7 @@ export default function JobListing({
   jobs,
   totalPages,
 }: Readonly<JobListProps>) {
-  // console.log("jobs: ", jobs);
+  console.log("jobs: ", jobs);
   // console.log("job length: ", jobs.length);
   // console.log("total pages: ", totalPages);
   return (
@@ -36,6 +36,8 @@ export default function JobListing({
                 organization={job.organization}
                 categories={job.categories}
                 updatedAt={job.updatedAt}
+                prerequisite={job.prerequisite}
+                location={job.location}
               />
             ))}
           </div>

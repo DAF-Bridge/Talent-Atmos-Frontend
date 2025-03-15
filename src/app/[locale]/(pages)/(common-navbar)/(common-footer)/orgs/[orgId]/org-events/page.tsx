@@ -28,6 +28,7 @@ export default async function OrgEventsPage({
               orgName={event.organization.name}
               orgPicUrl={event.organization.picUrl}
               showOrg={false}
+              categories={event.categories}
             />
           ))}
         </div>

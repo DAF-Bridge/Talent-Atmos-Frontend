@@ -38,7 +38,7 @@ export async function logIn(credentials: { email: string; password: string }) {
 export async function getCurrentUser() {
   const cookieStore = cookies();
 
-  const apiUrl = formatExternalUrl("/current-user-profile");
+  const apiUrl = formatExternalUrl("");
   const response = await fetch(apiUrl, {
     headers: {
       Cookie: cookieStore.toString(),
