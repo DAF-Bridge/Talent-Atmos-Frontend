@@ -9,18 +9,18 @@ describe("JobCard", () => {
     test("renders JobCard component", () => {
       renderWithIntl(
         <JobCard
-          orgName="องค์กรทดสอบ 1"
           title="พนักงานทดสอบ 1"
           description="สร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณ"
-          work_type="Fulltime"
+          workType="Fulltime"
           workplace="Hybrid"
-          career_stage="Entry-Level"
+          careerStage="Entry-Level"
           province="กรุงเทพมหานคร"
           country="ประเทศไทย"
-          salary="30,000"
-          imgUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
-          updatedDate="2024-12-29:10:00"
-          industry={["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"]}
+          salary={30000}
+          orgPicUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
+          id={0}
+          updatedAt={""}
+          categories={[]}
         />,
         { locale: lang }
       ); // ARRANGE
@@ -31,18 +31,18 @@ describe("JobCard", () => {
     test("renders JobCard component with different props", () => {
       renderWithIntl(
         <JobCard
-          orgName="องค์กรทดสอบ 1"
           title="พนักงานทดสอบ 1"
           description="สร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณ"
-          work_type="Fulltime"
+          workType="Fulltime"
           workplace="Hybrid"
-          career_stage="Entry-Level"
+          careerStage="Entry-Level"
           province="กรุงเทพมหานคร"
           country="ประเทศไทย"
-          salary="30,000"
-          imgUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
-          updatedDate="2024-12-29:10:00"
-          industry={["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"]}
+          salary={30000}
+          orgPicUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
+          id={0}
+          updatedAt={""}
+          categories={["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"]}
         />,
         { locale: lang }
       );
@@ -53,18 +53,18 @@ describe("JobCard", () => {
     test("check if the image is rendered", () => {
       renderWithIntl(
         <JobCard
-          orgName="องค์กรทดสอบ 1"
           title="พนักงานทดสอบ 1"
           description="สร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณ"
-          work_type="Fulltime"
+          workType="Fulltime"
           workplace="Hybrid"
-          career_stage="Entry-Level"
+          careerStage="Entry-Level"
           province="กรุงเทพมหานคร"
           country="ประเทศไทย"
-          salary="30,000"
-          imgUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
-          updatedDate="2024-12-29:10:00"
-          industry={["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"]}
+          salary={30000}
+          orgPicUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
+          id={0}
+          updatedAt={""}
+          categories={["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"]}
         />,
         { locale: lang }
       );
@@ -75,28 +75,26 @@ describe("JobCard", () => {
     test("check types of props", () => {
       renderWithIntl(
         <JobCard
-          orgName="องค์กรทดสอบ 1"
           title="พนักงานทดสอบ 1"
           description="สร้างเว็บไซต์ให้บริษัททดสอบ 1 ของคุณ"
-          work_type="Fulltime"
+          workType="Fulltime"
           workplace="Hybrid"
-          career_stage="Entry-Level"
+          careerStage="Entry-Level"
           province="กรุงเทพมหานคร"
           country="ประเทศไทย"
-          salary="30,000"
-          imgUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
-          updatedDate="2024-12-29:10:00"
-          industry={["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"]}
+          salary={30000}
+          orgPicUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
+          id={0}
+          updatedAt={""}
+          categories={["IT", "เทคโนโลยี", "องค์กร", "งานทดสอบ"]}
         />,
         { locale: lang }
       );
 
-      const element1 = screen.getByText(/องค์กรทดสอบ 1/i);
       const element2 = screen.getByRole("img");
       const element3 = screen.getByText(/งานทดสอบ 1/i);
       const element4 = screen.getByText(/Hybrid/i);
 
-      expect(element1).toHaveTextContent("องค์กรทดสอบ 1");
       expect(element2).toHaveAttribute("src");
       expect(element2).toHaveAttribute("alt");
       expect(element3).toHaveTextContent("พนักงานทดสอบ 1");

@@ -9,6 +9,7 @@ describe("OrgCard", () => {
     test("renders OrgCard component", () => {
       renderWithIntl(
         <OrgCard
+          id={1}
           name="ไทยสตาร์ทอัพ"
           imgUrl="https://drive.google.com/uc?export=view&id=1mzjpHi5GHFrUEEmI_EVLfQE9ht2--ILd"
         />,
@@ -21,6 +22,7 @@ describe("OrgCard", () => {
     test("renders OrgCard component with different props", () => {
       renderWithIntl(
         <OrgCard
+          id={1}
           name="SEA Bridge Talent"
           imgUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
         />,
@@ -33,6 +35,7 @@ describe("OrgCard", () => {
     test("check if the image is rendered", () => {
       renderWithIntl(
         <OrgCard
+          id={1}
           name="SEA Bridge Talent"
           imgUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
         />,
