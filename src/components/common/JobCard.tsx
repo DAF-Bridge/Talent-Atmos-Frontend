@@ -83,12 +83,16 @@ export default function JobCard({
                   </div>
                 )}
               </div>
-              <span className="hidden lg:block mx-2 text-lg font-extrabold">
-                •
-              </span>
-              <span className="text-sm font-normal text-orange-normal translate-y-[1px]">
-                {`฿${salary}/เดือน`}
-              </span>
+              {(salary > 0 && workType !== "volunteer") && (
+                <>
+                  <span className="hidden lg:block mx-2 text-lg font-extrabold">
+                    •
+                  </span>
+                  <span className="text-sm font-normal text-orange-normal translate-y-[1px]">
+                    {`฿${salary}/เดือน`}
+                  </span>
+                </>
+              )}
             </div>
           </div>
         </div>
