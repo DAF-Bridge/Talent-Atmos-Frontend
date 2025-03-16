@@ -78,7 +78,11 @@ export default async function JobPage({
           </div>
           <div className="flex flex-wrap gap-2 mb-6">
             {job.categories.map((sector) => (
-              <Badge key={sector.value} label={sector.label} className="text-sm"/>
+              <Badge
+                key={sector.value}
+                label={sector.label}
+                className="text-sm"
+              />
             ))}
           </div>
 
@@ -109,35 +113,37 @@ export default async function JobPage({
             <p className="text-gray-700 whitespace-pre-line">{job.benefits}</p>
           </section> */}
 
-            <section>
-              <h2 className="text-xl font-semibold mb-4">
-                <span>Prerequisite Courses</span>
-                <span className="text-sm font-light text-gray-500">
-                  {" (Recommended)"}
-                </span>
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {job.prerequisite.map((course) => (
-                  <Link
-                    href={course.link}
-                    key={course.value}
-                    className="bg-white"
-                  >
-                    <div className="h-full flex flex-col justify-between border rounded-lg p-4 hover:shadow-md">
-                      <div className="flex items-start gap-2 mb-2">
-                        <BookOpen className="text-primary shrink-0" />
-                        <h3 className="font-medium line-clamp-1">
-                          {course.title}
-                        </h3>
+            {job.prerequisite && job.prerequisite.length > 0 && (
+              <section>
+                <h2 className="text-xl font-semibold mb-4">
+                  <span>Prerequisite Courses</span>
+                  <span className="text-sm font-light text-gray-500">
+                    {" (Recommended)"}
+                  </span>
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {job.prerequisite.map((course) => (
+                    <Link
+                      href={course.link}
+                      key={course.value}
+                      className="bg-white"
+                    >
+                      <div className="h-full flex flex-col justify-between border rounded-lg p-4 hover:shadow-md">
+                        <div className="flex items-start gap-2 mb-2">
+                          <BookOpen className="text-primary shrink-0" />
+                          <h3 className="font-medium line-clamp-1">
+                            {course.title}
+                          </h3>
+                        </div>
+                        <p className="text-sm text-gray-600 text-right">
+                          Click to learn more
+                        </p>
                       </div>
-                      <p className="text-sm text-gray-600 text-right">
-                        Click to learn more
-                      </p>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </section>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
         </div>
       </div>

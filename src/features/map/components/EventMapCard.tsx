@@ -34,10 +34,10 @@ export default function EventMapCard({
           {event.locationName !== "" ? event.locationName : "ไม่ระบุ"}
         </span>
       </div>
-      <div className="h-full">
+      <div className="h-full shrink-0">
         <Image
           src={event.picUrl}
-          className="h-full max-w-[60px] object-cover rounded-sm border"
+          className="h-full max-w-[60px] object-cover border"
           style={{ aspectRatio: "3 / 4" }}
           height={100}
           width={100}
