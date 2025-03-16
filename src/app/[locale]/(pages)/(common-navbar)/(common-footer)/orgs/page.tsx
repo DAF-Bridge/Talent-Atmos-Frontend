@@ -40,7 +40,7 @@ export default async function OrgListingPage({
       </div>
 
       <div className="flex flex-col mt-8">
-        {(orgs && orgs.length > 0) ? (
+        {orgs && orgs.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-[1%] sm:gap-y-[2%] md:gap-y-[4%] gap-x-[3%] md:gap-x-[2%]">
             {orgs.map(
               (org: {
@@ -67,7 +67,11 @@ export default async function OrgListingPage({
             )}
           </div>
         ) : (
-          <p className="text-center">ไม่พบองค์กร</p>
+          <div className="flex flex-col items-center justify-center mt-[100px] mb-[150px] text-center">
+            <p className="text-2xl font-medium text-gray-600 mb-2">
+              ไม่พบองค์กร
+            </p>
+          </div>
         )}
       </div>
       {/* <div className="flex justify-center mt-3">
