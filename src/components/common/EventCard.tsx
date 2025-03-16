@@ -40,7 +40,7 @@ export default function EventCard({
         <div className="flex flex-row gap-2 justify-start items-center h-auto w-full pr-3">
           <Link
             href={`/orgs/${orgId}/org-detail`}
-            className="h-auto w-[25%] max-w-[45px] overflow-hidden rounded-full bg-[#F5F5F5]"
+            className="h-9 w-9 max-w-[45px] overflow-hidden rounded-full bg-[#F5F5F5] shrink-0"
             style={{ aspectRatio: "1 / 1" }}
           >
             <Image
