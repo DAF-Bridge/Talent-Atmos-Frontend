@@ -170,7 +170,6 @@ export type LanguageCode = "th" | "en";
 export interface JobCardProps {
   id: number;
   title: string;
-  orgPicUrl: string;
   prerequisite: string[];
   description: string;
   location: string;

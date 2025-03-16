@@ -89,9 +89,9 @@ export default async function JobPage({
           </div>
 
           <Button
-            onClick={() => {
-              window.open(job.registerLink, "_blank");
-            }}
+            // onClick={() => {
+            //   window.open(job.registerLink, "_blank");
+            // }}
             className="w-full mb-6 bg-orange-normal hover:bg-orange-normal/80"
           >
             Apply for this position

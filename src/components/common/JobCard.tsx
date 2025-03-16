@@ -19,7 +19,6 @@ export default function JobCard({
   province,
   country,
   salary,
-  orgPicUrl,
   updatedAt,
   organization,
   categories,
@@ -32,10 +31,10 @@ export default function JobCard({
     >
       <div className="flex flex-col">
         <div className="flex flex-row gap-4 justify-start items-center">
-          {orgPicUrl && (
+          {organization.picUrl && (
             <div className="shrink-0 w-[50px] h-[50px] rounded-full overflow-hidden shadow shadow-slate-300">
               <Image
-                src={orgPicUrl}
+                src={organization.picUrl}
                 className="w-full h-full object-cover"
                 width={500}
                 height={500}
@@ -44,7 +43,7 @@ export default function JobCard({
             </div>
           )}
           <div className="flex flex-col gap-1">
-            {orgPicUrl ? (
+            {organization.picUrl ? (
               <p className="text-sm sm:text-base font-normal">{title}</p>
             ) : (
               <p className="text-base sm:text-lg font-medium mb-1">{title}</p>
@@ -83,7 +82,7 @@ export default function JobCard({
                   </div>
                 )}
               </div>
-              {(salary > 0 && workType !== "volunteer") && (
+              {salary > 0 && workType !== "volunteer" && (
                 <>
                   <span className="hidden lg:block mx-2 text-lg font-extrabold">
                     •

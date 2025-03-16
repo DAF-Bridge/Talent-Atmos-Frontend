@@ -32,7 +32,6 @@ export default function JobListing({
                 province={job.province}
                 country={job.country}
                 salary={job.salary}
-                orgPicUrl={job.orgPicUrl}
                 organization={job.organization}
                 categories={job.categories}
                 updatedAt={job.updatedAt}
