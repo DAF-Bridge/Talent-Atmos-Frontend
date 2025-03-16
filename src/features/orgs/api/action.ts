@@ -15,7 +15,7 @@ export async function getAllOrgs() {
 }
 
 export async function getOrgsDescription(orgId: string) {
-  const apiUrl = formatExternalUrl(`/orgs/${orgId}`);
+  const apiUrl = formatExternalUrl(`/orgs/get/${orgId}`);
   const res = await fetch(apiUrl, { cache: "no-store" });
   const data = await res.json();
   // console.log(data);
