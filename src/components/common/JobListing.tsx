@@ -17,7 +17,7 @@ export default function JobListing({
   // console.log("total pages: ", totalPages);
   return (
     <div>
-      {jobs.length > 0 ? (
+      {(jobs && jobs.length > 0) ? (
         <>
           <div className="flex flex-col gap-5 w-full">
             {jobs.map((job) => (
