@@ -63,7 +63,7 @@ export default async function JobPage({
               <Calendar className="text-primary shrink-0" />
               <span className="text-sm text-gray-700">{job.period}</span>
             </div>
-            {(job.salary > 0 && job.workType !== "volunteer") && (
+            {job.salary > 0 && job.workType !== "volunteer" && (
               <div className="flex items-center gap-2">
                 <DollarSign className="text-primary shrink-0" />
                 <span className="text-sm text-gray-700">
@@ -88,14 +88,11 @@ export default async function JobPage({
             ))}
           </div>
 
-          <Button
-            // onClick={() => {
-            //   window.open(job.registerLink, "_blank");
-            // }}
-            className="w-full mb-6 bg-orange-normal hover:bg-orange-normal/80"
-          >
-            Apply for this position
-          </Button>
+          <Link href={job.registerLink}>
+            <Button className="w-full mb-6 bg-orange-normal hover:bg-orange-normal/80">
+              Apply for this position
+            </Button>
+          </Link>
 
           <div className="space-y-6">
             <section>
