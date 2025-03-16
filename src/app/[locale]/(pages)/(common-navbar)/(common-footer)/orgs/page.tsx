@@ -40,31 +40,35 @@ export default async function OrgListingPage({
       </div>
 
       <div className="flex flex-col mt-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-[1%] sm:gap-y-[2%] md:gap-y-[4%] gap-x-[3%] md:gap-x-[2%]">
-          {orgs.map(
-            (org: {
-              headline: string;
-              industries: { id: number; name: string }[];
-              country: string;
-              province: string;
-              id: number;
-              name: string;
-              picUrl: string;
-            }) => (
-              <OrganizationCard
-                id={org.id}
-                key={org.id}
-                name={org.name}
-                pictureUrl={org.picUrl}
-                province={org.province}
-                country={org.country}
-                industries={org.industries}
-                headline={org.headline}
-                locale={params.locale}
-              />
-            )
-          )}
-        </div>
+        {(orgs && orgs.length > 0) ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-[1%] sm:gap-y-[2%] md:gap-y-[4%] gap-x-[3%] md:gap-x-[2%]">
+            {orgs.map(
+              (org: {
+                headline: string;
+                industries: { id: number; name: string }[];
+                country: string;
+                province: string;
+                id: number;
+                name: string;
+                picUrl: string;
+              }) => (
+                <OrganizationCard
+                  id={org.id}
+                  key={org.id}
+                  name={org.name}
+                  pictureUrl={org.picUrl}
+                  province={org.province}
+                  country={org.country}
+                  industries={org.industries}
+                  headline={org.headline}
+                  locale={params.locale}
+                />
+              )
+            )}
+          </div>
+        ) : (
+          <p className="text-center">ไม่พบองค์กร</p>
+        )}
       </div>
       {/* <div className="flex justify-center mt-3">
         <Pagination count={10} variant="outlined" shape="rounded" />
