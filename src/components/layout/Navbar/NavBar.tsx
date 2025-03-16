@@ -7,6 +7,7 @@ import NormalMenu from "./NormalMenu";
 import CompactNormalMenu from "./CompactNormalMenu";
 import MobileAvatar from "./MobileAvatar";
 import LangSwitcher from "@/components/common/LangSwitcher";
+import PCAvatar from "./PCAvatar";
 
 export default function NavigationBar() {
   const menuItems = [
@@ -53,9 +54,9 @@ export default function NavigationBar() {
               <LangSwitcher />
             </div>
             {/* Login/Signup Button */}
-            {/* <div className="hidden md:flex md:items-center space-x-4 ">
-              <AvatarProfile />
-            </div> */}
+            <div className="hidden md:flex md:items-center space-x-4 ">
+              <PCAvatar />
+            </div>
 
             {/* Mobile Menu Button */}
             {/* <div className="md:hidden flex items-center">
