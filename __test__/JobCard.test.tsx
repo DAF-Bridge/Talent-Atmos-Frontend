@@ -17,7 +17,6 @@ describe("JobCard", () => {
           province="กรุงเทพมหานคร"
           country="ประเทศไทย"
           salary={30000}
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
           id={0}
           updatedAt={""}
           categories={[
@@ -27,11 +26,12 @@ describe("JobCard", () => {
             { value: 4, label: "งานทดสอบ" },
           ]}
           prerequisite={[]}
-          location={""}
+          location={"cnx"}
           organization={{
             id: 0,
-            name: "",
-            picUrl: "",
+            name: "test",
+            picUrl:
+              "https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc",
           }}
         />,
         { locale: lang }
@@ -51,7 +51,6 @@ describe("JobCard", () => {
           province="กรุงเทพมหานคร"
           country="ประเทศไทย"
           salary={30000}
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
           id={0}
           updatedAt={""}
           categories={[
@@ -61,11 +60,12 @@ describe("JobCard", () => {
             { value: 4, label: "งานทดสอบ" },
           ]}
           prerequisite={[]}
-          location={""}
+          location={"cnx"}
           organization={{
             id: 0,
-            name: "",
-            picUrl: "",
+            name: "test",
+            picUrl:
+              "https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc",
           }}
         />,
         { locale: lang }
@@ -85,7 +85,6 @@ describe("JobCard", () => {
           province="กรุงเทพมหานคร"
           country="ประเทศไทย"
           salary={30000}
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
           id={0}
           updatedAt={""}
           categories={[
@@ -95,11 +94,12 @@ describe("JobCard", () => {
             { value: 4, label: "งานทดสอบ" },
           ]}
           prerequisite={[]}
-          location={""}
+          location={"cnx"}
           organization={{
             id: 0,
-            name: "",
-            picUrl: "",
+            name: "test",
+            picUrl:
+              "https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc",
           }}
         />,
         { locale: lang }
@@ -119,7 +119,6 @@ describe("JobCard", () => {
           province="กรุงเทพมหานคร"
           country="ประเทศไทย"
           salary={30000}
-          orgPicUrl="https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc"
           id={0}
           updatedAt={""}
           categories={[
@@ -129,11 +128,12 @@ describe("JobCard", () => {
             { value: 4, label: "งานทดสอบ" },
           ]}
           prerequisite={[]}
-          location={""}
+          location={"cnx"}
           organization={{
             id: 0,
-            name: "",
-            picUrl: "",
+            name: "test",
+            picUrl:
+              "https://drive.google.com/uc?export=view&id=1bsT5WNkFnhhGT7SD3AynO9gqDjzz17lc",
           }}
         />,
         { locale: lang }
