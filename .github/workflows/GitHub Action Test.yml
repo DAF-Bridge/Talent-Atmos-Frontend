@@ -131,14 +131,30 @@ jobs:
 
           VERSION_TAG=$IMAGE_NAME:$COMMIT_HASH
 
-          docker build  --build-arg NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} \
-                        --build-arg NEXT_PUBLIC_GO_API_URL=${{ secrets.NEXT_PUBLIC_GO_API_URL }} \
-                        --build-arg NEXT_PUBLIC_S3_BUCKET1=${{ secrets.NEXT_PUBLIC_S3_BUCKET1 }} \
-                        --build-arg NEXT_PUBLIC_S3_BUCKET2=${{ secrets.NEXT_PUBLIC_S3_BUCKET2 }} \
-                        --build-arg NEXT_PUBLIC_S3_BUCKET3=${{ secrets.NEXT_PUBLIC_S3_BUCKET3 }} \
-                        -t $IMAGE_NAME:$TAG -t $VERSION_TAG . 
-          docker push $IMAGE_NAME:$TAG
-          docker push $VERSION_TAG
+          docker buildx create --use
+          docker buildx build --platform linux/amd64 \
+                              --build-arg NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} \
+                              --build-arg NEXT_PUBLIC_GO_API_URL=${{ secrets.NEXT_PUBLIC_GO_API_URL }} \
+                              --build-arg NEXT_PUBLIC_S3_BUCKET1=${{ secrets.NEXT_PUBLIC_S3_BUCKET1 }} \
+                              --build-arg NEXT_PUBLIC_S3_BUCKET2=${{ secrets.NEXT_PUBLIC_S3_BUCKET2 }} \
+                              --build-arg NEXT_PUBLIC_S3_BUCKET3=${{ secrets.NEXT_PUBLIC_S3_BUCKET3 }} \
+                              -t $IMAGE_NAME:$COMMIT_HASH-amd64 \
+                              --push .
+          
+          docker buildx build --platform linux/arm64 \
+                              --build-arg NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }} \
+                              --build-arg NEXT_PUBLIC_GO_API_URL=${{ secrets.NEXT_PUBLIC_GO_API_URL }} \
+                              --build-arg NEXT_PUBLIC_S3_BUCKET1=${{ secrets.NEXT_PUBLIC_S3_BUCKET1 }} \
+                              --build-arg NEXT_PUBLIC_S3_BUCKET2=${{ secrets.NEXT_PUBLIC_S3_BUCKET2 }} \
+                              --build-arg NEXT_PUBLIC_S3_BUCKET3=${{ secrets.NEXT_PUBLIC_S3_BUCKET3 }} \
+                              -t $IMAGE_NAME:$COMMIT_HASH-arm64 \
+                              --push .
+      
+          # Create a manifest list for multi-arch support with 'latest'
+          docker buildx imagetools create -t $IMAGE_NAME:latest \
+                                          -t $IMAGE_NAME:$COMMIT_HASH \
+                                          $IMAGE_NAME:$COMMIT_HASH-amd64 \
+                                          $IMAGE_NAME:$COMMIT_HASH-arm64
 
       - name: Notify on Success
         if: ${{ steps.container_build_push.outcome == 'success' }}
