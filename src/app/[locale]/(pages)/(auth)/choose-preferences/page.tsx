@@ -61,33 +61,6 @@ export default function PreferencesPage() {
     fetchUserPreference();
   }, []);
 
-  const getCategoryIcon = (label: string) => {
-    switch (label) {
-      case "incubation":
-        return HiOutlineRocketLaunch;
-      case "networking":
-        return BiNetworkChart;
-      case "forum":
-        return HiOutlinePresentationChartBar;
-      case "exhibition":
-        return CgDisplayGrid;
-      case "competition":
-        return HiOutlineLightBulb;
-      case "workshop":
-        return GrWorkshop;
-      case "campaign":
-        return MdOutlinedFlag;
-      case "environment":
-        return Leaf;
-      case "social":
-        return Users;
-      case "governance":
-        return Building2;
-      default:
-        return X;
-    }
-  };
-
   const toggleCategory = (category: CategoryProps) => {
     // if (selectedCategories.length >= 4) {
     //   toast.error("คุณสามารถเลือกไม่เกิน 4 หมวดหมู่");
@@ -164,7 +137,7 @@ export default function PreferencesPage() {
                         isSelected ? "text-primary" : ""
                       }`}
                     >
-                      {category.label}
+                      {getCategoryName(category.label)}
                     </span>
                   </CardContent>
                 </Card>
@@ -193,3 +166,57 @@ export default function PreferencesPage() {
     </div>
   );
 }
+
+const getCategoryIcon = (label: string) => {
+  switch (label) {
+    case "incubation":
+      return HiOutlineRocketLaunch;
+    case "networking":
+      return BiNetworkChart;
+    case "forum":
+      return HiOutlinePresentationChartBar;
+    case "exhibition":
+      return CgDisplayGrid;
+    case "competition":
+      return HiOutlineLightBulb;
+    case "workshop":
+      return GrWorkshop;
+    case "campaign":
+      return MdOutlinedFlag;
+    case "environment":
+      return Leaf;
+    case "social":
+      return Users;
+    case "governance":
+      return Building2;
+    default:
+      return X;
+  }
+};
+
+const getCategoryName = (label: string) => {
+  switch (label) {
+    case "incubation":
+      return "บ่มเพาะธุรกิจ";
+    case "networking":
+      return "สร้างเครือข่าย";
+    case "forum":
+      return "สัมมนา ฟอรัม";
+    case "exhibition":
+      return "นิทรรศการจัดแสดง";
+    case "competition":
+      return "การแข่งขัน";
+    case "workshop":
+      return "เวิร์คชอปให้ความรู้";
+    case "campaign":
+      return "แคมเปญ";
+    case "environment":
+      return "Environment";
+    case "social":
+      return "Social";
+    case "governance":
+      return "Governance";
+    default:
+      return "...";
+  }
+};
