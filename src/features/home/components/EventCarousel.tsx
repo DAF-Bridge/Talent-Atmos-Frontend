@@ -14,6 +14,7 @@ interface EventCardProps {
 }
 
 export default function EventCarousel({ events }: Readonly<EventCardProps>) {
+  if (events.length === 0 || !events) return <></>;
   return (
     <Carousel
       opts={{
@@ -25,7 +26,7 @@ export default function EventCarousel({ events }: Readonly<EventCardProps>) {
         {events.map((event) => (
           <CarouselItem
             key={event.id}
-            className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+            className="pl-4 basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
           >
             <div className="p-1">
               <EventCard

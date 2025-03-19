@@ -18,6 +18,7 @@ export default function OrgCarousel({
   orgs,
   locale,
 }: Readonly<OrgCarouselProps>) {
+  if (orgs.length === 0 || !orgs) return <></>;
   return (
     <Carousel
       opts={{
@@ -36,13 +37,10 @@ export default function OrgCarousel({
                 id={org.id}
                 name={org.name}
                 picUrl={org.picUrl}
-                province="Chiang Mai"
-                country="TH"
-                industries={[
-                  { id: 1, name: "Industry 1" },
-                  { id: 2, name: "Industry 2" },
-                ]}
-                headline={"Leading organization in technology and innovation"}
+                province={org.province}
+                country={org.country}
+                industries={org.industries}
+                headline={org.headline}
                 locale={locale}
               />
             </div>
