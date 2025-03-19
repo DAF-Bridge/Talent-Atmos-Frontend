@@ -32,13 +32,14 @@ export default function PreferencesPage() {
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState<CategoryProps[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
       setIsLoading(true);
       const excludeVal = [10, 1, 2, 14, 15];
       const categories = await ListCategories();
-      // console.log(categories);
+      console.log("all categories:", categories);
       setCategories(
         categories.filter(
           (category: CategoryProps) => !excludeVal.includes(category.value)
@@ -50,6 +51,7 @@ export default function PreferencesPage() {
     const fetchUserPreference = async () => {
       const preference = await GetUserPreference();
       if (preference) {
+        console.log("user preference:", preference);
         setSelectedCategories(preference.categories);
         setIsEdit(true);
       }
@@ -98,6 +100,7 @@ export default function PreferencesPage() {
   };
 
   const handleSubmit = async () => {
+    setIsSubmitting(true);
     let result;
     if (isEdit) {
       // if user already has preference
@@ -113,6 +116,7 @@ export default function PreferencesPage() {
     } else {
       toast.error("บันทึกไม่สําเร็จ กรุณาลองใหม่อีกครั้ง");
     }
+    setIsSubmitting(false);
   };
 
   return (
@@ -145,7 +149,9 @@ export default function PreferencesPage() {
                       ? "border-primary bg-primary/5 ring-1 ring-primary"
                       : "hover:border-primary/50"
                   }`}
-                  onClick={() => toggleCategory(category)}
+                  onClick={() => {
+                    !isSubmitting && toggleCategory(category);
+                  }}
                 >
                   <CardContent className="flex flex-col items-center justify-center p-6 text-center">
                     <Icon
@@ -171,10 +177,10 @@ export default function PreferencesPage() {
           <Button
             size="lg"
             onClick={handleSubmit}
-            disabled={selectedCategories.length === 0}
+            disabled={selectedCategories.length === 0 || isSubmitting}
             className="w-full md:w-auto"
           >
-            ยืนยัน
+            {isSubmitting ? <Spinner /> : "ยืนยัน"}
           </Button>
         </div>
 
