@@ -20,14 +20,16 @@ export default function UserStatisticsPage() {
   const { firstName, lastName, email, picUrl } = userProfile;
 
   // Sample data for event categories
-  const categoryData = [
-    { name: "Technology", hours: 42, color: "bg-blue-500" },
-    { name: "Business", hours: 28, color: "bg-purple-500" },
-    { name: "Arts & Culture", hours: 23, color: "bg-pink-500" },
-    { name: "Health & Wellness", hours: 18, color: "bg-green-500" },
-    { name: "Social", hours: 17, color: "bg-yellow-500" },
-  ];
-
+  const mockData = {
+    categoryData: [
+      { label: "Technology", amount: 42 },
+      { label: "Business", amount: 28 },
+      { label: "Arts & Culture", amount: 23 },
+      { label: "Health & Wellness", amount: 18 },
+      { label: "Social", amount: 17 },
+    ],
+    totalEvents: 100,
+  };
 
   return (
     <div className="container mx-auto py-8 px-4 mt-[65px] max-w-[1170px]">
@@ -51,7 +53,9 @@ export default function UserStatisticsPage() {
               <div className="grid grid-cols-2 gap-4 pt-4">
                 <div className="flex flex-col items-center justify-center rounded-lg border p-4">
                   <Users className="h-5 w-5 text-muted-foreground mb-2" />
-                  {/* <span className="text-2xl font-bold">{totalEvents}</span> */}
+                  <span className="text-2xl font-bold">
+                    {mockData.totalEvents}
+                  </span>
                   <span className="text-xs text-muted-foreground">
                     อีเว้นท์ที่เข้าร่วม
                   </span>
@@ -71,7 +75,7 @@ export default function UserStatisticsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <CategoryStats categories={categoryData} />
+              <CategoryStats categories={mockData.categoryData} />
             </CardContent>
           </Card>
         </div>

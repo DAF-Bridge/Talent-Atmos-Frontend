@@ -54,11 +54,11 @@ export default function PreferencesPage() {
               (pref: CategoryProps) => pref.value === category.value
             )
           );
-
           setSelectedCategories(selected);
-          setCategories(filteredCategories);
           setIsEdit(true);
         }
+
+        setCategories(filteredCategories);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {

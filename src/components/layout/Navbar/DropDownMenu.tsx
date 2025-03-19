@@ -1,5 +1,5 @@
 import React from "react";
-import { CircleUserRound, Lightbulb, LogOut } from "lucide-react";
+import { ChartBar, Lightbulb, LogOut } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { Link } from "@/i18n/routing";
 
@@ -51,7 +51,7 @@ export default function DropDownMenu() {
       <div className="flex flex-col gap-1">
         <Link href={"/user-statistics"} className={btnStyleVariant2}>
           <>
-            <CircleUserRound className="h-[18px]" />
+            <ChartBar className="h-[18px]" />
             <span className="text-sm font-normal">สถิติกิจกรรม</span>
           </>
         </Link>
