@@ -2,11 +2,12 @@ import * as React from "react";
 import { OrganizationCard } from "@/features/orgs/components/OrgCard";
 import { Search } from "lucide-react";
 import { getAllOrgs } from "@/features/orgs/api/action";
+import { OrganizationBrief } from "@/lib/types";
 
 export default async function OrgListingPage({
   params,
 }: Readonly<{ params: { locale: string } }>) {
-  const orgs = await getAllOrgs();
+  const orgs: OrganizationBrief[] = await getAllOrgs();
   console.log(orgs);
   return (
     <div className="font-prompt max-w-[1170px] mx-auto px-6 pb-5 mt-[100px]">
@@ -42,29 +43,19 @@ export default async function OrgListingPage({
       <div className="flex flex-col mt-8">
         {orgs && orgs.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-[1%] sm:gap-y-[2%] md:gap-y-[4%] gap-x-[3%] md:gap-x-[2%]">
-            {orgs.map(
-              (org: {
-                headline: string;
-                industries: { id: number; name: string }[];
-                country: string;
-                province: string;
-                id: number;
-                name: string;
-                picUrl: string;
-              }) => (
-                <OrganizationCard
-                  id={org.id}
-                  key={org.id}
-                  name={org.name}
-                  pictureUrl={org.picUrl}
-                  province={org.province}
-                  country={org.country}
-                  industries={org.industries}
-                  headline={org.headline}
-                  locale={params.locale}
-                />
-              )
-            )}
+            {orgs.map((org) => (
+              <OrganizationCard
+                id={org.id}
+                key={org.id}
+                name={org.name}
+                picUrl={org.picUrl}
+                province={org.province}
+                country={org.country}
+                industries={org.industries}
+                headline={org.headline}
+                locale={params.locale}
+              />
+            ))}
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center mt-[100px] mb-[150px] text-center">

@@ -35,8 +35,6 @@ export default function JobListing({
                 organization={job.organization}
                 categories={job.categories}
                 updatedAt={job.updatedAt}
-                prerequisite={job.prerequisite}
-                location={job.location}
               />
             ))}
           </div>

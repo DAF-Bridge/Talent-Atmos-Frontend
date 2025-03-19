@@ -1,11 +1,11 @@
 import React from "react";
-import { Organization, Event } from "@/lib/types";
+import { OrganizationMap, Event } from "@/lib/types";
 import Image from "next/image";
 import Badge from "@/components/common/Badge";
 import { Link } from "@/i18n/routing";
 
 interface CustomPopupProps {
-  data: Organization | Event;
+  data: OrganizationMap | Event;
   currentTab: string;
 }
 
@@ -25,7 +25,7 @@ export const CustomPopup: React.FC<CustomPopupProps> = ({
         <Image
           src={
             currentTab === "org"
-              ? (data as Organization).pic_url
+              ? (data as OrganizationMap).pic_url
               : (data as Event).picUrl
           }
           className="h-full max-w-[60px] object-cover rounded-xl border"
@@ -41,13 +41,13 @@ export const CustomPopup: React.FC<CustomPopupProps> = ({
       {
         <p className="text-xs md:text-sm font-light text-gray-600 mt-1">
           {currentTab === "org"
-            ? (data as Organization).headline
+            ? (data as OrganizationMap).headline
             : (data as Event).locationName}
         </p>
       }
       {currentTab === "org" ? (
         <div className="inline-flex flex-wrap mt-2 gap-1">
-          {(data as Organization).industries.map((label, i) => (
+          {(data as OrganizationMap).industries.map((label, i) => (
             <Badge key={i} label={label} />
           ))}
         </div>

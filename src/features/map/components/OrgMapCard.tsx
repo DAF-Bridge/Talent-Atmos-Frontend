@@ -2,12 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
-import { Organization } from "@/lib/types";
+import { OrganizationMap } from "@/lib/types";
 
 interface OrgMapCardProp {
-  organization: Organization;
+  organization: OrganizationMap;
   isSelected: boolean;
-  onCardClick: (organization: Organization) => void;
+  onCardClick: (organization: OrganizationMap) => void;
 }
 
 export default function OrgMapCard({

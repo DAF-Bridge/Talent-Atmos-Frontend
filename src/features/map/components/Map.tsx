@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { Coordinate, Organization, Event } from "@/lib/types";
+import { Coordinate, OrganizationMap, Event } from "@/lib/types";
 import { createPortal } from "react-dom";
 import { CustomPopup } from "./MapPopup";
 import { createRoot } from "react-dom/client";
@@ -43,11 +43,11 @@ const customPopupStyle = `
 `;
 
 interface MapProps {
-  data: Organization[] | Event[];
+  data: OrganizationMap[] | Event[];
   flyToTrigger: number; // Add this prop to force fly animation
   flyToUserTrigger: number;
-  selectedItem: Organization | Event | null;
-  handleCardClick: (org: Organization | Event) => void;
+  selectedItem: OrganizationMap | Event | null;
+  handleCardClick: (org: OrganizationMap | Event) => void;
   userLocation?: Coordinate;
   currentTab: string;
   isLoading: boolean;

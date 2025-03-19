@@ -4,7 +4,7 @@
 // import { SlidersHorizontal, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MapFiltersContent } from "@/features/map/components/MapFilter";
-import { Organization, Event } from "@/lib/types";
+import { OrganizationMap, Event } from "@/lib/types";
 import MapSearchBar from "./MapSearchBar";
 import MapListTab from "./MapListTab";
 import OrgCardList from "./OrgCardList";
@@ -13,9 +13,9 @@ import EventCardList from "./EventCardList";
 import Spinner from "@/components/ui/spinner";
 
 interface MapSidebarContentProps {
-  data: Organization[] | Event[];
-  selectedItem: Organization | Event | null;
-  handleCardClick: (organization: Organization | Event) => void;
+  data: OrganizationMap[] | Event[];
+  selectedItem: OrganizationMap | Event | null;
+  handleCardClick: (organization: OrganizationMap | Event) => void;
   defaultValue: string;
   currentTab: string;
   isLoading: boolean;
@@ -90,8 +90,8 @@ export default function MapSidebarContent({
           >
             {currentTab === "org" ? (
               <OrgCardList
-                organizations={data as Organization[]}
-                selectedOrg={selectedItem as Organization}
+                organizations={data as OrganizationMap[]}
+                selectedOrg={selectedItem as OrganizationMap}
                 handleCardClick={handleCardClick}
               />
             ) : (

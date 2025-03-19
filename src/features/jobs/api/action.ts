@@ -34,7 +34,7 @@ export async function getJobDescription(jobId: string) {
   const apiUrl = formatExternalUrl(`/jobs/get/${jobId}`);
   const res = await fetch(apiUrl, { cache: "no-store" });
   const data = await res.json();
-  console.log(data)
+  console.log(data);
 
   if (res.ok && data) {
     return data;

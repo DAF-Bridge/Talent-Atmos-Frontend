@@ -29,8 +29,6 @@ export default async function OrgJobsPage({
               organization={job.organization}
               categories={job.categories}
               updatedAt={job.updatedAt}
-              prerequisite={job.prerequisite}
-              location={job.location}
             />
           ))}
         </div>

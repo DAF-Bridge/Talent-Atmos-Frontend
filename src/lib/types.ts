@@ -83,7 +83,7 @@ export type BriefOrganization = {
   imgUrl: string;
 };
 
-export interface Organization {
+export interface OrganizationMap {
   id: number;
   pic_url: string;
   name: string;
@@ -91,6 +91,16 @@ export interface Organization {
   latitude: number;
   longitude: number;
   industries: string[];
+}
+
+export interface OrganizationBrief {
+  headline: string;
+  industries: { id: number; name: string }[];
+  country: string;
+  province: string;
+  id: number;
+  name: string;
+  picUrl: string;
 }
 
 export interface OrganizationDescription {
@@ -170,9 +180,7 @@ export type LanguageCode = "th" | "en";
 export interface JobCardProps {
   id: number;
   title: string;
-  prerequisite: string[];
   description: string;
-  location: string;
   workplace: string;
   workType: string;
   careerStage: string;
@@ -227,4 +235,9 @@ export interface JobDescriptionPage {
     }
   ];
   updatedAt: string;
+}
+
+export interface CategoryProps {
+  value: number;
+  label: string;
 }

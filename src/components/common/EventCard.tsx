@@ -78,7 +78,7 @@ export default function EventCard({
           <div className="line-clamp-1 text-sm min-h-5 text-gray-500 mt-3">
             {startDate ? formatDateRange(startDate, endDate) : "ไม่ระบุ"}
           </div>
-          <div className="font-medium text-base line-clamp-2 mt-1 min-h-[3rem] w-full">
+          <div className="font-medium text-base line-clamp-2 mt-1 w-full">
             {title ?? "ไม่ระบุ"}
           </div>
         </Link>

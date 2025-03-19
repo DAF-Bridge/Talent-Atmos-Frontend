@@ -25,8 +25,6 @@ describe("JobCard", () => {
             { value: 3, label: "องค์กร" },
             { value: 4, label: "งานทดสอบ" },
           ]}
-          prerequisite={[]}
-          location={"cnx"}
           organization={{
             id: 0,
             name: "test",
@@ -59,8 +57,6 @@ describe("JobCard", () => {
             { value: 3, label: "องค์กร" },
             { value: 4, label: "งานทดสอบ" },
           ]}
-          prerequisite={[]}
-          location={"cnx"}
           organization={{
             id: 0,
             name: "test",
@@ -93,8 +89,6 @@ describe("JobCard", () => {
             { value: 3, label: "องค์กร" },
             { value: 4, label: "งานทดสอบ" },
           ]}
-          prerequisite={[]}
-          location={"cnx"}
           organization={{
             id: 0,
             name: "test",
@@ -127,8 +121,6 @@ describe("JobCard", () => {
             { value: 3, label: "องค์กร" },
             { value: 4, label: "งานทดสอบ" },
           ]}
-          prerequisite={[]}
-          location={"cnx"}
           organization={{
             id: 0,
             name: "test",

@@ -44,7 +44,7 @@ export default function JobCard({
           )}
           <div className="flex flex-col gap-1">
             {organization.picUrl ? (
-              <p className="text-sm sm:text-base font-normal">{title}</p>
+              <p className="text-sm sm:text-base font-medium">{title}</p>
             ) : (
               <p className="text-base sm:text-lg font-medium mb-1">{title}</p>
             )}

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { Coordinate, Organization, Event } from "@/lib/types";
+import { Coordinate, OrganizationMap, Event } from "@/lib/types";
 import MapComponent from "@/features/map/components/Map";
 import MapSidebarContent from "@/features/map/components/MapSidebarContent";
 import MapMobileDrawer from "@/features/map/components/MapMobileDrawer";
@@ -25,11 +25,11 @@ export default function MapPage({
   params: { page: string; locale: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }>) {
-  const [organizations, setOrganizations] = useState<Organization[]>([]);
+  const [organizations, setOrganizations] = useState<OrganizationMap[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const currentTab = searchParams.tab?.toString() ?? "org";
   const search = searchParams.search?.toString() ?? "";
-  const [selectedItem, setSelectedItem] = useState<Organization | Event | null>(
+  const [selectedItem, setSelectedItem] = useState<OrganizationMap | Event | null>(
     null
   );
   const [flyToTrigger, setFlyToTrigger] = useState(0); // Add a trigger value to force map to fly even when selecting the same org
@@ -55,10 +55,10 @@ export default function MapPage({
     fetchData();
   }, []);
 
-  const data: Organization[] | Event[] =
+  const data: OrganizationMap[] | Event[] =
     currentTab === "org" ? organizations : events;
 
-  const handleCardClick = useCallback((item: Organization | Event) => {
+  const handleCardClick = useCallback((item: OrganizationMap | Event) => {
     setSelectedItem(item);
     setIsDrawerOpen(false); // Close the drawer
     setFlyToTrigger((prev) => prev + 1);

@@ -9,7 +9,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { Organization, Event } from "@/lib/types";
+import { OrganizationMap, Event } from "@/lib/types";
 import MapSearchBar from "./MapSearchBar";
 import OrgCardList from "./OrgCardList";
 import EventCardList from "./EventCardList";
@@ -18,9 +18,9 @@ import MapListTab from "./MapListTab";
 interface MapMobileDrawerProps {
   isDrawerOpen: boolean;
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  data: Organization[] | Event[];
-  selectedItem: Organization | Event | null;
-  handleCardClick: (org: Organization | Event) => void;
+  data: OrganizationMap[] | Event[];
+  selectedItem: OrganizationMap | Event | null;
+  handleCardClick: (org: OrganizationMap | Event) => void;
   currentTab: string;
 }
 
@@ -61,8 +61,8 @@ export default function MapMobileDrawer({
           >
             {currentTab === "org" ? (
               <OrgCardList
-                organizations={data as Organization[]}
-                selectedOrg={selectedItem as Organization}
+                organizations={data as OrganizationMap[]}
+                selectedOrg={selectedItem as OrganizationMap}
                 handleCardClick={handleCardClick}
               />
             ) : (

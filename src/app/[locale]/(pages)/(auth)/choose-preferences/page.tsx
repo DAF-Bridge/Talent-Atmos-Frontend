@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Leaf, Users, Building2 } from "lucide-react";
+import { Leaf, Users, Building2, X } from "lucide-react";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import { BiNetworkChart } from "react-icons/bi";
 import {
@@ -14,45 +14,84 @@ import {
 import { CgDisplayGrid } from "react-icons/cg";
 import { GrWorkshop } from "react-icons/gr";
 import { MdOutlinedFlag } from "react-icons/md";
+import Spinner from "@/components/ui/spinner";
+import {
+  ListCategories,
+  SubmitPreferences,
+} from "@/features/preferences/api/action";
+import { CategoryProps } from "@/lib/types";
+import toast from "react-hot-toast";
 
 export default function PreferencesPage() {
   const router = useRouter();
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<CategoryProps[]>(
+    []
+  );
+  const [isLoading, setIsLoading] = useState(false);
+  const [categories, setCategories] = useState<CategoryProps[]>([]);
 
-  const categories = [
-    { id: "incubation", name: "พัฒนาธุรกิจ", icon: HiOutlineRocketLaunch },
-    { id: "networking", name: "สร้างเครือข่าย", icon: BiNetworkChart },
-    { id: "forum", name: "ฟอรัมพูดคุย", icon: HiOutlinePresentationChartBar },
-    { id: "exhibition", name: "แสดงสินค้า & นวัตกรรม", icon: CgDisplayGrid },
-    { id: "competition", name: "แข่งขันชิงรางวัล", icon: HiOutlineLightBulb },
-    { id: "workshop", name: "เวิร์คชอปให้ความรู้", icon: GrWorkshop },
-    { id: "campaign", name: "แคมเปญส่วนรวม", icon: MdOutlinedFlag },
-    { id: "environment", name: "พัฒนาสิ่งแวดล้อม", icon: Leaf },
-    { id: "social", name: "พัฒนาสังคม", icon: Users },
-    { id: "governance", name: "การบริหาร & กำกับดูแล", icon: Building2 },
-  ];
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setIsLoading(true);
+      const excludeVal = [10, 1, 2, 14, 15];
+      const categories = await ListCategories();
+      // console.log(categories);
+      setCategories(
+        categories.filter(
+          (category: CategoryProps) => !excludeVal.includes(category.value)
+        )
+      );
+      setIsLoading(false);
+    };
 
-  const toggleCategory = (categoryId: string) => {
+    fetchCategories();
+  }, []);
+
+  const getCategoryIcon = (label: string) => {
+    switch (label) {
+      case "incubation":
+        return HiOutlineRocketLaunch;
+      case "networking":
+        return BiNetworkChart;
+      case "forum":
+        return HiOutlinePresentationChartBar;
+      case "exhibition":
+        return CgDisplayGrid;
+      case "competition":
+        return HiOutlineLightBulb;
+      case "workshop":
+        return GrWorkshop;
+      case "campaign":
+        return MdOutlinedFlag;
+      case "environment":
+        return Leaf;
+      case "social":
+        return Users;
+      case "governance":
+        return Building2;
+      default:
+        return X;
+    }
+  };
+
+  const toggleCategory = (category: CategoryProps) => {
+    // if (selectedCategories.length >= 4) {
+    //   toast.error("คุณสามารถเลือกไม่เกิน 4 หมวดหมู่");
+    // }
     setSelectedCategories((prev) =>
-      prev.includes(categoryId)
-        ? prev.filter((id) => id !== categoryId)
-        : [...prev, categoryId]
+      prev.includes(category)
+        ? prev.filter((id) => id !== category)
+        : [...prev, category]
     );
   };
 
-  const handleContinue = async () => {
-    // Here you would typically save the preferences to your backend
-    console.log("Selected categories:", selectedCategories);
-
-    // Mock API call to save preferences
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      // Redirect to home page or dashboard after saving preferences
-      router.push("/");
-    } catch (error) {
-      console.error("Failed to save preferences:", error);
+  const handleSubmit = async () => {
+    const result = await SubmitPreferences(selectedCategories);
+    if (result.success) {
+      toast.success("บันทึกสําเร็จ");
+      router.push("/"); // Redirect to home
+    } else {
+      toast.error("บันทึกไม่สําเร็จ กรุณาลองใหม่อีกครั้ง");
     }
   };
 
@@ -67,44 +106,51 @@ export default function PreferencesPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
-          {categories.map((category) => {
-            const isSelected = selectedCategories.includes(category.id);
-            const Icon = category.icon;
+        {isLoading ? (
+          <div className="flex flex-col gap-1 justify-center items-center w-full pt-16 pb-20">
+            <Spinner />
+            <span className="text-center">Loading...</span>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
+            {categories.map((category) => {
+              const isSelected = selectedCategories.includes(category);
+              const Icon = getCategoryIcon(category.label);
 
-            return (
-              <Card
-                key={category.id}
-                className={`cursor-pointer transition-all hover:shadow-md ${
-                  isSelected
-                    ? "border-primary bg-primary/5 ring-1 ring-primary"
-                    : "hover:border-primary/50"
-                }`}
-                onClick={() => toggleCategory(category.id)}
-              >
-                <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                  <Icon
-                    className={`h-10 w-10 mb-2 ${
-                      isSelected ? "text-primary" : "text-muted-foreground"
-                    }`}
-                  />
-                  <span
-                    className={`font-medium ${
-                      isSelected ? "text-primary" : ""
-                    }`}
-                  >
-                    {category.name}
-                  </span>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+              return (
+                <Card
+                  key={category.value}
+                  className={`cursor-pointer transition-all hover:shadow-md ${
+                    isSelected
+                      ? "border-primary bg-primary/5 ring-1 ring-primary"
+                      : "hover:border-primary/50"
+                  }`}
+                  onClick={() => toggleCategory(category)}
+                >
+                  <CardContent className="flex flex-col items-center justify-center p-6 text-center">
+                    <Icon
+                      className={`h-10 w-10 mb-2 ${
+                        isSelected ? "text-primary" : "text-muted-foreground"
+                      }`}
+                    />
+                    <span
+                      className={`font-medium ${
+                        isSelected ? "text-primary" : ""
+                      }`}
+                    >
+                      {category.label}
+                    </span>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        )}
 
         <div className="flex justify-center">
           <Button
             size="lg"
-            onClick={handleContinue}
+            onClick={handleSubmit}
             disabled={selectedCategories.length === 0}
             className="w-full md:w-auto"
           >

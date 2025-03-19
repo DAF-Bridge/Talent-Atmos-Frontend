@@ -11,7 +11,7 @@ describe("OrganizationCard", () => {
         <OrganizationCard
           id={1}
           name="ไทยสตาร์ทอัพ"
-          pictureUrl={"https://drive.google.com/uc?export=view&id="}
+          picUrl={"https://drive.google.com/uc?export=view&id="}
           province={""}
           country={""}
           industries={[]}
@@ -29,7 +29,7 @@ describe("OrganizationCard", () => {
         <OrganizationCard
           id={1}
           name="SEA Bridge Talent"
-          pictureUrl={"https://drive.google.com/uc?export=view&id="}
+          picUrl={"https://drive.google.com/uc?export=view&id="}
           province={""}
           country={""}
           industries={[]}
@@ -47,7 +47,7 @@ describe("OrganizationCard", () => {
         <OrganizationCard
           id={1}
           name="SEA Bridge Talent"
-          pictureUrl={"https://drive.google.com/uc?export=view&id="}
+          picUrl={"https://drive.google.com/uc?export=view&id="}
           province={""}
           country={""}
           industries={[]}

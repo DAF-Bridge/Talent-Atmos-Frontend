@@ -59,7 +59,7 @@ export default function NavigationBar() {
             </div>
 
             {/* Mobile Menu Button */}
-            {/* <div className="md:hidden flex items-center">
+            <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsMiniMenuOpen(!isMiniMenuOpen)}
                 className="text-black focus:outline-none"
@@ -83,7 +83,7 @@ export default function NavigationBar() {
                   />
                 </svg>
               </button>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

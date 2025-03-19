@@ -1,12 +1,12 @@
 import React from "react";
 import OrgMapCard from "./OrgMapCard";
-import { Organization } from "@/lib/types";
+import { OrganizationMap } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface OrgCardListProps {
-  organizations: Organization[];
-  selectedOrg: Organization | null;
-  handleCardClick: (org: Organization) => void;
+  organizations: OrganizationMap[];
+  selectedOrg: OrganizationMap | null;
+  handleCardClick: (org: OrganizationMap) => void;
 }
 
 export default function OrgCardList({
