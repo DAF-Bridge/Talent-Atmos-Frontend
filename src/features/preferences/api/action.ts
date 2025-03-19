@@ -8,9 +8,10 @@ export async function ListCategories() {
   const apiUrl = formatExternalUrl(`/events/categories/list`);
   const res = await fetch(apiUrl, { cache: "no-store" });
   const data = await res.json();
-  const categories: { value: number; label: string }[] = data.categories;
+  const categories: CategoryProps[] = data.categories;
 
   if (res.ok) {
+    console.log("All Categories:", categories);
     return categories;
   } else {
     return [];
@@ -20,7 +21,6 @@ export async function ListCategories() {
 export async function CreatePreferences(categories: CategoryProps[]) {
   const cookieStore = cookies();
   const apiUrl = formatExternalUrl("/users/user-preference");
-  console.log(JSON.stringify({ categories }));
   const res = await fetch(apiUrl, {
     method: "POST",
     cache: "no-store",
@@ -75,9 +75,11 @@ export async function GetUserPreference() {
     cache: "no-store",
   });
   const data = await res.json();
+  const categories: CategoryProps[] = data.categories;
 
   if (res.ok) {
-    return data;
+    console.log("User preference:", categories);
+    return categories;
   } else {
     return null;
   }

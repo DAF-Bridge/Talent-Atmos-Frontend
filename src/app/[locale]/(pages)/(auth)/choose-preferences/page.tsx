@@ -54,12 +54,10 @@ export default function PreferencesPage() {
         setCategories(filteredCategories);
 
         if (preference) {
-          console.log("User preference:", preference);
-
           // Match selected categories with existing list
           const selected = filteredCategories.filter((category) =>
-            preference.categories.some(
-              (pref: any) => pref.value === category.value
+            preference.some(
+              (pref: CategoryProps) => pref.value === category.value
             )
           );
 
