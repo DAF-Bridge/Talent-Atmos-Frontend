@@ -36,7 +36,6 @@ export default function PreferencesPage() {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      setIsLoading(true);
       const excludeVal = [10, 1, 2, 14, 15];
       const categories = await ListCategories();
       console.log("all categories:", categories);
@@ -45,9 +44,7 @@ export default function PreferencesPage() {
           (category: CategoryProps) => !excludeVal.includes(category.value)
         )
       );
-      setIsLoading(false);
     };
-
     const fetchUserPreference = async () => {
       const preference = await GetUserPreference();
       if (preference) {
@@ -56,8 +53,10 @@ export default function PreferencesPage() {
         setIsEdit(true);
       }
     };
+    setIsLoading(true);
     fetchUserPreference();
     fetchCategories();
+    setIsLoading(false);
   }, []);
 
   const toggleCategory = (category: CategoryProps) => {
