@@ -54,7 +54,6 @@ export default function PreferencesPage() {
         const filteredCategories = categoriesData.filter(
           (category: CategoryProps) => !excludeVal.includes(category.value)
         );
-        setCategories(filteredCategories);
 
         if (preference) {
           // Match selected categories with existing list
@@ -65,6 +64,7 @@ export default function PreferencesPage() {
           );
 
           setSelectedCategories(selected);
+          setCategories(filteredCategories);
           setIsEdit(true);
         }
       } catch (error) {
