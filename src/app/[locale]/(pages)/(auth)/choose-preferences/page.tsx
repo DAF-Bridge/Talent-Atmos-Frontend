@@ -56,9 +56,8 @@ export default function PreferencesPage() {
         setIsEdit(true);
       }
     };
-
-    fetchCategories();
     fetchUserPreference();
+    fetchCategories();
   }, []);
 
   const toggleCategory = (category: CategoryProps) => {
