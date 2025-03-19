@@ -48,6 +48,9 @@ export default function PreferencesPage() {
           throw new Error("Failed to get categories");
         }
 
+        console.log("All Categories:", categoriesData);
+        console.log("User preference:", preference);
+
         const filteredCategories = categoriesData.filter(
           (category: CategoryProps) => !excludeVal.includes(category.value)
         );

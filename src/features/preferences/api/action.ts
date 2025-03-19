@@ -11,7 +11,6 @@ export async function ListCategories() {
   const categories: CategoryProps[] = data.categories;
 
   if (res.ok) {
-    console.log("All Categories:", categories);
     return categories;
   } else {
     return [];
@@ -78,7 +77,6 @@ export async function GetUserPreference() {
   const categories: CategoryProps[] = data.categories;
 
   if (res.ok) {
-    console.log("User preference:", categories);
     return categories;
   } else {
     return null;
