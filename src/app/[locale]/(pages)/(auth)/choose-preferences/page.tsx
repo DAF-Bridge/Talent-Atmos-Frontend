@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Leaf, Users, Building2, X } from "lucide-react";
+import { Leaf, Users, Building2, X, ArrowLeft } from "lucide-react";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import { BiNetworkChart } from "react-icons/bi";
 import {
@@ -23,9 +22,9 @@ import {
 } from "@/features/preferences/api/action";
 import { CategoryProps } from "@/lib/types";
 import toast from "react-hot-toast";
+import { Link } from "@/i18n/routing";
 
 export default function PreferencesPage() {
-  const router = useRouter();
   const [selectedCategories, setSelectedCategories] = useState<CategoryProps[]>(
     []
   );
@@ -101,7 +100,6 @@ export default function PreferencesPage() {
 
     if (result.success) {
       toast.success("บันทึกสําเร็จ");
-      router.push("/"); // Redirect to home
     } else {
       toast.error("บันทึกไม่สําเร็จ กรุณาลองใหม่อีกครั้ง");
     }
@@ -111,6 +109,15 @@ export default function PreferencesPage() {
   return (
     <div className="w-[100vw] h-[100vh] overflow-y-auto bg-white px-10">
       <div className="container max-w-5xl py-10 mx-auto">
+        <Link href="/" className="pt-[71px]">
+          <div
+            className="rounded-full inline-flex gap-2 
+            text-base font-medium text-start px-5 py-1 transition-all duration-200"
+          >
+            <ArrowLeft height={30} width={30} />
+            <p className="self-center">กลับสู่หน้าหลัก</p>
+          </div>
+        </Link>
         <div className="space-y-6 text-center mb-10">
           <h1 className="text-3xl font-bold">เลือกหมวดหมู่ที่สนใจ</h1>
           <p className="text-muted-foreground max-w-md mx-auto">
