@@ -17,7 +17,9 @@ import { MdOutlinedFlag } from "react-icons/md";
 import Spinner from "@/components/ui/spinner";
 import {
   ListCategories,
-  SubmitPreferences,
+  CreatePreferences,
+  GetUserPreference,
+  UpdatePreference,
 } from "@/features/preferences/api/action";
 import { CategoryProps } from "@/lib/types";
 import toast from "react-hot-toast";
@@ -27,6 +29,7 @@ export default function PreferencesPage() {
   const [selectedCategories, setSelectedCategories] = useState<CategoryProps[]>(
     []
   );
+  const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState<CategoryProps[]>([]);
 
@@ -44,7 +47,16 @@ export default function PreferencesPage() {
       setIsLoading(false);
     };
 
+    const fetchUserPreference = async () => {
+      const preference = await GetUserPreference();
+      if (preference) {
+        setSelectedCategories(preference.categories);
+        setIsEdit(true);
+      }
+    };
+
     fetchCategories();
+    fetchUserPreference();
   }, []);
 
   const getCategoryIcon = (label: string) => {
@@ -86,7 +98,15 @@ export default function PreferencesPage() {
   };
 
   const handleSubmit = async () => {
-    const result = await SubmitPreferences(selectedCategories);
+    let result;
+    if (isEdit) {
+      // if user already has preference
+      result = await UpdatePreference(selectedCategories);
+    } else {
+      // if user doesn't have preference
+      result = await CreatePreferences(selectedCategories);
+    }
+
     if (result.success) {
       toast.success("บันทึกสําเร็จ");
       router.push("/"); // Redirect to home
