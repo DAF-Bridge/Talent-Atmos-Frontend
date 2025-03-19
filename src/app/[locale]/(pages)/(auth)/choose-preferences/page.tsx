@@ -35,28 +35,45 @@ export default function PreferencesPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const excludeVal = [10, 1, 2, 14, 15];
-      const categories = await ListCategories();
-      console.log("all categories:", categories);
-      setCategories(
-        categories.filter(
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const excludeVal = [10, 1, 2, 14, 15];
+        const [categoriesData, preference] = await Promise.all([
+          ListCategories(),
+          GetUserPreference(),
+        ]);
+
+        if (!categoriesData) {
+          throw new Error("Failed to get categories");
+        }
+
+        const filteredCategories = categoriesData.filter(
           (category: CategoryProps) => !excludeVal.includes(category.value)
-        )
-      );
-    };
-    const fetchUserPreference = async () => {
-      const preference = await GetUserPreference();
-      if (preference) {
-        console.log("user preference:", preference);
-        setSelectedCategories(preference.categories);
-        setIsEdit(true);
+        );
+        setCategories(filteredCategories);
+
+        if (preference) {
+          console.log("User preference:", preference);
+
+          // Match selected categories with existing list
+          const selected = filteredCategories.filter((category) =>
+            preference.categories.some(
+              (pref: any) => pref.value === category.value
+            )
+          );
+
+          setSelectedCategories(selected);
+          setIsEdit(true);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
-    setIsLoading(true);
-    fetchUserPreference();
-    fetchCategories();
-    setIsLoading(false);
+
+    fetchData();
   }, []);
 
   const toggleCategory = (category: CategoryProps) => {
