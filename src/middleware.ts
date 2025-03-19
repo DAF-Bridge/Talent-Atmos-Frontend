@@ -8,7 +8,7 @@ import { formatExternalUrl } from "@/lib/utils";
 const intlMiddleware = createMiddleware(routing);
 
 // Specify protected routes (including localized versions)
-const protectedRoutes = ["/admin"];
+const protectedRoutes = ["/choose-preferences"];
 
 export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
