@@ -3,6 +3,16 @@ import { twMerge } from "tailwind-merge";
 import { formatDistanceToNow, isSameDay } from "date-fns";
 import { th, enUS } from "date-fns/locale";
 import { provinces } from "@/features/map/config/SelectInputObj";
+import { HiOutlineRocketLaunch } from "react-icons/hi2";
+import { BiNetworkChart } from "react-icons/bi";
+import {
+  HiOutlineLightBulb,
+  HiOutlinePresentationChartBar,
+} from "react-icons/hi";
+import { CgDisplayGrid } from "react-icons/cg";
+import { GrWorkshop } from "react-icons/gr";
+import { MdOutlinedFlag } from "react-icons/md";
+import { Leaf, Users, Building2, X } from "lucide-react";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -99,36 +109,56 @@ export function getProvinceNameByCode(
   return province[locale as keyof typeof province];
 }
 
+export const getCategoryIcon = (label: string) => {
+  switch (label) {
+    case "incubation":
+      return HiOutlineRocketLaunch;
+    case "networking":
+      return BiNetworkChart;
+    case "forum":
+      return HiOutlinePresentationChartBar;
+    case "exhibition":
+      return CgDisplayGrid;
+    case "competition":
+      return HiOutlineLightBulb;
+    case "workshop":
+      return GrWorkshop;
+    case "campaign":
+      return MdOutlinedFlag;
+    case "environment":
+      return Leaf;
+    case "social":
+      return Users;
+    case "governance":
+      return Building2;
+    default:
+      return X;
+  }
+};
 
-// export function sortIndustries(
-//   industries: {
-//     id: number;
-//     name: string;
-//   }[]
-// ) {
-//   const sortedArr: { id: number; name: string }[] = [];
-//   industries.forEach((item) => {
-//     if (
-//       item.name === "environment" ||
-//       item.name === "Environment" ||
-//       item.name === "social" ||
-//       item.name === "Social" ||
-//       item.name === "governance" ||
-//       item.name === "Governance"
-//     )
-//       sortedArr.push(item);
-//   });
-//   industries.forEach((item) => {
-//     if (
-//       item.name !== "environment" &&
-//       item.name !== "Environment" &&
-//       item.name !== "social" &&
-//       item.name !== "Social" &&
-//       item.name !== "governance" &&
-//       item.name !== "Governance"
-//     )
-//       sortedArr.push(item);
-//   });
-
-//   return sortedArr;
-// }
+export const getCategoryName = (label: string) => {
+  switch (label) {
+    case "incubation":
+      return "บ่มเพาะธุรกิจ";
+    case "networking":
+      return "สร้างเครือข่าย";
+    case "forum":
+      return "สัมมนา ฟอรัม";
+    case "exhibition":
+      return "นิทรรศการจัดแสดง";
+    case "competition":
+      return "การแข่งขัน";
+    case "workshop":
+      return "เวิร์คชอปให้ความรู้";
+    case "campaign":
+      return "แคมเปญ";
+    case "environment":
+      return "Environment";
+    case "social":
+      return "Social";
+    case "governance":
+      return "Governance";
+    default:
+      return "...";
+  }
+};

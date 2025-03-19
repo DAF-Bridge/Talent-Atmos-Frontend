@@ -1,22 +1,10 @@
 import React from "react";
-import {
-  Lightbulb,
-  // Building,
-  // Building2,
-  // CircleUserRound,
-  LogOut,
-  // Settings,
-  // Ticket,
-} from "lucide-react";
+import { CircleUserRound, Lightbulb, LogOut } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { Link } from "@/i18n/routing";
-// import Link from "next/link";
-// import { Link } from "@/i18n/routing";
 
 export default function DropDownMenu() {
   const { removeAuthState } = useAuth();
-  // const adminPageUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL;
-  // const handleAdminPageOpen = () => window.open(adminPageUrl, "_blank");
   return (
     <>
       {/* <div className="flex gap-1 ">
@@ -61,22 +49,12 @@ export default function DropDownMenu() {
       </div>
       <div className="border-b"></div> */}
       <div className="flex flex-col gap-1">
-        {/* <Link href={"/profile"} className={btnStyleVariant2}>
+        <Link href={"/user-statistics"} className={btnStyleVariant2}>
           <>
             <CircleUserRound className="h-[18px]" />
-            <span className="text-sm font-normal">โปรไฟล์</span>
+            <span className="text-sm font-normal">สถิติกิจกรรม</span>
           </>
-        </Link> */}
-        {/* <Link href={"/setting"} className={btnStyleVariant2}>
-          <>
-            <Settings className="h-[18px]" />
-            <span className="text-sm font-normal">ตั้งค่าบัญชี</span>
-          </>
-        </Link> */}
-        {/* <button onClick={handleAdminPageOpen} className={btnStyleVariant2}>
-          <Building className="h-[18px]" />
-          <span className="text-sm font-normal">สำหรับองค์กร</span>
-        </button> */}
+        </Link>
         <Link href={"/choose-preferences"} className={btnStyleVariant2}>
           <>
             <Lightbulb className="h-[18px]" />
