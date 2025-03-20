@@ -8,7 +8,7 @@ import {
 import Image from "next/image";
 import React from "react";
 import { EventDescriptionProps } from "@/lib/types";
-import RegBtn from "@/features/events/components/regBtn";
+import EventRegBtn from "@/features/events/components/regBtn";
 import { getEventDescription } from "@/features/events/api/action";
 import parse, {
   domToReact,
@@ -286,7 +286,7 @@ export default async function EventDescription({
                   ลงทะเบียน
                 </p>
                 <div className="flex flex-col gap-5 w-full">
-                  <RegBtn url={registerLink} />
+                  <EventRegBtn url={registerLink} eventId={eventId} />
                 </div>
               </div>
             </div>
