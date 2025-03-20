@@ -10,8 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-// import { RiResetRightFill } from "react-icons/ri";
-// import { IoSearch } from "react-icons/io5";
 import { FaChevronDown } from "react-icons/fa";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -43,6 +41,10 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
   const [salaryError, setSalaryError] = useState("");
 
   const validateSalaryRange = (min: number, max: number) => {
+    if (min < 0 || max < 0) {
+      setSalaryError("กรุณากรอกเงินเดือนให้ถูกต้อง");
+      return false;
+    }
     if (min && max && min > max) {
       setSalaryError("เงินเดือนขั้นต่ำต้องน้อยกว่าเงินเดือนสูงสุด");
       return false;
@@ -122,22 +124,6 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
           </Select>
         </div>
 
-        {/* <div>
-        <Label className="text-base font-normal" htmlFor="keyword-search">
-          ค้นหาจากคีย์เวิร์ด
-        </Label>
-        <div className="relative">
-          <Input
-            id="keyword-search"
-            placeholder="ระบุคีย์เวิร์ด หรือชื่อบริษัท"
-            className="pl-9 placeholder:font-light placeholder:text-sm"
-            value={filters.search}
-            onChange={(e) => updateFilter("search", e.target.value)}
-          />
-          <IoSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-xl text-gray-inactive" />
-        </div>
-      </div> */}
-
         <div>
           <Label className="text-base font-normal" htmlFor="location-search">
             สถานที่
@@ -201,6 +187,7 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
                     id="salary-min"
                     type="number"
                     value={filters.minSalary || ""}
+                    min={0}
                     onChange={(e) => {
                       updateFilter("minSalary", Number(e.target.value));
                       handleSalaryChange("minSalary", Number(e.target.value));
@@ -217,6 +204,7 @@ export default function JobFilters({ onClose }: Readonly<JobFiltersProps>) {
                   <Input
                     id="salary-max"
                     type="number"
+                    min={0}
                     value={filters.maxSalary || ""}
                     onChange={(e) => {
                       updateFilter("maxSalary", Number(e.target.value));
