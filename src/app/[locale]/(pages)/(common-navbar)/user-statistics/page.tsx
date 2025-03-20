@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { CategoryStats } from "./category-stats";
+import { CategoryStats } from "@/features/statistic/components/category-stats";
 import { Users } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 

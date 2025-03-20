@@ -37,3 +37,15 @@ export async function getFeaturedEvents() {
     return null;
   }
 }
+
+export async function getRecommendedEvents() {
+  const apiUrl = formatExternalUrl("/recommendation");
+  const res = await fetch(apiUrl, { cache: "no-store" });
+  const data = await res.json();
+
+  if (res.ok) {
+    return data;
+  } else {
+    return null;
+  }
+}

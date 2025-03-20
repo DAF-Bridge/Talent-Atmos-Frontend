@@ -34,112 +34,114 @@ export default async function Home({
 
       <main className="font-prompt flex-grow">
         {/* Events Section */}
-        <section className="py-16 bg-white">
-          <div className="max-w-[1170px] mx-auto px-6">
-            <div className="flex justify-between items-center mb-8 gap-4">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                  อีเว้นท์สำหรับคุณ
-                </h2>
-                <p className="text-gray-600 mt-2">
-                  ค้นพบอีเว้นท์ที่เหมาะสมในการแสดงจุดแข็งของคุณ
-                </p>
+        {featuredEvents && featuredEvents.length > 0 && (
+          <section className="py-16 bg-white">
+            <div className="max-w-[1170px] mx-auto px-6">
+              <div className="flex justify-between items-center mb-8 gap-4">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                    อีเว้นท์สำหรับคุณ
+                  </h2>
+                  <p className="text-gray-600 mt-2">
+                    ค้นพบอีเว้นท์ที่เหมาะสมในการแสดงจุดแข็งของคุณ
+                  </p>
+                </div>
               </div>
-              {/* <Link
-                href="/events/page/1?category=all"
-                className="text-orange-dark hover:text-orange-normal flex items-center gap-1 font-medium shrink-0 group"
-              >
-                ดูทั้งหมด <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
-              </Link> */}
+              {/* Recommended Events */}
+              <EventCarousel events={featuredEvents} />
             </div>
-            {/* Recommended Events */}
-            <EventCarousel events={featuredEvents} />
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Events Section */}
-        <section className="pb-16 bg-white">
-          <div className="max-w-[1170px] mx-auto px-6">
-            <div className="flex justify-between items-center mb-8 gap-4">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                  อีเว้นท์ที่เราแนะนำ
-                </h2>
-                <p className="text-gray-600 mt-2">
-                  อีเว้นท์ที่มาแรง ตามกระแสเทรนด์ในปัจจุบัน
-                </p>
+        {featuredEvents && featuredEvents.length > 0 && (
+          <section className="pb-16 bg-white">
+            <div className="max-w-[1170px] mx-auto px-6">
+              <div className="flex justify-between items-center mb-8 gap-4">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                    อีเว้นท์ที่เราแนะนำ
+                  </h2>
+                  <p className="text-gray-600 mt-2">
+                    อีเว้นท์ที่มาแรง ตามกระแสเทรนด์ในปัจจุบัน
+                  </p>
+                </div>
+                <Link
+                  href="/events/page/1?category=all"
+                  className="text-orange-dark hover:text-orange-normal flex items-center gap-1 font-medium shrink-0 group"
+                >
+                  ดูทั้งหมด{" "}
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
+                </Link>
               </div>
-              <Link
-                href="/events/page/1?category=all"
-                className="text-orange-dark hover:text-orange-normal flex items-center gap-1 font-medium shrink-0 group"
-              >
-                ดูทั้งหมด{" "}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
-              </Link>
-            </div>
 
-            {/* Featured Events */}
-            <EventCarousel events={featuredEvents} />
-          </div>
-        </section>
+              {/* Featured Events */}
+              <EventCarousel events={featuredEvents} />
+            </div>
+          </section>
+        )}
 
         {/* Jobs Section */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-[1170px] mx-auto px-6">
-            <div className="flex justify-between items-center mb-8 gap-4">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                  ตำแหน่งงานล่าสุด
-                </h2>
-                <p className="text-gray-600 mt-2">
-                  โอกาสในการพัฒนาองค์กร และทำเพื่อสังคม
-                </p>
-              </div>
-              {/* <Link
+        {recentJobs && recentJobs.length > 0 && (
+          <section className="py-16 bg-gray-50">
+            <div className="max-w-[1170px] mx-auto px-6">
+              <div className="flex justify-between items-center mb-8 gap-4">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                    ตำแหน่งงานล่าสุด
+                  </h2>
+                  <p className="text-gray-600 mt-2">
+                    โอกาสในการพัฒนาองค์กร และทำเพื่อสังคม
+                  </p>
+                </div>
+                {/* <Link
                 href="/jobs"
                 className="text-orange-dark hover:text-orange-normal flex items-center gap-1 font-medium shrink-0"
               >
                 ดูทั้งหมด <ArrowRight className="w-4 h-4" />
               </Link> */}
-            </div>
+              </div>
 
-            <JobShowcase jobs={recentJobs} />
+              <JobShowcase jobs={recentJobs} />
 
-            <div className="flex justify-center mt-10">
-              <Link
-                href="/jobs/page/1"
-                className="bg-white border border-orange-normal text-orange-dark hover:bg-orange-50 px-8 py-2 rounded-md"
-              >
-                ดูตำแหน่งงานเพิ่มเติม
-              </Link>
+              <div className="flex justify-center mt-10">
+                <Link
+                  href="/jobs/page/1"
+                  className="bg-white border border-orange-normal text-orange-dark hover:bg-orange-50 px-8 py-2 rounded-md"
+                >
+                  ดูตำแหน่งงานเพิ่มเติม
+                </Link>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* Organizations Section */}
-        <section className="py-16 bg-white">
-          <div className="max-w-[1170px] mx-auto px-6">
-            <div className="flex justify-between items-center mb-8 gap-4">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                  องค์กรชั้นนำ
-                </h2>
-                <p className="text-gray-600 mt-2">
-                  ค้นพบองค์กรเยาวชน ขับเคลื่อนโดยเยาวชน เพื่อสังคม
-                </p>
+        {recentOrgs && recentOrgs.length > 0 && (
+          <section className="py-16 bg-white">
+            <div className="max-w-[1170px] mx-auto px-6">
+              <div className="flex justify-between items-center mb-8 gap-4">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                    องค์กรชั้นนำ
+                  </h2>
+                  <p className="text-gray-600 mt-2">
+                    ค้นพบองค์กรเยาวชน ขับเคลื่อนโดยเยาวชน เพื่อสังคม
+                  </p>
+                </div>
+                <Link
+                  href="/orgs"
+                  className="text-orange-dark hover:text-orange-normal flex items-center gap-1 font-medium shrink-0 group"
+                >
+                  ดูทั้งหมด
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
+                </Link>
               </div>
-              <Link
-                href="/orgs"
-                className="text-orange-dark hover:text-orange-normal flex items-center gap-1 font-medium shrink-0 group"
-              >
-                ดูทั้งหมด
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
-              </Link>
-            </div>
 
-            <OrgCarousel orgs={recentOrgs} locale={params.locale} />
-          </div>
-        </section>
+              <OrgCarousel orgs={recentOrgs} locale={params.locale} />
+            </div>
+          </section>
+        )}
       </main>
 
       <BigFooter />

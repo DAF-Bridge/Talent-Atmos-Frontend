@@ -64,7 +64,7 @@ export default function EventCard({
       <div className="flex flex-col gap-1">
         <Link href={`/events/${cardId}`} className="flex flex-col items-start">
           <div
-            className="h-full w-full rounded-[8px] overflow-hidden bg-[#F5F5F5] border drop-shadow-md"
+            className="h-full w-full max-h-[342px] rounded-[8px] overflow-hidden bg-[#F5F5F5] border drop-shadow-md"
             style={{ aspectRatio: "3 / 4" }}
           >
             <Image
