@@ -59,7 +59,7 @@ export default function LoginPage(): JSX.Element {
         setTimeout(() => {
           toast.dismiss(successToastId); // Clear the success toast
           setIsRedirecting(false);
-          router.push("/"); // Redirect to home
+          router.push("/home"); // Redirect to home
         }, 1000); // Delay of 1.5 seconds for users to see the success message
       } else {
         throw new Error(result.error);
@@ -75,7 +75,7 @@ export default function LoginPage(): JSX.Element {
   return (
     <div className="font-prompt flex h-[100vh]">
       <div className="hidden px-[4%] lg:flex lg:flex-col lg:w-[58%] ">
-        <Link href="/" className="absolute pt-[71px]">
+        <Link href="/home" className="absolute pt-[71px]">
           <div
             className="rounded-full hover:bg-slate-100 hover:shadow-lg inline-flex gap-2 
             text-base font-medium text-start px-5 py-1 transition-all duration-200"

@@ -34,7 +34,7 @@ export default function NavigationBar() {
           <div className="flex gap-[30px] lg:gap-[42px] ">
             {/* Logo */}
             <div className="flex-shrink-0 flex justify-center items-center">
-              <Link href="/">
+              <Link href="/home">
                 <Image src="/logo.svg" alt="Logo" width={102} height={42} />
               </Link>
             </div>

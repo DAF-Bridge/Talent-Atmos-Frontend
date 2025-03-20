@@ -18,7 +18,7 @@ export default function GoogleLoginBtn() {
         const toastId = toast.success("เข้าสู่ระบบสําเร็จ");
         setTimeout(() => {
           toast.dismiss(toastId); // Clear the success toast
-          router.push("/"); // Redirect to home
+          router.push("/home"); // Redirect to home
         }, 1000);
       } else {
         console.log("Golang Callback Failed");

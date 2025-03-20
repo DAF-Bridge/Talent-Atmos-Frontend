@@ -102,7 +102,7 @@ export default function PreferencesPage() {
   return (
     <div className="w-[100vw] h-[100vh] overflow-y-auto bg-white px-10">
       <div className="container max-w-5xl py-2 mx-auto">
-        <Link href="/" className="p-1">
+        <Link href="/home" className="p-1">
           <div className="flex gap-2">
             <ArrowLeft height={30} width={30} />
             <p className="self-center hidden sm:block">กลับสู่หน้าหลัก</p>

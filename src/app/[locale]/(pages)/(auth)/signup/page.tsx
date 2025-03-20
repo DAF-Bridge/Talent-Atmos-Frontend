@@ -69,7 +69,7 @@ export default function SignUpPage() {
         // Delay the redirect to show the toast
         setTimeout(() => {
           toast.dismiss(successToastId); // Clear the success toast
-          router.push("/"); // Redirect to home
+          router.push("/home"); // Redirect to home
         }, 1000); // Delay of 1.5 seconds for users to see the success message
         return;
       } else {

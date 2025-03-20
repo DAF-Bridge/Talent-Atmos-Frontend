@@ -10,7 +10,7 @@ export default function BigFooter() {
         <div className="flex flex-col gap-[21px]">
           {/* Logo */}
           <div className="flex max-h-[80px] justify-start items-center">
-            <Link href="/">
+            <Link href="/home">
               <Image
                 className="max-h-[80px] w-auto object-cover"
                 src="/logo-white.svg"
