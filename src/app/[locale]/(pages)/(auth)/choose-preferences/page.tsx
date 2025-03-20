@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 
 import Spinner from "@/components/ui/spinner";
 import {
@@ -101,14 +101,11 @@ export default function PreferencesPage() {
 
   return (
     <div className="w-[100vw] h-[100vh] overflow-y-auto bg-white px-10">
-      <div className="container max-w-5xl py-10 mx-auto">
-        <Link href="/" className="pt-[71px]">
-          <div
-            className="rounded-full inline-flex gap-2 
-            text-base font-medium text-start px-5 py-1 transition-all duration-200"
-          >
+      <div className="container max-w-5xl py-2 mx-auto">
+        <Link href="/" className="p-1">
+          <div className="flex gap-2">
             <ArrowLeft height={30} width={30} />
-            <p className="self-center">กลับสู่หน้าหลัก</p>
+            <p className="self-center hidden sm:block">กลับสู่หน้าหลัก</p>
           </div>
         </Link>
         <div className="space-y-6 text-center mb-10">
@@ -125,7 +122,7 @@ export default function PreferencesPage() {
             <span className="text-center">Loading...</span>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
             {categories.map((category) => {
               const isSelected = selectedCategories.includes(category);
               const Icon = getCategoryIcon(category.label);
@@ -135,7 +132,7 @@ export default function PreferencesPage() {
                   key={category.value}
                   className={`cursor-pointer transition-all hover:shadow-md ${
                     isSelected
-                      ? "border-primary bg-primary/5 ring-1 ring-primary"
+                      ? "border-orange-normal bg-white/5 ring-1 ring-orange-normal"
                       : "hover:border-primary/50"
                   }`}
                   onClick={() => {
@@ -144,13 +141,15 @@ export default function PreferencesPage() {
                 >
                   <CardContent className="flex flex-col items-center justify-center p-6 text-center">
                     <Icon
-                      className={`h-10 w-10 mb-2 ${
-                        isSelected ? "text-primary" : "text-muted-foreground"
+                      className={`h-8 w-8 mb-2 ${
+                        isSelected
+                          ? "text-orange-dark"
+                          : "text-muted-foreground"
                       }`}
                     />
                     <span
-                      className={`font-medium ${
-                        isSelected ? "text-primary" : ""
+                      className={`font-medium text-sm ${
+                        isSelected ? "text-orange-dark" : ""
                       }`}
                     >
                       {getCategoryName(category.label)}
@@ -167,9 +166,16 @@ export default function PreferencesPage() {
             size="lg"
             onClick={handleSubmit}
             disabled={selectedCategories.length === 0 || isSubmitting}
-            className="w-full md:w-auto"
+            className="w-full md:w-auto bg-orange-500 hover:bg-orange-600 text-white disabled:cursor-not-allowed"
           >
-            {isSubmitting ? <Spinner /> : "ยืนยัน"}
+            {isSubmitting ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                รอสักครู่
+              </>
+            ) : (
+              "ยืนยัน"
+            )}
           </Button>
         </div>
 
