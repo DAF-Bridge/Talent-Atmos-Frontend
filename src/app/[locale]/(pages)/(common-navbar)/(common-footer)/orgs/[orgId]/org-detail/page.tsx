@@ -46,14 +46,16 @@ export default async function OrgDescriptionPage({
               ))}
             </div>
           </div>
-          <div className="flex gap-6 mt-1">
-            <p className="text-left shrink-0 text-sm sm:text-base">
-              ความชำนาญ :
-            </p>
-            <p className="text-left text-sm sm:text-base font-normal">
-              {specialty}
-            </p>
-          </div>
+          {specialty && (
+            <div className="flex gap-6 mt-1">
+              <p className="text-left shrink-0 text-sm sm:text-base">
+                ความชำนาญ :
+              </p>
+              <p className="text-left text-sm sm:text-base font-normal">
+                {specialty}
+              </p>
+            </div>
+          )}
           <pre className="mt-4 font-prompt text-base font-normal whitespace-pre-wrap break-words">
             {description}
           </pre>
@@ -123,9 +125,11 @@ export default async function OrgDescriptionPage({
                 </div>
               )}
             </div>
-            <div className="rounded-[10px] col-span-2 h-[300px] lg:h-[365px] bg-slate-200 w-full max-w-[520px] overflow-hidden drop">
-              <StaticMap lat={latitude} lng={longitude} />
-            </div>
+            {latitude !== null && longitude !== null && (
+              <div className="rounded-[10px] col-span-2 h-[300px] lg:h-[365px] bg-slate-200 w-full max-w-[520px] overflow-hidden drop">
+                <StaticMap lat={latitude} lng={longitude} />
+              </div>
+            )}
           </div>
         </div>
         {/* <div className="flex flex-col gap-3">

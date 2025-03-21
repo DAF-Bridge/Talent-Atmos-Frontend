@@ -94,19 +94,23 @@ export default async function JobPage({
           <div className="space-y-6">
             <section>
               <h2 className="text-xl font-semibold mb-2">Job Description</h2>
-              <p className="text-gray-700">{job.description}</p>
+              <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words text-gray-700">
+                {job.description}
+              </pre>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold mb-2">Job Scope</h2>
-              <p className="text-gray-700">{job.scope}</p>
+              <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words text-gray-700">
+                {job.scope}
+              </pre>
             </section>
 
             <section>
               <h2 className="text-xl font-semibold mb-2">Qualifications</h2>
-              <p className="text-gray-700 whitespace-pre-line">
+              <pre className="font-prompt text-base font-normal whitespace-pre-wrap break-words text-gray-700">
                 {job.qualifications}
-              </p>
+              </pre>
             </section>
 
             {/* <section>
