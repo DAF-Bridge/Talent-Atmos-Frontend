@@ -29,6 +29,7 @@ export default async function OrgEventsPage({
               orgPicUrl={event.organization.picUrl}
               showOrg={false}
               categories={event.categories}
+              locationType={event.locationType}
             />
           ))}
         </div>

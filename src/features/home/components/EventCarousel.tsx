@@ -41,6 +41,7 @@ export default function EventCarousel({ events }: Readonly<EventCardProps>) {
                 cardId={event.id.toString()}
                 categories={event.categories}
                 showOrg={false}
+                locationType={event.locationType}
               />
             </div>
           </CarouselItem>

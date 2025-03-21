@@ -32,6 +32,7 @@ export default async function EventList({
                 orgName={event.organization.name}
                 orgPicUrl={event.organization.picUrl}
                 categories={event.categories}
+                locationType={event.locationType}
               />
             ))}
           </div>

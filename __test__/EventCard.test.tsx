@@ -21,6 +21,7 @@ describe("EventCard", () => {
           cardId="1"
           orgId={0}
           categories={[]}
+          locationType="onsite"
         />,
         { locale: lang }
       );
