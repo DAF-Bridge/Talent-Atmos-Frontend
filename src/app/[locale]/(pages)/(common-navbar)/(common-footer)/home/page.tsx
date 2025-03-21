@@ -30,14 +30,14 @@ export default async function Home({ params }: Readonly<HomeProps>) {
       ]);
 
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col min-h-screen bg-white mb-16">
         {/* Hero Section */}
         <HeroSection />
 
         <main className="font-prompt flex-grow">
           {/* Recommended Events Section */}
           {recommendedEvents?.length > 0 && (
-            <section className="py-16 bg-white">
+            <section className="pb-16 bg-white">
               <div className="max-w-[1170px] mx-auto px-6">
                 <div className="flex justify-between items-center mb-8 gap-4">
                   <div>

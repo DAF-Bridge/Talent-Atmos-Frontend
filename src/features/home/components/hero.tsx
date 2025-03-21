@@ -48,7 +48,7 @@ export default function HeroSection() {
                           <Image
                             src={`/highlight/${i}.jpg`}
                             alt={`Slide ${index + 1}`}
-                            width={600}
+                            width={800}
                             height={600}
                             quality={75}
                             priority={index === 0}
