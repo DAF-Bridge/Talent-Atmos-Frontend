@@ -1,8 +1,9 @@
 "use server";
 
+import { Event, JobCardProps, OrganizationBrief } from "@/lib/types";
 import { formatExternalUrl } from "@/lib/utils";
 
-export async function getRecentJobs() {
+export async function getRecentJobs(): Promise<JobCardProps[]> {
   const apiUrl = formatExternalUrl("/orgs/jobs/jobs-paginate");
   const res = await fetch(apiUrl, { cache: "no-store" });
   const data = await res.json();
@@ -10,11 +11,11 @@ export async function getRecentJobs() {
   if (res.ok) {
     return data;
   } else {
-    return null;
+    return [];
   }
 }
 
-export async function getRecentOrgs() {
+export async function getRecentOrgs(): Promise<OrganizationBrief[]> {
   const apiUrl = formatExternalUrl("/orgs-paginate");
   const res = await fetch(apiUrl, { cache: "no-store" });
   const data = await res.json();
@@ -22,11 +23,11 @@ export async function getRecentOrgs() {
   if (res.ok) {
     return data;
   } else {
-    return null;
+    return [];
   }
 }
 
-export async function getFeaturedEvents() {
+export async function getFeaturedEvents(): Promise<Event[]> {
   const apiUrl = formatExternalUrl("/events-paginate");
   const res = await fetch(apiUrl, { cache: "no-store" });
   const data = await res.json();
@@ -34,11 +35,11 @@ export async function getFeaturedEvents() {
   if (res.ok) {
     return data;
   } else {
-    return null;
+    return [];
   }
 }
 
-export async function getRecommendedEvents() {
+export async function getRecommendedEvents(): Promise<Event[]> {
   const apiUrl = formatExternalUrl("/recommendation");
   const res = await fetch(apiUrl, { cache: "no-store" });
   const data = await res.json();
@@ -46,6 +47,6 @@ export async function getRecommendedEvents() {
   if (res.ok) {
     return data;
   } else {
-    return null;
+    return [];
   }
 }

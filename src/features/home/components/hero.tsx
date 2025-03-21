@@ -11,7 +11,6 @@ import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 
 export default function HeroSection() {
-  const plugin = React.useRef(Autoplay({ delay: 2000 }));
   return (
     <section className="relative w-full bg-orange-50 pt-20 pb-8">
       <div className="max-w-[1170px] mx-auto px-6">
@@ -29,9 +28,12 @@ export default function HeroSection() {
           <div className="relative w-full max-w-[80%] md:max-w-lg mx-auto p-6">
             <div>
               <Carousel
-                plugins={[plugin.current]}
-                onMouseEnter={plugin.current.stop}
-                onMouseLeave={() => plugin.current.play()}
+                plugins={[
+                  Autoplay({
+                    delay: 2000,
+                    stopOnInteraction: true,
+                  }),
+                ]}
                 className="mx-auto hover:scale-105 duration-150 transition-all drop-shadow-lg"
                 opts={{
                   loop: true,
@@ -46,8 +48,10 @@ export default function HeroSection() {
                           <Image
                             src={`/highlight/${i}.jpg`}
                             alt={`Slide ${index + 1}`}
-                            width={1000}
-                            height={1000}
+                            width={600}
+                            height={600}
+                            quality={75}
+                            priority={index === 0}
                             className="object-cover w-full h-full"
                           />
                         </div>
