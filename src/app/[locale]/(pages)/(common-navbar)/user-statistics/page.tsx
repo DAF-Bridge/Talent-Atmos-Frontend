@@ -81,7 +81,7 @@ export default function UserStatisticsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {userStat && userStat.categoryData.length > 0 ? (
+              {userStat && userStat.categoryData?.length > 0 ? (
                 <CategoryStats categories={userStat.categoryData} />
               ) : (
                 <div className="flex justify-center items-center text-muted-foreground">
