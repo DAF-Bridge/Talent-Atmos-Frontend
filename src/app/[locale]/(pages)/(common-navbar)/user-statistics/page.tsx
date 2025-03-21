@@ -11,25 +11,29 @@ import {
 import { CategoryStats } from "@/features/statistic/components/category-stats";
 import { Users } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useEffect, useState } from "react";
+import { getUserStatistic } from "@/features/statistic/api/action";
+import { UserStat } from "@/lib/types";
 
 export default function UserStatisticsPage() {
+  const [userStat, setUserStat] = useState<UserStat | null>(null);
+
   const { userProfile } = useAuth();
+
+  useEffect(() => {
+    const fetchUserStat = async () => {
+      const result = await getUserStatistic();
+      console.log(result);
+      if (result) {
+        setUserStat(result);
+      }
+    };
+    fetchUserStat();
+  }, []);
 
   if (!userProfile) return null;
 
   const { firstName, lastName, email, picUrl } = userProfile;
-
-  // Sample data for event categories
-  const mockData = {
-    categoryData: [
-      { label: "Technology", amount: 42 },
-      { label: "Business", amount: 28 },
-      { label: "Arts & Culture", amount: 23 },
-      { label: "Health & Wellness", amount: 18 },
-      { label: "Social", amount: 17 },
-    ],
-    totalEvents: 100,
-  };
 
   return (
     <div className="container mx-auto py-8 px-4 mt-[65px] max-w-[1170px]">
@@ -54,7 +58,9 @@ export default function UserStatisticsPage() {
                 <div className="flex flex-col items-center justify-center rounded-lg border p-4">
                   <Users className="h-5 w-5 text-muted-foreground mb-2" />
                   <span className="text-2xl font-bold">
-                    {mockData.totalEvents}
+                    {userStat && userStat.totalEvents >= 0
+                      ? userStat.totalEvents
+                      : 0}
                   </span>
                   <span className="text-xs text-muted-foreground">
                     อีเว้นท์ที่เข้าร่วม
@@ -75,7 +81,13 @@ export default function UserStatisticsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <CategoryStats categories={mockData.categoryData} />
+              {userStat && userStat.categoryData.length > 0 ? (
+                <CategoryStats categories={userStat.categoryData} />
+              ) : (
+                <div className="flex justify-center items-center text-muted-foreground">
+                  <p>ไม่พบข้อมูลของคุณ</p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

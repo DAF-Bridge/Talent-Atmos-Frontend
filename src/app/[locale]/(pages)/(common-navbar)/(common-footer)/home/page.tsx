@@ -9,6 +9,7 @@ import {
   getFeaturedEvents,
   getRecentJobs,
   getRecentOrgs,
+  getRecommendedEvents,
 } from "@/features/home/api/action";
 import { Event, JobCardProps, OrganizationBrief } from "@/lib/types";
 
@@ -23,6 +24,8 @@ export default async function Home({
   // console.log("recentOrgs: " + recentOrgs);
   const featuredEvents: Event[] = await getFeaturedEvents();
   // console.log("featuredEvents: " + featuredEvents);
+  const recommendedEvents: Event[] = await getRecommendedEvents();
+  console.log("recommendedEvents: " + recommendedEvents);
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Hero Section */}
@@ -30,7 +33,7 @@ export default async function Home({
 
       <main className="font-prompt flex-grow">
         {/* Events Section */}
-        {featuredEvents && featuredEvents.length > 0 && (
+        {recommendedEvents && recommendedEvents.length > 0 && (
           <section className="py-16 bg-white">
             <div className="max-w-[1170px] mx-auto px-6">
               <div className="flex justify-between items-center mb-8 gap-4">
@@ -44,7 +47,7 @@ export default async function Home({
                 </div>
               </div>
               {/* Recommended Events */}
-              <EventCarousel events={featuredEvents} />
+              <EventCarousel events={recommendedEvents} />
             </div>
           </section>
         )}
