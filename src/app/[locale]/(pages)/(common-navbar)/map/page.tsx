@@ -29,9 +29,9 @@ export default function MapPage({
   const [events, setEvents] = useState<Event[]>([]);
   const currentTab = searchParams.tab?.toString() ?? "org";
   const search = searchParams.search?.toString() ?? "";
-  const [selectedItem, setSelectedItem] = useState<OrganizationMap | Event | null>(
-    null
-  );
+  const [selectedItem, setSelectedItem] = useState<
+    OrganizationMap | Event | null
+  >(null);
   const [flyToTrigger, setFlyToTrigger] = useState(0); // Add a trigger value to force map to fly even when selecting the same org
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -43,13 +43,27 @@ export default function MapPage({
     const fetchData = async () => {
       setIsLoading(true);
       setIsLoading(true);
-      const orgs = await getAllOrgsLocation();
-      // console.log(orgs);
-      setOrganizations(orgs);
+      const orgs: OrganizationMap[] = await getAllOrgsLocation();
+      // filter out orgs that have no lat long it lat lon = 0
+      const filteredOrgs = orgs.filter(
+        (org) =>
+          org.latitude !== null &&
+          org.longitude !== null &&
+          org.latitude !== 0 &&
+          org.longitude !== 0
+      );
+      setOrganizations(filteredOrgs);
 
-      const events = await getAllEventsLocation();
-      // console.log(events);
-      setEvents(events);
+      const events: Event[] = await getAllEventsLocation();
+      // filter out events that have no lat long it lat lon = 0
+      const filteredEvents = events.filter(
+        (event) =>
+          event.latitude !== null &&
+          event.longitude !== null &&
+          event.latitude !== 0 &&
+          event.longitude !== 0
+      );
+      setEvents(filteredEvents);
       setIsLoading(false);
     };
     fetchData();
