@@ -25,9 +25,12 @@ export default function EventRegBtn({
       toast.success("บันทึกการเข้าร่วมกิจกรรมสําเร็จ");
       window.open(url, "_blank");
     } else if (result.status === 401) {
+      console.log(result.status);
+      console.log(result.error);
       toast.error("กรุณาเข้าสู่ระบบก่อน");
     } else {
       toast.error("ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง");
+      console.log(result.status);
       console.log(result.error);
     }
 
