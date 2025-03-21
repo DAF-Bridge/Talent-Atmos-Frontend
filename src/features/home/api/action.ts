@@ -2,6 +2,7 @@
 
 import { Event, JobCardProps, OrganizationBrief } from "@/lib/types";
 import { formatExternalUrl } from "@/lib/utils";
+import { cookies } from "next/headers";
 
 export async function getRecentJobs(): Promise<JobCardProps[]> {
   const apiUrl = formatExternalUrl("/orgs/jobs/jobs-paginate");
@@ -40,8 +41,15 @@ export async function getFeaturedEvents(): Promise<Event[]> {
 }
 
 export async function getRecommendedEvents(): Promise<Event[]> {
+  const cookieStore = cookies();
   const apiUrl = formatExternalUrl("/recommendation");
-  const res = await fetch(apiUrl, { cache: "no-store" });
+  const res = await fetch(apiUrl, {
+    cache: "no-store",
+    headers: {
+      Cookie: cookieStore.toString(),
+      "Content-Type": "application/json",
+    },
+  });
   const data = await res.json();
 
   if (res.ok) {
