@@ -46,7 +46,7 @@ export function CategoryStats({ CategoryData }: Readonly<CategoryStatsProps>) {
             <div className="flex items-center gap-2">
               <Progress
                 value={(x.amount / totalAmount) * 100}
-                className={`h-2 ${colorClass}`}
+                className={`h-2 [&>div]:${colorClass}`}
               />
               <span className="text-xs text-muted-foreground w-12 text-right">
                 {Math.round((x.amount / totalAmount) * 100)}%
