@@ -2,6 +2,7 @@
 
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 
 interface CategoryStatsProps {
   CategoryData: {
@@ -39,17 +40,13 @@ export function CategoryStats({ CategoryData }: Readonly<CategoryStatsProps>) {
       {sortedData.map((x, index) => (
         <div key={x.category.label} className="space-y-2">
           <div className="flex justify-between">
-            <span className="font-medium capitalize">{x.category.label} </span>
+            <span className="font-medium capitalize">{x.category.label}</span>
             <span className="text-muted-foreground">{x.amount} ครั้ง</span>
           </div>
           <div className="flex items-center gap-2">
             <Progress
               value={(x.amount / totalAmount) * 100}
-              className={`h-2 ${
-                index < rankColors.length
-                  ? rankColors[index].replace("bg-", "")
-                  : "gray"
-              }`}
+              className={cn("h-2", rankColors[index])}
             />
             <span className="text-xs text-muted-foreground w-12 text-right">
               {Math.round((x.amount / totalAmount) * 100)}%
@@ -66,13 +63,7 @@ export function CategoryStats({ CategoryData }: Readonly<CategoryStatsProps>) {
                 key={`legend-${x.category.label}`}
                 className="flex items-center gap-2"
               >
-                <div
-                  className={`h-3 w-3 rounded-full ${
-                    index < rankColors.length
-                      ? rankColors[index]
-                      : "bg-gray-500"
-                  }`}
-                />
+                <div className={`h-3 w-3 rounded-full ${rankColors[index]}`} />
                 <span className="text-sm capitalize">{x.category.label}</span>
               </div>
             ))}
