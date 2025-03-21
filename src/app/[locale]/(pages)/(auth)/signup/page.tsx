@@ -93,7 +93,7 @@ export default function SignUpPage() {
         <Link
           className="absolute px-2 py-1 rounded-full hover:bg-slate-100 inline-flex gap-2 top-[20px] left-[20px] 
           hover:cursor-pointer"
-          href={"/"}
+          href={"/login"}
         >
           <ArrowLeft height={25} width={25} />
           <p className="self-center hidden sm:block">หน้าเข้าสู่ระบบ</p>
