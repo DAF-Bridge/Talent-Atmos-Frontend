@@ -1,13 +1,12 @@
 import Badge from "@/components/common/Badge";
 import NotFoundSVG from "@/components/page/NotFound";
-import { Button } from "@/components/ui/button";
 import { getJobDescription } from "@/features/jobs/api/action";
+import JobRegBtn from "@/features/jobs/components/JobRegBtn";
 import { JobDescriptionPage } from "@/lib/types";
 import { formatRelativeTime } from "@/lib/utils";
 import {
   Calendar,
   MapPin,
-  // Clock,
   DollarSign,
   Briefcase,
   Users,
@@ -88,11 +87,9 @@ export default async function JobPage({
             ))}
           </div>
 
-          <Link href={job.registerLink}>
-            <Button className="w-full mb-6 bg-orange-normal hover:bg-orange-normal/80">
-              Apply for this position
-            </Button>
-          </Link>
+          <div>
+            <JobRegBtn url={job.registerLink} />
+          </div>
 
           <div className="space-y-6">
             <section>
