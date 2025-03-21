@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Eye, EyeOff, House } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { Link, useRouter } from "@/i18n/routing";
 import React, { useState } from "react";
 import { useForm, type FieldValues } from "react-hook-form";
@@ -95,8 +95,8 @@ export default function SignUpPage() {
           hover:cursor-pointer"
           href={"/"}
         >
-          <House height={25} width={25} />
-          <p className="self-center hidden sm:block">กลับสู่หน้าหลัก</p>
+          <ArrowLeft height={25} width={25} />
+          <p className="self-center hidden sm:block">หน้าเข้าสู่ระบบ</p>
         </Link>
         <p className="text-3xl sm:text-4xl font-semibold text-center text-orange-dark mt-8 md:mt-[50px] lg:mt-[34px]">
           สมัครสมาชิก
@@ -303,7 +303,7 @@ export default function SignUpPage() {
             >
               ยืนยัน
             </Button>
-            <div className="flex self-center sm:self-end ">
+            {/* <div className="flex self-center sm:self-end ">
               <p className="text-base font-light">
                 คุณเป็นสมาชิกอยู่แล้วหรือไม่?
               </p>
@@ -314,7 +314,7 @@ export default function SignUpPage() {
               >
                 เข้าสู่ระบบ
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </form>
