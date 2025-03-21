@@ -18,6 +18,7 @@ import parse, {
 } from "html-react-parser";
 import { Link } from "@/i18n/routing";
 import NotFoundSVG from "@/components/page/NotFound";
+import SocialContactButton from "@/components/common/SocialContactBtn";
 
 export default async function EventDescription({
   params,
@@ -85,7 +86,7 @@ export default async function EventDescription({
     <section className="font-prompt relative h-full w-full mt-[60px]">
       <div className="relative flex justify-center items-center h-[425px]">
         <Image
-          className="absolute blur-md opacity-45 h-full w-full object-cover duration-100 -z-10"
+          className="absolute blur-md opacity-45 h-full w-full object-cover duration-100 -z-10 bg-white"
           src={picUrl}
           width={100}
           height={150}
@@ -252,30 +253,17 @@ export default async function EventDescription({
                 <p className="font-semibold text-xl md:text-2xl mt-[16px]">
                   ช่องทางติดต่อสอบถาม
                 </p>
-                {contactChannels.map((item, index) => (
-                  <p
-                    key={index}
-                    className="grid grid-cols-10 text-base font-normal"
-                  >
-                    <span className="col-span-3 md:col-span-2">
-                      {item.media}:
-                    </span>
-                    {item.mediaLink.includes("http") ? (
-                      <a
-                        href={item.mediaLink}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="col-span-7 md:col-span-8 underline hover:text-gray-inactive break-words whitespace-normal"
-                      >
-                        {item.mediaLink}
-                      </a>
-                    ) : (
-                      <span className="col-span-7 md:col-span-8 break-words whitespace-normal">
-                        {item.mediaLink}
-                      </span>
-                    )}
-                  </p>
-                ))}
+                <div className="flex flex-row gap-2 flex-wrap">
+                  {contactChannels.map((item, index) => {
+                    return (
+                      <SocialContactButton
+                        key={index}
+                        mediaType={item.media}
+                        mediaLink={item.mediaLink}
+                      />
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>

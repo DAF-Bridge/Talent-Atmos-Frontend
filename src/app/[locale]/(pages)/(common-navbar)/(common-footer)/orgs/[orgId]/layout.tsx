@@ -32,13 +32,15 @@ export default async function OrgPageLayout({
     <div className="max-w-[1170px] mx-auto px-6 mt-[90px] sm:mt-[77px] pb-16">
       <div className="relative">
         <div className="hidden sm:block w-full h-[150px] sm:h-[200px] rounded-[20px] overflow-hidden">
-          {bgUrl && <Image
-            className="w-full h-full object-cover"
-            src={bgUrl}
-            height={800}
-            width={1000}
-            alt={"organization-background-image"}
-          />}
+          {bgUrl && (
+            <Image
+              className="w-full h-full object-cover"
+              src={bgUrl}
+              height={800}
+              width={1000}
+              alt={"organization-background-image"}
+            />
+          )}
         </div>
         <div className="relative sm:absolute -bottom-[90%] sm:-bottom-[50%] left-0 ">
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 justify-center items-center">

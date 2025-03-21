@@ -5,7 +5,7 @@ import Spinner from "@/components/ui/spinner";
 import { OrganizationDescription } from "@/lib/types";
 import { getOrgsDescription } from "@/features/orgs/api/action";
 import NotFoundSVG from "@/components/page/NotFound";
-// import { sortIndustries } from "@/lib/utils";
+import SocialContactButton from "@/components/common/SocialContactBtn";
 
 export default async function OrgDescriptionPage({
   params,
@@ -98,30 +98,17 @@ export default async function OrgDescriptionPage({
                   <p className="text-lg sm:text-xl font-semibold">
                     ช่องทางอื่นๆ
                   </p>
-                  {organizationContacts.map((item, index) => (
-                    <p
-                      key={index}
-                      className="grid grid-cols-10 text-base font-normal"
-                    >
-                      <span className="col-span-3 md:col-span-2">
-                        {item.media}:
-                      </span>
-                      {item.mediaLink.includes("http") ? (
-                        <a
-                          href={item.mediaLink}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="col-span-7 md:col-span-8 underline hover:text-gray-inactive break-words whitespace-normal"
-                        >
-                          {item.mediaLink}
-                        </a>
-                      ) : (
-                        <span className="col-span-7 md:col-span-8 break-words whitespace-normal">
-                          {item.mediaLink}
-                        </span>
-                      )}
-                    </p>
-                  ))}
+                  <div className="flex flex-row gap-2 flex-wrap">
+                    {organizationContacts.map((item, index) => {
+                      return (
+                        <SocialContactButton
+                          key={index}
+                          mediaType={item.media}
+                          mediaLink={item.mediaLink}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
               )}
             </div>
