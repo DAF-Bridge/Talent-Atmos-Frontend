@@ -63,17 +63,16 @@ export default function EventCard({
       )}
       <div className="flex flex-col gap-1">
         <Link href={`/events/${cardId}`} className="flex flex-col items-start">
-          <div
-            className="h-full w-full max-h-[342px] rounded-[8px] overflow-hidden bg-[#F5F5F5] border drop-shadow-md"
-            style={{ aspectRatio: "3 / 4" }}
-          >
-            <Image
-              className="block h-full w-full object-cover"
-              src={imgUrl}
-              width={191}
-              height={242}
-              alt="อีเว้นท์"
-            />
+          <div className="w-full rounded-[8px] overflow-hidden bg-[#F5F5F5] border drop-shadow-md relative">
+            <div className="pb-[133%] relative">
+              <Image
+                className="absolute inset-0 w-full h-full object-cover"
+                src={imgUrl}
+                width={191}
+                height={255}
+                alt="อีเว้นท์"
+              />
+            </div>
           </div>
           <div className="line-clamp-1 text-sm min-h-5 text-gray-500 mt-3">
             {startDate ? formatDateRange(startDate, endDate) : "ไม่ระบุ"}
