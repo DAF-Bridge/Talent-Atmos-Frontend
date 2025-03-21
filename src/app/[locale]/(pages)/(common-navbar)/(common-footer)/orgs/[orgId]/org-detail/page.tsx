@@ -125,11 +125,14 @@ export default async function OrgDescriptionPage({
                 </div>
               )}
             </div>
-            {latitude !== null && longitude !== null && (
-              <div className="rounded-[10px] col-span-2 h-[300px] lg:h-[365px] bg-slate-200 w-full max-w-[520px] overflow-hidden drop">
-                <StaticMap lat={latitude} lng={longitude} />
-              </div>
-            )}
+            {latitude !== null &&
+              longitude !== null &&
+              latitude !== 0 &&
+              longitude !== 0 && (
+                <div className="rounded-[10px] col-span-2 h-[300px] lg:h-[365px] bg-slate-200 w-full max-w-[520px] overflow-hidden drop">
+                  <StaticMap lat={latitude} lng={longitude} />
+                </div>
+              )}
           </div>
         </div>
         {/* <div className="flex flex-col gap-3">

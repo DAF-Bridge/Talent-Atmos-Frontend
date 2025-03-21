@@ -234,14 +234,17 @@ export default async function EventDescription({
                 <p className="text-base font-normal">
                   {locationName ?? "ไม่ระบุ"}
                 </p>
-                {latitude !== null && longitude !== null && (
-                  <div
-                    className="w-full md:w-[80%] rounded-[10px] max-w-[519px] bg-slate-500 overflow-hidden"
-                    style={{ aspectRatio: "519 / 365" }}
-                  >
-                    <StaticMap lat={latitude} lng={longitude} />
-                  </div>
-                )}
+                {latitude !== null &&
+                  longitude !== null &&
+                  latitude !== 0 &&
+                  longitude !== 0 && (
+                    <div
+                      className="w-full md:w-[80%] rounded-[10px] max-w-[519px] bg-slate-500 overflow-hidden"
+                      style={{ aspectRatio: "519 / 365" }}
+                    >
+                      <StaticMap lat={latitude} lng={longitude} />
+                    </div>
+                  )}
               </div>
             )}
             {contactChannels && contactChannels.length > 0 && (

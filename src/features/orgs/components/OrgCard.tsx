@@ -40,12 +40,14 @@ export function OrganizationCard({
             </div>
             <div>
               <h3 className="font-medium text-base line-clamp-1">{name}</h3>
-              <div className="flex items-center justify-start text-xs text-muted-foreground gap-1">
-                <MapPin className="h-3.5 w-3.5" />
-                <span>
-                  {getProvinceNameByCode(province, locale)}, {country}
-                </span>
-              </div>
+              {province && country && (
+                <div className="flex items-center justify-start text-xs text-muted-foreground gap-1">
+                  <MapPin className="h-3.5 w-3.5" />
+                  <span>
+                    {getProvinceNameByCode(province, locale)}, {country}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </CardHeader>

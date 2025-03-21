@@ -108,21 +108,23 @@ export default function JobCard({
             <Badge key={i} label={sector.label} />
           ))}
         </div>
-        <div className="inline-flex flex-wrap justify-start items-center text-gray-inactive mt-2">
-          <MapPin className="shrink-0 h-[12px] sm:h-[15px]" />
-          <span className="text-xs sm:text-sm text-left">{`${getProvinceNameByCode(
-            province,
-            locale
-          )}, ${country}`}</span>
-          {updatedAt && (
-            <>
-              <span className="mx-2 text-lg font-extrabold">•</span>
-              <p className="text-xs sm:text-sm">
-                {formatRelativeTime(updatedAt, locale)}
-              </p>
-            </>
-          )}
-        </div>
+        {province && country && (
+          <div className="inline-flex flex-wrap justify-start items-center text-gray-inactive mt-2">
+            <MapPin className="shrink-0 h-[12px] sm:h-[15px]" />
+            <span className="text-xs sm:text-sm text-left">{`${getProvinceNameByCode(
+              province,
+              locale
+            )}, ${country}`}</span>
+            {updatedAt && (
+              <>
+                <span className="mx-2 text-lg font-extrabold">•</span>
+                <p className="text-xs sm:text-sm">
+                  {formatRelativeTime(updatedAt, locale)}
+                </p>
+              </>
+            )}
+          </div>
+        )}
       </div>
     </Link>
   );
