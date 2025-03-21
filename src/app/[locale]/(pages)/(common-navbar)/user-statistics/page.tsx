@@ -81,8 +81,8 @@ export default function UserStatisticsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              {userStat && userStat.categoryData?.length > 0 ? (
-                <CategoryStats categories={userStat.categoryData} />
+              {userStat && userStat.CategoryData?.length > 0 ? (
+                <CategoryStats CategoryData={userStat.CategoryData} />
               ) : (
                 <div className="flex justify-center items-center text-muted-foreground">
                   <p>ไม่พบข้อมูลของคุณ</p>

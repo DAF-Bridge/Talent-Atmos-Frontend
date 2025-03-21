@@ -243,6 +243,9 @@ export interface CategoryProps {
 }
 
 export interface UserStat {
-  categoryData: { label: string; amount: number }[];
+  CategoryData: {
+    amount: number;
+    category: { value: number; label: string };
+  }[];
   totalEvents: number;
 }

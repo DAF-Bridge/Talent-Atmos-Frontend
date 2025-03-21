@@ -4,36 +4,34 @@ import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
 interface CategoryStatsProps {
-  categories: {
-    label: string;
+  CategoryData: {
     amount: number;
+    category: { value: number; label: string };
   }[];
 }
 
-export function CategoryStats({ categories }: Readonly<CategoryStatsProps>) {
+export function CategoryStats({ CategoryData }: Readonly<CategoryStatsProps>) {
   // Calculate total amount for percentage
-  const totalAmount = categories.reduce(
+  const totalAmount = CategoryData.reduce(
     (sum, category) => sum + category.amount,
     0
   );
 
   return (
     <div className="space-y-6">
-      {categories.map((category) => (
-        <div key={category.label} className="space-y-2">
+      {CategoryData.map((x) => (
+        <div key={x.category.label} className="space-y-2">
           <div className="flex justify-between">
-            <span className="font-medium">{category.label}</span>
-            <span className="text-muted-foreground">
-              {category.amount} ครั้ง
-            </span>
+            <span className="font-medium">{x.category.label}</span>
+            <span className="text-muted-foreground">{x.amount} ครั้ง</span>
           </div>
           <div className="flex items-center gap-2">
             <Progress
-              value={(category.amount / totalAmount) * 100}
+              value={(x.amount / totalAmount) * 100}
               className={`h-2`}
             />
             <span className="text-xs text-muted-foreground w-12 text-right">
-              {Math.round((category.amount / totalAmount) * 100)}%
+              {Math.round((x.amount / totalAmount) * 100)}%
             </span>
           </div>
         </div>
@@ -42,13 +40,13 @@ export function CategoryStats({ categories }: Readonly<CategoryStatsProps>) {
       <div className="pt-4">
         <Card className="p-4">
           <div className="grid grid-cols-2 gap-4">
-            {categories.map((category) => (
+            {CategoryData.map((x) => (
               <div
-                key={`legend-${category.label}`}
+                key={`legend-${x.category.label}`}
                 className="flex items-center gap-2"
               >
                 {/* <div className={`h-3 w-3 rounded-full ${category.color}`} /> */}
-                <span className="text-sm">{category.label}</span>
+                <span className="text-sm">{x.category.label}</span>
               </div>
             ))}
           </div>
