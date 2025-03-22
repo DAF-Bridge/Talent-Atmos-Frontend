@@ -14,10 +14,10 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 <ol>
   <li>Clone OR Fork the repository</li>
   <li>Install dependencies:</li>
-  ```
-  npm install
-  ```
 </ol>
+```bash
+  npm install
+```
 
 
 ## Environment Variables
